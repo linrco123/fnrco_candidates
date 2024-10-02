@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
+
+import '../../widgets/logo.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -60,11 +64,12 @@ class ChangePasswordScreen extends StatelessWidget {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                Navigator.of(context).pushReplacementNamed(AppPagesNames.LOGIN);
               }
             },
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              backgroundColor: const Color(0xFF00BF6D),
+              backgroundColor: AppColors.primary,
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 48),
               shape: const StadiumBorder(),
@@ -72,14 +77,16 @@ class ChangePasswordScreen extends StatelessWidget {
             child: const Text("Change Password"),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed(AppPagesNames.LOGIN);
+            },
             child: Text.rich(
               TextSpan(
                 text: "Already have an account? ",
                 children: [
                   TextSpan(
                     text: "Sign in",
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                    style: TextStyle(color: AppColors.primary),
                   ),
                 ],
               ),
@@ -116,10 +123,7 @@ class LogoWithTitle extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: constraints.maxHeight * 0.1),
-              Image.network(
-                "https://i.postimg.cc/nz0YBQcH/Logo-light.png",
-                height: 100,
-              ),
+              const LOGO(),
               SizedBox(
                 height: constraints.maxHeight * 0.1,
                 width: double.infinity,

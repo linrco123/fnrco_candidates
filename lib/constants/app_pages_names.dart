@@ -7,5 +7,6 @@ class AppPagesNames {
   static const String OTP = '/otp';
   static const String CHANGEPASSWORD = '/changePassword';
   static const String FORGETPASSWORD = '/forgetPassword';
+  static const String HOMEPAGE = '/homepage';
 
 }

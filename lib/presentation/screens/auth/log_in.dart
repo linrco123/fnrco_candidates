@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/presentation/widgets/logo.dart';
 
 class SignInScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -16,10 +19,7 @@ class SignInScreen extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: constraints.maxHeight * 0.1),
-                  Image.network(
-                    "https://i.postimg.cc/nz0YBQcH/Logo-light.png",
-                    height: 100,
-                  ),
+                 const LOGO(),
                   SizedBox(height: constraints.maxHeight * 0.1),
                   Text(
                     "Sign In",
@@ -77,11 +77,12 @@ class SignInScreen extends StatelessWidget {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               // Navigate to the main screen
-                            }
+                              Navigator.of(context).pushReplacementNamed(AppPagesNames.HOMEPAGE);
+                            } 
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: const Color(0xFF00BF6D),
+                            backgroundColor: AppColors.primary,
                             foregroundColor: Colors.white,
                             minimumSize: const Size(double.infinity, 48),
                             shape: const StadiumBorder(),
@@ -90,7 +91,9 @@ class SignInScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16.0),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed(AppPagesNames.FORGETPASSWORD);
+                          },
                           child: Text(
                             'Forgot Password?',
                             style: Theme.of(context)
@@ -106,14 +109,16 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed(AppPagesNames.SIGNUP);
+                          },
                           child: Text.rich(
-                            const TextSpan(
+                            TextSpan(
                               text: "Don’t have an account? ",
                               children: [
                                 TextSpan(
                                   text: "Sign Up",
-                                  style: TextStyle(color: Color(0xFF00BF6D)),
+                                  style: TextStyle(color: AppColors.primary),
                                 ),
                               ],
                             ),

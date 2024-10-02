@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
+
+import '../../widgets/logo.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
@@ -126,6 +129,7 @@ class _OtpFormState extends State<OtpForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                Navigator.of(context).pushReplacementNamed(AppPagesNames.CHANGEPASSWORD);
                 // check your code
               }
             },
@@ -202,10 +206,7 @@ class LogoWithTitle extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: constraints.maxHeight * 0.1),
-              Image.network(
-                "https://i.postimg.cc/nz0YBQcH/Logo-light.png",
-                height: 100,
-              ),
+              const LOGO(),
               SizedBox(
                 height: constraints.maxHeight * 0.1,
                 width: double.infinity,

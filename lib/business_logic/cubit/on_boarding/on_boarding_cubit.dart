@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_state.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/onboarding_model.dart';
 
 class OnBoardingCubit extends Cubit<OnBoardingState> {
@@ -15,13 +16,13 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
           title: 'Job offer 1',
           description: 'Enjoy the best of the world in the palm of your hands.',
           imageUrl: 'https://img.freepik.com/free-vector/organic-flat-design-join-us-concept_23-2148943565.jpg?t=st=1727793089~exp=1727796689~hmac=ca20b9a4f84c03d7710245344798aaf997d7ffeedf15ca3b4608fe0ef5abaaf0&w=1060',
-          bgColor: Colors.indigo,
+          bgColor: AppColors.primary,
         ),
         OnboardingPageModel(
           title: 'Job offer 2',
           description: 'Connect with your friends anytime anywhere.',
           imageUrl: 'https://img.freepik.com/free-vector/organic-flat-join-us-concept_23-2148948357.jpg?uid=R88335988&ga=GA1.1.1515971137.1727185433&semt=ais_hybrid',
-          bgColor: const Color(0xff1eb090),
+          bgColor: const Color(0xff6200ee),
         ),
         OnboardingPageModel(
           title: 'Job offer 3',

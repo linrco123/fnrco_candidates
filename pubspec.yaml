@@ -13,6 +13,7 @@ dependencies:
   concentric_transition: ^1.0.3
   flutter_native_splash: ^2.4.1
   flutter_bloc: ^8.1.6
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:

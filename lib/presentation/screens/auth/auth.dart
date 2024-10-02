@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/presentation/widgets/logo.dart';
 
 class SigninOrSignupScreen extends StatelessWidget {
   const SigninOrSignupScreen({super.key});
@@ -13,18 +16,15 @@ class SigninOrSignupScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(flex: 2),
-              Image.network(
-                MediaQuery.of(context).platformBrightness == Brightness.light
-                    ? "https://i.postimg.cc/nz0YBQcH/Logo-light.png"
-                    : "https://i.postimg.cc/MHH0DKv1/Logo-dark.png",
-                height: 146,
-              ),
+              const LOGO(),
               const Spacer(),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed(AppPagesNames.LOGIN);
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  backgroundColor: const Color(0xFF00BF6D),
+                  backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   minimumSize: const Size(double.infinity, 48),
                   shape: const StadiumBorder(),
@@ -33,14 +33,17 @@ class SigninOrSignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed(AppPagesNames.SIGNUP);
+
+                },
                 style: ElevatedButton.styleFrom(
                     elevation: 0,
-                    foregroundColor: Colors.white,
+                    foregroundColor: AppColors.primary,
                     minimumSize: const Size(double.infinity, 48),
                     shape: const StadiumBorder(),
                     backgroundColor: const Color(0xFFFE9901)),
-                child: const Text("Sign Up"),
+                child: const Text("Sign Up" , style: TextStyle(color: Colors.white),),
               ),
               const Spacer(flex: 2),
             ],
@@ -49,24 +52,4 @@ class SigninOrSignupScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class Person {
-  final String name;
-  final String title;
-  final String age;
-
-  Person({required this.name, required this.title, required this.age});
-  @override
-  bool operator ==(Object other) {
-    return other.runtimeType is Person &&
-        other.runtimeType == runtimeType &&
-        (other as Person).name == name &&
-        (other).title == title &&
-        (other).age == age;
-  }
-
-  @override
-  // TODO: implement hashCode
-  int get hashCode => Object.hash(name,title , age);
 }
