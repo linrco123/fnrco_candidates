@@ -37,7 +37,7 @@ class AppRouter {
         );
       case AppPagesNames.FORGETPASSWORD:
         return MaterialPageRoute(
-          builder: (context) => const ForgotPassword(),
+          builder: (context) =>  ForgotPassword(),
         );
         case AppPagesNames.HOMEPAGE:
         return MaterialPageRoute(

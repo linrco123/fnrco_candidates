@@ -5,7 +5,6 @@ class LOGO extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
         // color: Colors.red,
         child: Image.asset('assets/images/fnrcoerp_logo.png',
