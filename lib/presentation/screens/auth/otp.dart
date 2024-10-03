@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/business_logic/cubit/auth/otp/otp_cubit.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 
 import '../../widgets/logo.dart';
 
-class VerificationScreen extends StatefulWidget {
+class VerificationScreen extends StatelessWidget {
   const VerificationScreen({super.key});
 
-  @override
-  _VerificationScreenState createState() => _VerificationScreenState();
-}
-
-class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,119 +27,90 @@ class _VerificationScreenState extends State<VerificationScreen> {
   }
 }
 
-class OtpForm extends StatefulWidget {
+class OtpForm extends StatelessWidget {
   const OtpForm({super.key});
 
   @override
-  _OtpFormState createState() => _OtpFormState();
-}
-
-class _OtpFormState extends State<OtpForm> {
-  final _formKey = GlobalKey<FormState>();
-  final List<TextInputFormatter> otpTextInputFormatters = [
-    FilteringTextInputFormatter.digitsOnly,
-    LengthLimitingTextInputFormatter(1),
-  ];
-  late FocusNode _pin1Node;
-  late FocusNode _pin2Node;
-  late FocusNode _pin3Node;
-  late FocusNode _pin4Node;
-
-  @override
-  void initState() {
-    super.initState();
-    _pin1Node = FocusNode();
-    _pin2Node = FocusNode();
-    _pin3Node = FocusNode();
-    _pin4Node = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pin1Node.dispose();
-    _pin2Node.dispose();
-    _pin3Node.dispose();
-    _pin4Node.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: OtpTextFormField(
-                  focusNode: _pin1Node,
-                  onChanged: (value) {
-                    if (value.length == 1) _pin2Node.requestFocus();
-                  },
-                  onSaved: (pin) {
-                    // Save it
-                  },
-                  autofocus: true,
+    return BlocProvider(
+      create: (context) => OtpCubit()..initiateFocusNode(),
+      child: BlocBuilder<OtpCubit, OtpState>(
+        builder: (context, state) {
+          final OtpCubit otpCubit = BlocProvider.of(context);
+          return Form(
+            key: otpCubit.formKey,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: OtpTextFormField(
+                        focusNode: otpCubit.pin1Node,
+                        onChanged: (value) {
+                          if (value.length == 1) otpCubit.pin2Node.requestFocus();
+                        },
+                        onSaved: (pin) {
+                          // Save it
+                        },
+                        autofocus: true,
+                      ),
+                    ),
+                    const SizedBox(width: 16.0),
+                    Expanded(
+                      child: OtpTextFormField(
+                        focusNode: otpCubit.pin2Node,
+                        onChanged: (value) {
+                          if (value.length == 1) otpCubit.pin3Node.requestFocus();
+                        },
+                        onSaved: (pin) {
+                          // Save it
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16.0),
+                    Expanded(
+                      child: OtpTextFormField(
+                        focusNode: otpCubit.pin3Node,
+                        onChanged: (value) {
+                          if (value.length == 1) otpCubit.pin4Node.requestFocus();
+                        },
+                        onSaved: (pin) {
+                          // Save it
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16.0),
+                    Expanded(
+                      child: OtpTextFormField(
+                        focusNode: otpCubit.pin4Node,
+                        onChanged: (value) {
+                          if (value.length == 1) otpCubit.pin4Node.unfocus();
+                        },
+                        onSaved: (pin) {
+                          // Save it
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                child: OtpTextFormField(
-                  focusNode: _pin2Node,
-                  onChanged: (value) {
-                    if (value.length == 1) _pin3Node.requestFocus();
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {
+                    otpCubit.verifyOtp('1234', context);
                   },
-                  onSaved: (pin) {
-                    // Save it
-                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(double.infinity, 48),
+                    shape: const StadiumBorder(),
+                  ),
+                  child: const Text("Next"),
                 ),
-              ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                child: OtpTextFormField(
-                  focusNode: _pin3Node,
-                  onChanged: (value) {
-                    if (value.length == 1) _pin4Node.requestFocus();
-                  },
-                  onSaved: (pin) {
-                    // Save it
-                  },
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                child: OtpTextFormField(
-                  focusNode: _pin4Node,
-                  onChanged: (value) {
-                    if (value.length == 1) _pin4Node.unfocus();
-                  },
-                  onSaved: (pin) {
-                    // Save it
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16.0),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                Navigator.of(context).pushReplacementNamed(AppPagesNames.CHANGEPASSWORD);
-                // check your code
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: const Color(0xFF00BF6D),
-              foregroundColor: Colors.white,
-              minimumSize: const Size(double.infinity, 48),
-              shape: const StadiumBorder(),
+              ],
             ),
-            child: const Text("Next"),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/presentation/widgets/logo.dart';
 
+import '../../../constants/app_colors.dart';
+
 class ForgotPassword extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
@@ -47,7 +49,7 @@ class ForgotPassword extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              backgroundColor: const Color(0xFF00BF6D),
+              backgroundColor: AppColors.primary,
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 48),
               shape: const StadiumBorder(),
