@@ -14,8 +14,7 @@ class HomePageScreen extends StatelessWidget {
       create: (context) => HomePageCubit(),
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
-                            HomePageCubit homePageCubit  = BlocProvider.of<HomePageCubit>(context);
-
+          HomePageCubit homePageCubit  = BlocProvider.of<HomePageCubit>(context);
           return Scaffold(
               appBar: AppBar(
                 title: const Text('Home Screen'),

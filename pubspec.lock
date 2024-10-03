@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  buffer:
+    dependency: transitive
+    description:
+      name: buffer
+      sha256: "389da2ec2c16283c8787e0adaede82b1842102f8c8aae2f49003a766c5c6b3d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.3"
   characters:
     dependency: transitive
     description:
@@ -105,6 +113,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  dio2:
+    dependency: "direct main"
+    description:
+      name: dio2
+      sha256: "5787df8a5634199e7a03d19480a2f529acd6673bb7fd9a1cadc322ebb92a0e48"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0-nullsafety"
   fake_async:
     dependency: transitive
     description:
@@ -160,6 +176,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.15.4"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
   image:
     dependency: transitive
     description:
