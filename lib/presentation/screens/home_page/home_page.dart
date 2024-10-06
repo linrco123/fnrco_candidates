@@ -17,12 +17,11 @@ class HomePageScreen extends StatelessWidget {
           HomePageCubit homePageCubit  = BlocProvider.of<HomePageCubit>(context);
           return Scaffold(
               appBar: AppBar(
-                title: const Text('Home Screen'),
+                title:  Text('Home Screen' , style: TextStyle(color: AppColors.white , fontWeight: FontWeight.bold),),
+                backgroundColor: AppColors.primary,
                 centerTitle: true,
               ),
-              body:  Center(
-                    child: homePageCubit.navBarItems[homePageCubit.selectedIndex].title,
-                  ),
+              body: homePageCubit.taps[homePageCubit.selectedIndex],
               bottomNavigationBar: SalomonBottomBar(
                   currentIndex:  homePageCubit.selectedIndex,
                   //selectedItemColor: const Color(0xff6200ee),
