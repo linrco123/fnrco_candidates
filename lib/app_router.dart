@@ -21,11 +21,11 @@ class AppRouter {
             builder: (context) => const SigninOrSignupScreen());
       case AppPagesNames.LOGIN:
         return MaterialPageRoute(
-          builder: (context) => SignInScreen(),
+          builder: (context) => const SignInScreen(),
         );
       case AppPagesNames.SIGNUP:
         return MaterialPageRoute(
-          builder: (context) => SignUpScreen(),
+          builder: (context) => const SignUpScreen(),
         );
       case AppPagesNames.OTP:
         return MaterialPageRoute(

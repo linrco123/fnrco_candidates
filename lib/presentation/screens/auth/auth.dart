@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/presentation/widgets/logo.dart';
 
 class SigninOrSignupScreen extends StatelessWidget {
@@ -18,33 +19,23 @@ class SigninOrSignupScreen extends StatelessWidget {
               const Spacer(flex: 2),
               const LOGO(),
               const Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(AppPagesNames.LOGIN);
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 48),
-                  shape: const StadiumBorder(),
-                ),
-                child: const Text("Sign In"),
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(AppPagesNames.SIGNUP);
 
-                },
-                style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    foregroundColor: AppColors.primary,
-                    minimumSize: const Size(double.infinity, 48),
-                    shape: const StadiumBorder(),
-                    backgroundColor: const Color(0xFFFE9901)),
-                child: const Text("Sign Up" , style: TextStyle(color: Colors.white),),
-              ),
+              CustomElevatedButton(
+                  fun: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(AppPagesNames.LOGIN);
+                  },
+                  background: AppColors.primary,
+                  text: "Sign In"),
+              const SizedBox(height: 16.0),
+              CustomElevatedButton(
+                  fun: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(AppPagesNames.SIGNUP);
+                  },
+                  background: AppColors.primary,
+                  text: "Sign Up"),
+              
               const Spacer(flex: 2),
             ],
           ),

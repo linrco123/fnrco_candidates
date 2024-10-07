@@ -8,7 +8,7 @@ class SignUpRepository {
     try {
       var data = await signUpRepository.postSignUp(path);
       return SignUpModel.fromJson(data as Map);
-    } catch (e, s) {
+    } catch (e) {
       return Future.error(e);
     }
   }

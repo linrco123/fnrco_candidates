@@ -1,11 +1,10 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 //Colors.indigo,Color(0xfffeae4f),Colors.purple,const Color(0xff1eb090)
 class AppColors {
   static Color primary = const Color(0xff1eb090);
-  static Color secondary = const Color(0xfffeae4f);
+  static Color secondary = const Color(0xFFFE9901);//const Color(0xfffeae4f);  
   static Color indigo = const Color(0xff3f51b5);
   static Color purple = const Color(0xffab47bc);
   static Color blurGreen = const Color(0xFFF5FCF9);

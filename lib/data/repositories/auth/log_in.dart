@@ -8,7 +8,7 @@ class LogInRepository {
     try {
       var data = await logInWebServices.postLogIn(path);
       return LogInModel.fromJson(data);
-    } catch (e, s) {
+    } catch (e) {
       return Future.error(e);
     }
   }

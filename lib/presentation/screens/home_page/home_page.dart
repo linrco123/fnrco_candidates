@@ -6,7 +6,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../../constants/app_colors.dart';
 
 class HomePageScreen extends StatelessWidget {
-   HomePageScreen({Key? key}) : super(key: key);
+   const HomePageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

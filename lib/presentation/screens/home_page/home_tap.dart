@@ -245,7 +245,7 @@ class HomeTapScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>JobDetailsScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const JobDetailsScreen()));
                           },
                           child: Container(
                             height: 90.0,

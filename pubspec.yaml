@@ -15,11 +15,13 @@ dependencies:
   flutter_bloc: ^8.1.6
   salomon_bottom_bar: ^3.3.2
   dio2: ^5.0.0-nullsafety
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  
 flutter_native_splash:
   android: true
   ios: true

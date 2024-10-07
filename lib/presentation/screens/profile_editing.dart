@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -19,7 +20,7 @@ class EditProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             ProfilePic(
-              image: 'https://i.postimg.cc/cCsYDjvj/user-2.png',
+              image: 'assets/images/person1.jpg',
               imageUploadBtnPress: () {},
             ),
             const Divider(),
@@ -203,13 +204,13 @@ class ProfilePic extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 50,
-            backgroundImage: NetworkImage(image),
+            backgroundImage: AssetImage(image),
           ),
           InkWell(
             onTap: imageUploadBtnPress,
             child: CircleAvatar(
               radius: 13,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: AppColors.primary,
               child: const Icon(
                 Icons.add,
                 color: Colors.white,

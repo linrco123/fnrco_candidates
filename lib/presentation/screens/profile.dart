@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/presentation/screens/profile_editing.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          const ProfilePic(image: "https://i.postimg.cc/cCsYDjvj/user-2.png"),
+          const ProfilePic(image: "assets/images/person1.jpg"),
           Text(
             "Annette Black",
             style: Theme.of(context).textTheme.titleLarge,
@@ -86,13 +87,13 @@ class ProfilePic extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 50,
-            backgroundImage: NetworkImage(image),
+            backgroundImage: AssetImage(image),
           ),
           InkWell(
             onTap: imageUploadBtnPress,
             child: CircleAvatar(
               radius: 13,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: AppColors.primary,
               child: const Icon(
                 Icons.add,
                 color: Colors.white,
