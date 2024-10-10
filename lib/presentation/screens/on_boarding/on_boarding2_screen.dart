@@ -4,8 +4,8 @@ import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_cu
 import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_state.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 
-class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({super.key});
+class OnboardingScreen extends StatelessWidget {
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class OnboardingPage extends StatelessWidget {
                         itemCount: onBoardingCubit.pages.length,
                         onPageChanged: (idx) {
                           onBoardingCubit.changeState(idx);
+                          
                         },
                         itemBuilder: (context, idx) {
                           final item = onBoardingCubit.pages[idx];
@@ -123,18 +124,7 @@ class OnboardingPage extends StatelessWidget {
                                 textStyle: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                             onPressed: () {
-                              if (onBoardingCubit.currentPage ==
-                                  onBoardingCubit.pages.length - 1) {
-                                //TODO: onFinish
-                                 Navigator.of(context)
-                                    .pushReplacementNamed(AppPagesNames.AUTH);
-                              } else {
-                                onBoardingCubit.pageController.animateToPage(
-                                    onBoardingCubit.currentPage + 1,
-                                    curve: Curves.easeInOutCubic,
-                                    duration:
-                                        const Duration(milliseconds: 250));
-                              }
+                             onBoardingCubit.moveToNext(context);
                             },
                             child: Row(
                               children: [

@@ -14,7 +14,7 @@ class AppRouter {
     switch (route.name) {
       case AppPagesNames.INITIAL:
         return MaterialPageRoute(
-          builder: (context) => const OnboardingPage(),
+          builder: (context) => const OnboardingScreen(),
         );
       case AppPagesNames.AUTH:
         return MaterialPageRoute(
@@ -41,7 +41,7 @@ class AppRouter {
         );
         case AppPagesNames.HOMEPAGE:
         return MaterialPageRoute(
-          builder: (context) => HomePageScreen(),
+          builder: (context) => const HomePageScreen(),
         );
     }
     return null;

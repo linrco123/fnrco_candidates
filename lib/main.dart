@@ -14,6 +14,7 @@ class FnrcoCandidates extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'FNRCO CANDIDATES',
+      locale: Locale('en'),
       theme:appTheme,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRouter.routeTo,
