@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_cubit.dart';
 import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_state.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -116,7 +117,7 @@ class OnboardingScreen extends StatelessWidget {
                                 Navigator.of(context)
                                     .pushReplacementNamed(AppPagesNames.AUTH);
                               },
-                              child: const Text("Skip")),
+                              child:  Text(AppLocalizations.of(context)!.translate('skip'))),
                           TextButton(
                             style: TextButton.styleFrom(
                                 visualDensity: VisualDensity.comfortable,
@@ -131,8 +132,8 @@ class OnboardingScreen extends StatelessWidget {
                                 Text(
                                   onBoardingCubit.currentPage ==
                                           onBoardingCubit.pages.length - 1
-                                      ? "Finish"
-                                      : "Next",
+                                      ? AppLocalizations.of(context)!.translate("finish")
+                                      : AppLocalizations.of(context)!.translate("next"),
                                 ),
                                 const SizedBox(width: 8),
                                 Icon(onBoardingCubit.currentPage ==

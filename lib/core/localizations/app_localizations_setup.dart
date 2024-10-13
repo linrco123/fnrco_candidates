@@ -11,12 +11,13 @@ class AppLocalizationsSetup {
    static  Iterable<LocalizationsDelegate<dynamic>> localizationsDelegate = [
     AppLocalizations.delegate,
     GlobalMaterialLocalizations.delegate,
-    GlobalWidgetLocalization.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate
   ];
 
-  static Locale localResolutionCallback(Locale locale , Iterable<Locale> supportedLocales){
+  static Locale localResolutionCallback(Locale? locale , Iterable<Locale> supportedLocales){
     for(Locale supportedLocale in supportedLocales){
-      if(supportedLocale.languageCode == locale.languageCode && supportedLocale.countryCode == locale.countryCode){
+      if(supportedLocale.languageCode == locale!.languageCode && supportedLocale.countryCode == locale.countryCode){
         return supportedLocale;
       }
     }
