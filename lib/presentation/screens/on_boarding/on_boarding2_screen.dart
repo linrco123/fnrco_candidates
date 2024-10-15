@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_cubit.dart';
 import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_state.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
+import 'package:fnrco_candidates/presentation/widgets/onboarding/current_page_indictor.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -29,7 +31,6 @@ class OnboardingScreen extends StatelessWidget {
                         itemCount: onBoardingCubit.pages.length,
                         onPageChanged: (idx) {
                           onBoardingCubit.changeState(idx);
-                          
                         },
                         itemBuilder: (context, idx) {
                           final item = onBoardingCubit.pages[idx];
@@ -41,7 +42,6 @@ class OnboardingScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(32.0),
                                   child: Image.network(
                                     item.imageUrl,
-                                    
                                   ),
                                 ),
                               ),
@@ -81,24 +81,28 @@ class OnboardingScreen extends StatelessWidget {
                     ),
 
                     // Current page indicator
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: onBoardingCubit.pages
-                          .map((item) => AnimatedContainer(
-                                duration: const Duration(milliseconds: 250),
-                                width: onBoardingCubit.currentPage ==
-                                        onBoardingCubit.pages.indexOf(item)
-                                    ? 30
-                                    : 8,
-                                height: 8,
-                                margin: const EdgeInsets.all(2.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ))
-                          .toList(),
-                    ),
-
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: onBoardingCubit.pages
+                    //       .map((item) => AnimatedContainer(
+                    //             duration: const Duration(milliseconds: 250),
+                    //             width: onBoardingCubit.currentPage ==
+                    //                     onBoardingCubit.pages.indexOf(item)
+                    //                 ? 30
+                    //                 : 8,
+                    //             height: 8,
+                    //             margin: const EdgeInsets.all(2.0),
+                    //             decoration: BoxDecoration(
+                    //                 color: Colors.white,
+                    //                 borderRadius: BorderRadius.circular(10.0)),
+                    //           ))
+                    //       .toList(),
+                    // ),
+                    CurrentPageIndicator(
+                      color: AppColors.white,
+                        currentPage: onBoardingCubit.currentPage,
+                        list: onBoardingCubit.pages,
+                        alignment: MainAxisAlignment.center),
                     // Bottom buttons
                     SizedBox(
                       height: 100,
@@ -113,11 +117,12 @@ class OnboardingScreen extends StatelessWidget {
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold)),
                               onPressed: () {
-                                //TODO: onskip 
+                                //TODO: onskip
                                 Navigator.of(context)
                                     .pushReplacementNamed(AppPagesNames.AUTH);
                               },
-                              child:  Text(AppLocalizations.of(context)!.translate('skip'))),
+                              child: Text(AppLocalizations.of(context)!
+                                  .translate('skip'))),
                           TextButton(
                             style: TextButton.styleFrom(
                                 visualDensity: VisualDensity.comfortable,
@@ -125,15 +130,17 @@ class OnboardingScreen extends StatelessWidget {
                                 textStyle: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                             onPressed: () {
-                             onBoardingCubit.moveToNext(context);
+                              onBoardingCubit.moveToNext(context);
                             },
                             child: Row(
                               children: [
                                 Text(
                                   onBoardingCubit.currentPage ==
                                           onBoardingCubit.pages.length - 1
-                                      ? AppLocalizations.of(context)!.translate("finish")
-                                      : AppLocalizations.of(context)!.translate("next"),
+                                      ? AppLocalizations.of(context)!
+                                          .translate("finish")
+                                      : AppLocalizations.of(context)!
+                                          .translate("next"),
                                 ),
                                 const SizedBox(width: 8),
                                 Icon(onBoardingCubit.currentPage ==

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/presentation/widgets/profile/profile_pic.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -11,7 +13,7 @@ class EditProfileScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         elevation: 0,
-        backgroundColor: const Color(0xFF00BF6D),
+        backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         title: const Text("Edit Profile"),
       ),
@@ -137,34 +139,18 @@ class EditProfileScreen extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 120,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color!
-                          .withOpacity(0.08),
-                      foregroundColor: Colors.white,
-                      minimumSize: const Size(double.infinity, 48),
-                      shape: const StadiumBorder(),
-                    ),
-                    child: const Text("Cancel"),
-                  ),
+                  child: CustomElevatedButton(fun: (){
+                         Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen()));
+                }, background: AppColors.secondary, text: 'cancel')
                 ),
                 const SizedBox(width: 16.0),
                 SizedBox(
                   width: 160,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00BF6D),
-                      foregroundColor: Colors.white,
-                      minimumSize: const Size(double.infinity, 48),
-                      shape: const StadiumBorder(),
-                    ),
-                    onPressed: () {},
-                    child: const Text("Save Update"),
-                  ),
+                  child: CustomElevatedButton(fun: (){
+                         Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen()));
+                }, background: AppColors.primary, text: 'save updates')
                 ),
               ],
             ),
@@ -174,56 +160,7 @@ class EditProfileScreen extends StatelessWidget {
     );
   }
 }
-
-class ProfilePic extends StatelessWidget {
-  const ProfilePic({
-    super.key,
-    required this.image,
-    this.isShowPhotoUpload = false,
-    this.imageUploadBtnPress,
-  });
-
-  final String image;
-  final bool isShowPhotoUpload;
-  final VoidCallback? imageUploadBtnPress;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      margin: const EdgeInsets.symmetric(vertical: 16.0),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color:
-              Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.08),
-        ),
-      ),
-      child: Stack(
-        alignment: Alignment.bottomRight,
-        children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundImage: AssetImage(image),
-          ),
-          InkWell(
-            onTap: imageUploadBtnPress,
-            child: CircleAvatar(
-              radius: 13,
-              backgroundColor: AppColors.primary,
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
+ 
 class UserInfoEditField extends StatelessWidget {
   const UserInfoEditField({
     super.key,

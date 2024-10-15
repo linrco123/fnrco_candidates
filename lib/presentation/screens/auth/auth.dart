@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
@@ -9,6 +10,7 @@ class SigninOrSignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -33,7 +35,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                     Navigator.of(context)
                         .pushReplacementNamed(AppPagesNames.SIGNUP);
                   },
-                  background: AppColors.primary,
+                  background: AppColors.secondary,
                   text: "Sign Up"),
               
               const Spacer(flex: 2),

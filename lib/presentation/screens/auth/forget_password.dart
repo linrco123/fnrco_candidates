@@ -1,62 +1,70 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/business_logic/cubit/auth/forget_password/forget_password_cubit.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/presentation/widgets/logo.dart';
 
 import '../../../constants/app_colors.dart';
 
 class ForgotPassword extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
 
   ForgotPassword({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: LogoWithTitle(
-        title: 'Forgot Password',
-        subText:
-        "Integer quis dictum tellus, a auctorlorem. Cras in biandit leo suspendiss.",
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Form(
-              key: _formKey,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Phone',
-                  filled: true,
-                  fillColor: Color(0xFFF5FCF9),
-                  contentPadding: EdgeInsets.symmetric(
-                      horizontal: 16.0 * 1.5, vertical: 16.0),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
+    return BlocProvider(
+      create: (context) => ForgetPasswordCubit(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            ForgetPasswordCubit forgetPasswordCubit =
+                BlocProvider.of<ForgetPasswordCubit>(context);
+            return LogoWithTitle(
+              title: 'Forgot Password',
+              subText:
+                  "Integer quis dictum tellus, a auctorlorem. Cras in biandit leo suspendiss.",
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Form(
+                    key: forgetPasswordCubit.formKey,
+                    child: TextFormField(
+                      controller: forgetPasswordCubit.forgetPasswordController,
+                      validator: (value) =>
+                          forgetPasswordCubit.validatePhone(context, value!),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(CupertinoIcons.phone),
+                        prefixIconColor: AppColors.grey,
+                        hintText: translateLang(context, "phone_number"),
+                        hintStyle: Theme.of(context).textTheme.headlineMedium,
+                        filled: true,
+                        fillColor: AppColors.blurGreen,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16.0 * 1.5, vertical: 16.0),
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                        ),
+                      ),
+                      keyboardType: TextInputType.phone,
+                    ),
                   ),
                 ),
-                keyboardType: TextInputType.phone,
-                onSaved: (phone) {
-                  // Save it
-                },
-              ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                Navigator.of(context).pushReplacementNamed(AppPagesNames.OTP);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white,
-              minimumSize: const Size(double.infinity, 48),
-              shape: const StadiumBorder(),
-            ),
-            child: const Text("Next"),
-          ),
-        ],
+                CustomElevatedButton(
+                    fun: () {
+                      forgetPasswordCubit.verifyPhone(context);
+                    },
+                    background: AppColors.primary,
+                    text: translateLang(context, 'next'))
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -68,9 +76,9 @@ class LogoWithTitle extends StatelessWidget {
 
   const LogoWithTitle(
       {super.key,
-        required this.title,
-        this.subText = '',
-        required this.children});
+      required this.title,
+      this.subText = '',
+      required this.children});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -89,8 +97,7 @@ class LogoWithTitle extends StatelessWidget {
                 title,
                 style: Theme.of(context)
                     .textTheme
-                    .headlineSmall!
-                    .copyWith(fontWeight: FontWeight.bold),
+                    .headlineLarge,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
