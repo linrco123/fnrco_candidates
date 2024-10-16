@@ -8,6 +8,7 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/presentation/screens/category_details.dart';
 import 'package:fnrco_candidates/presentation/screens/job_details.dart';
 import 'package:fnrco_candidates/presentation/widgets/home_page/home_page_title.dart';
+import 'package:fnrco_candidates/presentation/widgets/home_page/job_home_card.dart';
 import 'package:fnrco_candidates/presentation/widgets/home_page/search_form_field.dart';
 import 'package:fnrco_candidates/presentation/widgets/home_page/single_home_card.dart';
 
@@ -75,13 +76,13 @@ class HomeTapScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 30.0,
+                height: 20.0,
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ListView(
-                      physics: const ClampingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       children: [
                         Row(
@@ -149,156 +150,122 @@ class HomeTapScreen extends StatelessWidget {
                           height: 100,
                           width: double.infinity,
                           child: ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(width: 5.0),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 7,
-                            itemBuilder: (BuildContext context, int index) =>
-                                GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const JobDetailsScreen()));
-                              },
-                              child: Container(
-                                height: 95.0,
-                                //width: 100.0,
-                                padding: const EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/job-offer.png',
-                                      height: 60.0,
-                                      width: 60.0,
-                                    ),
-                                    const SizedBox(width: 10.0),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'software engineer',
-                                          style: TextStyle(
-                                            color: AppColors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text('Jakarata, Indonisa',
-                                            style: TextStyle(
-                                              color: AppColors.black,
-                                            )),
-                                        const Spacer(),
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              AppImages.SALARY,
-                                              height: 30.0,
-                                              width: 30.0,
-                                              color: AppColors.primary,
-                                            ),
-                                            const SizedBox(
-                                              width: 5.0,
-                                            ),
-                                            Text(
-                                              '\$500 - \$2000',
-                                              style: TextStyle(
-                                                color: AppColors.primary,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(width: 5.0),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 7,
+                              itemBuilder: (BuildContext context, int index) =>
+                                  JobHomeCard(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const JobDetailsScreen()));
+                                      },
+                                      image: AppImages.JOB_OFFER,
+                                      job: 'software engineer',
+                                      company: 'Jakarata, Indonisa',
+                                      salary: '500 - \$2000')
+                              //     GestureDetector(
+                              //   onTap: () {
+                              //     Navigator.of(context).push(MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             const JobDetailsScreen()));
+                              //   },
+                              //   child: Container(
+                              //     height: 95.0,
+                              //     //width: 100.0,
+                              //     padding: const EdgeInsets.all(10.0),
+                              //     decoration: BoxDecoration(
+                              //       color: AppColors.white,
+                              //       borderRadius: BorderRadius.circular(20.0),
+                              //     ),
+                              //     child: Row(
+                              //       children: [
+                              //         Image.asset(
+                              //           'assets/images/job-offer.png',
+                              //           height: 60.0,
+                              //           width: 60.0,
+                              //         ),
+                              //         const SizedBox(width: 10.0),
+                              //         Column(
+                              //           crossAxisAlignment:
+                              //               CrossAxisAlignment.start,
+                              //           children: [
+                              //             Text(
+                              //               'software engineer',
+                              //               style: TextStyle(
+                              //                 fontSize: 14.0,
+                              //                 color: AppColors.black,
+                              //                 fontWeight: FontWeight.bold,
+                              //               ),
+                              //             ),
+                              //             Text('Jakarata, Indonisa',
+                              //                 style: TextStyle(fontSize: 14.0,
+                              //                   color: AppColors.black,
+                              //                 )),
+                              //             const Spacer(),
+                              //             Row(
+                              //               children: [
+                              //                 Image.asset(
+                              //                   AppImages.SALARY,
+                              //                   height: 30.0,
+                              //                   width: 30.0,
+                              //                   color: AppColors.primary,
+                              //                 ),
+                              //                 const SizedBox(
+                              //                   width: 5.0,
+                              //                 ),
+                              //                 Text(
+                              //                   '\$500 - \$2000',
+                              //                   style: TextStyle(
+                              //                     color: AppColors.primary,
+                              //                     fontWeight: FontWeight.bold,
+                              //                   ),
+                              //                 ),
+                              //               ],
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               ),
-                            ),
-                          ),
                         ),
-                        Row(
-                          children: [
-                            CustomHomeTitle(
-                                title: translateLang(context, 'recent_jobs'),
-                                color: AppColors.primary),
-                            const Spacer(),
-                            TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  translateLang(context, 'more'),
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                )),
-                            // ListView.separated(
-                            //   shrinkWrap: true,
-                            //   physics: const NeverScrollableScrollPhysics(),
-                            //   separatorBuilder: (context, index) =>
-                            //       const SizedBox(height: 10.0),
-                            //   scrollDirection: Axis.vertical,
-                            //   itemCount: 7,
-                            //   itemBuilder: (BuildContext context, int index) =>
-                            //       Container(
-                            //     height: 90.0,
-                            //     //width: 100.0,
-                            //     padding: const EdgeInsets.all(10.0),
-                            //     decoration: BoxDecoration(
-                            //       color: AppColors.white,
-                            //       borderRadius: BorderRadius.circular(20.0),
-                            //     ),
-                            //     child: Row(
-                            //       children: [
-                            //         Image.asset(
-                            //           'assets/images/job-offer.png',
-                            //           height: 60.0,
-                            //           width: 60.0,
-                            //         ),
-                            //         const SizedBox(width: 10.0),
-                            //         Column(
-                            //           crossAxisAlignment: CrossAxisAlignment.start,
-                            //           children: [
-                            //             Text(
-                            //               'UI/UX designer',
-                            //               style: TextStyle(
-                            //                 color: AppColors.black,
-                            //                 fontWeight: FontWeight.bold,
-                            //               ),
-                            //             ),
-                            //             Text('Jakarata, Indonisa',
-                            //                 style: TextStyle(
-                            //                   color: AppColors.black,
-                            //                 )),
-                            //             const Spacer(),
-                            //             Row(
-                            //               children: [
-                            //                 Image.asset(
-                            //                   'assets/images/salary.png',
-                            //                   height: 30.0,
-                            //                   width: 30.0,
-                            //                   color: AppColors.primary,
-                            //                 ),
-                            //                 const SizedBox(
-                            //                   width: 5.0,
-                            //                 ),
-                            //                 Text(
-                            //                   '\$500 - \$2000',
-                            //                   style: TextStyle(
-                            //                     color: AppColors.primary,
-                            //                     fontWeight: FontWeight.bold,
-                            //                   ),
-                            //                 ),
-                            //               ],
-                            //             ),
-                            //           ],
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-                          ],
-                        ),
+                        Row(children: [
+                          CustomHomeTitle(
+                              title: translateLang(context, 'recent_jobs'),
+                              color: AppColors.primary),
+                          const Spacer(),
+                          TextButton(
+                              onPressed: () {
+                                //TODO: GO to All Jobs screen
+                              },
+                              child: Text(
+                                translateLang(context, 'more'),
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ))
+                        ]),
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 5.0),
+                            scrollDirection: Axis.vertical,
+                            itemCount: 50,
+                            itemBuilder: (BuildContext context, int index) =>
+                                JobHomeCard(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const JobDetailsScreen()));
+                                    },
+                                    image: AppImages.JOB_OFFER,
+                                    job: 'UI/UX designer',
+                                    company: 'Jakarata, Indonisa',
+                                    salary: '500 - \$2000')),
                       ]),
                 ),
               ),

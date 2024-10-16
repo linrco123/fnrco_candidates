@@ -39,8 +39,6 @@
     "should_less_11_more_8": "يجب ان يكون اكبر من 8 اقل من 11",
     "msg_plz_enter_full_name": "الرجاء إدخال الاسم الكامل",
     "msg_plz_name_should_be_more_than_6_char": "يجب أن يكون الاسم أكثر من 6 أحرف",
-    "msg_plz_enter_iqama_number": "الرجاء إدخال رقم الهوية-الاقامة",
-    "msg_plz_enter_correct_iqama_number": "الرجاء إدخال رقم الهوية-الاقامة الصحيح",
     "msg_plz_enter_email": "الرجاء إدخال البريد الإلكتروني",
     "msg_plz_enter_correct_email": "الرجاء إدخال بريد إلكتروني صحيح",
     "msg_register_success": "! لقد استلمت رمز التأكيد بالفعل",
@@ -105,5 +103,12 @@
     "categories": "التصنيفات",
     "recommended_jobs": "الوظائف الموصى بها",
     "recent_jobs": "الوظائف الحالية",
-    "more": "أكثر"
+    "more": "أكثر",
+    "job_details": "تفاصيل الوظيفة ",
+    "salary": "المرتب",
+    "monthly": "شهريا",
+    "location": "الموقع",
+    "job_desc": "توصيف الوظيفة",
+    "apply_form": "Apply Form",
+    "upload_resume": "+تحميل السيرة الذاتية"
 }

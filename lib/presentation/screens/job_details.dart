@@ -2,14 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_images_path.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/presentation/screens/job_application.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/presentation/widgets/custom_divider.dart';
+import 'package:fnrco_candidates/presentation/widgets/job_details/custom_app_bar.dart';
+import 'package:fnrco_candidates/presentation/widgets/job_details/custom_job_data_row.dart';
+import 'package:fnrco_candidates/presentation/widgets/job_details/custom_job_header.dart';
+import 'package:fnrco_candidates/presentation/widgets/job_details/job_desc_feature.dart';
 
 class JobDetailsScreen extends StatelessWidget {
+  // final JobModel job;//TODO: should receive JobModel here as Parameter
   const JobDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       body: Container(
         color: AppColors.blurGreen,
@@ -18,82 +28,83 @@ class JobDetailsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: ListView(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: Container(
-                        decoration: BoxDecoration(
-                            color: AppColors.grey.withOpacity(0.3),
-                            shape: BoxShape.circle),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Icon(Icons.keyboard_backspace_rounded,
-                            color: AppColors.grey),
-                      )),
-                  const SizedBox(width: 10.0),
-                  Text(
-                    'Details',
-                    style: TextStyle(
-                      color: AppColors.black,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      CupertinoIcons.line_horizontal_3_decrease_circle,
-                      color: AppColors.grey,
-                      size: 30.0,
-                    ),
-                  ),
-                ],
+              CustomAppBar(
+                btnColor: AppColors.grey.withOpacity(0.3),
+                arrowColor: AppColors.greyDeep,
+                icon: CupertinoIcons.bookmark,
+                title: translateLang(context, 'job_details'),
+                titleColor: AppColors.black,
+                onTap: () {},
+                startPadding: 0.0,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 0.0, vertical: 15.0),
-                child: Divider(
-                  color: AppColors.primary.withOpacity(0.5),
-                  height: 1.0,
-                ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Jakarata, Indonisa',
-                            style: TextStyle(
-                              fontSize: 17.0,
-                              color: AppColors.black,
-                            )),
-                        Text(
-                          'software engineer',
-                          style: TextStyle(
-                            fontSize: 22.0,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // const Spacer(),
-                  Expanded(
-                    flex: 1,
-                    child: Image.asset(
-                      'assets/images/job-offer.png',
-                      height: 80.0,
-                      width: 80.0,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     IconButton(
+              //         onPressed: () {
+              //           Navigator.of(context).pop();
+              //         },
+              //         icon: Container(
+              //           decoration: BoxDecoration(
+              //               color: AppColors.grey.withOpacity(0.3),
+              //               shape: BoxShape.circle),
+              //           padding: const EdgeInsets.all(10.0),
+              //           child: Icon(Icons.keyboard_backspace_rounded,
+              //               color: AppColors.grey),
+              //         )),
+              //     const SizedBox(width: 10.0),
+              //     Text(
+              //       'Details',
+              //       style: TextStyle(
+              //         color: AppColors.black,
+              //         fontSize: 20.0,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //     const Spacer(),
+              //     IconButton(
+              //       onPressed: () {},
+              //       icon: Icon(
+              //         CupertinoIcons.line_horizontal_3_decrease_circle,
+              //         color: AppColors.grey,
+              //         size: 30.0,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              CustomDivider(),
+              CustomJobHeader(
+                  company: 'Jakarata, Indonisa',
+                  companyColor: AppColors.primary,
+                  job: 'software engineer',
+                  jobColor: AppColors.black,
+                  image: 'assets/images/job-offer.png'),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       flex: 2,
+              //       child: Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           Text('Jakarata, Indonisa',
+              //               style: Theme.of(context).textTheme.displayMedium),
+              //           Text(
+              //             'software engineer',
+              //             style: Theme.of(context).textTheme.headlineLarge,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     // const Spacer(),
+              //     Expanded(
+              //       flex: 1,
+              //       child: Image.asset(
+              //         'assets/images/job-offer.png',
+              //         height: 80.0,
+              //         width: 80.0,
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(
                 height: 20.0,
               ),
@@ -126,106 +137,43 @@ class JobDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                child: Divider(
-                  color: AppColors.primary.withOpacity(0.5),
-                  height: 1.0,
-                ),
+              CustomDivider(
+                hPadding: 20.0,
+                vPadding: 10.0,
               ),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
-                        shape: BoxShape.circle),
-                    child: Image.asset(
-                      'assets/images/salary.png',
-                      height: 30.0,
-                      width: 30.0,
-                      color: AppColors.primary,
-                    ),
+              CustomJobDataRow(
+                  child: Image.asset(
+                    AppImages.SALARY,
+                    height: 30.0,
+                    width: 30.0,
+                    color: AppColors.primary,
                   ),
-                  const SizedBox(
-                    width: 15.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'salary',
-                        style: TextStyle(color: AppColors.grey, fontSize: 15.0),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Text(
-                        '\$500 - \$2,000/monthly',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                  color: AppColors.primary.withOpacity(0.1),
+                  border: false,
+                  title: translateLang(context, 'salary'),
+                  subTitle:
+                      '\$500 - \$2,000/${translateLang(context, "monthly")}'),
+
               const SizedBox(height: 10.0),
+              CustomJobDataRow(
+                  child: Icon(
+                    Icons.location_on_outlined,
+                    size: 30.0,
+                    color: AppColors.primary.withOpacity(0.6),
+                  ),
+                  color: AppColors.primary.withOpacity(0.1),
+                  border: false,
+                  title: translateLang(context, 'location'),
+                  subTitle: 'United Kingdom, London'),
+              CustomDivider(
+                hPadding: 20.0,
+                vPadding: 10.0,
+              ),
+
               Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
-                        shape: BoxShape.circle),
-                    child: Icon(
-                      Icons.location_on_outlined,
-                      size: 30.0,
-                      color: AppColors.primary.withOpacity(0.6),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'location',
-                        style: TextStyle(color: AppColors.grey, fontSize: 15.0),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Text('United Kingdom, London',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: AppColors.black,
-                          )),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                child: Divider(
-                  color: AppColors.primary.withOpacity(0.5),
-                  height: 1.0,
-                ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Job Description',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      color: AppColors.black,
-                      //fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text(translateLang(context, 'job_desc'),
+                      style: Theme.of(context).textTheme.bodyLarge),
                 ],
               ),
               const SizedBox(height: 10.0),
@@ -233,15 +181,10 @@ class JobDetailsScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      job_description,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        color: AppColors.black,
-                        //fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        job_description,
+                        style: Theme.of(context).textTheme.bodyMedium),
                   ),
                 ],
               ),
@@ -252,31 +195,9 @@ class JobDetailsScreen extends StatelessWidget {
                 children: [
                   ...List.generate(
                       6,
-                      (int index) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 5.0),
-                            child: Row(
-                              children: [
-                                Image.asset('assets/images/check.png',
-                                    height: 15.0, width: 15.0),
-                                const SizedBox(
-                                  width: 10.0,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: AppColors.black,
-                                      //fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ))
+                      (int index) => CustomCheckedJobFeature(
+                          text:
+                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry."))
                 ],
               ),
               const SizedBox(
@@ -292,9 +213,9 @@ class JobDetailsScreen extends StatelessWidget {
                           color: AppColors.primary.withOpacity(0.1),
                           shape: BoxShape.circle),
                       child: Icon(
-                        CupertinoIcons.line_horizontal_3_decrease_circle,
+                        CupertinoIcons.bookmark,
                         color: AppColors.grey,
-                        size: 60.0,
+                        size: 40.0,
                       ),
                     ),
                   ),
@@ -302,27 +223,15 @@ class JobDetailsScreen extends StatelessWidget {
                     width: 5.0,
                   ),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const JobApplicationScreen()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: Colors.white,
-                        minimumSize: const Size(double.infinity, 48),
-                        shape: const StadiumBorder(),
-                      ),
-                      child: Text(
-                        'Apply Job'.toUpperCase(),
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  )
+                      child: CustomElevatedButton(
+                    fun: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const JobApplicationScreen()));
+                    },
+                    background: AppColors.primary,
+                    text: 'Apply Job'.toUpperCase(),
+                    textSize: 20.0,
+                  ))
                 ],
               )
             ],

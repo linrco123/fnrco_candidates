@@ -106,6 +106,14 @@
     "categories":"Categories",
     "recommended_jobs":"Recommended Jobs",
     "recent_jobs":"Recent Jobs",
-    "more":"more"
+    "more":"more",
+    "job_details":"Job Details",
+    "salary":"Salary",
+    "monthly":"Monthly",
+    "location":"Location",
+     "job_desc":"Job Description",
+     "apply_form":"Apply Form",
+     "upload_resume":"+Upload Resume"
+
 
 }

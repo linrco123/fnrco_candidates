@@ -20,14 +20,14 @@ class JobHomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         height: 95.0,
         //width: 100.0,
         padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Row(
           children: [
@@ -40,17 +40,12 @@ class JobHomeCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  job,
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(company,
-                    style: TextStyle(
-                      color: AppColors.black,
-                    )),
+                Text(job,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(fontWeight: FontWeight.bold)),
+                Text(company, style: Theme.of(context).textTheme.titleSmall),
                 const Spacer(),
                 Row(
                   children: [
@@ -63,13 +58,10 @@ class JobHomeCard extends StatelessWidget {
                     const SizedBox(
                       width: 5.0,
                     ),
-                    Text(
-                      '\$${salary}',
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text('\$${salary}',
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
               ],

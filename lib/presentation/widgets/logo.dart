@@ -8,6 +8,6 @@ class LOGO extends StatelessWidget {
     return Container(
         // color: Colors.red,
         child: Image.asset('assets/images/fnrcoerp_logo.png',
-            width: 200, height: 100, fit: BoxFit.fill));
+            width: 170, height: 70, fit: BoxFit.fill));
   }
 }

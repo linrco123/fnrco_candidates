@@ -6,6 +6,9 @@ class AppImages {
   ///
   static const LOGO = '$_images/fnrcoerp_logo.png';
   static const SALARY = '$_images/salary.png';
+  static const JOB_OFFER = '$_images/job-offer.png';
+  static const CHECKED = '$_images/check.png';
+ 
   ////////////////////TODO:////  BOTTOM.......////////////////////////////////
   static const MEDICAL_DECLARATION = '$_bottom/medical-declare.png';
 

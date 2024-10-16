@@ -5,6 +5,8 @@ import 'package:fnrco_candidates/presentation/screens/auth/change_password.dart'
 import 'package:fnrco_candidates/presentation/screens/auth/forget_password.dart';
 import 'package:fnrco_candidates/presentation/screens/auth/log_in.dart';
 import 'package:fnrco_candidates/presentation/screens/home_page/home_page.dart';
+import 'package:fnrco_candidates/presentation/screens/job_application.dart';
+import 'package:fnrco_candidates/presentation/screens/job_details.dart';
 import 'package:fnrco_candidates/presentation/screens/job_offer.dart';
 import 'package:fnrco_candidates/presentation/screens/medical_declare.dart';
 import 'package:fnrco_candidates/presentation/screens/on_boarding/on_boarding2_screen.dart';
@@ -15,8 +17,8 @@ import 'package:fnrco_candidates/presentation/screens/profile_editing.dart';
 import 'package:fnrco_candidates/presentation/screens/resume.dart';
 
 class AppRouter {
-  static Route? routeTo(RouteSettings route) {
-    switch (route.name) {
+  static Route? routeTo(RouteSettings settings) {
+    switch (settings.name) {
       case AppPagesNames.INITIAL:
         return MaterialPageRoute(
           builder: (context) => const OnboardingScreen(),
@@ -42,34 +44,47 @@ class AppRouter {
         );
       case AppPagesNames.FORGETPASSWORD:
         return MaterialPageRoute(
-          builder: (context) =>  ForgotPassword(),
+          builder: (context) => ForgotPassword(),
         );
-        case AppPagesNames.HOMEPAGE:
+      case AppPagesNames.HOMEPAGE:
         return MaterialPageRoute(
           builder: (context) => const HomePageScreen(),
         );
-        case AppPagesNames.PROFILE:
+      case AppPagesNames.PROFILE:
         return MaterialPageRoute(
           builder: (context) => const ProfileScreen(),
         );
-         case AppPagesNames.PROFILE_EDITING:
+      case AppPagesNames.PROFILE_EDITING:
         return MaterialPageRoute(
           builder: (context) => const EditProfileScreen(),
         );
-         case AppPagesNames.RESUME:
+      case AppPagesNames.RESUME:
         return MaterialPageRoute(
-          builder: (context) =>   ResumeScreen(),
+          builder: (context) => ResumeScreen(),
         );
-         case AppPagesNames.HEALTH_CARE:
+      case AppPagesNames.HEALTH_CARE:
         return MaterialPageRoute(
-          builder: (context) =>   MedicalDeclaration(),
+          builder: (context) => MedicalDeclaration(),
         );
-         case AppPagesNames.JOB_OFFER:
+      case AppPagesNames.JOB_OFFER:
         return MaterialPageRoute(
-          builder: (context) =>   JobOfferScreen(),
+          builder: (context) => JobOfferScreen(),
         );
+      case AppPagesNames.JOB_DETAILS:
+        var args = settings.arguments;
+        return MaterialPageRoute(
+            builder: (context) => JobDetailsScreen(),
+            settings: RouteSettings(arguments: args));
+
+      case AppPagesNames.JOB_APPLICATION:
+        var jobID = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (context) => JobApplicationScreen(),
+            settings: RouteSettings(arguments: jobID));
+
+      //JobApplicationScreen
     }
-    
+
     return null;
   }
 }
