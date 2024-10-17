@@ -8,7 +8,7 @@ import 'package:fnrco_candidates/presentation/screens/job_application.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/presentation/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/presentation/widgets/job_details/custom_app_bar.dart';
-import 'package:fnrco_candidates/presentation/widgets/job_details/custom_job_data_row.dart';
+import 'package:fnrco_candidates/presentation/widgets/job_details/custom_item_feature.dart';
 import 'package:fnrco_candidates/presentation/widgets/job_details/custom_job_header.dart';
 import 'package:fnrco_candidates/presentation/widgets/job_details/job_desc_feature.dart';
 
@@ -19,7 +19,7 @@ class JobDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark));
+        SystemUiOverlayStyle.dark);
     return Scaffold(
       body: Container(
         color: AppColors.blurGreen,
@@ -141,7 +141,7 @@ class JobDetailsScreen extends StatelessWidget {
                 hPadding: 20.0,
                 vPadding: 10.0,
               ),
-              CustomJobDataRow(
+              CustomItemFeature(
                   child: Image.asset(
                     AppImages.SALARY,
                     height: 30.0,
@@ -155,7 +155,7 @@ class JobDetailsScreen extends StatelessWidget {
                       '\$500 - \$2,000/${translateLang(context, "monthly")}'),
 
               const SizedBox(height: 10.0),
-              CustomJobDataRow(
+              CustomItemFeature(
                   child: Icon(
                     Icons.location_on_outlined,
                     size: 30.0,

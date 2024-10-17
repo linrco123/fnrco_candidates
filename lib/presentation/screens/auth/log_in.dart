@@ -9,6 +9,8 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/repositories/auth/log_in.dart';
 import 'package:fnrco_candidates/data/web_services/auth/log_in.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/name_email_phone_form_field.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/password_form_field.dart';
 import 'package:fnrco_candidates/presentation/widgets/logo.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -46,70 +48,27 @@ class SignInScreen extends StatelessWidget {
                               key: logInCubit.formKey,
                               child: Column(
                                 children: [
-                                  TextFormField(
-                                    controller: logInCubit.phoneController,
-                                    validator: (value) => logInCubit
-                                        .validatePhone(context, value!),
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(CupertinoIcons.phone),
-                                      prefixIconColor: AppColors.grey,
-                                      hintText: translateLang(
+                                  NameEmailPhoneFormField(
+                                      controller: logInCubit.phoneController,
+                                      inputType: TextInputType.phone,
+                                      prefixIcon: CupertinoIcons.phone,
+                                      hint: translateLang(
                                           context, "phone_number"),
-                                      hintStyle: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium,
-                                      filled: true,
-                                      fillColor: AppColors.blurGreen,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 16.0 * 1.5,
-                                              vertical: 16.0),
-                                      border: const OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                      ),
-                                    ),
-                                    keyboardType: TextInputType.phone,
-                                    // onSaved: (phone) {
-                                    //   // Save it
-                                    // },
+                                      validate: logInCubit.validatePhone),
+                                  const SizedBox(
+                                    height: 16.0,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16.0),
-                                    child: TextFormField(
+                                  PasswordFormField(
                                       controller: logInCubit.passwordController,
                                       obscureText: logInCubit.obscureText,
-                                      validator: (value) => logInCubit
-                                          .validatePassword(context, value!),
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(CupertinoIcons.lock),
-                                        prefixIconColor: AppColors.grey,
-                                        suffixIcon: IconButton(
-                                            onPressed:
-                                                logInCubit.toggleObscureText,
-                                            icon: logInCubit.getIcon()),
-                                        hintText:
-                                            translateLang(context, "password"),
-                                        hintStyle: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium,
-                                        filled: true,
-                                        fillColor: AppColors.blurGreen,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 16.0 * 1.5,
-                                                vertical: 16.0),
-                                        border: const OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(50)),
-                                        ),
-                                      ),
-                                      keyboardType:
-                                          TextInputType.visiblePassword,
-                                    ),
+                                      prefixIcon: CupertinoIcons.lock,
+                                      hint:  translateLang(context, "password"),
+                                      toggleObscureText:
+                                          logInCubit.toggleObscureText,
+                                      visibleIcon: logInCubit.getIcon(),
+                                      validate: logInCubit.validatePassword),
+                                  const SizedBox(
+                                    height: 16.0,
                                   ),
                                   CustomElevatedButton(
                                       fun: () {
@@ -129,7 +88,9 @@ class SignInScreen extends StatelessWidget {
                                             context, "forgot_password"),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headlineSmall!.copyWith(color: AppColors.greyDeep)),
+                                            .headlineSmall!
+                                            .copyWith(
+                                                color: AppColors.greyDeep)),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -140,8 +101,9 @@ class SignInScreen extends StatelessWidget {
                                     child: Text.rich(
                                         TextSpan(
                                           text: translateLang(context,
-                                              "do_not_have_an_account" ),
-                                              style: TextStyle(color: AppColors.greyDeep),
+                                              "do_not_have_an_account"),
+                                          style: TextStyle(
+                                              color: AppColors.greyDeep),
                                           children: [
                                             TextSpan(text: ' '),
                                             TextSpan(

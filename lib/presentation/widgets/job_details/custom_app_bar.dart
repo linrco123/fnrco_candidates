@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/presentation/widgets/job_details/back_btn.dart';
 
 class CustomAppBar extends StatelessWidget {

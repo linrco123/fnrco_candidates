@@ -1,6 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/business_logic/cubit/auth/change_password/change_password_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/password_form_field.dart';
 
 import '../../widgets/logo.dart';
 
@@ -10,96 +16,58 @@ class ChangePasswordScreen extends StatelessWidget {
   ChangePasswordScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: LogoWithTitle(
-        title: "Change Password",
-        children: [
-          Form(
-            key: _formKey,
-            child: Column(
+    return BlocProvider(
+      create: (context) => ChangePasswordCubit(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            var cubit = ChangePasswordCubit.instance(context);
+            return LogoWithTitle(
+              title: translateLang(context, "change_password"),
               children: [
-                TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
-                    filled: true,
-                    fillColor: Color(0xFFF5FCF9),
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16.0 * 1.5, vertical: 16.0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                    ),
-                  ),
-                  onSaved: (passaword) {
-                    // Save it
-                  },
-                  onChanged: (value) {},
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: ' Confirm Password',
-                      filled: true,
-                      fillColor: Color(0xFFF5FCF9),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16.0 * 1.5, vertical: 16.0),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                Form(
+                  key: cubit.formForgetKey,
+                  child: Column(
+                    children: [
+                      PasswordFormField(
+                          controller: cubit.PasswordController,
+                          obscureText: cubit.obscureText1,
+                          prefixIcon: CupertinoIcons.lock,
+                          toggleObscureText: cubit.toggleObscureText1,
+                          visibleIcon: cubit.getIcon1(),
+                          validate: cubit.validatePassword,
+                          hint: translateLang(context, 'password')),
+                      const SizedBox(
+                        height: 16.0,
                       ),
-                    ),
-                    onSaved: (passaword) {
-                      // Save it
-                    },
+                      PasswordFormField(
+                          controller: cubit.ConfirmPasswordController,
+                          obscureText: cubit.obscureText2,
+                          prefixIcon: CupertinoIcons.lock,
+                          toggleObscureText: cubit.toggleObscureText2,
+                          visibleIcon: cubit.getIcon2(),
+                          validate: cubit.validateConfirmPassword,
+                          hint: translateLang(context, 'confirm_password')),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                    ],
                   ),
                 ),
+                CustomElevatedButton(
+                    fun: () {
+                       cubit.changePassword(context);
+                    },
+                    background: AppColors.primary,
+                    text: translateLang(context, 'change_password')),
               ],
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                Navigator.of(context).pushReplacementNamed(AppPagesNames.LOGIN);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white,
-              minimumSize: const Size(double.infinity, 48),
-              shape: const StadiumBorder(),
-            ),
-            child: const Text("Change Password"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacementNamed(AppPagesNames.LOGIN);
-            },
-            child: Text.rich(
-              TextSpan(
-                text: "Already have an account? ",
-                children: [
-                  TextSpan(
-                    text: "Sign in",
-                    style: TextStyle(color: AppColors.primary),
-                  ),
-                ],
-              ),
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .color!
-                        .withOpacity(0.64),
-                  ),
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -132,8 +100,7 @@ class LogoWithTitle extends StatelessWidget {
                 title,
                 style: Theme.of(context)
                     .textTheme
-                    .headlineSmall!
-                    .copyWith(fontWeight: FontWeight.bold),
+                    .headlineLarge,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),

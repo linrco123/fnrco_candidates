@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/business_logic/cubit/auth/otp/otp_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
 
 import '../../widgets/logo.dart';
 
@@ -12,10 +14,10 @@ class VerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: LogoWithTitle(
-        title: 'Verification',
-        subText: "SMS Verification code has been sent",
+        title: translateLang(context, "verification_code"),
+        subText: translateLang(context, "enter_the_code_sent_to"),
         children: [
           const Text("+1 18577 11111"),
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
@@ -47,7 +49,8 @@ class OtpForm extends StatelessWidget {
                       child: OtpTextFormField(
                         focusNode: otpCubit.pin1Node,
                         onChanged: (value) {
-                          if (value.length == 1) otpCubit.pin2Node.requestFocus();
+                          if (value.length == 1)
+                            otpCubit.pin2Node.requestFocus();
                         },
                         onSaved: (pin) {
                           // Save it
@@ -60,7 +63,8 @@ class OtpForm extends StatelessWidget {
                       child: OtpTextFormField(
                         focusNode: otpCubit.pin2Node,
                         onChanged: (value) {
-                          if (value.length == 1) otpCubit.pin3Node.requestFocus();
+                          if (value.length == 1)
+                            otpCubit.pin3Node.requestFocus();
                         },
                         onSaved: (pin) {
                           // Save it
@@ -72,7 +76,8 @@ class OtpForm extends StatelessWidget {
                       child: OtpTextFormField(
                         focusNode: otpCubit.pin3Node,
                         onChanged: (value) {
-                          if (value.length == 1) otpCubit.pin4Node.requestFocus();
+                          if (value.length == 1)
+                            otpCubit.pin4Node.requestFocus();
                         },
                         onSaved: (pin) {
                           // Save it
@@ -94,19 +99,12 @@ class OtpForm extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    otpCubit.verifyOtp('1234', context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(double.infinity, 48),
-                    shape: const StadiumBorder(),
-                  ),
-                  child: const Text("Next"),
-                ),
+                CustomElevatedButton(
+                    fun: () {
+                      otpCubit.verifyOtp('1234', context);
+                    },
+                    background: AppColors.primary,
+                    text: translateLang(context, 'next')),
               ],
             ),
           );
@@ -183,22 +181,24 @@ class LogoWithTitle extends StatelessWidget {
                 title,
                 style: Theme.of(context)
                     .textTheme
-                    .headlineSmall!
-                    .copyWith(fontWeight: FontWeight.bold),
+                    .headlineLarge,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Text(
                   subText,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height: 1.5,
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .color!
-                        .withOpacity(0.64),
-                  ),
+                  style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium,
+                  // style: TextStyle(
+                  //   height: 1.5,
+                  //   color: Theme.of(context)
+                  //       .textTheme
+                  //       .bodyLarge!
+                  //       .color!
+                  //       .withOpacity(0.64),
+                  // ),
                 ),
               ),
               ...children,

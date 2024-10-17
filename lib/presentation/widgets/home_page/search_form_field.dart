@@ -17,8 +17,12 @@ class SearchFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+       style: Theme.of(context)
+          .textTheme
+          .headlineSmall!
+          .copyWith(color: AppColors.secondary),
       controller: controller,
-      onFieldSubmitted: (value)=>fun,
+      onFieldSubmitted: (value) => fun,
       keyboardType: TextInputType.text,
       maxLines: 1,
       decoration: InputDecoration(
@@ -26,7 +30,7 @@ class SearchFormField extends StatelessWidget {
           fillColor: AppColors.white,
           hintStyle: Theme.of(context).textTheme.headlineSmall,
           hintText: label,
-          
+          contentPadding: const EdgeInsets.symmetric(vertical: 5.0 , horizontal: 10.0),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50),
               borderSide: const BorderSide(

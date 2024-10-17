@@ -10,3 +10,6 @@ final class ChangePasswordLoadingState extends ChangePasswordState {}
 final class ChangePasswordSuccessState extends ChangePasswordState {}
 final class ChangePasswordFailureState extends ChangePasswordState {}
 
+
+final class ChangePasswordToggleObsecureText extends ChangePasswordState{}
+

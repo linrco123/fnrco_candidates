@@ -11,14 +11,14 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
 
   final forgetPasswordController = TextEditingController();
 
-  validatePhone(context, String value) {
+  String? validatePhone(context, String? value) {
     final regExp = RegExp(
       'Constance.phoneRegExp',
       caseSensitive: false,
       multiLine: false,
     );
 
-    if (value.isEmpty) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_phone");
     } else if (!regExp.hasMatch(value)) {
       return translateLang(context, "msg_plz_enter_correct_phone");

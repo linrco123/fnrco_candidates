@@ -47,9 +47,11 @@
     "msg_email_already_exist": "البريد الإلكتروني موجود بالفعل",
     "sign_in": "تسجيل الدخول",
     "log_in": "تسجيل الدخول",
+    "confirm_password":"تاكيد كلمة المرور",
     "forgot_password": "نسيت كلمة المرور؟",
     "do_not_have_an_account": "ليس لديك حساب؟",
     "create_one": "انشاء حساب",
+    "change_password": "تغيير كلمة المرور",
     "msg_password_incorrect": "كلمة المرور غير صحيحة",
     "msg_phone_not_registered": "رقم الهاتف غير مسجل",
     "msg_unauthorized": "الوصول غير مصرح به! كلمة المرور أو الهاتف غير صحيح",
@@ -110,5 +112,9 @@
     "location": "الموقع",
     "job_desc": "توصيف الوظيفة",
     "apply_form": "Apply Form",
-    "upload_resume": "+تحميل السيرة الذاتية"
+    "upload_resume": "+تحميل السيرة الذاتية",
+    "apply_job":"Apply Job",
+    "telephone":"الهاتف",
+    "website":"الموقع الإليكترونى",
+    "about_company":"عن الشركة"
 }

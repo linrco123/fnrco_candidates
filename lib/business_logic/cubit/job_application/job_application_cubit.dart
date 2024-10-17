@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:meta/meta.dart';
 
 part 'job_application_state.dart';
 
@@ -19,8 +18,8 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
   File? cvFile;
   String fileName = '';
 
-  validateFullName(context, String value) {
-    if (value.isEmpty) {
+  String? validateFullName(context, String? value) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_full_name");
     } else if (value.length < 6) {
       return translateLang(context, "msg_plz_name_should_be_more_than_6_char");
@@ -28,14 +27,14 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
     return null;
   }
 
-  validatePhone(context, String value) {
+  String? validatePhone(context, String? value) {
     final regExp = RegExp(
       'Constance.phoneRegExp',
       caseSensitive: false,
       multiLine: false,
     );
 
-    if (value.isEmpty) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_phone");
     } else if (!regExp.hasMatch(value)) {
       return translateLang(context, "msg_plz_enter_correct_phone");
@@ -43,8 +42,8 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
     return null;
   }
 
-  validateEmail(context, String value) {
-    if (value.isEmpty) {
+  String? validateEmail(context, String? value) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_email");
     } else if (!value.contains('@')) {
       return translateLang(context, "msg_plz_enter_correct_email");

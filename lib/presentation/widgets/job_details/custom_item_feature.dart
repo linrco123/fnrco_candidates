@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 
-class CustomJobDataRow extends StatelessWidget {
+class CustomItemFeature extends StatelessWidget {
   final Widget child;
   final Color color;
   final bool border;
   final String title;
   final String subTitle;
-  const CustomJobDataRow(
+  const CustomItemFeature(
       {super.key,
       required this.child,
       required this.color,

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/repositories/auth/log_in.dart';
 
@@ -30,7 +29,7 @@ class LogInCubit extends Cubit<LogInState> {
     );
   }
 
-  validatePhone(context,String value) {
+  String? validatePhone(context,String? value) {
     final regExp = RegExp(
       'Constance.phoneRegExp',
       caseSensitive: false,
@@ -38,7 +37,7 @@ class LogInCubit extends Cubit<LogInState> {
     );
    
 
-    if (value.isEmpty) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_phone" );
     } else if (!regExp.hasMatch(  value)) {
       return translateLang(context,  "msg_plz_enter_correct_phone");
@@ -46,9 +45,9 @@ class LogInCubit extends Cubit<LogInState> {
     return null;
   }
 
-  validatePassword(context,String value) {
+  String? validatePassword(context,String? value) {
  
-    if (value.isEmpty) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_password" );
     } else if (value.length < 6) {
       return translateLang(context, "msg_plz_enter_at_least_6_char");

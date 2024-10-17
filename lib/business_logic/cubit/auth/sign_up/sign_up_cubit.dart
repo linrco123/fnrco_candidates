@@ -39,8 +39,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-    validateFullName(context , String value) {
-    if (value.isEmpty) {
+    String? validateFullName(context , String? value) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_full_name" );
     } else if (value.length < 6) {
       return translateLang(context,  "msg_plz_name_should_be_more_than_6_char"   );
@@ -49,7 +49,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
 
-  validatePhone(context,String value) {
+  String? validatePhone(context,String? value) {
     final regExp = RegExp(
       'Constance.phoneRegExp',
       caseSensitive: false,
@@ -57,7 +57,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
    
 
-    if (value.isEmpty) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_phone" );
     } else if (!regExp.hasMatch(  value)) {
       return translateLang(context,  "msg_plz_enter_correct_phone");
@@ -65,9 +65,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     return null;
   }
 
-  validatePassword(context,String value) {
+  String? validatePassword(context,String? value) {
  
-    if (value.isEmpty) {
+    if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_password" );
     } else if (value.length < 6) {
       return translateLang(context, "msg_plz_enter_at_least_6_char");

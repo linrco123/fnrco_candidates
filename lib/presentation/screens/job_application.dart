@@ -7,6 +7,8 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/classes/dotted_border.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/presentation/screens/company_info.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/presentation/widgets/job_details/back_btn.dart';
 import 'package:fnrco_candidates/presentation/widgets/job_details/custom_job_header.dart';
 
@@ -15,9 +17,7 @@ class JobApplicationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarIconBrightness: Brightness.light,
-        statusBarColor: AppColors.primary));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return BlocProvider(
       create: (context) => JobApplicationCubit(),
       child: Scaffold(
@@ -143,7 +143,8 @@ class JobApplicationScreen extends StatelessWidget {
                                               context, "upload_resume")
                                           : jobApplicationCubit.fileName,
                                       style: TextStyle(
-                                          color: AppColors.grey, fontSize: 14.0),
+                                          color: AppColors.grey,
+                                          fontSize: 14.0),
                                     ),
                                     const Spacer(),
                                     jobApplicationCubit.fileName.isEmpty
@@ -165,107 +166,43 @@ class JobApplicationScreen extends StatelessWidget {
                           const SizedBox(
                             height: 20.0,
                           ),
-                          TextFormField(
-                            controller: jobApplicationCubit.nameController,
-                            validator: (value) => jobApplicationCubit
-                                .validateFullName(context, value!),
-                            decoration: InputDecoration(
-                              
-                              prefixIcon: Icon(CupertinoIcons.person),
-                              prefixIconColor: AppColors.grey,
-                              hintText: translateLang(context, "full_name"),
-                              hintStyle:
-                                  Theme.of(context).textTheme.headlineMedium,
-                              filled: true,
-                              fillColor: AppColors.blurGreen,
-                              contentPadding: const EdgeInsets.symmetric(
-                                   horizontal: 20.0, vertical: 5.0),
-                            
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                            ),
-                            keyboardType: TextInputType.name,
-                          ),
+                          NameEmailPhoneFormField(
+                              controller: jobApplicationCubit.nameController,
+                              inputType: TextInputType.name,
+                              prefixIcon: CupertinoIcons.person,
+                              hint: translateLang(context, "full_name"),
+                              validate: jobApplicationCubit.validateFullName),
                           const SizedBox(
                             height: 16.0,
                           ),
-                          TextFormField(
-                            controller: jobApplicationCubit.emailController,
-                            validator: (value) => jobApplicationCubit
-                                .validateEmail(context, value!),
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(CupertinoIcons.mail),
-                              prefixIconColor: AppColors.grey,
-                              hintText: translateLang(context, "email"),
-                              hintStyle:
-                                  Theme.of(context).textTheme.headlineMedium,
-                              filled: true,
-                              fillColor: AppColors.blurGreen,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 0.0 , vertical: 0.0),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                            ),
-                            keyboardType: TextInputType.name,
-                          ),
+                          NameEmailPhoneFormField(
+                              controller: jobApplicationCubit.emailController,
+                              inputType: TextInputType.emailAddress,
+                              prefixIcon: CupertinoIcons.mail,
+                              hint: translateLang(context, "email"),
+                              validate: jobApplicationCubit.validateEmail),
                           const SizedBox(
                             height: 16.0,
                           ),
-                          TextFormField(
-                            controller: jobApplicationCubit.phoneController,
-                            validator: (value) => jobApplicationCubit
-                                .validatePhone(context, value!),
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(CupertinoIcons.phone),
-                              prefixIconColor: AppColors.grey,
-                              hintText: translateLang(context, "phone_number"),
-                              hintStyle:
-                                  Theme.of(context).textTheme.headlineMedium,
-                              filled: true,
-                              fillColor: AppColors.blurGreen,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 15.0 , vertical: 5.0),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                            ),
-                            keyboardType: TextInputType.phone,
-                            // onSaved: (phone) {
-                            //   // Save it
-                            // },
+                          NameEmailPhoneFormField(
+                              controller: jobApplicationCubit.phoneController,
+                              inputType: TextInputType.phone,
+                              prefixIcon: CupertinoIcons.phone,
+                              hint: translateLang(context, "phone_number"),
+                              validate: jobApplicationCubit.validatePhone),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 4.5,
                           ),
-                            SizedBox(height: MediaQuery.of(context).size.height/4.5,),
                           // const Spacer(),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CompanyInfoScreen()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: AppColors.primary,
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 48),
-                              shape: const StadiumBorder(),
-                            ),
-                            child: Text(
-                              'Apply Job'.toUpperCase(),
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          CustomElevatedButton(
+                              fun: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CompanyInfoScreen()));
+                              },
+                              background: AppColors.primary,
+                              text: translateLang(context,"apply_job") , ),
+
                           const SizedBox(
                             height: 10.0,
                           ),
