@@ -14,6 +14,7 @@ class CustomBackBTN extends StatelessWidget {
           Navigator.of(context).pop();
         },
         icon: Container(
+          // alignment: Alignment.center,
           decoration: BoxDecoration(color: btnColor, shape: BoxShape.circle),
           padding: const EdgeInsets.all(10.0),
           child: Icon(Icons.keyboard_backspace_rounded, color: arrowColor),

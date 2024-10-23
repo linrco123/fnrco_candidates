@@ -17,3 +17,18 @@ class GeneratingPDFErrorState extends JobOfferState{
 
   GeneratingPDFErrorState({required this.message});
 }
+
+
+class JobOfferDownloadPDFLoadingState extends JobOfferState{}
+
+class JobOfferDownloadPDFSuccessState extends JobOfferState{}
+
+class JobOfferDownloadPDFFailureState extends JobOfferState{}
+
+
+
+class JobOfferUploadPDFLoadingState extends JobOfferState{}
+
+class JobOfferUploadPDFSuccessState extends JobOfferState{}
+
+class JobOfferUploadPDFFailureState extends JobOfferState{}

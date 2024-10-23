@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
 
 class PasswordFormField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final bool obscureText;
-  final IconData prefixIcon;
+  final IconData? prefixIcon;
   final void Function() toggleObscureText;
   final Widget visibleIcon;
+  final String? initialValue;
   final String? Function(BuildContext, String?) validate;
   const PasswordFormField(
       {super.key,
       required this.controller,
       required this.obscureText,
-      required this.prefixIcon,
+      this.prefixIcon,
       required this.toggleObscureText,
       required this.visibleIcon,
-      required this.validate, required this.hint});
+      required this.validate,
+      required this.hint,
+      this.initialValue});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       controller: controller,
       style: Theme.of(context)
           .textTheme
@@ -33,7 +36,7 @@ class PasswordFormField extends StatelessWidget {
         prefixIcon: Icon(prefixIcon),
         prefixIconColor: AppColors.grey,
         suffixIcon: IconButton(onPressed: toggleObscureText, icon: visibleIcon),
-        hintText:hint,
+        hintText: hint,
         hintStyle: Theme.of(context).textTheme.headlineSmall,
         filled: true,
         fillColor: AppColors.blurGreen,

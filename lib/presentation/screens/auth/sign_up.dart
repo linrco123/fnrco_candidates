@@ -51,8 +51,17 @@ class SignUpScreen extends StatelessWidget {
                                 hint: translateLang(context, "full_name"),
                                 validate: signUpCubit.validateFullName),
                             const SizedBox(
-                              height: 16.0,
-                            ),
+                            height: 16.0,
+                          ),
+                          NameEmailPhoneFormField(
+                              controller: signUpCubit.emailController,
+                              inputType: TextInputType.emailAddress,
+                              prefixIcon: CupertinoIcons.mail,
+                              hint: translateLang(context, "email"),
+                              validate: signUpCubit.validateEmail),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
                             NameEmailPhoneFormField(
                                 controller: signUpCubit.phoneController,
                                 inputType: TextInputType.phone,

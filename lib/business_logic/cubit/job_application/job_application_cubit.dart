@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'job_application_state.dart';
 
@@ -43,12 +44,26 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
   }
 
   String? validateEmail(context, String? value) {
+    final regex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_email");
-    } else if (!value.contains('@')) {
+    } else if (!regex.hasMatch(value)) {
       return translateLang(context, "msg_plz_enter_correct_email");
     }
     return null;
+  }
+
+  void requestPermission()async{
+    final PermissionStatus result = await Permission.storage.request();
+    if(result == PermissionStatus.granted){
+      uploadResume();
+    }else if(result == PermissionStatus.denied){
+
+      print('give permission for app to accesss local storage');
+
+    }else if(result == PermissionStatus.permanentlyDenied){
+        // access settings to grant app permission 
+    }
   }
 
   void uploadResume() async {

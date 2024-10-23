@@ -201,7 +201,8 @@ class JobApplicationScreen extends StatelessWidget {
                                         const CompanyInfoScreen()));
                               },
                               background: AppColors.primary,
-                              text: translateLang(context,"apply_job") , ),
+                              textSize: 20.0,
+                              text: translateLang(context,"apply_job").toUpperCase() , ),
 
                           const SizedBox(
                             height: 10.0,

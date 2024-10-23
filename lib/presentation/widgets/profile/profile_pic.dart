@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
@@ -7,12 +8,14 @@ class ProfilePic extends StatelessWidget {
     super.key,
     required this.image,
     this.isShowPhotoUpload = false,
-    this.imageUploadBtnPress,
+    this.imageUploadBtnPress, required this.file,
   });
 
   final String image;
   final bool isShowPhotoUpload;
   final VoidCallback? imageUploadBtnPress;
+  
+  final bool file;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +25,7 @@ class ProfilePic extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color:
-              Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.08),
+          color: AppColors.grey.withOpacity(0.4),
         ),
       ),
       child: Stack(
@@ -31,7 +33,7 @@ class ProfilePic extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 50,
-            backgroundImage: AssetImage(image),
+            backgroundImage: file ? FileImage(File(image)): AssetImage(image),
           ),
           InkWell(
             onTap: imageUploadBtnPress,
@@ -50,4 +52,3 @@ class ProfilePic extends StatelessWidget {
     );
   }
 }
-

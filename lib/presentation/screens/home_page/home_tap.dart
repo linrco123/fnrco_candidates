@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/business_logic/cubit/home_page/home_page_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/presentation/screens/category_details.dart';
 import 'package:fnrco_candidates/presentation/screens/job_details.dart';
@@ -21,7 +24,7 @@ class HomeTapScreen extends StatelessWidget {
       builder: (context, state) {
         HomePageCubit homePageCubit = HomePageCubit.instance(context);
         return Container(
-          color: AppColors.blurGreen,
+          //color: AppColors.blurGreen,
           child: Column(
             children: [
               Stack(
@@ -52,15 +55,20 @@ class HomeTapScreen extends StatelessWidget {
                                   .copyWith(color: AppColors.white),
                             ),
                             Text(
+                              //CacheHelper.getName()??''
                               'Muhammed Nady',
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ],
                         ),
-                        const CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage:
-                              AssetImage('assets/images/person1.jpg'),
+                        CircleAvatar(
+                          radius: 27.0,
+                          backgroundColor: AppColors.white,
+                          child: CircleAvatar(
+                              radius: 25.0,
+                              backgroundImage: CacheHelper.getImage() == null
+                                  ? AssetImage(AppImages.User)
+                                  : FileImage(File(CacheHelper.getImage()!))),
                         )
                       ],
                     ),

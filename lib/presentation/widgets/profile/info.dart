@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 
 class Info extends StatelessWidget {
   const Info({
@@ -26,7 +27,7 @@ class Info extends StatelessWidget {
                   .withOpacity(0.8),
             ),
           ),
-          Text(info),
+          Text(info , style: TextStyle(color: AppColors.primary),),
         ],
       ),
     );

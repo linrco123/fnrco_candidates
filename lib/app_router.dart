@@ -68,7 +68,7 @@ class AppRouter {
         );
       case AppPagesNames.JOB_OFFER:
         return MaterialPageRoute(
-          builder: (context) => JobOfferScreen(),
+          builder: (context) => JobOfferScreen(pdfLink: '',),
         );
       case AppPagesNames.JOB_DETAILS:
         var args = settings.arguments;

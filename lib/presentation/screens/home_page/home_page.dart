@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fnrco_candidates/business_logic/cubit/home_page/home_page_cubit.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/presentation/screens/home_page/home_tap.dart';
@@ -52,9 +55,15 @@ class HomePageScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   CircleAvatar(
-                                    radius: 52,
-                                    backgroundImage:
-                                        AssetImage('assets/images/person.jpg'),
+                                    radius: 55.0,
+                                    backgroundColor: AppColors.white,
+                                    child: CircleAvatar(
+                                      radius: 52,
+                                      backgroundImage:
+                                           CacheHelper.getImage() == null
+                                    ? AssetImage(AppImages.User)
+                                    : FileImage(File(CacheHelper.getImage()!)),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 12,
@@ -97,8 +106,9 @@ class HomePageScreen extends StatelessWidget {
                         ),
                         ListTile(
                           onTap: () {
+                            Navigator.of(context).pop();
                             Navigator.of(context)
-                                .pushNamed(AppPagesNames.JOB_OFFER);
+                                .pushNamed(AppPagesNames.JOB_OFFER );
                           },
                           leading: SvgPicture.asset(
                             AppImages.FILE,

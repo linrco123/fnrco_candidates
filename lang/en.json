@@ -30,7 +30,7 @@
     "phone_number": "Phone",
     "iqama_number": "National-Iqama ID",
     "password": "Password",
-    "email": "Email",
+    "email": "Email Address",
     "by_clicking_on_create": "By clicking on create an account, you agree to the",
     "terms_and_conditions": "Terms and Conditions",
     "create_an_account": "Create an account",
@@ -41,6 +41,7 @@
     "msg_plz_enter_iqama_number": "Please enter national-iqama number",
     "msg_plz_enter_correct_iqama_number": "Please enter correct national-iqama number",
     "msg_plz_enter_email": "Please enter email",
+    "msg_plz_enter_address": "Please enter Address",
     "msg_plz_enter_correct_email": "Please enter correct email",
     "msg_register_success": "Already, received verification code !",
     "msg_phone_already_exist": "Phone number already exists!",
@@ -119,5 +120,11 @@
     "apply_job":"Apply Job",
     "telephone":"Telephone",
     "website":"Webite",
-    "about_company":"About Company"
+    "about_company":"About Company",
+    "user_id":"User ID",
+    "edit_profile":"Edit Profile",
+    "new_password":"New Password",
+    "old_password":"Old Password",
+    "save_updates":"save updates",
+    "cancel":"Cancel"
 }

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/app_router.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/app_theme.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations_setup.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding();
+   await CacheHelper.init();
   runApp(const FnrcoCandidates());
 }
 

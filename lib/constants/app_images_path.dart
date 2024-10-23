@@ -9,6 +9,7 @@ class AppImages {
   static const JOB_OFFER = '$_images/job-offer.png';
   static const CHECKED = '$_images/check.png'; 
    static const COMPANY = '$_images/company.jpg'; 
+   static const User = '$_images/user.png';
  
   ////////////////////TODO:////  BOTTOM.......////////////////////////////////
   static const MEDICAL_DECLARATION = '$_bottom/medical-declare.png';
@@ -26,4 +27,5 @@ class AppImages {
   static const LOGOUT = '$_svg/logout.svg';
   static const ATTACH = '$_svg/attach.svg';
   static const NOTIFICATIONS = '$_svg/notifications.svg';
+  static const UserSvg = '$_svg/User.svg';
 }

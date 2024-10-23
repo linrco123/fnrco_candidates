@@ -4,20 +4,23 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 class NameEmailPhoneFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType inputType;
-  final IconData prefixIcon;
-  final String hint;
+  final IconData? prefixIcon;
+  final String? hint;
   final String? Function(BuildContext, String?) validate;
+  final String? initialValue;
   const NameEmailPhoneFormField(
       {super.key,
       required this.controller,
       required this.inputType,
-      required this.prefixIcon,
-      required this.hint,
-      required this.validate});
+      this.prefixIcon,
+      this.hint,
+      required this.validate,
+      this.initialValue});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       style: Theme.of(context)
           .textTheme
           .headlineSmall!

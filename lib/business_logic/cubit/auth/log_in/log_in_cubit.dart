@@ -25,7 +25,7 @@ class LogInCubit extends Cubit<LogInState> {
   Icon getIcon() {
     return Icon(
       obscureText ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
-      color: AppColors.grey,
+      color: AppColors.primary,
     );
   }
 
