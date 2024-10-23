@@ -1,0 +1,40 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
+import 'package:dio2/dio2.dart';
+import 'package:fnrco_candidates/constants/app_urls.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
+import 'package:fnrco_candidates/data/models/auth/login_modl.dart';
+
+class LoginProvider {
+  late Dio dio;
+  LoginProvider() {
+    BaseOptions _baseOptions = BaseOptions(
+        baseUrl: AppLinks.baseUrl,
+        receiveDataWhenStatusError: true,
+        connectTimeout: 20 * 1000,
+        receiveTimeout: 20 * 1000,
+        headers: {
+          'content-Type': 'application/json',
+          "authorization": "bearer ${CacheHelper.getAuthToken()}"
+        });
+    dio = Dio(_baseOptions);
+  }
+
+  Future<LoginModel> logIn(Map data) async {
+    try {
+      final Response response = await dio.post(
+        AppLinks.logIn,
+        data: data,
+      );
+      if (response.statusCode == 200) {
+        //show messages or snackbar of success
+        return LoginModel.fromJson(response.data as Map<String, dynamic>);
+      } else {
+        //show messages or snackbar of failure
+        return Future.error(response.statusCode!);
+      }
+    } catch (e, s) {
+      return Future.error(e);
+    }
+  }
+}

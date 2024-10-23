@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:fnrco_candidates/business_logic/cubit/job_offer/job_offer_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+//import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class JobOfferScreen extends StatelessWidget {
   final String pdfLink;
   JobOfferScreen({super.key, required this.pdfLink});
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+  //final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return BlocProvider<JobOfferCubit>(

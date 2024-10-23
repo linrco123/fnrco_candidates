@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/repositories/auth/log_in.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
 
 import '../../../../constants/app_pages_names.dart';
 
 part 'log_in_state.dart';
 
 class LogInCubit extends Cubit<LogInState> {
-  final LogInRepository logInRepository;
-  LogInCubit({required this.logInRepository}) : super(LogInInitialState());
+  final LoginProvider logInProvider;
+  LogInCubit({required this.logInProvider}) : super(LogInInitialState());
  static LogInCubit instance(context)=> BlocProvider.of(context);
   final formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
@@ -54,22 +55,26 @@ class LogInCubit extends Cubit<LogInState> {
     }
     return null;
   }
-void logIn(context){
+void logIn(){
+    emit(LogInLoadingState());
   if (formKey.currentState!.validate()) {
    Map data = {
     'phone':phoneController.text,
     'passowrd':passwordController.text
    };
-    logInRepository.logInWebServices.postLogIn('').then((value){
+    logInProvider.logIn(data).then((value){
       //CacheHelper.sharedPreferences.setString();
+      CacheHelper.storeUserData(value);
       emit(LogInSuccessState());
+      
+
     }).catchError((error){
       emit(LogInErrorState(message: error));
 
     });
    
   }
-   Navigator.of(context).pushReplacementNamed(AppPagesNames.HOMEPAGE);
+  
 }
 
 

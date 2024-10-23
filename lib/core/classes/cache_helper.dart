@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fnrco_candidates/data/models/auth/login_modl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -11,19 +12,19 @@ class CacheHelper {
     secureStorage = FlutterSecureStorage();
   }
 
-  void storeAuthToken(String authToken) async {
+  static void storeAuthToken(String authToken) async {
     await secureStorage.write(key: 'auth_key', value: authToken);
   }
 
-  Future<String?> getAuthToken() async {
+  static Future<String?> getAuthToken() async {
     return await secureStorage.read(key: 'auth_key');
   }
 
-   void storePassword(String authToken) async {
+  static void storePassword(String authToken) async {
     await secureStorage.write(key: 'password', value: authToken);
   }
 
-  Future<String?> getAPassword() async {
+  static Future<String?> getAPassword() async {
     return await secureStorage.read(key: 'password');
   }
 
@@ -57,5 +58,15 @@ class CacheHelper {
 
   static String? getImage() {
     return sharedPreferences.getString('user_image');
+  }
+
+  static void storeUserData(LoginModel userData){
+    storeName('');
+    storeEmail('');
+    storeAuthToken('');
+    storePhone('');
+    storePassword('');
+    storePassword('');
+
   }
 }
