@@ -3,6 +3,7 @@
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 
 class SignUpProvider {
   late Dio dio;
@@ -34,6 +35,27 @@ class SignUpProvider {
         return await Future.error(response.statusCode!);
       }
     } catch (e) {
+      return await Future.error(e);
+    }
+  }
+
+  Future<CountriesModel> getCountries() async {
+    try {
+      final Response response = await dio.get(
+        AppLinks.country,
+       );
+       print('================response===========================');
+       print(response.data);
+      if (response.statusCode == 200) {
+        //show messages or snackbar of success
+        return  CountriesModel.fromJson(response.data);
+      } else {
+        //show messages or snackbar of failure
+        return await Future.error(response.statusCode!);
+      }
+    } catch (e) {
+             print('================error===========================$e');
+
       return await Future.error(e);
     }
   }

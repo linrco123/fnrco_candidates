@@ -5,13 +5,30 @@ sealed class SignUpState {}
 
 final class SignUpInitialState extends SignUpState {}
 
-class SignUpLoadingState extends SignUpState{}
+//TODO:Signup Process
+class SignUpLoadingState extends SignUpState {}
 
-class SignUpSuccessState extends SignUpState{}
-class SignUpErrorState extends SignUpState{}
+class SignUpSuccessState extends SignUpState {}
 
+class SignUpErrorState extends SignUpState {}
 
-class SignUpChangingObsecureTextState extends SignUpState{
+//TODO:SignUpChangingObsecureTextState
+class SignUpChangingObsecureTextState extends SignUpState {}
+
+//TODO:SignUpChoosingCountryState
+class SignUpChoosingCountryState extends SignUpState {}
+
+//TODO:getCountries
+class SignUpGettingCountriesLoadingState extends SignUpState {}
+
+class SignUpGettingCountriesSuccessState extends SignUpState {
+  final List<Country> countries;
+
+  SignUpGettingCountriesSuccessState({required this.countries});
 }
 
-class SignUpChoosingCountryState extends SignUpState{}
+class SignUpGettingCountriesFailureState extends SignUpState {
+  final String? message;
+
+  SignUpGettingCountriesFailureState({this.message});
+}

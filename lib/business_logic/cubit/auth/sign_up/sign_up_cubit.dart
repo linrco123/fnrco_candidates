@@ -3,11 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit() : super(SignUpInitialState());
+  final SignUpProvider signUpProvider;
+  SignUpCubit(this.signUpProvider) : super(SignUpInitialState());
 
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -15,9 +18,9 @@ class SignUpCubit extends Cubit<SignUpState> {
   final passwordController = TextEditingController();
   final countryController = TextEditingController();
   final emailController = TextEditingController();
-  String countryId = 'country';
+  int countryId = 0;
 
-  void selectCountry(String value) {
+  void selectCountry(int value) {
     countryId = value;
     print(
         'Country is as follows ========================>>>>>>>>>>>>>> $value');
@@ -81,19 +84,31 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void signUp() {
-    if (formKey.currentState!.validate()) {}
+    if (formKey.currentState!.validate() && countryId != 0) {}
+  }
+
+ var countries = List<Country>.empty(growable: true);
+  void getCountries() {
+    emit(SignUpGettingCountriesLoadingState());
+    countries.clear();
+    signUpProvider.getCountries().then((value) {
+      for (var country in value.data as List) countries.add(country);
+      emit(SignUpGettingCountriesSuccessState(countries: countries));
+    }).catchError((error) {
+      emit(SignUpGettingCountriesFailureState());
+    });
   }
 
 // only for demo
-  List<DropdownMenuItem<String>>? countries = [
-    "Bangladesh",
-    "Switzerland",
-    'Canada',
-    'Japan',
-    'Germany',
-    'Australia',
-    'Sweden',
-  ].map<DropdownMenuItem<String>>((String value) {
-    return DropdownMenuItem<String>(value: value, child: Text(value));
-  }).toList();
+  // List<DropdownMenuItem<String>>? countries = [
+  //   "Bangladesh",
+  //   "Switzerland",
+  //   'Canada',
+  //   'Japan',
+  //   'Germany',
+  //   'Australia',
+  //   'Sweden',
+  // ].map<DropdownMenuItem<String>>((String value) {
+  //   return DropdownMenuItem<String>(value: value, child: Text(value));
+  // }).toList();
 }

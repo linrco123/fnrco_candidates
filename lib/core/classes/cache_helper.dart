@@ -20,6 +20,14 @@ class CacheHelper {
   static Future<String?> getAuthToken() async {
     return await secureStorage.read(key: 'auth_key');
   }
+    static void storeFCMToken(String fcmToken) async {
+    await secureStorage.write(key: 'fcm_token', value: fcmToken);
+  }
+
+  static Future<String?> getFCMToken() async {
+    return await secureStorage.read(key: 'fcm_token');
+  }
+
 
   static void storePassword(String authToken) async {
     await secureStorage.write(key: 'password', value: authToken);
@@ -70,7 +78,7 @@ class CacheHelper {
   }
 
   static void storeUserData(LoginModel userData){
-    storeName(userData.user!.candidateUserUname!);
+    storeName(userData.user!.candidateUserUname??'muhammed nady');
     storeEmail(userData.user!.email!);
     storeAuthToken(userData.accessToken!);
     storePhone('');

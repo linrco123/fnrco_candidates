@@ -74,7 +74,7 @@ class SignInScreen extends StatelessWidget {
                         Form(
                           key: logInCubit.formKey,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            //crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               NameEmailPhoneFormField(
                                   controller: logInCubit.emailController,
@@ -82,7 +82,13 @@ class SignInScreen extends StatelessWidget {
                                   prefixIcon: CupertinoIcons.mail,
                                   hint: translateLang(context, "email"),
                                   validate: logInCubit.validateEmail),
-                              Text('hint: candidate@gmail.com' ,textAlign: TextAlign.right, style: TextStyle(color: Colors.grey.shade500),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const SizedBox(width: 15.0,),
+                                  Text('hint: candidate@gmail.com' ,textAlign: TextAlign.right, style: TextStyle(color: Colors.grey.shade500),),
+                                ],
+                              ),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -95,7 +101,12 @@ class SignInScreen extends StatelessWidget {
                                       logInCubit.toggleObscureText,
                                   visibleIcon: logInCubit.getIcon(),
                                   validate: logInCubit.validatePassword),
-                              Text('hint: password', style: TextStyle(color: Colors.grey.shade500)),
+                              Row(
+                                 children: [
+                                  const SizedBox(width: 15.0,),
+                                  Text('hint: password', style: TextStyle(color: Colors.grey.shade500)),
+                                ],
+                              ),
                               const SizedBox(
                                 height: 16.0,
                               ),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/business_logic/cubit/auth/sign_up/sign_up_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/password_form_field.dart';
@@ -18,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return BlocProvider(
-      create: (context) => SignUpCubit(),
+      create: (context) => SignUpCubit(SignUpProvider())..getCountries(),
       child: Scaffold(
         backgroundColor: AppColors.white,
         body: SafeArea(
@@ -27,7 +28,6 @@ class SignUpScreen extends StatelessWidget {
               listener: (context, state) {},
               builder: (context, state) {
                 final SignUpCubit signUpCubit = BlocProvider.of(context);
-
                 return SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Column(
@@ -51,17 +51,17 @@ class SignUpScreen extends StatelessWidget {
                                 hint: translateLang(context, "full_name"),
                                 validate: signUpCubit.validateFullName),
                             const SizedBox(
-                            height: 16.0,
-                          ),
-                          NameEmailPhoneFormField(
-                              controller: signUpCubit.emailController,
-                              inputType: TextInputType.emailAddress,
-                              prefixIcon: CupertinoIcons.mail,
-                              hint: translateLang(context, "email"),
-                              validate: signUpCubit.validateEmail),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
+                              height: 16.0,
+                            ),
+                            NameEmailPhoneFormField(
+                                controller: signUpCubit.emailController,
+                                inputType: TextInputType.emailAddress,
+                                prefixIcon: CupertinoIcons.mail,
+                                hint: translateLang(context, "email"),
+                                validate: signUpCubit.validateEmail),
+                            const SizedBox(
+                              height: 16.0,
+                            ),
                             NameEmailPhoneFormField(
                                 controller: signUpCubit.phoneController,
                                 inputType: TextInputType.phone,
@@ -75,7 +75,7 @@ class SignUpScreen extends StatelessWidget {
                                 controller: signUpCubit.passwordController,
                                 obscureText: signUpCubit.obscureText,
                                 prefixIcon: CupertinoIcons.lock,
-                                 hint:translateLang(context, "password"),
+                                hint: translateLang(context, "password"),
                                 toggleObscureText:
                                     signUpCubit.toggleObscureText,
                                 visibleIcon: signUpCubit.getIcon(),
@@ -83,42 +83,66 @@ class SignUpScreen extends StatelessWidget {
                             const SizedBox(
                               height: 16.0,
                             ),
-                            DropdownButtonFormField(
-                              items: signUpCubit.countries,
-                              icon: const Icon(
-                                  CupertinoIcons.chevron_compact_down),
-                              iconEnabledColor: AppColors.grey,
-                              //value: signUpCubit.countryId,
-                              onChanged: (value) =>
-                                  signUpCubit.selectCountry(value!),
-                              hint: Text(
-                                translateLang(context, 'country'),
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                              decoration: InputDecoration(
-                                // hintText: translateLang(context, 'country'),
-                                prefixIcon:
-                                    Icon(CupertinoIcons.building_2_fill),
-                                prefixIconColor: AppColors.grey,
-                                alignLabelWithHint: true,
-                                isDense: true,
-                                helperText: 'choose your country !!',
-                                helperStyle:
-                                    Theme.of(context).textTheme.headlineMedium,
-                                hintStyle:
-                                    Theme.of(context).textTheme.headlineSmall,
-                                filled: true,
-                                fillColor: AppColors.blurGreen,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
-                                ),
-                              ),
-                            ),
+                            state is SignUpGettingCountriesLoadingState
+                                ? LinearProgressIndicator(
+                                    color: AppColors.primary,
+                                  )
+                                : DropdownButtonFormField(
+                                    style: TextStyle(
+                                        color: AppColors.secondary,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13.0),
+                                    items: signUpCubit.countries
+                                        .map((country) => DropdownMenuItem<int>(
+                                              //alignment: Alignment.center,
+                                              child: Text(
+                                                  '${country.countryName!} (${country.countryCode})'),
+                                              value: country.id,
+                                            ))
+                                        .toList(),
+                                        
+                                    menuMaxHeight: 200.0,
+                                    enableFeedback: true,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    dropdownColor: AppColors.primary,
+                                    icon: const Icon(
+                                        CupertinoIcons.chevron_compact_down),
+                                    iconEnabledColor: AppColors.grey,
+                                   // value: signUpCubit.countryId,
+                                    onChanged: (value) =>
+                                        signUpCubit.selectCountry(value!),
+                                    hint: Text(
+                                      translateLang(context, 'country'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                    decoration: InputDecoration(
+                                      // hintText: translateLang(context, 'country'),
+                                      prefixIcon:
+                                          Icon(CupertinoIcons.building_2_fill),
+                                      prefixIconColor: AppColors.grey,
+                                      alignLabelWithHint: true,
+                                      isDense: true,
+                                      helperText: 'choose your country !!',
+                                      helperStyle: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium,
+                                      hintStyle: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                      filled: true,
+                                      fillColor: AppColors.blurGreen,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 15, vertical: 10),
+                                      border: const OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50)),
+                                      ),
+                                    ),
+                                  ),
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16.0),
