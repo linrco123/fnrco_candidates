@@ -10,6 +10,7 @@ import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/password_form_field.dart';
+import 'package:fnrco_candidates/presentation/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/presentation/widgets/logo.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -37,11 +38,11 @@ class SignInScreen extends StatelessWidget {
                     ),
                     backgroundColor: AppColors.success,
                   ));
-                   Navigator.of(context)
-                        .pushReplacementNamed(AppPagesNames.HOMEPAGE);
+                  Navigator.of(context)
+                      .pushReplacementNamed(AppPagesNames.HOMEPAGE);
                   // Future.delayed(const Duration(milliseconds: 600))
                   //     .then((value) {
-                   
+
                   // });
                 }
                 if (state is LogInErrorState) {
@@ -73,13 +74,15 @@ class SignInScreen extends StatelessWidget {
                         Form(
                           key: logInCubit.formKey,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                             NameEmailPhoneFormField(
-                              controller: logInCubit.emailController,
-                              inputType: TextInputType.emailAddress,
-                              prefixIcon: CupertinoIcons.mail,
-                              hint: translateLang(context, "email"),
-                              validate: logInCubit.validateEmail),
+                              NameEmailPhoneFormField(
+                                  controller: logInCubit.emailController,
+                                  inputType: TextInputType.emailAddress,
+                                  prefixIcon: CupertinoIcons.mail,
+                                  hint: translateLang(context, "email"),
+                                  validate: logInCubit.validateEmail),
+                              Text('hint: candidate@gmail.com' ,textAlign: TextAlign.right, style: TextStyle(color: Colors.grey.shade500),),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -92,17 +95,15 @@ class SignInScreen extends StatelessWidget {
                                       logInCubit.toggleObscureText,
                                   visibleIcon: logInCubit.getIcon(),
                                   validate: logInCubit.validatePassword),
+                              Text('hint: password', style: TextStyle(color: Colors.grey.shade500)),
                               const SizedBox(
                                 height: 16.0,
                               ),
                               state is LogInLoadingState
-                                  ? Center(
-                                      child: CircularProgressIndicator(
-                                      color: AppColors.primary,
-                                      semanticsLabel: 'Loading.......',
-                                    ))
+                                  ? LoadingWidget()
                                   : CustomElevatedButton(
                                       fun: () {
+                                        //Focus to close Keyboard
                                         FocusScope.of(context).unfocus();
                                         logInCubit.logIn();
                                       },

@@ -68,8 +68,8 @@ class LogInCubit extends Cubit<LogInState> {
     if (formKey.currentState!.validate()) {
       emit(LogInLoadingState());
       Map data = {
-        'phone': emailController.text,
-        'passowrd': passwordController.text
+        'email': emailController.text,
+        'password': passwordController.text
       };
       logInProvider.logIn(data).then((value) {
         CacheHelper.storeUserData(value);

@@ -70,12 +70,11 @@ class CacheHelper {
   }
 
   static void storeUserData(LoginModel userData){
-    storeName('');
-    storeEmail('');
-    storeAuthToken('');
+    storeName(userData.user!.candidateUserUname!);
+    storeEmail(userData.user!.email!);
+    storeAuthToken(userData.accessToken!);
     storePhone('');
     storePassword('');
-    storePassword('');
-
+ 
   }
 }

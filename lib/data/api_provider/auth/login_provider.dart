@@ -13,6 +13,7 @@ class LoginProvider {
         connectTimeout: 20 * 1000,
         receiveTimeout: 20 * 1000,
         headers: {
+          'Accept': 'application/json',
           'content-Type': 'application/json',
           //"authorization": "bearer ${CacheHelper.getAuthToken()}"
         });
@@ -25,14 +26,19 @@ class LoginProvider {
         AppLinks.logIn,
         data: data,
       );
+      print(
+          '=============================response================================');
+      print(response.data.runtimeType);
+      print(response.data);
       if (response.statusCode == 200) {
         //show messages or snackbar of success
-        return  LoginModel.fromJson(response.data);
+        return LoginModel.fromJson(response.data);
       } else {
         //show messages or snackbar of failure
         return await Future.error(response.statusCode!);
       }
     } catch (e) {
+      print('error =================================>>>>>>>>>>>>> $e');
       return await Future.error(e);
     }
   }

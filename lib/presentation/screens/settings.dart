@@ -62,6 +62,11 @@ class SettingsScreen extends StatelessWidget {
                     AppLocalizations.of(context)!.translate('about_candidates'),
                     () {}),
                 _divider(),
+                _addSettingItem(
+                    context,
+                    AppImages.FILE,
+                    AppLocalizations.of(context)!.translate('login_biometric'),
+                    () {}),
               ],
             ),
           ),

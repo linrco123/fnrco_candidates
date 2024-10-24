@@ -1,75 +1,42 @@
- 
 class LoginModel {
-  int? code;
-  LoginData? data;
-  String? message;
+  User? user;
+  String? accessToken;
 
-  LoginModel({this.code, this.data, this.message});
+  LoginModel({this.user, this.accessToken});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-        message = json["message"];
-    data = json['data'] != {} ? LoginData?.fromJson(json['data']) : null;
-  }
-}
-
-class LoginData {
-  int? id;
-  String? name;
-  String? iqama;
-  String? phone;
-  String? email;
-  String? emailVerifiedAt;
-  String? createdAt;
-  String? updatedAt;
-  String? token;
-
-  LoginData(
-      {this.id,
-      this.name,
-      this.iqama,
-      this.phone,
-      this.email,
-      this.emailVerifiedAt,
-      this.createdAt,
-      this.updatedAt,
-      this.token});
-
-  LoginData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    iqama = json['iqama'];
-    phone = json['phone'];
-    email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    token = json['token'];
-  }
-
-  LoginData.fromLoginData(LoginData map) {
-    id = map.id;
-    name = map.name;
-    iqama = map.iqama;
-    phone = map.phone;
-    email = map.email;
-    emailVerifiedAt = map.emailVerifiedAt;
-    createdAt = map.createdAt;
-    updatedAt = map.updatedAt;
-    token = map.token;
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    accessToken = json['access_token'];
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['iqama'] = iqama;
-    data['phone'] = phone;
-    data['email'] = email;
-    data['email_verified_at'] = emailVerifiedAt;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    data['token'] = token;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    data['access_token'] = this.accessToken;
+    return data;
+  }
+}
+
+class User {
+  int? id;
+  String? candidateUserUname;
+  String? email;
+
+  User({this.id, this.candidateUserUname, this.email});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    candidateUserUname = json['candidate_user_uname'];
+    email = json['email'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['candidate_user_uname'] = this.candidateUserUname;
+    data['email'] = this.email;
     return data;
   }
 }

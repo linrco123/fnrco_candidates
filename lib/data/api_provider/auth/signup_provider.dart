@@ -13,7 +13,8 @@ class SignUpProvider {
         connectTimeout: 20 * 1000,
         receiveTimeout: 20 * 1000,
         headers: {
-          'content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
           //"authorization": "bearer ${CacheHelper.getAuthToken()}"
         });
     dio = Dio(_baseOptions);
