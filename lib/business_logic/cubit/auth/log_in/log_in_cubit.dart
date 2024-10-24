@@ -12,8 +12,9 @@ class LogInCubit extends Cubit<LogInState> {
   LogInCubit({required this.logInProvider}) : super(LogInInitialState());
   static LogInCubit instance(context) => BlocProvider.of(context);
   final formKey = GlobalKey<FormState>();
-  final phoneController = TextEditingController();
+ // final phoneController = TextEditingController();
   final passwordController = TextEditingController();
+  final emailController = TextEditingController();
 
   bool obscureText = true;
   void toggleObscureText() {
@@ -53,15 +54,24 @@ class LogInCubit extends Cubit<LogInState> {
     return null;
   }
 
+    String? validateEmail(context, String? value) {
+    final regex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    if (value!.isEmpty) {
+      return translateLang(context, "msg_plz_enter_email");
+    } else if (!regex.hasMatch(value)) {
+      return translateLang(context, "msg_plz_enter_correct_email");
+    }
+    return null;
+  }
+
   void logIn() {
     if (formKey.currentState!.validate()) {
       emit(LogInLoadingState());
       Map data = {
-        'phone': phoneController.text,
+        'phone': emailController.text,
         'passowrd': passwordController.text
       };
       logInProvider.logIn(data).then((value) {
-        //CacheHelper.sharedPreferences.setString();
         CacheHelper.storeUserData(value);
         emit(LogInSuccessState());
       }).catchError((error) {

@@ -48,6 +48,7 @@
     "msg_email_already_exist": "البريد الإلكتروني موجود بالفعل",
     "sign_in": "تسجيل الدخول",
     "log_in": "تسجيل الدخول",
+    "login_biometric":"تسجيل الدخول بالبصمة",
     "confirm_password": "تاكيد كلمة المرور",
     "forgot_password": "نسيت كلمة المرور؟",
     "do_not_have_an_account": "ليس لديك حساب؟",

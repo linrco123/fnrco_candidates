@@ -37,11 +37,12 @@ class SignInScreen extends StatelessWidget {
                     ),
                     backgroundColor: AppColors.success,
                   ));
-                  Future.delayed(const Duration(milliseconds: 600))
-                      .then((value) {
-                    Navigator.of(context)
+                   Navigator.of(context)
                         .pushReplacementNamed(AppPagesNames.HOMEPAGE);
-                  });
+                  // Future.delayed(const Duration(milliseconds: 600))
+                  //     .then((value) {
+                   
+                  // });
                 }
                 if (state is LogInErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -57,14 +58,6 @@ class SignInScreen extends StatelessWidget {
                 }
               }, builder: (BuildContext context, state) {
                 final LogInCubit logInCubit = LogInCubit.instance(context);
-                // final LogInCubit logInCubit = BlocProvider.of(context);
-                // if (state is LogInLoadingState) {
-                //   return Center(
-                //       child: CircularProgressIndicator(
-                //     color: AppColors.primary,
-                //     semanticsLabel: 'Loading.......',
-                //   ));
-                // }
                 return SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
@@ -81,12 +74,12 @@ class SignInScreen extends StatelessWidget {
                           key: logInCubit.formKey,
                           child: Column(
                             children: [
-                              NameEmailPhoneFormField(
-                                  controller: logInCubit.phoneController,
-                                  inputType: TextInputType.phone,
-                                  prefixIcon: CupertinoIcons.phone,
-                                  hint: translateLang(context, "phone_number"),
-                                  validate: logInCubit.validatePhone),
+                             NameEmailPhoneFormField(
+                              controller: logInCubit.emailController,
+                              inputType: TextInputType.emailAddress,
+                              prefixIcon: CupertinoIcons.mail,
+                              hint: translateLang(context, "email"),
+                              validate: logInCubit.validateEmail),
                               const SizedBox(
                                 height: 16.0,
                               ),
