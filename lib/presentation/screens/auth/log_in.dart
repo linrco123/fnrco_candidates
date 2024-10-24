@@ -30,18 +30,27 @@ class SignInScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                       'Login Successfuly',
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: AppColors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(color: AppColors.white),
                     ),
                     backgroundColor: AppColors.success,
                   ));
-                  Navigator.of(context)
-                      .pushReplacementNamed(AppPagesNames.HOMEPAGE);
+                  Future.delayed(const Duration(milliseconds: 600))
+                      .then((value) {
+                    Navigator.of(context)
+                        .pushReplacementNamed(AppPagesNames.HOMEPAGE);
+                  });
                 }
                 if (state is LogInErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                       'Error while Signing in',
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: AppColors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(color: AppColors.white),
                     ),
                     backgroundColor: AppColors.success,
                   ));
@@ -49,13 +58,13 @@ class SignInScreen extends StatelessWidget {
               }, builder: (BuildContext context, state) {
                 final LogInCubit logInCubit = LogInCubit.instance(context);
                 // final LogInCubit logInCubit = BlocProvider.of(context);
-                if (state is LogInLoadingState) {
-                  return Center(
-                      child: CircularProgressIndicator(
-                    color: AppColors.primary,
-                    semanticsLabel: 'Loading.......',
-                  ));
-                }
+                // if (state is LogInLoadingState) {
+                //   return Center(
+                //       child: CircularProgressIndicator(
+                //     color: AppColors.primary,
+                //     semanticsLabel: 'Loading.......',
+                //   ));
+                // }
                 return SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
@@ -93,12 +102,19 @@ class SignInScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomElevatedButton(
-                                  fun: () {
-                                    logInCubit.logIn();
-                                  },
-                                  background: AppColors.primary,
-                                  text: translateLang(context, 'sign_in')),
+                              state is LogInLoadingState
+                                  ? Center(
+                                      child: CircularProgressIndicator(
+                                      color: AppColors.primary,
+                                      semanticsLabel: 'Loading.......',
+                                    ))
+                                  : CustomElevatedButton(
+                                      fun: () {
+                                        FocusScope.of(context).unfocus();
+                                        logInCubit.logIn();
+                                      },
+                                      background: AppColors.primary,
+                                      text: translateLang(context, 'sign_in')),
                               const SizedBox(height: 16.0),
                               TextButton(
                                 onPressed: () {

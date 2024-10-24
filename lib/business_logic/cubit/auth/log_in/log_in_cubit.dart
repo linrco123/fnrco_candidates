@@ -5,14 +5,12 @@ import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
 
-import '../../../../constants/app_pages_names.dart';
-
 part 'log_in_state.dart';
 
 class LogInCubit extends Cubit<LogInState> {
   final LoginProvider logInProvider;
   LogInCubit({required this.logInProvider}) : super(LogInInitialState());
- static LogInCubit instance(context)=> BlocProvider.of(context);
+  static LogInCubit instance(context) => BlocProvider.of(context);
   final formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
@@ -20,7 +18,7 @@ class LogInCubit extends Cubit<LogInState> {
   bool obscureText = true;
   void toggleObscureText() {
     obscureText = !obscureText;
-     emit(LogInChangingObsecureTextState());
+    emit(LogInChangingObsecureTextState());
   }
 
   Icon getIcon() {
@@ -30,59 +28,45 @@ class LogInCubit extends Cubit<LogInState> {
     );
   }
 
-  String? validatePhone(context,String? value) {
+  String? validatePhone(context, String? value) {
     final regExp = RegExp(
       'Constance.phoneRegExp',
       caseSensitive: false,
       multiLine: false,
     );
-   
 
     if (value!.isEmpty) {
-      return translateLang(context, "msg_plz_enter_phone" );
-    } else if (!regExp.hasMatch(  value)) {
-      return translateLang(context,  "msg_plz_enter_correct_phone");
-    }
+      return translateLang(context, "msg_plz_enter_phone");
+      }
+    // } else if (!regExp.hasMatch(value)) {
+    //   return translateLang(context, "msg_plz_enter_correct_phone");
+    // }
     return null;
   }
 
-  String? validatePassword(context,String? value) {
- 
+  String? validatePassword(context, String? value) {
     if (value!.isEmpty) {
-      return translateLang(context, "msg_plz_enter_password" );
+      return translateLang(context, "msg_plz_enter_password");
     } else if (value.length < 6) {
       return translateLang(context, "msg_plz_enter_at_least_6_char");
     }
     return null;
   }
-void logIn(){
-    emit(LogInLoadingState());
-  if (formKey.currentState!.validate()) {
-   Map data = {
-    'phone':phoneController.text,
-    'passowrd':passwordController.text
-   };
-    logInProvider.logIn(data).then((value){
-      //CacheHelper.sharedPreferences.setString();
-      CacheHelper.storeUserData(value);
-      emit(LogInSuccessState());
-      
 
-    }).catchError((error){
-      emit(LogInErrorState(message: error));
-
-    });
-   
+  void logIn() {
+    if (formKey.currentState!.validate()) {
+      emit(LogInLoadingState());
+      Map data = {
+        'phone': phoneController.text,
+        'passowrd': passwordController.text
+      };
+      logInProvider.logIn(data).then((value) {
+        //CacheHelper.sharedPreferences.setString();
+        CacheHelper.storeUserData(value);
+        emit(LogInSuccessState());
+      }).catchError((error) {
+        emit(LogInErrorState(message: error));
+      });
+    }
   }
-  
-}
-
-
-
-
-
-
-
-
-
 }

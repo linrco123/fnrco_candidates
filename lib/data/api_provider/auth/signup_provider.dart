@@ -4,9 +4,9 @@ import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 
-class LoginProvider {
+class SignUpProvider {
   late Dio dio;
-  LoginProvider() {
+  SignUpProvider() {
     BaseOptions _baseOptions = BaseOptions(
         baseUrl: AppLinks.baseUrl,
         receiveDataWhenStatusError: true,
@@ -19,7 +19,7 @@ class LoginProvider {
     dio = Dio(_baseOptions);
   }
 
-  Future<LoginModel> logIn(Map data) async {
+  Future<LoginModel> signUp(Map data) async {
     try {
       final Response response = await dio.post(
         AppLinks.logIn,

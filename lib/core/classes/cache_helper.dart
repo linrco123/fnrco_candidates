@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:fnrco_candidates/data/models/auth/login_modl.dart';
+import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
