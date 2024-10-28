@@ -39,7 +39,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                   background: AppColors.secondary,
                   text: translateLang(context, 'sign_up')),
               const SizedBox(height: 16.0),
-              CacheHelper.getBiometricStatus == true
+              CacheHelper.getBiometricStatus()
                   ? CustomElevatedButton(
                       fun: () {},
                       background: AppColors.secondary,

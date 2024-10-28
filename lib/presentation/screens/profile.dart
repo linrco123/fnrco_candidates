@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/business_logic/cubit/profile/profile_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/profile/profile_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';

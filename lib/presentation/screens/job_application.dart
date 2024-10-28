@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/business_logic/cubit/job_application/job_application_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/job_application/job_application_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/classes/dotted_border.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';

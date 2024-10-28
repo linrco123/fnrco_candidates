@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/business_logic/cubit/auth/otp/otp_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/auth/otp/otp_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';

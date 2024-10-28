@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_cubit.dart';
-import 'package:fnrco_candidates/business_logic/cubit/on_boarding/on_boarding_state.dart';
+import 'package:fnrco_candidates/logic/cubit/on_boarding/on_boarding_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/on_boarding/on_boarding_state.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';

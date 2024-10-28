@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/business_logic/cubit/auth/sign_up/sign_up_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/auth/sign_up/sign_up_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
@@ -143,10 +143,10 @@ class SignUpScreen extends StatelessWidget {
                                             (gender) => DropdownMenuItem<int>(
                                                   //alignment: Alignment.center,
                                                   child: Text(
-                                                      '${gender } )'),
+                                                      '${gender.metaDataText }'),
                                                   value: gender.id,
                                                 ))
-                                        .toList(), text: 'gender', icon:  Image.asset(
+                                        .toList(), text: translateLang(context, 'gender'), icon:  Image.asset(
                                       AppImages.gender,
                                       height: 25.0,
                                       width: 25,
@@ -157,10 +157,10 @@ class SignUpScreen extends StatelessWidget {
                                             (gender) => DropdownMenuItem<int>(
                                                   //alignment: Alignment.center,
                                                   child: Text(
-                                                      '${gender } )'),
+                                                      '${gender.metaDataText }'),
                                                   value: gender.id,
                                                 ))
-                                        .toList(), text: 'gender', icon:  Image.asset(
+                                        .toList(), text: translateLang(context,'religion'), icon:  Image.asset(
                                       AppImages.religion,
                                       height: 25.0,
                                       width: 25,

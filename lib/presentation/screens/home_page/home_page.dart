@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fnrco_candidates/business_logic/cubit/home_page/home_page_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/home_page/home_page_cubit.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';

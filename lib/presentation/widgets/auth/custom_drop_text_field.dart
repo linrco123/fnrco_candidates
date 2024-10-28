@@ -14,7 +14,7 @@ class CustomDropTextField extends StatelessWidget {
       required this.text,
       required this.icon,
       this.desc,
-     required this.onChanged});
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,6 @@ class CustomDropTextField extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: 13.0),
       items: items,
-
       menuMaxHeight: 200.0,
       enableFeedback: true,
       borderRadius: BorderRadius.circular(20.0),
@@ -32,7 +31,7 @@ class CustomDropTextField extends StatelessWidget {
       icon: const Icon(CupertinoIcons.chevron_compact_down),
       iconEnabledColor: AppColors.grey,
       // value: signUpCubit.countryId,
-      onChanged:(value)=> onChanged(value!),
+      onChanged: (value) => onChanged(value!),
       hint: Text(
         text,
         style: Theme.of(context).textTheme.headlineSmall,
@@ -40,9 +39,8 @@ class CustomDropTextField extends StatelessWidget {
       decoration: InputDecoration(
         // hintText: translateLang(context, 'country'),
         prefixIconColor: AppColors.grey,
-        prefix: Container(
-          margin: const EdgeInsets.only(right: 10.0),
-          child: icon),
+        prefix:
+            Container(margin: const EdgeInsets.only(right: 10.0), child: icon),
 
         alignLabelWithHint: true,
         isDense: true,
