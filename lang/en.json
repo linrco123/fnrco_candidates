@@ -127,5 +127,7 @@
     "new_password":"New Password",
     "old_password":"Old Password",
     "save_updates":"save updates",
-    "cancel":"Cancel"
+    "cancel":"Cancel",
+    "position":"Position"
+
 }

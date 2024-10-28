@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/business_logic/cubit/auth/sign_up/sign_up_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
+import 'package:fnrco_candidates/presentation/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/presentation/widgets/auth/password_form_field.dart';
@@ -19,7 +21,10 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return BlocProvider(
-      create: (context) => SignUpCubit(SignUpProvider())..getCountries(),
+      create: (context) => SignUpCubit(SignUpProvider())
+        ..getCountries()
+        ..getPositions()
+        ..getGenders(),
       child: Scaffold(
         backgroundColor: AppColors.white,
         body: SafeArea(
@@ -87,11 +92,7 @@ class SignUpScreen extends StatelessWidget {
                                 ? LinearProgressIndicator(
                                     color: AppColors.primary,
                                   )
-                                : DropdownButtonFormField(
-                                    style: TextStyle(
-                                        color: AppColors.secondary,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13.0),
+                                : CustomDropTextField(
                                     items: signUpCubit.countries
                                         .map((country) => DropdownMenuItem<int>(
                                               //alignment: Alignment.center,
@@ -100,49 +101,74 @@ class SignUpScreen extends StatelessWidget {
                                               value: country.id,
                                             ))
                                         .toList(),
-                                        
-                                    menuMaxHeight: 200.0,
-                                    enableFeedback: true,
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    dropdownColor: AppColors.primary,
-                                    icon: const Icon(
-                                        CupertinoIcons.chevron_compact_down),
-                                    iconEnabledColor: AppColors.grey,
-                                   // value: signUpCubit.countryId,
-                                    onChanged: (value) =>
-                                        signUpCubit.selectCountry(value!),
-                                    hint: Text(
-                                      translateLang(context, 'country'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall,
+                                    text: translateLang(context, 'country'),
+                                    icon: Icon(
+                                      CupertinoIcons.building_2_fill,
+                                      color: AppColors.grey,
                                     ),
-                                    decoration: InputDecoration(
-                                      // hintText: translateLang(context, 'country'),
-                                      prefixIcon:
-                                          Icon(CupertinoIcons.building_2_fill),
-                                      prefixIconColor: AppColors.grey,
-                                      alignLabelWithHint: true,
-                                      isDense: true,
-                                      helperText: 'choose your country !!',
-                                      helperStyle: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium,
-                                      hintStyle: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall,
-                                      filled: true,
-                                      fillColor: AppColors.blurGreen,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 10),
-                                      border: const OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                      ),
-                                    ),
+                                    desc: 'choose your country !!',
+                                    onChanged: signUpCubit.selectCountry,
                                   ),
+
+                            const SizedBox(
+                              height: 16.0,
+                            ),
+                            signUpCubit.positions.isEmpty
+                                ? LinearProgressIndicator(
+                                    color: AppColors.primary,
+                                  )
+                                : CustomDropTextField(
+                                    onChanged: signUpCubit.selectPosition,
+                                    items: signUpCubit.positions
+                                        .map(
+                                            (position) => DropdownMenuItem<int>(
+                                                  //alignment: Alignment.center,
+                                                  child: Text(
+                                                      '${position.positionName!.substring(0, 30)}........)'),
+                                                  value: position.id,
+                                                ))
+                                        .toList(),
+                                    text: translateLang(context, 'position'),
+                                    icon: Image.asset(
+                                      AppImages.position1,
+                                      height: 25.0,
+                                      width: 25,
+                                      color: AppColors.grey,
+                                    ),
+                                    desc: 'choose your position !!',
+                                  ),
+                                  const SizedBox(height: 16,),
+                                  Row(children: [
+                                    Expanded(child: CustomDropTextField(items: signUpCubit.genders.map(
+                                            (gender) => DropdownMenuItem<int>(
+                                                  //alignment: Alignment.center,
+                                                  child: Text(
+                                                      '${gender } )'),
+                                                  value: gender.id,
+                                                ))
+                                        .toList(), text: 'gender', icon:  Image.asset(
+                                      AppImages.gender,
+                                      height: 25.0,
+                                      width: 25,
+                                      color: AppColors.grey,
+                                    ), onChanged: signUpCubit.selectGender)),
+                                    const SizedBox(width: 15,),
+                                      Expanded(child: CustomDropTextField(items: signUpCubit.genders.map(
+                                            (gender) => DropdownMenuItem<int>(
+                                                  //alignment: Alignment.center,
+                                                  child: Text(
+                                                      '${gender } )'),
+                                                  value: gender.id,
+                                                ))
+                                        .toList(), text: 'gender', icon:  Image.asset(
+                                      AppImages.religion,
+                                      height: 25.0,
+                                      width: 25,
+                                      color: AppColors.grey,
+                                    ),onChanged: signUpCubit.selectReligion)),
+                                  ],),
+
+                            // Image.asset(AppImages.position),
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16.0),

@@ -12,7 +12,8 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      AppLocalizationsDelegate();
   Map<String, String> _localizedStrings = {};
 
   Future<void> load() async {
@@ -24,5 +25,7 @@ class AppLocalizations {
   }
 
   String translate(String key) => _localizedStrings[key] ?? " ";
+  
   bool get isEnLocale => locale.languageCode == 'en';
+  bool get isArLocale => locale.languageCode == 'ar';
 }

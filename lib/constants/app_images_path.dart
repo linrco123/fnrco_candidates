@@ -7,10 +7,17 @@ class AppImages {
   static const LOGO = '$_images/fnrcoerp_logo.png';
   static const SALARY = '$_images/salary.png';
   static const JOB_OFFER = '$_images/job-offer.png';
-  static const CHECKED = '$_images/check.png'; 
-   static const COMPANY = '$_images/company.jpg'; 
-   static const User = '$_images/user.png';
- 
+  static const CHECKED = '$_images/check.png';
+  static const COMPANY = '$_images/company.jpg';
+  static const User = '$_images/user.png';
+
+  static const position = '$_images/position.png';
+  static const position1 = '$_images/position1.png';
+  static const gender = '$_images/gender.png';
+  static const religion = '$_images/religion.png';
+
+  static const religion1 = '$_images/religion1.png';
+
   ////////////////////TODO:////  BOTTOM.......////////////////////////////////
   static const MEDICAL_DECLARATION = '$_bottom/medical-declare.png';
 

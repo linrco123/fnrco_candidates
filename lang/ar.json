@@ -124,5 +124,6 @@
     "new_password": "كلمة المرور الجديدة",
     "old_password": "كلمة المرور القديمة",
     "save_updates": "حفظ التغيرات",
-    "cancel":"عودة"
+    "cancel":"عودة",
+    "position":"الوظيفة"
 }

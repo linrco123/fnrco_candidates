@@ -55,8 +55,8 @@ class HomeTapScreen extends StatelessWidget {
                                   .copyWith(color: AppColors.white),
                             ),
                             Text(
-                              //CacheHelper.getName()??''
-                              'Muhammed Nady',
+                              CacheHelper.getName()??'Guest',
+                              //'Muhammed Nady',
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ],

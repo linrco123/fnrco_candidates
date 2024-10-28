@@ -1,35 +1,40 @@
 class LoginModel {
-  User? user;
-  String? accessToken;
+  bool? status;
+  String? message;
+  Data? data;
 
-  LoginModel({this.user, this.accessToken});
+  LoginModel({this.status, this.message, this.data});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    accessToken = json['access_token'];
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
-    data['access_token'] = this.accessToken;
     return data;
   }
 }
 
-class User {
+class Data {
   int? id;
   String? candidateUserUname;
   String? email;
+  String? accessToken;
 
-  User({this.id, this.candidateUserUname, this.email});
+  Data({this.id, this.candidateUserUname, this.email, this.accessToken});
 
-  User.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     candidateUserUname = json['candidate_user_uname'];
     email = json['email'];
+    accessToken = json['access_token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +42,7 @@ class User {
     data['id'] = this.id;
     data['candidate_user_uname'] = this.candidateUserUname;
     data['email'] = this.email;
+    data['access_token'] = this.accessToken;
     return data;
   }
 }

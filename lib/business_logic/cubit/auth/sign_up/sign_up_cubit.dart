@@ -5,6 +5,8 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
 
 part 'sign_up_state.dart';
 
@@ -19,12 +21,32 @@ class SignUpCubit extends Cubit<SignUpState> {
   final countryController = TextEditingController();
   final emailController = TextEditingController();
   int countryId = 0;
+  int positionId = 0;
+  int genderId = 0;
+  int religionId = 0;
 
-  void selectCountry(int value) {
-    countryId = value;
-    print(
-        'Country is as follows ========================>>>>>>>>>>>>>> $value');
+  void selectCountry(Object value) {
+    countryId = int.parse(value.toString());
+
     emit(SignUpChoosingCountryState());
+  }
+
+  void selectPosition(Object value) {
+    positionId = int.parse(value.toString());
+
+    emit(SignUpChoosingPositionState());
+  }
+
+  void selectGender(Object value) {
+    genderId = int.parse(value.toString());
+
+    emit(SignUpChoosingGenderState());
+  }
+
+  void selectReligion(Object value) {
+    religionId = int.parse(value.toString());
+
+    emit(SignUpChoosingReligionState());
   }
 
   bool obscureText = true;
@@ -87,7 +109,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (formKey.currentState!.validate() && countryId != 0) {}
   }
 
- var countries = List<Country>.empty(growable: true);
+  var countries = List<Country>.empty(growable: true);
   void getCountries() {
     emit(SignUpGettingCountriesLoadingState());
     countries.clear();
@@ -98,6 +120,32 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(SignUpGettingCountriesFailureState());
     });
   }
+
+  var positions = List<Position>.empty(growable: true);
+  void getPositions() {
+    emit(SignUpGettingPositionsLoadingState());
+    positions.clear();
+    signUpProvider.getPositions().then((value) {
+      for (var position in value.positions as List) positions.add(position);
+      emit(SignUpGettingPositionsSuccessState(countries: positions));
+    }).catchError((error) {
+      emit(SignUpGettingPositionsFailureState());
+    });
+  }
+
+  var genders = List<Gender>.empty(growable: true);
+  void getgenders() {
+    emit(SignUpGettingGenderLoadingState());
+    genders.clear();
+    signUpProvider.getGenders().then((value) {
+      for (var gender in value.genders as List) genders.add(gender);
+      emit(SignUpGettingGenderSuccessState());
+    }).catchError((error) {
+      emit(SignUpGettingGenderFailureState());
+    });
+  }
+
+  void getGenders() {}
 
 // only for demo
   // List<DropdownMenuItem<String>>? countries = [
