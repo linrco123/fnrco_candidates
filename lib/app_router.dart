@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/presentation/screens/auth/auth.dart';
-import 'package:fnrco_candidates/presentation/screens/auth/change_password.dart';
-import 'package:fnrco_candidates/presentation/screens/auth/forget_password.dart';
-import 'package:fnrco_candidates/presentation/screens/auth/log_in.dart';
-import 'package:fnrco_candidates/presentation/screens/home_page/home_page.dart';
-import 'package:fnrco_candidates/presentation/screens/job_application.dart';
-import 'package:fnrco_candidates/presentation/screens/job_details.dart';
-import 'package:fnrco_candidates/presentation/screens/job_offer.dart';
-import 'package:fnrco_candidates/presentation/screens/medical_declare.dart';
-import 'package:fnrco_candidates/presentation/screens/on_boarding/on_boarding2_screen.dart';
-import 'package:fnrco_candidates/presentation/screens/auth/otp.dart';
-import 'package:fnrco_candidates/presentation/screens/auth/sign_up.dart';
-import 'package:fnrco_candidates/presentation/screens/profile.dart';
-import 'package:fnrco_candidates/presentation/screens/profile_editing.dart';
-import 'package:fnrco_candidates/presentation/screens/resume.dart';
+import 'package:fnrco_candidates/ui/screens/auth/auth.dart';
+import 'package:fnrco_candidates/ui/screens/auth/change_password.dart';
+import 'package:fnrco_candidates/ui/screens/auth/forget_password.dart';
+import 'package:fnrco_candidates/ui/screens/auth/log_in.dart';
+import 'package:fnrco_candidates/ui/screens/home_page/home_page.dart';
+import 'package:fnrco_candidates/ui/screens/job_application.dart';
+import 'package:fnrco_candidates/ui/screens/job_details.dart';
+import 'package:fnrco_candidates/ui/screens/job_offer.dart';
+import 'package:fnrco_candidates/ui/screens/medical_declare.dart';
+import 'package:fnrco_candidates/ui/screens/on_boarding/on_boarding2_screen.dart';
+import 'package:fnrco_candidates/ui/screens/auth/otp.dart';
+import 'package:fnrco_candidates/ui/screens/auth/sign_up.dart';
+import 'package:fnrco_candidates/ui/screens/profile.dart';
+import 'package:fnrco_candidates/ui/screens/profile_editing.dart';
+import 'package:fnrco_candidates/ui/screens/resume.dart';
 
 class AppRouter {
   static Route? routeTo(RouteSettings settings) {

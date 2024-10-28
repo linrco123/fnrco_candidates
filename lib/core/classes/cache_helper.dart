@@ -10,7 +10,7 @@ class CacheHelper {
   static Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
     secureStorage = FlutterSecureStorage();
-    storeBiometricStatus(false);
+    //storeBiometricStatus(false);
   }
 
   static void storeAuthToken(String authToken) async {
@@ -37,12 +37,13 @@ class CacheHelper {
     return await secureStorage.read(key: 'password');
   }
 
-  static storeBiometricStatus(bool name) async {
-    await sharedPreferences.setBool('user_bio', name);
+  static storeBiometricStatus(bool value) async {
+   print('value is   ========================>>>> ${value}');
+    await sharedPreferences.setBool('user_bio', value);
   }
 
   static bool getBiometricStatus() {
-    return sharedPreferences.getBool('user_bio')!;
+    return sharedPreferences.getBool('user_bio')?? false;
   }
 
   static storeName(String name) async {

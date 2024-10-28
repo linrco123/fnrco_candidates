@@ -125,5 +125,9 @@
     "old_password": "كلمة المرور القديمة",
     "save_updates": "حفظ التغيرات",
     "cancel":"عودة",
-    "position":"الوظيفة"
+    "position":"الوظيفة",
+     "gender":"الجنس",
+    "religion":"الدين",
+    "results": "النتائج",
+    "job_founded": "وظيفة موجودة"
 }

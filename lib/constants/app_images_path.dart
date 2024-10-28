@@ -17,6 +17,11 @@ class AppImages {
   static const religion = '$_images/religion.png';
 
   static const religion1 = '$_images/religion1.png';
+  
+
+  static const fingerPrint = '$_images/fingerprint.png';
+  static const fingerPrint1 = '$_images/fingerprint1.png';
+  static const fingerPrint2 = '$_images/fingerprint2.png';
 
   ////////////////////TODO:////  BOTTOM.......////////////////////////////////
   static const MEDICAL_DECLARATION = '$_bottom/medical-declare.png';
