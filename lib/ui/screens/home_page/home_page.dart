@@ -79,7 +79,7 @@ class HomePageScreen extends StatelessWidget {
                                         .copyWith(color: AppColors.white),
                                   ),
                                   Text(
-                                    'muhammednady49@gmail.com',
+                                    CacheHelper.getEmail()??'.....@gmail.com',
                                     //CacheHelper.sharedPreferences.getString('user_email')!,
                                     style: Theme.of(context)
                                         .textTheme
