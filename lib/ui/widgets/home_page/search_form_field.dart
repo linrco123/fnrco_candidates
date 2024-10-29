@@ -30,7 +30,7 @@ class SearchFormField extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .headlineSmall!
-          .copyWith(color: AppColors.secondary),
+          .copyWith(color: AppColors.secondary), 
       controller: controller,
       onFieldSubmitted: (value) => preFun,
       keyboardType: TextInputType.text,
