@@ -83,6 +83,7 @@ class HomeTapScreen extends StatelessWidget {
                           preIcon: Icons.search,
                           preFun: homePageCubit.searchAJob ,
                           sufIcon: Icons.close,
+                          borderColor: AppColors.white,
                           suFun: (){},
                       )),
                 ],

@@ -44,7 +44,8 @@ class SearchFormField extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50),
-              borderSide: BorderSide(width: width, color: borderColor)),
+              borderSide: BorderSide(width: width, color: borderColor)
+              ),
           prefixIcon: IconButton(
               onPressed: preFun,
               icon: Icon(
@@ -55,7 +56,8 @@ class SearchFormField extends StatelessWidget {
               onPressed: suFun,
               icon: Icon(
                 sufIcon,
-                color: AppColors.black,
+                size: 17.0,
+                color: AppColors.primary,
               ))),
     );
   }
