@@ -6,6 +6,7 @@ import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
 
 class SignUpProvider {
   late Dio dio;
@@ -84,7 +85,6 @@ class SignUpProvider {
     }
   }
 
-  
   Future<GenderModel> getGenders() async {
     try {
       final Response response = await dio.get(
@@ -96,6 +96,28 @@ class SignUpProvider {
       if (response.statusCode == 200) {
         //show messages or snackbar of success
         return GenderModel.fromJson(response.data);
+      } else {
+        //show messages or snackbar of failure
+        return await Future.error(response.statusCode!);
+      }
+    } catch (e) {
+      print('================error===========================$e');
+
+      return await Future.error(e);
+    }
+  }
+
+  Future<ReligionModel> getReligions() async {
+    try {
+      final Response response = await dio.get(
+        AppLinks.religion,
+      );
+      print(
+          '================religions  // response===========================');
+      print(response.data);
+      if (response.statusCode == 200) {
+        //show messages or snackbar of success
+        return ReligionModel.fromJson(response.data);
       } else {
         //show messages or snackbar of failure
         return await Future.error(response.statusCode!);

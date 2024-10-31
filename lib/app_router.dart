@@ -5,6 +5,7 @@ import 'package:fnrco_candidates/ui/screens/auth/change_password.dart';
 import 'package:fnrco_candidates/ui/screens/auth/forget_password.dart';
 import 'package:fnrco_candidates/ui/screens/auth/log_in.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_page.dart';
+import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
 import 'package:fnrco_candidates/ui/screens/job_application.dart';
 import 'package:fnrco_candidates/ui/screens/job_details.dart';
 import 'package:fnrco_candidates/ui/screens/job_offer.dart';
@@ -68,7 +69,13 @@ class AppRouter {
         );
       case AppPagesNames.JOB_OFFER:
         return MaterialPageRoute(
-          builder: (context) => JobOfferScreen(pdfLink: '',),
+          builder: (context) => JobOfferScreen(
+            pdfLink: '',
+          ),
+        );
+      case AppPagesNames.INTERNET_CONNECTION:
+        return MaterialPageRoute(
+          builder: (context) => InternetConnectionScreen(),
         );
       case AppPagesNames.JOB_DETAILS:
         var args = settings.arguments;

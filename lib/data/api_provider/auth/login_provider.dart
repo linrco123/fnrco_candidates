@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:async';
+
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
+import 'package:fnrco_candidates/constants/exceptions.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 
 class LoginProvider {
@@ -20,9 +23,7 @@ class LoginProvider {
     dio = Dio(_baseOptions);
   }
 
-  Future<LoginModel> logIn(Map data) async {
-
-    final Response response;
+  Future<LoginModel?> logIn(Map data) async {
     try {
       final Response response = await dio.post(
         AppLinks.logIn,
@@ -36,26 +37,24 @@ class LoginProvider {
       if (response.statusCode == 200) {
         //show messages or snackbar of success
         return LoginModel.fromJson(response.data);
-      } else {
-        //show messages or snackbar of failure
-        return  Future.error(response.statusCode!);
       }
-    } catch (e) {
-      print('error =================================>>>>>>>>>>>>> $e');
-      return await Future.error(e);
+    } on DioError catch (e) {
+      print(
+          '================================== e.runtimeType =============================');
+      print(e.runtimeType);
+
+      // print('error =================================>>>>>>>>>>>>> $e');
+      if (e.response?.statusCode == 400) {
+        throw ApiException(e.message);
+      }
     }
+    return null;
   }
-  // Future<Response> postData(String endpoint, Map<String, dynamic> data) async {
-  //   try {
-  //     final response = await ApiClient.instance.post(endpoint, data: data);
-  //     return response;
-  //   } on DioError catch (e) {
-  //     // Handle the DioError based on its type
-  //     handleDioError(e);
-  //     throw e; // Optionally rethrow the error if you want to handle it further up
-  //   }
-  // }
-  //
+}
+
+
+
+  
   // void handleDioError(DioError error) {
   //   switch (error.type) {
   //     case DioErrorType.connectTimeout:
@@ -80,4 +79,3 @@ class LoginProvider {
   //       break;
   //   }
   // }
-}

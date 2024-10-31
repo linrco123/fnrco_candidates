@@ -56,12 +56,19 @@ class JobOfferCubit extends Cubit<JobOfferState> {
   void _postJobOffer(Map data) {
     //TODO: code to upload (post) joboffer to backend
   }
-  
+
   void downloadJobOffer(String jobOffer) async {
     emit(JobOfferDownloadPDFLoadingState());
     var fileName = jobOffer.substring(jobOffer.lastIndexOf('/') + 1);
     var urlDir = await getExternalStorageDirectory();
-    Dio().download(jobOffer, '${urlDir!.path}/${fileName}');
-   // File file = File(path)
+    Dio()
+        .download(jobOffer, '${urlDir!.path}/${fileName}')
+        .then((value) {
+          emit(JobOfferDownloadPDFSuccessState());
+        })
+        .catchError((error) {
+            emit(JobOfferDownloadPDFFailureState());
+        });
+    // File file = File(path)
   }
 }

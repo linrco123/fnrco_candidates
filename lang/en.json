@@ -132,6 +132,10 @@
     "gender":"Gender",
     "religion":"Religion",
     "results": "Results",
-    "job_founded": "Jobs founded"
+    "job_founded": "Jobs founded",
+    "no_internet_conn": "No internet connection",
+    "check_modem": "Check your modem or router",
+    "check_wifi": "Reconnect to Wi-Fi",
+    "reload": "Reload"
 
 }

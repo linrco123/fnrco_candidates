@@ -6,6 +6,7 @@ import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
 
 part 'sign_up_state.dart';
 
@@ -126,6 +127,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     positions.clear();
     signUpProvider.getPositions().then((value) {
       for (var position in value.positions as List) positions.add(position);
+      print(
+          '=========================positions===============================');
+      print(positions.length);
       emit(SignUpGettingPositionsSuccessState(countries: positions));
     }).catchError((error) {
       emit(SignUpGettingPositionsFailureState());
@@ -144,11 +148,16 @@ class SignUpCubit extends Cubit<SignUpState> {
     });
   }
 
+  var religions = List<Religion>.empty(growable: true);
   void getReligions() {
-
-
-
-
+    emit(SignUpGettingReligionLoadingState());
+    religions.clear();
+    signUpProvider.getReligions().then((value) {
+      for (var religion in value.data as List) religions.add(religion);
+      emit(SignUpGettingReligionsSuccessState());
+    }).catchError((error) {
+      emit(SignUpGettingReligionFailureState());
+    });
   }
 
 // only for demo

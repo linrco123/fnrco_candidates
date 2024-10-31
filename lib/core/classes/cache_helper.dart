@@ -13,6 +13,10 @@ class CacheHelper {
     //storeBiometricStatus(false);
   }
 
+  static void removeAll(){
+    sharedPreferences.remove('user_email');
+  }
+
   static void storeAuthToken(String authToken) async {
     await secureStorage.write(key: 'auth_key', value: authToken);
   }
@@ -38,8 +42,7 @@ class CacheHelper {
   }
 
   static storeBiometricStatus(bool value) async {
-   print('value is   ========================>>>> ${value}');
-    await sharedPreferences.setBool('user_bio', value);
+     await sharedPreferences.setBool('user_bio', value);
   }
 
   static bool getBiometricStatus() {
@@ -81,7 +84,7 @@ class CacheHelper {
   static void storeUserData(LoginModel userData) {
     storeName(userData.data!.candidateUserUname!.isNotEmpty
         ? userData.data!.candidateUserUname!
-        : 'You are Welcome');
+        : 'Guest');
     storeEmail(userData.data!.email!);
     storeAuthToken(userData.data!.accessToken!);
     storePhone('');

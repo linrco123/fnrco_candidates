@@ -40,21 +40,18 @@ class SignInScreen extends StatelessWidget {
                   ));
                   Navigator.of(context)
                       .pushReplacementNamed(AppPagesNames.HOMEPAGE);
-                  // Future.delayed(const Duration(milliseconds: 600))
-                  //     .then((value) {
-
-                  // });
+ 
                 }
                 if (state is LogInErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                      'Error while Signing in',
+                      state.message,
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
                           .copyWith(color: AppColors.white),
                     ),
-                    backgroundColor: AppColors.success,
+                    backgroundColor: AppColors.danger,
                   ));
                 }
               }, builder: (BuildContext context, state) {

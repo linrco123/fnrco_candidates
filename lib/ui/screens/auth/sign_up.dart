@@ -24,7 +24,8 @@ class SignUpScreen extends StatelessWidget {
       create: (context) => SignUpCubit(SignUpProvider())
         ..getCountries()
         ..getPositions()
-        ..getGenders(),
+        ..getGenders()
+        ..getReligions(),
       child: Scaffold(
         backgroundColor: AppColors.white,
         body: SafeArea(
@@ -88,7 +89,7 @@ class SignUpScreen extends StatelessWidget {
                             const SizedBox(
                               height: 16.0,
                             ),
-                            state is SignUpGettingCountriesLoadingState
+                            signUpCubit.countries.isEmpty
                                 ? LinearProgressIndicator(
                                     color: AppColors.primary,
                                   )
@@ -123,8 +124,12 @@ class SignUpScreen extends StatelessWidget {
                                         .map(
                                             (position) => DropdownMenuItem<int>(
                                                   //alignment: Alignment.center,
-                                                  child: Text(
-                                                      '${position.positionName!.substring(0, 30)}........)'),
+                                                  child: Text(position
+                                                              .positionName!
+                                                              .length >
+                                                          30
+                                                      ? '${position.positionName!.substring(0, 30)}.........'
+                                                      : position.positionName!),
                                                   value: position.id,
                                                 ))
                                         .toList(),
@@ -137,36 +142,66 @@ class SignUpScreen extends StatelessWidget {
                                     ),
                                     desc: 'choose your position !!',
                                   ),
-                                  const SizedBox(height: 16,),
-                                  Row(children: [
-                                    Expanded(child: CustomDropTextField(items: signUpCubit.genders.map(
-                                            (gender) => DropdownMenuItem<int>(
-                                                  //alignment: Alignment.center,
-                                                  child: Text(
-                                                      '${gender.metaDataText }'),
-                                                  value: gender.id,
-                                                ))
-                                        .toList(), text: translateLang(context, 'gender'), icon:  Image.asset(
-                                      AppImages.gender,
-                                      height: 25.0,
-                                      width: 25,
-                                      color: AppColors.grey,
-                                    ), onChanged: signUpCubit.selectGender)),
-                                    const SizedBox(width: 15,),
-                                      Expanded(child: CustomDropTextField(items: signUpCubit.genders.map(
-                                            (gender) => DropdownMenuItem<int>(
-                                                  //alignment: Alignment.center,
-                                                  child: Text(
-                                                      '${gender.metaDataText }'),
-                                                  value: gender.id,
-                                                ))
-                                        .toList(), text: translateLang(context,'religion'), icon:  Image.asset(
-                                      AppImages.religion,
-                                      height: 25.0,
-                                      width: 25,
-                                      color: AppColors.grey,
-                                    ),onChanged: signUpCubit.selectReligion)),
-                                  ],),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: signUpCubit.genders.isEmpty
+                                        ? LinearProgressIndicator(
+                                            color: AppColors.primary,
+                                          )
+                                        : CustomDropTextField(
+                                            items: signUpCubit.genders
+                                                .map((gender) =>
+                                                    DropdownMenuItem<int>(
+                                                      //alignment: Alignment.center,
+                                                      child: Text(
+                                                          '${gender.metaDataText}'),
+                                                      value: gender.id,
+                                                    ))
+                                                .toList(),
+                                            text: translateLang(
+                                                context, 'gender'),
+                                            icon: Image.asset(
+                                              AppImages.gender,
+                                              height: 25.0,
+                                              width: 25,
+                                              color: AppColors.grey,
+                                            ),
+                                            onChanged:
+                                                signUpCubit.selectGender)),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Expanded(
+                                    child: signUpCubit.religions.isEmpty
+                                        ? LinearProgressIndicator(
+                                            color: AppColors.primary,
+                                          )
+                                        : CustomDropTextField(
+                                            items: signUpCubit.religions
+                                                .map((religion) =>
+                                                    DropdownMenuItem<int>(
+                                                      //alignment: Alignment.center,
+                                                      child: Text(
+                                                          '${religion.religionName}'),
+                                                      value: religion.id,
+                                                    ))
+                                                .toList(),
+                                            text: translateLang(
+                                                context, 'religion'),
+                                            icon: Image.asset(
+                                              AppImages.religion,
+                                              height: 25.0,
+                                              width: 25,
+                                              color: AppColors.grey,
+                                            ),
+                                            onChanged:
+                                                signUpCubit.selectReligion)),
+                              ],
+                            ),
 
                             // Image.asset(AppImages.position),
                             Padding(

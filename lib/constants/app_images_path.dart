@@ -21,8 +21,9 @@ class AppImages {
 
   static const fingerPrint = '$_images/fingerprint.png';
   static const fingerPrint1 = '$_images/fingerprint1.png';
-  static const fingerPrint2 = '$_images/fingerprint2.png';
-
+  static const fingerPrint2 = '$_images/fingerprint2.png'; 
+  static const wifi1 = '$_images/wifi1.png';
+  static const wifi3 = '$_images/wifi3.png';
   ////////////////////TODO:////  BOTTOM.......////////////////////////////////
   static const MEDICAL_DECLARATION = '$_bottom/medical-declare.png';
 

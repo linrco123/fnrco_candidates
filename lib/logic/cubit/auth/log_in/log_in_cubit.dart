@@ -72,10 +72,11 @@ class LogInCubit extends Cubit<LogInState> {
         'password': passwordController.text
       };
       logInProvider.logIn(data).then((value) {
-        CacheHelper.storeUserData(value);
+        CacheHelper.storeUserData(value!);
         emit(LogInSuccessState());
       }).catchError((error) {
-        emit(LogInErrorState(message: error));
+        print('===========================================');
+         emit(LogInErrorState(message: error.message.toString()));
       });
     }
   }

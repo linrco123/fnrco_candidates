@@ -11,6 +11,7 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
+import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
 import 'package:fnrco_candidates/ui/screens/notifications.dart';
 import 'package:fnrco_candidates/ui/screens/profile.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
@@ -61,25 +62,26 @@ class HomePageScreen extends StatelessWidget {
                                     backgroundColor: AppColors.white,
                                     child: CircleAvatar(
                                       radius: 52,
-                                      backgroundImage:
-                                           CacheHelper.getImage() == null
-                                    ? AssetImage(AppImages.User)
-                                    : FileImage(File(CacheHelper.getImage()!)),
+                                      backgroundImage: CacheHelper.getImage() ==
+                                              null
+                                          ? AssetImage(AppImages.User)
+                                          : FileImage(
+                                              File(CacheHelper.getImage()!)),
                                     ),
                                   ),
                                   SizedBox(
                                     height: 12,
                                   ),
                                   Text(
-                                    'Muhammed Nady',
-                                    //CacheHelper.sharedPreferences.getString('user_name')!,
+                                    //'Muhammed Nady',
+                                    CacheHelper.getName()!,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
                                         .copyWith(color: AppColors.white),
                                   ),
                                   Text(
-                                    CacheHelper.getEmail()??'.....@gmail.com',
+                                    CacheHelper.getEmail() ?? '.....@gmail.com',
                                     //CacheHelper.sharedPreferences.getString('user_email')!,
                                     style: Theme.of(context)
                                         .textTheme
@@ -110,7 +112,7 @@ class HomePageScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).pop();
                             Navigator.of(context)
-                                .pushNamed(AppPagesNames.JOB_OFFER );
+                                .pushNamed(AppPagesNames.JOB_OFFER);
                           },
                           leading: SvgPicture.asset(
                             AppImages.FILE,
@@ -196,6 +198,22 @@ class HomePageScreen extends StatelessWidget {
                           ),
                           title: Text(
                             AppLocalizations.of(context)!.translate("logout"),
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        ),
+                        ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => InternetConnectionScreen(),
+                            ));
+                          },
+                          leading: SvgPicture.asset(
+                            AppImages.CHECKED,
+                            // ignore: deprecated_member_use
+                            color: AppColors.primary,
+                          ),
+                          title: Text(
+                            'Testing',
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ),
