@@ -3,7 +3,7 @@
 
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
-import 'package:fnrco_candidates/constants/exceptions.dart';
+import 'package:fnrco_candidates/core/classes/exceptions.dart';
 
 class ResetPasswordprovider {
   late Dio dio;
