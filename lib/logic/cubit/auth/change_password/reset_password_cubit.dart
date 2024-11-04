@@ -2,13 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/reset_password.dart';
+import 'package:fnrco_candidates/main.dart';
 
-part 'change_password_state.dart';
+part 'reset_password_state.dart';
 
-class ChangePasswordCubit extends Cubit<ChangePasswordState> {
-  ChangePasswordCubit() : super(ChangePasswordInitial());
-  static ChangePasswordCubit instance(context)=> BlocProvider.of(context);
+class ResetPasswordCubit extends Cubit<ResetPasswordState> {
+  ResetPasswordprovider resetPasswordprovider;
+  ResetPasswordCubit(this.resetPasswordprovider)
+      : super(ResetPasswordInitial());
+  static ResetPasswordCubit instance(context) => BlocProvider.of(context);
   final PasswordController = TextEditingController();
   final ConfirmPasswordController = TextEditingController();
 
@@ -19,7 +24,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   void toggleObscureText1() {
     obscureText1 = !obscureText1;
-    emit(ChangePasswordToggleObsecureText());
+    emit(UpdatePasswordToggleObsecureText());
   }
 
   Icon getIcon1() {
@@ -31,7 +36,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   void toggleObscureText2() {
     obscureText2 = !obscureText2;
-    emit(ChangePasswordToggleObsecureText());
+    emit(UpdatePasswordToggleObsecureText());
   }
 
   Icon getIcon2() {
@@ -59,18 +64,28 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
       return translateLang(context, "msg_plz_enter_confirm_password");
     } else if (value.length < 6) {
       return translateLang(context, "msg_plz_enter_at_least_6_char");
-    } else if (value != ConfirmPasswordController.text) {
+    } else if (value != PasswordController.text) {
       return translateLang(context, "msg_password_not_match");
     }
     return null;
   }
 
-  void changePassword(context) {
-    Navigator.of(context).pushNamed(AppPagesNames.LOGIN);
-    emit(ChangePasswordLoadingState());
+  void resetPassword(context, String identifier) {
+    if (formForgetKey.currentState!.validate()) {
+      emit(ResetPasswordLoadingState());
 
-    if(formForgetKey.currentState!.validate()){
-      
+      Map data = {
+        "provider": CANDIDATE_PROVIDER,
+        "identifier": identifier,
+        "password": PasswordController.text,
+        "password_confirmation": ConfirmPasswordController.text
+      };
+
+      resetPasswordprovider.resetPassword(data).then((value) {
+        emit(ResetPasswordSuccessState());
+      }).catchError((error) {
+        emit(ResetPasswordFailureState());
+      });
     }
     // if(c.text.isNotEmpty){
 

@@ -5,10 +5,10 @@ class AppLinks {
   ////////////////////////TODO: Authentication///////////////////////////////////////////////////
   static const String logIn = '/candidate/login';
   static const String signUp = '/register';
-  static const String otp = '/otp';
+  static const String otp = '/auth/verify-code';
   static const String resendOtp = '/resendOtp';
-  static const String forgetPassword = '/forgetPassword';
-  static const String changePassword = '/changePassword';
+  static const String forgetPassword = '/auth/forgot-password';
+  static const String resetPassword = '/auth/reset-password';
 
   static const String country = "/country/index";
   static const String position = "/position";  

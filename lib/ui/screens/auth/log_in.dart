@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/core/functions/show_toastification.dart';
 import 'package:fnrco_candidates/logic/cubit/auth/log_in/log_in_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
@@ -12,6 +13,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dar
 import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/logo.dart';
+import 'package:toastification/toastification.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -28,19 +30,23 @@ class SignInScreen extends StatelessWidget {
               child: BlocConsumer<LogInCubit, LogInState>(
                   listener: (context, state) {
                 if (state is LogInSuccessState) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                      'Login Successfuly',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(color: AppColors.white),
-                    ),
-                    backgroundColor: AppColors.success,
-                  ));
+                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //   content: Text(
+                  //     'Login Successfuly',
+                  //     style: Theme.of(context)
+                  //         .textTheme
+                  //         .headlineMedium!
+                  //         .copyWith(color: AppColors.white),
+                  //   ),
+                  //   backgroundColor: AppColors.success,
+                  // ));
+                  showToast(context,
+                      title: 'Success',
+                      desc: translateLang(context, "msg_login_success"),
+                      type: ToastificationType.success);
+
                   Navigator.of(context)
                       .pushReplacementNamed(AppPagesNames.HOMEPAGE);
- 
                 }
                 if (state is LogInErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -82,8 +88,15 @@ class SignInScreen extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const SizedBox(width: 15.0,),
-                                  Text('hint: candidate@gmail.com' ,textAlign: TextAlign.right, style: TextStyle(color: Colors.grey.shade500),),
+                                  const SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Text(
+                                    'hint: candidate@gmail.com',
+                                    textAlign: TextAlign.right,
+                                    style:
+                                        TextStyle(color: Colors.grey.shade500),
+                                  ),
                                 ],
                               ),
                               const SizedBox(
@@ -99,9 +112,13 @@ class SignInScreen extends StatelessWidget {
                                   visibleIcon: logInCubit.getIcon(),
                                   validate: logInCubit.validatePassword),
                               Row(
-                                 children: [
-                                  const SizedBox(width: 15.0,),
-                                  Text('hint: password', style: TextStyle(color: Colors.grey.shade500)),
+                                children: [
+                                  const SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Text('hint: password',
+                                      style: TextStyle(
+                                          color: Colors.grey.shade500)),
                                 ],
                               ),
                               const SizedBox(

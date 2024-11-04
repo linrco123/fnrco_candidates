@@ -55,6 +55,7 @@
     "do_not_have_an_account": "Don\"t have an account?",
     "create_one": "Create one",
     "msg_password_incorrect": "Password is incorrect!",
+    "msg_password_not_match": "Password not match",
     "msg_phone_not_registered": "Phone number is not registered!",
     "msg_plz_enter_phone": "Please enter your phone number",
     "msg_plz_enter_correct_phone": "Please enter a valid phone number",
@@ -137,5 +138,7 @@
     "check_modem": "Check your modem or router",
     "check_wifi": "Reconnect to Wi-Fi",
     "reload": "Reload"
+ 
 
 }
+

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/ui/screens/auth/auth.dart';
-import 'package:fnrco_candidates/ui/screens/auth/change_password.dart';
+import 'package:fnrco_candidates/ui/screens/auth/reset_password.dart';
 import 'package:fnrco_candidates/ui/screens/auth/forget_password.dart';
 import 'package:fnrco_candidates/ui/screens/auth/log_in.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_page.dart';
@@ -36,13 +36,20 @@ class AppRouter {
           builder: (context) => const SignUpScreen(),
         );
       case AppPagesNames.OTP:
+        var identifier = (settings.arguments as Map)['identifier'];
+        var page = (settings.arguments as Map)['page'];
+
         return MaterialPageRoute(
-          builder: (context) => const VerificationScreen(),
-        );
+            builder: (context) => const VerificationScreen(),
+            settings: RouteSettings(
+                arguments: {'identifier': identifier, 'page': page}));
+
       case AppPagesNames.CHANGEPASSWORD:
+        var identifier = (settings.arguments as Map)['identifier'];
         return MaterialPageRoute(
-          builder: (context) => ChangePasswordScreen(),
-        );
+            builder: (context) => ChangePasswordScreen(),
+            settings: RouteSettings(arguments: {'identifier': identifier}));
+            
       case AppPagesNames.FORGETPASSWORD:
         return MaterialPageRoute(
           builder: (context) => ForgotPassword(),

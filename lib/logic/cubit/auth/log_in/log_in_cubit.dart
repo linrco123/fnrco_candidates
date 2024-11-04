@@ -75,7 +75,6 @@ class LogInCubit extends Cubit<LogInState> {
         CacheHelper.storeUserData(value!);
         emit(LogInSuccessState());
       }).catchError((error) {
-        print('===========================================');
          emit(LogInErrorState(message: error.message.toString()));
       });
     }

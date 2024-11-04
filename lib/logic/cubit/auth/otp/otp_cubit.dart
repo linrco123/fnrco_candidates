@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/otp.dart';
 
 part 'otp_state.dart';
 
 class OtpCubit extends Cubit<OtpState> {
-  OtpCubit() : super(OtpInitial());
+  OTPProvider otpProvider;
+  OtpCubit(this.otpProvider) : super(OtpInitial());
 
   final formKey = GlobalKey<FormState>();
   final List<TextInputFormatter> otpTextInputFormatters = [
@@ -17,10 +19,14 @@ class OtpCubit extends Cubit<OtpState> {
   late final pin2NodeController;
   late final pin3NodeController;
   late final pin4NodeController;
+  late final pin5NodeController;
+  late final pin6NodeController;
   late FocusNode pin1Node;
   late FocusNode pin2Node;
   late FocusNode pin3Node;
   late FocusNode pin4Node;
+  late FocusNode pin5Node;
+  late FocusNode pin6Node;
 
   void initiateFocusNode() {
     ////////////// TODO : init FocusNode //////////////////
@@ -28,25 +34,31 @@ class OtpCubit extends Cubit<OtpState> {
     pin2Node = FocusNode();
     pin3Node = FocusNode();
     pin4Node = FocusNode();
-    /////////////// TODO:init Controllers //////////////////
+    pin5Node = FocusNode();
+    pin6Node = FocusNode();
+    ////////////// TODO : init Controllers //////////////////
     pin1NodeController = TextEditingController();
     pin2NodeController = TextEditingController();
     pin3NodeController = TextEditingController();
     pin4NodeController = TextEditingController();
+    pin5NodeController = TextEditingController();
+    pin6NodeController = TextEditingController();
   }
 
-  void verifyOtp(String otp, context) {
-     Navigator.of(context).pushReplacementNamed(AppPagesNames.CHANGEPASSWORD);
-    emit(OtpLoadingState());
+  void verifyOtp(context) {
     if (formKey.currentState!.validate()) {
-     // formKey.currentState!.save();
-      String otp = 
-          "${pin1NodeController.text}${pin2NodeController.text}${pin3NodeController.text}${pin4NodeController.text}";
-      Navigator.of(context).pushReplacementNamed(AppPagesNames.CHANGEPASSWORD);
+      emit(OtpLoadingState());
+
+      String otp =
+          "${pin1NodeController.text}${pin2NodeController.text}${pin3NodeController.text}${pin4NodeController.text}${pin5NodeController.text}${pin6NodeController.text}";
+      final Map data = {'provider': CANDIDATE_PROVIDER, 'code': int.parse(otp)};
+      otpProvider.verifyOTP(data).then((value) {
+        emit(OtpSuccessState());
+      }).catchError((error) {
+        emit(OtpFailureState(message: error.message));
+      });
+
       // check your code
-    } else {
-      // TODO:
-      //Please Enter OTP message whatever way
     }
   }
 }

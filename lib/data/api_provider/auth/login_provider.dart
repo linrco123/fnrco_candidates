@@ -31,7 +31,7 @@ class LoginProvider {
       );
       print(response);
       print(
-          '=============================response================================');
+          '====================login=========response================================');
       print(response.data.runtimeType);
       print(response.data);
       if (response.statusCode == 200) {
@@ -42,7 +42,8 @@ class LoginProvider {
       print(
           '================================== e.runtimeType =============================');
       print(e.runtimeType);
-
+      DioErrorType error = DioErrorType.CANCEL;
+      print("e.type ========================>>>>>>>>>>>> "+ e.type.toString());
       // print('error =================================>>>>>>>>>>>>> $e');
       if (e.response?.statusCode == 400) {
         throw ApiException(e.message);

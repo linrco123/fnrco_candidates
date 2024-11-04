@@ -1,32 +1,55 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/logic/cubit/auth/change_password/change_password_cubit.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/core/functions/show_toastification.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/reset_password.dart';
+import 'package:fnrco_candidates/logic/cubit/auth/change_password/reset_password_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
+import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../widgets/logo.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-
   ChangePasswordScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    var routedData = ModalRoute.settingsOf(context)!.arguments as Map;
+    print(routedData['identifier']);
     return BlocProvider(
-      create: (context) => ChangePasswordCubit(),
+      create: (context) => ResetPasswordCubit(ResetPasswordprovider()),
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+        body: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
           listener: (context, state) {
-            // TODO: implement listener
+            if (state is ResetPasswordSuccessState) {
+              showToast(context,
+                  title: translateLang(context, 'success'),
+                  desc: translateLang(context, "msg_reset_password"),
+                  type: ToastificationType.success);
+
+              Navigator.of(context).pushReplacementNamed(
+                AppPagesNames.LOGIN,
+              );
+            }
+
+            if (state is ResetPasswordFailureState) {
+              showToast(context,
+                  title: translateLang(context, 'error'),
+                  desc: state.message!,
+                  type: ToastificationType.error);
+            }
           },
           builder: (context, state) {
-            var cubit = ChangePasswordCubit.instance(context);
+            if (state is ResetPasswordLoadingState) {
+            }
+            var cubit = ResetPasswordCubit.instance(context);
             return LogoWithTitle(
-              title: translateLang(context, "change_password"),
+              title: translateLang(context, "reset_password"),
               children: [
                 Form(
                   key: cubit.formForgetKey,
@@ -57,12 +80,17 @@ class ChangePasswordScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                CustomElevatedButton(
-                    fun: () {
-                       cubit.changePassword(context);
-                    },
-                    background: AppColors.primary,
-                    text: translateLang(context, 'change_password')),
+                state is ResetPasswordLoadingState
+                    ? Center(
+                        child: LoadingWidget(),
+                      )
+                    : CustomElevatedButton(
+                        fun: () {
+                          cubit.resetPassword(
+                              context, routedData['identifier']);
+                        },
+                        background: AppColors.primary,
+                        text: translateLang(context, 'reset_password')),
               ],
             );
           },
@@ -97,9 +125,7 @@ class LogoWithTitle extends StatelessWidget {
               ),
               Text(
                 title,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
