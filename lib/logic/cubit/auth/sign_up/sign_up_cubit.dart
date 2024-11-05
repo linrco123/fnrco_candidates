@@ -5,6 +5,7 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
 
@@ -24,6 +25,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   int positionId = 0;
   int genderId = 0;
   int religionId = 0;
+  int maritalStatusId = 0;
 
   void selectCountry(Object value) {
     countryId = int.parse(value.toString());
@@ -45,6 +47,12 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   void selectReligion(Object value) {
     religionId = int.parse(value.toString());
+
+    emit(SignUpChoosingReligionState());
+  }
+
+  void selectMaritalStatus(Object value) {
+    maritalStatusId = int.parse(value.toString());
 
     emit(SignUpChoosingReligionState());
   }
@@ -157,6 +165,18 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(SignUpGettingReligionsSuccessState());
     }).catchError((error) {
       emit(SignUpGettingReligionFailureState());
+    });
+  }
+
+  var maritalStatus = List<MaritalStatus>.empty(growable: true);
+  void getMaritalStatus() {
+    emit(SignUpGettingMaritalStatusLoadingState());
+    maritalStatus.clear();
+    signUpProvider.getMaritalStatus().then((value) {
+      for (var marital in value.data as List) maritalStatus.add(marital);
+      emit(SignUpGettingMaritalStatusSuccessState());
+    }).catchError((error) {
+      emit(SignUpGettingMaritalStatusFailureState());
     });
   }
 

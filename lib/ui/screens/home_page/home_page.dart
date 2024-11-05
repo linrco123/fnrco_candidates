@@ -15,6 +15,7 @@ import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
 import 'package:fnrco_candidates/ui/screens/notifications.dart';
 import 'package:fnrco_candidates/ui/screens/profile.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
+import 'package:fnrco_candidates/ui/screens/test/test.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../constants/app_colors.dart';
@@ -204,7 +205,7 @@ class HomePageScreen extends StatelessWidget {
                         ListTile(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => InternetConnectionScreen(),
+                              builder: (context) => TestScreenh(),
                             ));
                           },
                           leading: SvgPicture.asset(

@@ -25,12 +25,20 @@ class AppImages {
   static const religion = '$_images/religion.png';
 
   static const religion1 = '$_images/religion1.png';
+  static const marital_status = '$_images/couple.png';
 
   static const fingerPrint = '$_images/fingerprint.png';
   static const fingerPrint1 = '$_images/fingerprint1.png';
   static const fingerPrint2 = '$_images/fingerprint2.png';
   static const wifi1 = '$_images/wifi1.png';
   static const wifi3 = '$_images/wifi3.png';
+  //////////////////////////////TODO onBoarding /////////////////////////////
+  ///board1.png
+  static const boarding1 = '$_images/board1.png';
+  static const boarding2 = '$_images/board2.png';
+  static const boarding3 = '$_images/board3.png';
+  static const boarding4 = '$_images/board4.png';
+  static const boarding5 = '$_images/board5.png';
   ////////////////////TODO:////  BOTTOM.......////////////////////////////////
   static const MEDICAL_DECLARATION = '$_bottom/medical-declare.png';
 
@@ -48,4 +56,5 @@ class AppImages {
   static const ATTACH = '$_svg/attach.svg';
   static const NOTIFICATIONS = '$_svg/notifications.svg';
   static const UserSvg = '$_svg/User.svg';
+  static const jobsvg = '$_svg/jobsvg.svg';
 }

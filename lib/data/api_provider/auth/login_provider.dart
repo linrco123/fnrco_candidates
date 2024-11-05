@@ -41,9 +41,10 @@ class LoginProvider {
     } on DioError catch (e) {
       print(
           '================================== e.runtimeType =============================');
+      print(e.response!.data);
       print(e.runtimeType);
       DioErrorType error = DioErrorType.CANCEL;
-      print("e.type ========================>>>>>>>>>>>> "+ e.type.toString());
+      print("e.type ========================>>>>>>>>>>>> " + e.type.toString());
       // print('error =================================>>>>>>>>>>>>> $e');
       if (e.response?.statusCode == 400) {
         throw ApiException(e.message);

@@ -15,7 +15,6 @@ class SuccessScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
-          
         ),
         body: Container(
           color: AppColors.white,
@@ -27,7 +26,16 @@ class SuccessScreen extends StatelessWidget {
               //   size: 200.0,
               //   color: AppColors.primary,
               // ),
-              Lottie.asset(AppImages.SUCCESS, width: 250, height: 250 ,backgroundLoading: true),
+              Lottie.asset(AppImages.SUCCESS,
+                  width: 250,
+                  height: 250,
+                  backgroundLoading: true,
+                  animate: true,
+                  // controller: AnimationController(
+                  //     vsync: Overlay.of(context),
+                  //     duration: const Duration(milliseconds: 600))
+                      
+                      ),
               const SizedBox(
                 height: 0.0,
               ),
@@ -46,7 +54,8 @@ class SuccessScreen extends StatelessWidget {
               const Spacer(),
               CustomElevatedButton(
                   fun: () {
-                    Navigator.of(context).pushReplacementNamed(AppPagesNames.AUTH);
+                    Navigator.of(context)
+                        .pushReplacementNamed(AppPagesNames.AUTH);
                   },
                   background: AppColors.primary,
                   text: 'Back to login')

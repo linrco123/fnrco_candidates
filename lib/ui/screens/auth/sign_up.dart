@@ -25,7 +25,8 @@ class SignUpScreen extends StatelessWidget {
         ..getCountries()
         ..getPositions()
         ..getGenders()
-        ..getReligions(),
+        ..getReligions()
+        ..getMaritalStatus(),
       child: Scaffold(
         backgroundColor: AppColors.white,
         body: SafeArea(
@@ -202,6 +203,31 @@ class SignUpScreen extends StatelessWidget {
                                                 signUpCubit.selectReligion)),
                               ],
                             ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            signUpCubit.maritalStatus.isEmpty
+                                ? LinearProgressIndicator(
+                                    color: AppColors.primary,
+                                  )
+                                : CustomDropTextField(
+                                    items: signUpCubit.maritalStatus
+                                        .map((marital) => DropdownMenuItem<int>(
+                                              //alignment: Alignment.center,
+                                              child: Text(
+                                                  '${marital.metaDataText}'),
+                                              value: marital.id,
+                                            ))
+                                        .toList(),
+                                    text: translateLang(
+                                        context, 'marital_status'),
+                                    icon: Image.asset(
+                                      AppImages.marital_status,
+                                      height: 25.0,
+                                      width: 25.0,
+                                      color: AppColors.grey,
+                                    ),
+                                    onChanged: signUpCubit.selectReligion),
 
                             // Image.asset(AppImages.position),
                             Padding(

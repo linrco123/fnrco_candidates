@@ -29,7 +29,7 @@ class SignInScreen extends StatelessWidget {
               create: (context) => LogInCubit(logInProvider: LoginProvider()),
               child: BlocConsumer<LogInCubit, LogInState>(
                   listener: (context, state) {
-                if (state is LogInSuccessState){
+                if (state is LogInSuccessState) {
                   showToast(context,
                       title: 'Success',
                       desc: translateLang(context, "msg_login_success"),
@@ -80,20 +80,20 @@ class SignInScreen extends StatelessWidget {
                                   prefixIcon: CupertinoIcons.mail,
                                   hint: translateLang(context, "email"),
                                   validate: logInCubit.validateEmail),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    width: 15.0,
-                                  ),
-                                  Text(
-                                    'hint: candidate@gmail.com',
-                                    textAlign: TextAlign.right,
-                                    style:
-                                        TextStyle(color: Colors.grey.shade500),
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.start,
+                              //   children: [
+                              //     const SizedBox(
+                              //       width: 15.0,
+                              //     ),
+                              //     Text(
+                              //       'hint: candidate@gmail.com',
+                              //       textAlign: TextAlign.right,
+                              //       style:
+                              //           TextStyle(color: Colors.grey.shade500),
+                              //     ),
+                              //   ],
+                              // ),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -106,16 +106,16 @@ class SignInScreen extends StatelessWidget {
                                       logInCubit.toggleObscureText,
                                   visibleIcon: logInCubit.getIcon(),
                                   validate: logInCubit.validatePassword),
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 15.0,
-                                  ),
-                                  Text('hint: password',
-                                      style: TextStyle(
-                                          color: Colors.grey.shade500)),
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     const SizedBox(
+                              //       width: 15.0,
+                              //     ),
+                              //     Text('hint: password',
+                              //         style: TextStyle(
+                              //             color: Colors.grey.shade500)),
+                              //   ],
+                              // ),
                               const SizedBox(
                                 height: 16.0,
                               ),

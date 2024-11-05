@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -18,46 +20,37 @@ class _TestScreenhState extends State<TestScreenh> {
           title: Text('Test'),
           backgroundColor: AppColors.primary,
         ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-                width: 200.0,
-                height: 100.0,
-                child: Shimmer.fromColors(
-                  baseColor: Colors.red,
-                  highlightColor: Colors.yellow,
-                  child: Text(
-                    'Shimmer',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Card(
-              child: ListTile(
-                title: Text('Item number 1 as title'),
-                subtitle: Text('Subtitle here'),
-                trailing: Skeleton.unite(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.ac_unit, size: 32),
-                      SizedBox(width: 8),
-                      Icon(Icons.access_alarm, size: 32),
-                    ],
-                  ),
-                ),
+        body: Container(
+          color: AppColors.success,
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //SvgPicture.asset(AppImages.jobsvg , height: 100,width: 100,),
+              Image.asset(AppImages.boarding2),
+
+              // SizedBox(
+              //     width: 200.0,
+              //     height: 100.0,
+              //     child: Shimmer.fromColors(
+              //       baseColor: Colors.red,
+              //       highlightColor: Colors.yellow,
+              //       child: Text(
+              //         'Shimmer',
+              //         textAlign: TextAlign.center,
+              //         style: TextStyle(
+              //           fontSize: 40.0,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     )),
+              const SizedBox(
+                height: 20.0,
               ),
-            ),
-          ],
-        )));
+             
+            ],
+          )),
+        ));
   }
 }
 

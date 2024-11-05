@@ -32,26 +32,24 @@ class AuthCubit extends Cubit<AuthState> {
               ),
             ]);
         if (didAuthenticate) {
-          print(
-              '================================================================');
-          print(' emit(AuthBiometricSuccessState());');
           emit(AuthBiometricSuccessState());
         }
         if (!didAuthenticate) {
           emit(AuthBiometricErrorState(
-              message: 'submitted Finger print is not enrolled'));
+              message: 'Biometric closed suddenly'));
         }
       } on PlatformException catch (e) {
+
         if (e.code == auth_error.notAvailable) {
           // Add handling of no hardware here.
           emit(AuthBiometricErrorState(
-              message: 'Device doesn\'t support biometric'));
+              message: 'Mobile supports not biometric'));
         } else if (e.code == auth_error.notEnrolled) {
           emit(AuthBiometricErrorState(
               message: 'submitted Finger print is not enrolled'));
-          // ...
         } else {
-          // ...
+           emit(AuthBiometricErrorState(
+              message: 'Unexpected Error ! try again '));
         }
         // ...
       }

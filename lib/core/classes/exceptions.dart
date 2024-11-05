@@ -60,6 +60,8 @@ class ErrorHandler implements Exception {
           return DataSource.unauthorised.getFailure();
         case ResponseCode.forbidden:
           return DataSource.forbidden.getFailure();
+          case ResponseCode.badRequest:
+          return DataSource.badRequest.getFailure();
         case ResponseCode.notFound:
           return DataSource.notFound.getFailure();
         default:

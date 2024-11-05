@@ -5,6 +5,7 @@ import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
 
@@ -118,6 +119,28 @@ class SignUpProvider {
       if (response.statusCode == 200) {
         //show messages or snackbar of success
         return ReligionModel.fromJson(response.data);
+      } else {
+        //show messages or snackbar of failure
+        return await Future.error(response.statusCode!);
+      }
+    } catch (e) {
+      print('================error===========================$e');
+
+      return await Future.error(e);
+    }
+  }
+
+    Future<MaritalStatusModel> getMaritalStatus() async {
+    try {
+      final Response response = await dio.get(
+        AppLinks.maritalStatus,
+      );
+      print(
+          '================maritalstatus  // response===========================');
+      print(response.data);
+      if (response.statusCode == 200) {
+        //show messages or snackbar of success
+        return MaritalStatusModel.fromJson(response.data);
       } else {
         //show messages or snackbar of failure
         return await Future.error(response.statusCode!);

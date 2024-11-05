@@ -137,7 +137,8 @@
     "no_internet_conn": "No internet connection",
     "check_modem": "Check your modem or router",
     "check_wifi": "Reconnect to Wi-Fi",
-    "reload": "Reload"
+    "reload": "Reload",
+    "marital_status":"marital status"
  
 
 }
