@@ -20,7 +20,7 @@ showToast(context,
       animationDuration: const Duration(milliseconds: 600),
       animationBuilder: (context, animation, alignment, child) {
         final overlay = Overlay.of(context);
-        final overlayState = overlay!.context.findRenderObject() as RenderBox;
+        final overlayState = overlay.context.findRenderObject() as RenderBox;
         return SlideTransition(
           position: Tween<Offset>(
                   begin: Offset(
