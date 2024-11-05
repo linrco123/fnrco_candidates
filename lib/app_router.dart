@@ -16,6 +16,7 @@ import 'package:fnrco_candidates/ui/screens/auth/sign_up.dart';
 import 'package:fnrco_candidates/ui/screens/profile.dart';
 import 'package:fnrco_candidates/ui/screens/profile_editing.dart';
 import 'package:fnrco_candidates/ui/screens/resume.dart';
+import 'package:fnrco_candidates/ui/screens/success.dart';
 
 class AppRouter {
   static Route? routeTo(RouteSettings settings) {
@@ -49,7 +50,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => ChangePasswordScreen(),
             settings: RouteSettings(arguments: {'identifier': identifier}));
-            
+
       case AppPagesNames.FORGETPASSWORD:
         return MaterialPageRoute(
           builder: (context) => ForgotPassword(),
@@ -69,6 +70,12 @@ class AppRouter {
       case AppPagesNames.RESUME:
         return MaterialPageRoute(
           builder: (context) => ResumeScreen(),
+        );
+      case AppPagesNames.SUCCESS:
+        return MaterialPageRoute(
+          builder: (context) => SuccessScreen(
+            screenType: '',
+          ),
         );
       case AppPagesNames.HEALTH_CARE:
         return MaterialPageRoute(

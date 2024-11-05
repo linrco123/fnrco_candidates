@@ -33,7 +33,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   type: ToastificationType.success);
 
               Navigator.of(context).pushReplacementNamed(
-                AppPagesNames.LOGIN,
+                AppPagesNames.SUCCESS,
               );
             }
 

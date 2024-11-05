@@ -2,8 +2,16 @@ class AppImages {
   static const _images = 'assets/images';
   static const _bottom = 'assets/bottom';
   static const _svg = 'assets/svg';
+  static const _lottie = "assets/lottie";
+
+  ////////////////////TODO:////  lottie.......////////////////////////////////
+  static const SUCCESS = '$_lottie/success.json';
+  static const EMPTY = '$_lottie/emptydata.json';
+  static const SERVER_FAILURE = '$_lottie/serverfailure.json';
+  static const OFFLINE_FAILURE = '$_lottie/offlinefailure.json';
+  static const LOADING = '$_lottie/loading.json';
+
   ////////////////////TODO:////  IMAGES.......////////////////////////////////
-  ///
   static const LOGO = '$_images/fnrcoerp_logo.png';
   static const SALARY = '$_images/salary.png';
   static const JOB_OFFER = '$_images/job-offer.png';
@@ -17,11 +25,10 @@ class AppImages {
   static const religion = '$_images/religion.png';
 
   static const religion1 = '$_images/religion1.png';
-  
 
   static const fingerPrint = '$_images/fingerprint.png';
   static const fingerPrint1 = '$_images/fingerprint1.png';
-  static const fingerPrint2 = '$_images/fingerprint2.png'; 
+  static const fingerPrint2 = '$_images/fingerprint2.png';
   static const wifi1 = '$_images/wifi1.png';
   static const wifi3 = '$_images/wifi3.png';
   ////////////////////TODO:////  BOTTOM.......////////////////////////////////

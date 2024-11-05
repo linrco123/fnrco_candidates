@@ -48,7 +48,6 @@ class OtpCubit extends Cubit<OtpState> {
   void verifyOtp(context) {
     if (formKey.currentState!.validate()) {
       emit(OtpLoadingState());
-
       String otp =
           "${pin1NodeController.text}${pin2NodeController.text}${pin3NodeController.text}${pin4NodeController.text}${pin5NodeController.text}${pin6NodeController.text}";
       final Map data = {'provider': CANDIDATE_PROVIDER, 'code': int.parse(otp)};

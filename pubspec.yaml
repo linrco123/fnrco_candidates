@@ -38,6 +38,7 @@ dependencies:
   skeletonizer: ^1.4.2
   connectivity_plus: ^6.1.0
   toastification: ^2.3.0
+  lottie: ^3.1.3
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ flutter:
     - assets/images/
     - assets/bottom/
     - assets/svg/
+    - assets/lottie/
     - lang/ar.json
     - lang/en.json
 

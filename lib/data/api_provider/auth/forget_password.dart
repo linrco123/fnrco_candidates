@@ -44,7 +44,7 @@ class ForgetPasswordProvider {
         print(
           '========================forgetpassword=====response================exception================');
       print(e.error+ '  ||||||||||||||| '+e.message);
-      throw ApiException('Data entered is not correct');
+      throw ApiException('Credentials entered are not correct');
     }
     return null;
   }

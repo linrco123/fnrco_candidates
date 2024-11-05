@@ -30,9 +30,9 @@ class ForgotPassword extends StatelessWidget {
               //////////// TODO: Verification has been sent to your email
 
               showToast(context,
-                  title: 'verification code',
-                  desc: state.code.toString(),
-                  type: ToastificationType.info);
+                  title: 'success',
+                  desc: 'OTP sent successfully',
+                  type: ToastificationType.success);
               Navigator.of(context)
                   .pushReplacementNamed(AppPagesNames.OTP, arguments: {
                 'identifier': context

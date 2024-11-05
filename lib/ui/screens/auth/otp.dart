@@ -51,7 +51,7 @@ class OtpForm extends StatelessWidget {
             showToast(context,
                 title: translateLang(context, 'success'),
                 desc: translateLang(context, "msg_otp_verified_success"),
-                type: ToastificationType.info);
+                type: ToastificationType.success);
             if (data['page'] == 'forget') {
               Navigator.of(context).pushReplacementNamed(
                   AppPagesNames.CHANGEPASSWORD,
@@ -64,7 +64,7 @@ class OtpForm extends StatelessWidget {
           }
           if (state is OtpFailureState) {
             showToast(context,
-                title: state.message.toString(),
+                title: 'error',
                 desc: state.message,
                 type: ToastificationType.error);
           }

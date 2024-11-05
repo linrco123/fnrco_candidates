@@ -29,17 +29,7 @@ class SignInScreen extends StatelessWidget {
               create: (context) => LogInCubit(logInProvider: LoginProvider()),
               child: BlocConsumer<LogInCubit, LogInState>(
                   listener: (context, state) {
-                if (state is LogInSuccessState) {
-                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //   content: Text(
-                  //     'Login Successfuly',
-                  //     style: Theme.of(context)
-                  //         .textTheme
-                  //         .headlineMedium!
-                  //         .copyWith(color: AppColors.white),
-                  //   ),
-                  //   backgroundColor: AppColors.success,
-                  // ));
+                if (state is LogInSuccessState){
                   showToast(context,
                       title: 'Success',
                       desc: translateLang(context, "msg_login_success"),
@@ -49,16 +39,21 @@ class SignInScreen extends StatelessWidget {
                       .pushReplacementNamed(AppPagesNames.HOMEPAGE);
                 }
                 if (state is LogInErrorState) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                      state.message,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(color: AppColors.white),
-                    ),
-                    backgroundColor: AppColors.danger,
-                  ));
+                  showToast(context,
+                      title: 'error',
+                      desc: 'Credentials entered are not correct',
+                      type: ToastificationType.error);
+
+                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //   content: Text(
+                  //     'Credentials entered are not correct',
+                  //     style: Theme.of(context)
+                  //         .textTheme
+                  //         .headlineMedium!
+                  //         .copyWith(color: AppColors.white),
+                  //   ),
+                  //   backgroundColor: AppColors.danger,
+                  // ));
                 }
               }, builder: (BuildContext context, state) {
                 final LogInCubit logInCubit = LogInCubit.instance(context);

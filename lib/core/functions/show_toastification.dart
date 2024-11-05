@@ -10,7 +10,7 @@ showToast(context,
       context: context, // optional if you use ToastificationWrapper
       type: type,
       style: ToastificationStyle.fillColored,
-      autoCloseDuration: const Duration(seconds: 5),
+      autoCloseDuration: const Duration(milliseconds: 1300),
       title: Text(title, style: TextStyle(color: AppColors.white)),
       // you can also use RichText widget for title and description parameters
       description: RichText(
@@ -19,8 +19,17 @@ showToast(context,
       direction: TextDirection.ltr,
       animationDuration: const Duration(milliseconds: 600),
       animationBuilder: (context, animation, alignment, child) {
-        return FadeTransition(
-          opacity: animation,
+        final overlay = Overlay.of(context);
+        final overlayState = overlay!.context.findRenderObject() as RenderBox;
+        return SlideTransition(
+          position: Tween<Offset>(
+                  begin: Offset(
+                    0,
+                    0,
+                  ),
+                  end: Offset(0, 1))
+              .animate(AnimationController(
+                  vsync: overlay, duration: const Duration(milliseconds: 600))),
           child: child,
         );
       },
@@ -40,7 +49,7 @@ showToast(context,
           spreadRadius: 0,
         )
       ],
-      //showProgressBar: true,
+      showProgressBar: false,
       closeButtonShowType: CloseButtonShowType.onHover,
       closeOnClick: false,
       pauseOnHover: true,
