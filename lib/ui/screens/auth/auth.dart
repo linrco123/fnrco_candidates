@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/cubit/auth/auth/auth_cubit.dart';
+import 'package:fnrco_candidates/ui/screens/polls.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/logo.dart';
@@ -52,6 +55,8 @@ class SigninOrSignupScreen extends StatelessWidget {
                         const Spacer(),
                         CustomElevatedButton(
                             fun: () {
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => PollsScreen()));
                               Navigator.of(context)
                                   .pushReplacementNamed(AppPagesNames.LOGIN);
                             },
@@ -66,7 +71,6 @@ class SigninOrSignupScreen extends StatelessWidget {
                             background: AppColors.secondary,
                             text: translateLang(context, 'sign_up')),
                         const SizedBox(height: 16.0),
-                        
                         CacheHelper.getBiometricStatus()
                             ? GestureDetector(
                                 onTap: () {

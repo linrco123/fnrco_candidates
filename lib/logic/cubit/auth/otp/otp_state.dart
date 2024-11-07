@@ -15,6 +15,8 @@ final class OtpFailureState extends OtpState {
   OtpFailureState({required this.message});
 }
 
+final class OTPResendVerificationCodeLoadingState extends OtpState{}
+
 final class OTPResendVerificationCodeSuccessState extends OtpState {
   final int? code ;
 

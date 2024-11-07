@@ -226,7 +226,8 @@ class OtpForm extends StatelessWidget {
                   ],
                 ),
               ),
-              if (state is OtpLoadingState)
+              if (state is OtpLoadingState ||
+                  state is OTPResendVerificationCodeLoadingState)
                 Center(
                   child: LoadingWidget(),
                 )

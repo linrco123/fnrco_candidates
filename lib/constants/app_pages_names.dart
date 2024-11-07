@@ -17,4 +17,5 @@ class AppPagesNames {
   static const String JOB_APPLICATION = '/jobApplication';
   static const String INTERNET_CONNECTION = '/internetConnect';
   static const String SUCCESS = '/success';
+  static const String ANIMATED_SPALSH = '/animatedSpalsh';
 }

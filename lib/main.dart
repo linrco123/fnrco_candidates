@@ -7,6 +7,7 @@ import 'package:fnrco_candidates/app_router.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/app_theme.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
+import 'package:fnrco_candidates/core/classes/red_exception_handler.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations_setup.dart';
 import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
  
@@ -15,6 +16,7 @@ void main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
+  RedExceptionHandler.handleFlutterError;
   print('===================================platform=====================================');
   print("paltform localname"+Platform.localeName);
   print(WidgetsBinding.instance.window.locales);
@@ -37,6 +39,7 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<InternetBloc>(
+          lazy: true,
           create: (context) =>
               InternetBloc(_connectivity)..add(CheckInternetConnectivity()),
         )
@@ -50,7 +53,7 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
         theme: appTheme,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRouter.routeTo,
-        initialRoute: AppPagesNames.INITIAL,
+        initialRoute: AppPagesNames.ANIMATED_SPALSH,
       ),
     );
   }

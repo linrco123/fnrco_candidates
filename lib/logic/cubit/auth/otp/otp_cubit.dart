@@ -63,9 +63,21 @@ class OtpCubit extends Cubit<OtpState> {
     }
   }
 
+  void clearControllers(){
+    pin1NodeController.clear();
+    pin2NodeController.clear();
+    pin3NodeController.clear();
+    pin4NodeController.clear();
+    pin5NodeController.clear();
+    pin6NodeController.clear();
+    pin1Node.requestFocus();
+  }
+
   void resendVerifyCode(context, String identifier) {
+    emit(OTPResendVerificationCodeLoadingState());
     Map data = {"provider": CANDIDATE_PROVIDER, "identifier": identifier};
     ForgetPasswordProvider().forgetPassword(data).then((value) {
+      clearControllers();
       emit(OTPResendVerificationCodeSuccessState(code:value!));
     }).catchError((error) {
       emit(OTPResendVerificationCodeFailureState(message: 'Some went wrong! please try again'));

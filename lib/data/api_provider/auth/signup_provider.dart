@@ -2,12 +2,15 @@
 
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
+import 'package:fnrco_candidates/core/classes/exceptions.dart';
+import 'package:fnrco_candidates/core/classes/failure.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class SignUpProvider {
   late Dio dio;
@@ -28,14 +31,12 @@ class SignUpProvider {
   Future<LoginModel> signUp(Map data) async {
     try {
       final Response response = await dio.post(
-        AppLinks.logIn,
+        AppLinks.signUp,
         data: data,
       );
       if (response.statusCode == 200) {
-        //show messages or snackbar of success
         return LoginModel.fromJson(response.data);
       } else {
-        //show messages or snackbar of failure
         return await Future.error(response.statusCode!);
       }
     } catch (e) {
@@ -43,24 +44,36 @@ class SignUpProvider {
     }
   }
 
+  Future<int?> getOTP(data) async {
+    try {
+      final response = await dio.post(AppLinks.forgetPassword, data: data);
+      logger.e('======================otp====================');
+      logger.d(response.data);
+      if (response.statusCode == 200) {
+        return response.data['data']['code'];
+      }
+    } on DioError catch (e) {
+      logger.e(e.response!.data);
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
+    }
+    return null;
+  }
+
   Future<CountriesModel> getCountries() async {
     try {
       final Response response = await dio.get(
         AppLinks.country,
       );
-      print('================response===========================');
-      print(response.data);
       if (response.statusCode == 200) {
-        //show messages or snackbar of success
         return CountriesModel.fromJson(response.data);
       } else {
-        //show messages or snackbar of failure
         return await Future.error(response.statusCode!);
       }
-    } catch (e) {
-      print('================error===========================$e');
-
-      return await Future.error(e);
+    } on DioError catch (e) {
+      return await Future.error(
+          Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
 
@@ -69,19 +82,12 @@ class SignUpProvider {
       final Response response = await dio.get(
         AppLinks.position,
       );
-      print(
-          '================PositionsModel  // response===========================');
-      print(response.data);
       if (response.statusCode == 200) {
-        //show messages or snackbar of success
         return PositionsModel.fromJson(response.data);
       } else {
-        //show messages or snackbar of failure
         return await Future.error(response.statusCode!);
       }
     } catch (e) {
-      print('================error===========================$e');
-
       return await Future.error(e);
     }
   }
@@ -91,63 +97,47 @@ class SignUpProvider {
       final Response response = await dio.get(
         AppLinks.genderStatus,
       );
-      print(
-          '================PositionsModel  // response===========================');
-      print(response.data);
       if (response.statusCode == 200) {
-        //show messages or snackbar of success
         return GenderModel.fromJson(response.data);
       } else {
-        //show messages or snackbar of failure
         return await Future.error(response.statusCode!);
       }
     } catch (e) {
-      print('================error===========================$e');
-
       return await Future.error(e);
     }
   }
 
   Future<ReligionModel> getReligions() async {
     try {
-      final Response response = await dio.get(
-        AppLinks.religion,
-      );
-      print(
-          '================religions  // response===========================');
-      print(response.data);
+      // final Response response = await dio.get(
+      //   AppLinks.religion,
+      // );
+      final Response response = await Dio(
+          BaseOptions(baseUrl: 'https://develop.fnrcoerp.com', headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      })).get('/religion');
       if (response.statusCode == 200) {
-        //show messages or snackbar of success
         return ReligionModel.fromJson(response.data);
       } else {
-        //show messages or snackbar of failure
         return await Future.error(response.statusCode!);
       }
     } catch (e) {
-      print('================error===========================$e');
-
       return await Future.error(e);
     }
   }
 
-    Future<MaritalStatusModel> getMaritalStatus() async {
+  Future<MaritalStatusModel> getMaritalStatus() async {
     try {
       final Response response = await dio.get(
         AppLinks.maritalStatus,
       );
-      print(
-          '================maritalstatus  // response===========================');
-      print(response.data);
       if (response.statusCode == 200) {
-        //show messages or snackbar of success
         return MaritalStatusModel.fromJson(response.data);
       } else {
-        //show messages or snackbar of failure
         return await Future.error(response.statusCode!);
       }
     } catch (e) {
-      print('================error===========================$e');
-
       return await Future.error(e);
     }
   }

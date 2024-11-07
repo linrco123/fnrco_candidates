@@ -1,3 +1,6 @@
 {
-    "cmake.sourceDirectory": "D:/fnrco_candidates/linux/flutter"
+    "cmake.sourceDirectory": "D:/fnrco_candidates/linux/flutter",
+    "cSpell.words": [
+        "Toastification"
+    ]
 }

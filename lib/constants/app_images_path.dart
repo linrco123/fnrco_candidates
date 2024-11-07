@@ -13,6 +13,7 @@ class AppImages {
 
   ////////////////////TODO:////  IMAGES.......////////////////////////////////
   static const LOGO = '$_images/fnrcoerp_logo.png';
+  static const SPLASH = '$_images/splash.png';
   static const SALARY = '$_images/salary.png';
   static const JOB_OFFER = '$_images/job-offer.png';
   static const CHECKED = '$_images/check.png';

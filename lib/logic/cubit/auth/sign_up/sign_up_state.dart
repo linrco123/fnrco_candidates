@@ -23,6 +23,7 @@ class SignUpChoosingPositionState extends SignUpState {}
 class SignUpChoosingGenderState extends SignUpState {}
 
 class SignUpChoosingReligionState extends SignUpState {}
+
 class SignUpChoosingMaritalStatusState extends SignUpState {}
 
 //TODO:getCountries
@@ -94,4 +95,18 @@ class SignUpGettingMaritalStatusFailureState extends SignUpState {
   // final String? message;
 
   // SignUpGettingPositionsFailureState({this.message});
+}
+
+class SignUpOTPLoadingState extends SignUpState {}
+
+class SignUpOTPSuccessState extends SignUpState {
+  final int code;
+
+  SignUpOTPSuccessState({required this.code});
+}
+
+class SignUpOTPFailureState extends SignUpState {
+  final String? message;
+
+  SignUpOTPFailureState({this.message});
 }

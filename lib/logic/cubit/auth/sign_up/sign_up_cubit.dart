@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
@@ -98,9 +99,10 @@ class SignUpCubit extends Cubit<SignUpState> {
 
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_phone");
-    } else if (!regExp.hasMatch(value)) {
-      return translateLang(context, "msg_plz_enter_correct_phone");
     }
+    // } else if (!regExp.hasMatch(value)) {
+    //   return translateLang(context, "msg_plz_enter_correct_phone");
+    // }
     return null;
   }
 
@@ -114,7 +116,27 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void signUp() {
-    if (formKey.currentState!.validate() && countryId != 0) {}
+    if (formKey.currentState!.validate() &&
+        countryId != 0 &&
+        positionId != 0 &&
+        genderId != 0 &&
+        religionId != 0 &&
+        maritalStatusId != 0) {
+      getOTP();
+    }
+  }
+
+  void getOTP() {
+    emit(SignUpOTPLoadingState());
+    Map data = {
+      PROVIDER_KEYWORD: CANDIDATE_PROVIDER,
+      IDENTIFIER_KEYWORD: emailController.text
+    };
+    signUpProvider.getOTP(data).then((value) {
+      emit(SignUpOTPSuccessState(code: value!));
+    }).catchError((error) {
+      emit(SignUpOTPFailureState(message: error.failure.message.toString()));
+    });
   }
 
   var countries = List<Country>.empty(growable: true);

@@ -19,6 +19,7 @@ class CustomDropTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
+      
       style: TextStyle(
           color: AppColors.secondary,
           fontWeight: FontWeight.bold,
@@ -40,7 +41,7 @@ class CustomDropTextField extends StatelessWidget {
         // hintText: translateLang(context, 'country'),
         prefixIconColor: AppColors.grey,
         prefix:
-            Container(margin: const EdgeInsets.only(right: 10.0), child: icon),
+            Container(margin: const EdgeInsets.only(right: 20.0,top: 0.0), child: icon),
 
         alignLabelWithHint: true,
         isDense: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/ui/screens/animated_splash.dart';
 import 'package:fnrco_candidates/ui/screens/auth/auth.dart';
 import 'package:fnrco_candidates/ui/screens/auth/reset_password.dart';
 import 'package:fnrco_candidates/ui/screens/auth/forget_password.dart';
@@ -97,7 +98,10 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => JobDetailsScreen(),
             settings: RouteSettings(arguments: args));
-
+      case AppPagesNames.ANIMATED_SPALSH:
+        return MaterialPageRoute(
+          builder: (context) => CustomAnimatedSplashScreen(),
+        );
       case AppPagesNames.JOB_APPLICATION:
         var jobID = settings.arguments as String;
         return MaterialPageRoute(

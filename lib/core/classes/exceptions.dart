@@ -22,10 +22,10 @@ class ApiException implements Exception {
 
 
 
-class ErrorHandler implements Exception {
+class APIErrorHandler implements Exception {
   late Failure failure;
 
-  ErrorHandler.handle(dynamic error) {
+  APIErrorHandler.handle(dynamic error) {
     if (error is DioError) {
       failure = _handleError(error);
     } else {

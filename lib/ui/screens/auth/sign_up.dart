@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/logic/cubit/auth/sign_up/sign_up_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
@@ -12,6 +13,9 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
+import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../constants/app_pages_names.dart';
 import '../../widgets/logo.dart';
@@ -33,7 +37,30 @@ class SignUpScreen extends StatelessWidget {
         body: SafeArea(
           child: LayoutBuilder(builder: (context, constraints) {
             return BlocConsumer<SignUpCubit, SignUpState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is SignUpOTPSuccessState) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(AppPagesNames.OTP, arguments: {
+                    IDENTIFIER_KEYWORD:
+                        context.read<SignUpCubit>().emailController.text,
+                    PAGE_KEYWORD: SIGNUP_PAGE
+                  });
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            content: Text(
+                              'code: ${state.code}',
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                          ));
+                }
+                if (state is SignUpOTPFailureState) {
+                  showToast(context,
+                      title: 'Error',
+                      desc: state.message!,
+                      type: ToastificationType.error);
+                }
+              },
               builder: (context, state) {
                 final SignUpCubit signUpCubit = BlocProvider.of(context);
                 return SingleChildScrollView(
@@ -92,9 +119,7 @@ class SignUpScreen extends StatelessWidget {
                               height: 16.0,
                             ),
                             signUpCubit.countries.isEmpty
-                                ? LinearProgressIndicator(
-                                    color: AppColors.primary,
-                                  )
+                                ? SignUpLoadingWidget()
                                 : CustomDropTextField(
                                     items: signUpCubit.countries
                                         .map((country) => DropdownMenuItem<int>(
@@ -117,9 +142,7 @@ class SignUpScreen extends StatelessWidget {
                               height: 16.0,
                             ),
                             signUpCubit.positions.isEmpty
-                                ? LinearProgressIndicator(
-                                    color: AppColors.primary,
-                                  )
+                                ? SignUpLoadingWidget()
                                 : CustomDropTextField(
                                     onChanged: signUpCubit.selectPosition,
                                     items: signUpCubit.positions
@@ -151,9 +174,7 @@ class SignUpScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                     child: signUpCubit.genders.isEmpty
-                                        ? LinearProgressIndicator(
-                                            color: AppColors.primary,
-                                          )
+                                        ? SignUpLoadingWidget()
                                         : CustomDropTextField(
                                             items: signUpCubit.genders
                                                 .map((gender) =>
@@ -179,9 +200,7 @@ class SignUpScreen extends StatelessWidget {
                                 ),
                                 Expanded(
                                     child: signUpCubit.religions.isEmpty
-                                        ? LinearProgressIndicator(
-                                            color: AppColors.primary,
-                                          )
+                                        ? SignUpLoadingWidget()
                                         : CustomDropTextField(
                                             items: signUpCubit.religions
                                                 .map((religion) =>
@@ -205,12 +224,10 @@ class SignUpScreen extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(
-                              height: 10.0,
+                              height: 16.0,
                             ),
                             signUpCubit.maritalStatus.isEmpty
-                                ? LinearProgressIndicator(
-                                    color: AppColors.primary,
-                                  )
+                                ? SignUpLoadingWidget()
                                 : CustomDropTextField(
                                     items: signUpCubit.maritalStatus
                                         .map((marital) => DropdownMenuItem<int>(
@@ -230,20 +247,14 @@ class SignUpScreen extends StatelessWidget {
                                     ),
                                     onChanged: signUpCubit.selectReligion),
 
-                            // Image.asset(AppImages.position),
+                            state is SignUpOTPLoadingState?
+                            LoadingWidget():
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16.0),
                                 child: CustomElevatedButton(
                                     fun: () {
-                                      Navigator.of(context)
-                                          .pushReplacementNamed(
-                                              AppPagesNames.OTP,
-                                              arguments: {
-                                            IDENTIFIER_KEYWORD: signUpCubit
-                                                .emailController.text,
-                                            PAGE_KEYWORD: SIGNUP_PAGE
-                                          });
+                                      signUpCubit.getOTP();
                                     },
                                     background: AppColors.primary,
                                     text: translateLang(context, 'sign_up'))),
