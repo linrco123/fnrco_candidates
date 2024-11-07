@@ -11,7 +11,6 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
-import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
 import 'package:fnrco_candidates/ui/screens/notifications.dart';
 import 'package:fnrco_candidates/ui/screens/profile.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
@@ -190,7 +189,7 @@ class HomePageScreen extends StatelessWidget {
                         ListTile(
                           onTap: () {
                             Navigator.of(context)
-                                .pushNamed(AppPagesNames.AUTH);
+                                .pushReplacementNamed(AppPagesNames.AUTH);
                           },
                           leading: SvgPicture.asset(
                             AppImages.LOGOUT,

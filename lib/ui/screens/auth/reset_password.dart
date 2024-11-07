@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/functions/show_toastification.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/reset_password.dart';
-import 'package:fnrco_candidates/logic/cubit/auth/change_password/reset_password_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/auth/reset_password/reset_password_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
@@ -19,7 +20,6 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var routedData = ModalRoute.settingsOf(context)!.arguments as Map;
-    print(routedData['identifier']);
     return BlocProvider(
       create: (context) => ResetPasswordCubit(ResetPasswordprovider()),
       child: Scaffold(
@@ -32,9 +32,8 @@ class ChangePasswordScreen extends StatelessWidget {
                   desc: translateLang(context, "msg_reset_password"),
                   type: ToastificationType.success);
 
-              Navigator.of(context).pushReplacementNamed(
-                AppPagesNames.SUCCESS,
-              );
+              Navigator.of(context).pushReplacementNamed(AppPagesNames.SUCCESS,
+                  arguments: {PAGE_KEYWORD: FORGET_PAGE});
             }
 
             if (state is ResetPasswordFailureState) {
@@ -45,8 +44,7 @@ class ChangePasswordScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is ResetPasswordLoadingState) {
-            }
+            //if (state is ResetPasswordLoadingState) {}
             var cubit = ResetPasswordCubit.instance(context);
             return LogoWithTitle(
               title: translateLang(context, "reset_password"),

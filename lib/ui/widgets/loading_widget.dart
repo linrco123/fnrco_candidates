@@ -18,7 +18,7 @@ class LoadingWidget extends StatelessWidget {
                     semanticsLabel: 'Loading.......',
                   )
                 : CircularProgressIndicator.adaptive(
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: AppColors.primary,strokeWidth: 20.0,
                   )));
   }
 }

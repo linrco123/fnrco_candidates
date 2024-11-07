@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/functions/show_toastification.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/otp.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/forget_password.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/otp_provider.dart';
+import 'package:fnrco_candidates/logic/cubit/auth/forget_password/forget_password_cubit.dart';
 import 'package:fnrco_candidates/logic/cubit/auth/otp/otp_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:toastification/toastification.dart';
-
 import '../../widgets/logo.dart';
 
 class VerificationScreen extends StatelessWidget {
@@ -40,11 +42,14 @@ class OtpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map data = ModalRoute.settingsOf(context)!.arguments as Map;
-    print('==========================arguments==============================');
-    print(data['identifier']);
-    print(data['page']);
-    return BlocProvider(
-      create: (context) => OtpCubit(OTPProvider())..initiateFocusNode(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => OtpCubit(OTPProvider())..initiateFocusNode()),
+        BlocProvider(
+            create: (context) => ForgetPasswordCubit(
+                forgetPasswordProvider: ForgetPasswordProvider()))
+      ],
       child: BlocConsumer<OtpCubit, OtpState>(
         listener: (context, state) {
           if (state is OtpSuccessState) {
@@ -52,20 +57,43 @@ class OtpForm extends StatelessWidget {
                 title: translateLang(context, 'success'),
                 desc: translateLang(context, "msg_otp_verified_success"),
                 type: ToastificationType.success);
-            if (data['page'] == 'forget') {
+            if (data[PAGE_KEYWORD] == FORGET_PAGE) {
               Navigator.of(context).pushReplacementNamed(
-                  AppPagesNames.CHANGEPASSWORD,
+                  AppPagesNames.RESETPASSWORD,
                   arguments: {'identifier': data['identifier']});
             }
-            if (data['page'] == 'signup') {
-              Navigator.of(context)
-                  .pushReplacementNamed(AppPagesNames.HOMEPAGE);
+            if (data[PAGE_KEYWORD] == SIGNUP_PAGE) {
+              Navigator.of(context).pushReplacementNamed(AppPagesNames.SUCCESS,
+                  arguments: {PAGE_KEYWORD: SIGNUP_PAGE});
             }
           }
           if (state is OtpFailureState) {
             showToast(context,
                 title: 'error',
                 desc: state.message,
+                type: ToastificationType.error);
+          }
+
+          ////////////////////TODO: Resend verification code again ////////////
+          if (state is OTPResendVerificationCodeSuccessState) {
+            showToast(context,
+                title: translateLang(context, 'success'),
+                desc: translateLang(context, "msg_otp_sent_success"),
+                type: ToastificationType.success);
+
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      content: Text(
+                        'code: ${state.code}',
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                    ));
+          }
+          if (state is OTPResendVerificationCodeFailureState) {
+            showToast(context,
+                title: translateLang(context, 'error'),
+                desc: state.message!,
                 type: ToastificationType.error);
           }
         },
@@ -157,7 +185,8 @@ class OtpForm extends StatelessWidget {
                               controller: otpCubit.pin6NodeController,
                               focusNode: otpCubit.pin6Node,
                               onChanged: (value) {
-                                if (value.length == 1) otpCubit.pin6Node.unfocus();
+                                if (value.length == 1)
+                                  otpCubit.pin6Node.unfocus();
                               },
                               onSaved: (pin) {
                                 // Save it
@@ -174,13 +203,34 @@ class OtpForm extends StatelessWidget {
                         },
                         background: AppColors.primary,
                         text: translateLang(context, 'next')),
+                    const SizedBox(height: 20.0),
+                    TextButton(
+                      onPressed: () {
+                        otpCubit.resendVerifyCode(
+                            context, data[IDENTIFIER_KEYWORD]);
+                      },
+                      child: Text.rich(
+                          TextSpan(
+                            text: translateLang(
+                                context, "did_not_receive_the_code"),
+                            children: [
+                              TextSpan(text: ' '),
+                              TextSpan(
+                                text: translateLang(context, "resend_code"),
+                                style: TextStyle(color: AppColors.primary),
+                              ),
+                            ],
+                          ),
+                          style: Theme.of(context).textTheme.headlineSmall),
+                    ),
                   ],
                 ),
               ),
-                if(state is OtpLoadingState)
-                Center(child: LoadingWidget(),)
+              if (state is OtpLoadingState)
+                Center(
+                  child: LoadingWidget(),
+                )
             ],
-          
           );
         },
       ),

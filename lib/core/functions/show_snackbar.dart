@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
+
+showSuccessSnackBar(context, {required String text}) =>
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      elevation: 5.0,
+      content: Text(
+        text,
+        style: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(color: AppColors.white),
+      ),
+      backgroundColor: AppColors.success,
+    ));
+
+showErrorSnackBar(context, {required String text}) =>
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      elevation: 5.0,
+      content: Text(
+        text,
+        style: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(color: AppColors.white),
+      ),
+      backgroundColor: AppColors.danger,
+    ));

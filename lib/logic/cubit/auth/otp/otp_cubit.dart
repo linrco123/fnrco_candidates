@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/otp.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/forget_password.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/otp_provider.dart';
 
 part 'otp_state.dart';
 
@@ -15,12 +16,12 @@ class OtpCubit extends Cubit<OtpState> {
     FilteringTextInputFormatter.digitsOnly,
     LengthLimitingTextInputFormatter(1),
   ];
-  late final pin1NodeController;
-  late final pin2NodeController;
-  late final pin3NodeController;
-  late final pin4NodeController;
-  late final pin5NodeController;
-  late final pin6NodeController;
+  late final TextEditingController pin1NodeController;
+  late final TextEditingController pin2NodeController;
+  late final TextEditingController pin3NodeController;
+  late final TextEditingController pin4NodeController;
+  late final TextEditingController pin5NodeController;
+  late final TextEditingController pin6NodeController;
   late FocusNode pin1Node;
   late FocusNode pin2Node;
   late FocusNode pin3Node;
@@ -46,7 +47,8 @@ class OtpCubit extends Cubit<OtpState> {
   }
 
   void verifyOtp(context) {
-    if (formKey.currentState!.validate()) {
+    if (pin1NodeController.text.isNotEmpty &&
+        pin6NodeController.text.isNotEmpty) {
       emit(OtpLoadingState());
       String otp =
           "${pin1NodeController.text}${pin2NodeController.text}${pin3NodeController.text}${pin4NodeController.text}${pin5NodeController.text}${pin6NodeController.text}";
@@ -54,10 +56,19 @@ class OtpCubit extends Cubit<OtpState> {
       otpProvider.verifyOTP(data).then((value) {
         emit(OtpSuccessState());
       }).catchError((error) {
-        emit(OtpFailureState(message: error.message));
+        emit(OtpFailureState(message: error.failure.message.toString()));
       });
 
       // check your code
     }
+  }
+
+  void resendVerifyCode(context, String identifier) {
+    Map data = {"provider": CANDIDATE_PROVIDER, "identifier": identifier};
+    ForgetPasswordProvider().forgetPassword(data).then((value) {
+      emit(OTPResendVerificationCodeSuccessState(code:value!));
+    }).catchError((error) {
+      emit(OTPResendVerificationCodeFailureState(message: 'Some went wrong! please try again'));
+    });
   }
 }

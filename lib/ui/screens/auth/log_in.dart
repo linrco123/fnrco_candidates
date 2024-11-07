@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/core/functions/show_toastification.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/logic/cubit/auth/log_in/log_in_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
@@ -31,7 +31,7 @@ class SignInScreen extends StatelessWidget {
                   listener: (context, state) {
                 if (state is LogInSuccessState) {
                   showToast(context,
-                      title: 'Success',
+                      title: translateLang(context, 'success'),
                       desc: translateLang(context, "msg_login_success"),
                       type: ToastificationType.success);
 
@@ -39,21 +39,14 @@ class SignInScreen extends StatelessWidget {
                       .pushReplacementNamed(AppPagesNames.HOMEPAGE);
                 }
                 if (state is LogInErrorState) {
-                  showToast(context,
-                      title: 'error',
-                      desc: 'Credentials entered are not correct',
+                    showToast(context,
+                      title: translateLang(context, 'error'),
+                      desc: state.message,
                       type: ToastificationType.error);
 
-                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //   content: Text(
-                  //     'Credentials entered are not correct',
-                  //     style: Theme.of(context)
-                  //         .textTheme
-                  //         .headlineMedium!
-                  //         .copyWith(color: AppColors.white),
-                  //   ),
-                  //   backgroundColor: AppColors.danger,
-                  // ));
+                  // showErrorSnackBar(context, text: state.message);
+
+                 
                 }
               }, builder: (BuildContext context, state) {
                 final LogInCubit logInCubit = LogInCubit.instance(context);

@@ -71,7 +71,6 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   void resetPassword(context, String identifier) {
     if (formForgetKey.currentState!.validate()) {
       emit(ResetPasswordLoadingState());
-
       Map data = {
         "provider": CANDIDATE_PROVIDER,
         "identifier": identifier,
@@ -82,11 +81,9 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       resetPasswordprovider.resetPassword(data).then((value) {
         emit(ResetPasswordSuccessState());
       }).catchError((error) {
-        emit(ResetPasswordFailureState());
+        emit(ResetPasswordFailureState(
+            message: error.failure.message.toString()));
       });
     }
-    // if(c.text.isNotEmpty){
-
-    // }
   }
 }

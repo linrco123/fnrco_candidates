@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/logic/cubit/auth/sign_up/sign_up_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
@@ -234,7 +235,16 @@ class SignUpScreen extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16.0),
                                 child: CustomElevatedButton(
-                                    fun: () {},
+                                    fun: () {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              AppPagesNames.OTP,
+                                              arguments: {
+                                            IDENTIFIER_KEYWORD: signUpCubit
+                                                .emailController.text,
+                                            PAGE_KEYWORD: SIGNUP_PAGE
+                                          });
+                                    },
                                     background: AppColors.primary,
                                     text: translateLang(context, 'sign_up'))),
                             TextButton(

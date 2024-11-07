@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class TestScreenh extends StatefulWidget {
   const TestScreenh({super.key});

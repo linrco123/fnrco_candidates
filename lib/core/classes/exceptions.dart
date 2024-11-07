@@ -1,13 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
  
 import 'package:dio2/dio2.dart';
+
 import 'package:fnrco_candidates/constants/enums.dart';
 import 'package:fnrco_candidates/constants/responses_code.dart';
 import 'package:fnrco_candidates/core/classes/extensions.dart';
 import 'package:fnrco_candidates/core/classes/failure.dart';
 
-class ApiException implements Exception{
-  String message;
-  ApiException(this.message );
+class ApiException implements Exception {
+  Failure failure;
+  ApiException({
+    required this.failure,
+  });
+  
 }
 
 

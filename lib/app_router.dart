@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/ui/screens/auth/auth.dart';
 import 'package:fnrco_candidates/ui/screens/auth/reset_password.dart';
 import 'package:fnrco_candidates/ui/screens/auth/forget_password.dart';
@@ -45,7 +46,7 @@ class AppRouter {
             settings: RouteSettings(
                 arguments: {'identifier': identifier, 'page': page}));
 
-      case AppPagesNames.CHANGEPASSWORD:
+      case AppPagesNames.RESETPASSWORD:
         var identifier = (settings.arguments as Map)['identifier'];
         return MaterialPageRoute(
             builder: (context) => ChangePasswordScreen(),
@@ -74,7 +75,7 @@ class AppRouter {
       case AppPagesNames.SUCCESS:
         return MaterialPageRoute(
           builder: (context) => SuccessScreen(
-            screenType: '',
+            screenType: (settings.arguments as Map)[PAGE_KEYWORD],
           ),
         );
       case AppPagesNames.HEALTH_CARE:

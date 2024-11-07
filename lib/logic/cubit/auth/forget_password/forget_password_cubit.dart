@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/functions/show_toastification.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/forget_password.dart';
-import 'package:toastification/toastification.dart';
 
 part 'forget_password_state.dart';
 
@@ -28,7 +26,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
 
   void verifyEmail(context) {
     FocusScope.of(context).unfocus();
-    if (forgetPasswordController.text.isNotEmpty) {
+    if (formKey.currentState!.validate()) {
       emit(ForgetPasswordLoadingState());
       Map data = {
         "provider": CANDIDATE_PROVIDER,
@@ -37,14 +35,10 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       forgetPasswordProvider.forgetPassword(data).then((value) {
         emit(ForgetPasswordSuccessState(code: value!));
       }).catchError((error) {
-       // ApiException exception = error as ApiException;
-        emit(ForgetPasswordFailureState(message: error.message.toString()));
+
+        emit(ForgetPasswordFailureState(message: error.failure.message.toString()));
       });
-    } else {
-      showToast(context,
-          title: 'warning',
-          desc: 'Insert your email',
-          type: ToastificationType.warning);
     }
+  
   }
 }

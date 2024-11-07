@@ -87,51 +87,54 @@ class OnboardingScreen extends StatelessWidget {
                     // Bottom buttons
                     SizedBox(
                       height: 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                                style: TextButton.styleFrom(
+                                    visualDensity: VisualDensity.comfortable,
+                                    foregroundColor: Colors.white,
+                                    textStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () {
+                                  //TODO: onskip
+                                  Navigator.of(context)
+                                      .pushReplacementNamed(AppPagesNames.AUTH);
+                                },
+                                child: Text(AppLocalizations.of(context)!
+                                    .translate('skip'))),
+                            TextButton(
                               style: TextButton.styleFrom(
                                   visualDensity: VisualDensity.comfortable,
                                   foregroundColor: Colors.white,
                                   textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
+                                      fontSize: 16, fontWeight: FontWeight.bold)),
                               onPressed: () {
-                                //TODO: onskip
-                                Navigator.of(context)
-                                    .pushReplacementNamed(AppPagesNames.AUTH);
+                                onBoardingCubit.moveToNext(context);
                               },
-                              child: Text(AppLocalizations.of(context)!
-                                  .translate('skip'))),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                                visualDensity: VisualDensity.comfortable,
-                                foregroundColor: Colors.white,
-                                textStyle: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
-                            onPressed: () {
-                              onBoardingCubit.moveToNext(context);
-                            },
-                            child: Row(
-                              children: [
-                                Text(
-                                  onBoardingCubit.currentPage ==
+                              child: Row(
+                                children: [
+                                  Text(
+                                    onBoardingCubit.currentPage ==
+                                            onBoardingCubit.pages.length - 1
+                                        ? AppLocalizations.of(context)!
+                                            .translate("finish")
+                                        : AppLocalizations.of(context)!
+                                            .translate("next"),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Icon(onBoardingCubit.currentPage ==
                                           onBoardingCubit.pages.length - 1
-                                      ? AppLocalizations.of(context)!
-                                          .translate("finish")
-                                      : AppLocalizations.of(context)!
-                                          .translate("next"),
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(onBoardingCubit.currentPage ==
-                                        onBoardingCubit.pages.length - 1
-                                    ? Icons.done
-                                    : Icons.arrow_forward),
-                              ],
+                                      ? Icons.done
+                                      : Icons.arrow_forward),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     )
                   ],

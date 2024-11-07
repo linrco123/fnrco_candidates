@@ -1,6 +1,8 @@
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/exceptions.dart';
+import 'package:fnrco_candidates/core/classes/failure.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class OTPProvider {
   late Dio dio;
@@ -18,32 +20,20 @@ class OTPProvider {
     dio = Dio(_baseOptions);
   }
 
-// {
-//     "status": true,
-//     "message": "Code exists.",
-//     "data": {
-//         "code": 616957
-//     }
-// }
   Future<bool?> verifyOTP(data) async {
     //return otp code
     try {
       final response = await dio.post(AppLinks.otp, data: data);
 
-       print(
-          '========================forgetpassword=====response================================');
-      print(response.data.runtimeType);
-      print(response.data);
-      if (response.statusCode == 200) {
-        //show messages or snackbar of success
+      if (response.statusCode == 200 && response.data["status"]) {
         return response.data['"status"'];
       }
     } on DioError catch (e) {
-      print(e.type);
-        print(
-          '========================otp=====response================exception================');
-      print(e.error+ '  ||||||||||||||| '+e.message);
-      throw ApiException('otp code is not correct');
+      
+      logger.e(e.response!.data);
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
     }
     return null;
   }

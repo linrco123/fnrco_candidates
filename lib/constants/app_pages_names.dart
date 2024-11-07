@@ -5,7 +5,7 @@ class AppPagesNames {
   static const String LOGIN = '/login';
   static const String SIGNUP = '/signup';
   static const String OTP = '/otp';
-  static const String CHANGEPASSWORD = '/changePassword';
+  static const String RESETPASSWORD = '/changePassword';
   static const String FORGETPASSWORD = '/forgetPassword';
   static const String HOMEPAGE = '/homepage';
   static const String PROFILE = '/profile';

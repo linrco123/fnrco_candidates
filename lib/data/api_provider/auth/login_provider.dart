@@ -5,7 +5,9 @@ import 'dart:async';
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/exceptions.dart';
+import 'package:fnrco_candidates/core/classes/failure.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class LoginProvider {
   late Dio dio;
@@ -29,30 +31,28 @@ class LoginProvider {
         AppLinks.logIn,
         data: data,
       );
-      print(response);
-      print(
-          '====================login=========response================================');
-      print(response.data.runtimeType);
-      print(response.data);
-      if (response.statusCode == 200) {
-        //show messages or snackbar of success
+      if (response.statusCode == 200 && response.data['status'] == true) {
         return LoginModel.fromJson(response.data);
       }
     } on DioError catch (e) {
+      
+      print('========================login error ================');
+      print('e.error   ======================= ${e.error}');
+      print('e.message  ======================= ${e.message}');
+      print('e.request!.data ======================= ${e.request!.data}');
       print(
-          '================================== e.runtimeType =============================');
-      print(e.response!.data);
-      print(e.runtimeType);
-      DioErrorType error = DioErrorType.CANCEL;
-      print("e.type ========================>>>>>>>>>>>> " + e.type.toString());
-      // print('error =================================>>>>>>>>>>>>> $e');
-      if (e.response?.statusCode == 400) {
-        throw ApiException(e.message);
-      }
+          'e.response!.statusCode======================= ${e.response!.statusCode}');
+      print('e.response!.data======================= ${e.response!.data}');
+      logger.d(e.response!.data);
+
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
     }
     return null;
   }
 }
+
 
 
 
