@@ -25,13 +25,15 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: fun,
+      clipBehavior: Clip.antiAlias,
       style: ElevatedButton.styleFrom(
-        elevation: elevation,
-        backgroundColor: background,
-        foregroundColor: foreground,
-        minimumSize: Size(width, height),
-        shape: const StadiumBorder(),
-      ),
+          elevation: elevation,
+          backgroundColor: background,
+          foregroundColor: foreground,
+          minimumSize: Size(width, height),
+          shape: const RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadiusDirectional.all(Radius.circular(16.0)))),
       child: Text(
         text,
         style: TextStyle(fontSize: textSize),

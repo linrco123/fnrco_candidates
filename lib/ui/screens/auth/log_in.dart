@@ -55,7 +55,7 @@ class SignInScreen extends StatelessWidget {
                       children: [
                         SizedBox(height: constraints.maxHeight * 0.1),
                         const LOGO(),
-                        SizedBox(height: constraints.maxHeight * 0.1),
+                        SizedBox(height: constraints.maxHeight * 0.04),
                         Text(
                           translateLang(context, 'sign_in'),
                           style: Theme.of(context).textTheme.headlineLarge,

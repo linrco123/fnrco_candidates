@@ -63,13 +63,13 @@ class SignUpScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 final SignUpCubit signUpCubit = BlocProvider.of(context);
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
                       SizedBox(height: constraints.maxHeight * 0.08),
                       const LOGO(),
-                      SizedBox(height: constraints.maxHeight * 0.08),
+                      SizedBox(height: constraints.maxHeight * 0.04),
                       Text(
                         translateLang(context, 'sign_up'),
                         style: Theme.of(context).textTheme.headlineLarge,
@@ -77,77 +77,79 @@ class SignUpScreen extends StatelessWidget {
                       SizedBox(height: constraints.maxHeight * 0.05),
                       Form(
                         key: signUpCubit.formKey,
-                        child: Column(
-                          children: [
-                            NameEmailPhoneFormField(
-                                controller: signUpCubit.nameController,
-                                inputType: TextInputType.name,
-                                prefixIcon: CupertinoIcons.person,
-                                hint: translateLang(context, "full_name"),
-                                validate: signUpCubit.validateFullName),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            NameEmailPhoneFormField(
-                                controller: signUpCubit.emailController,
-                                inputType: TextInputType.emailAddress,
-                                prefixIcon: CupertinoIcons.mail,
-                                hint: translateLang(context, "email"),
-                                validate: signUpCubit.validateEmail),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            NameEmailPhoneFormField(
-                                controller: signUpCubit.phoneController,
-                                inputType: TextInputType.phone,
-                                prefixIcon: CupertinoIcons.phone,
-                                hint: translateLang(context, "phone_number"),
-                                validate: signUpCubit.validatePhone),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            PasswordFormField(
-                                controller: signUpCubit.passwordController,
-                                obscureText: signUpCubit.obscureText,
-                                prefixIcon: CupertinoIcons.lock,
-                                hint: translateLang(context, "password"),
-                                toggleObscureText:
-                                    signUpCubit.toggleObscureText,
-                                visibleIcon: signUpCubit.getIcon(),
-                                validate: signUpCubit.validatePassword),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            signUpCubit.countries.isEmpty
-                                ? SignUpLoadingWidget()
-                                : CustomDropTextField(
-                                    items: signUpCubit.countries
-                                        .map((country) => DropdownMenuItem<int>(
-                                              //alignment: Alignment.center,
-                                              child: Text(
-                                                  '${country.countryName!} (${country.countryCode})'),
-                                              value: country.id,
-                                            ))
-                                        .toList(),
-                                    text: translateLang(context, 'country'),
-                                    icon: Icon(
-                                      CupertinoIcons.building_2_fill,
-                                      color: AppColors.grey,
-                                    ),
-                                    desc: 'choose your country !!',
-                                    onChanged: signUpCubit.selectCountry,
-                                  ),
-
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            signUpCubit.positions.isEmpty
-                                ? SignUpLoadingWidget()
-                                : CustomDropTextField(
-                                    onChanged: signUpCubit.selectPosition,
-                                    items: signUpCubit.positions
-                                        .map(
-                                            (position) => DropdownMenuItem<int>(
+                        child: Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                NameEmailPhoneFormField(
+                                    controller: signUpCubit.nameController,
+                                    inputType: TextInputType.name,
+                                    prefixIcon: CupertinoIcons.person,
+                                    hint: translateLang(context, "full_name"),
+                                    validate: signUpCubit.validateFullName),
+                                const SizedBox(
+                                  height: 16.0,
+                                ),
+                                NameEmailPhoneFormField(
+                                    controller: signUpCubit.emailController,
+                                    inputType: TextInputType.emailAddress,
+                                    prefixIcon: CupertinoIcons.mail,
+                                    hint: translateLang(context, "email"),
+                                    validate: signUpCubit.validateEmail),
+                                const SizedBox(
+                                  height: 16.0,
+                                ),
+                                NameEmailPhoneFormField(
+                                    controller: signUpCubit.phoneController,
+                                    inputType: TextInputType.phone,
+                                    prefixIcon: CupertinoIcons.phone,
+                                    hint:
+                                        translateLang(context, "phone_number"),
+                                    validate: signUpCubit.validatePhone),
+                                const SizedBox(
+                                  height: 16.0,
+                                ),
+                                PasswordFormField(
+                                    controller: signUpCubit.passwordController,
+                                    obscureText: signUpCubit.obscureText,
+                                    prefixIcon: CupertinoIcons.lock,
+                                    hint: translateLang(context, "password"),
+                                    toggleObscureText:
+                                        signUpCubit.toggleObscureText,
+                                    visibleIcon: signUpCubit.getIcon(),
+                                    validate: signUpCubit.validatePassword),
+                                const SizedBox(
+                                  height: 16.0,
+                                ),
+                                signUpCubit.countries.isEmpty
+                                    ? SignUpLoadingWidget()
+                                    : CustomDropTextField(
+                                        items: signUpCubit.countries
+                                            .map((country) =>
+                                                DropdownMenuItem<int>(
+                                                  //alignment: Alignment.center,
+                                                  child: Text(
+                                                      '${country.countryName!} (${country.countryCode})'),
+                                                  value: country.id,
+                                                ))
+                                            .toList(),
+                                        text: translateLang(context, 'country'),
+                                        icon: Icon(
+                                          CupertinoIcons.building_2_fill,
+                                          color: AppColors.grey,
+                                        ),
+                                        onChanged: signUpCubit.selectCountry,
+                                      ),
+                                const SizedBox(
+                                  height: 16.0,
+                                ),
+                                signUpCubit.positions.isEmpty
+                                    ? SignUpLoadingWidget()
+                                    : CustomDropTextField(
+                                        onChanged: signUpCubit.selectPosition,
+                                        items: signUpCubit.positions
+                                            .map((position) =>
+                                                DropdownMenuItem<int>(
                                                   //alignment: Alignment.center,
                                                   child: Text(position
                                                               .positionName!
@@ -157,131 +159,130 @@ class SignUpScreen extends StatelessWidget {
                                                       : position.positionName!),
                                                   value: position.id,
                                                 ))
-                                        .toList(),
-                                    text: translateLang(context, 'position'),
-                                    icon: Image.asset(
-                                      AppImages.position1,
-                                      height: 25.0,
-                                      width: 25,
-                                      color: AppColors.grey,
-                                    ),
-                                    desc: 'choose your position !!',
-                                  ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: signUpCubit.genders.isEmpty
-                                        ? SignUpLoadingWidget()
-                                        : CustomDropTextField(
-                                            items: signUpCubit.genders
-                                                .map((gender) =>
-                                                    DropdownMenuItem<int>(
-                                                      //alignment: Alignment.center,
-                                                      child: Text(
-                                                          '${gender.metaDataText}'),
-                                                      value: gender.id,
-                                                    ))
-                                                .toList(),
-                                            text: translateLang(
-                                                context, 'gender'),
-                                            icon: Image.asset(
-                                              AppImages.gender,
-                                              height: 25.0,
-                                              width: 25,
-                                              color: AppColors.grey,
-                                            ),
-                                            onChanged:
-                                                signUpCubit.selectGender)),
+                                            .toList(),
+                                        text:
+                                            'Major',
+                                        icon: Image.asset(
+                                          AppImages.position1,
+                                          height: 25.0,
+                                          width: 25,
+                                          color: AppColors.grey,
+                                        ),
+                                      ),
                                 const SizedBox(
-                                  width: 15,
+                                  height: 16,
                                 ),
-                                Expanded(
-                                    child: signUpCubit.religions.isEmpty
-                                        ? SignUpLoadingWidget()
-                                        : CustomDropTextField(
-                                            items: signUpCubit.religions
-                                                .map((religion) =>
-                                                    DropdownMenuItem<int>(
-                                                      //alignment: Alignment.center,
-                                                      child: Text(
-                                                          '${religion.religionName}'),
-                                                      value: religion.id,
-                                                    ))
-                                                .toList(),
-                                            text: translateLang(
-                                                context, 'religion'),
-                                            icon: Image.asset(
-                                              AppImages.religion,
-                                              height: 25.0,
-                                              width: 25,
-                                              color: AppColors.grey,
-                                            ),
-                                            onChanged:
-                                                signUpCubit.selectReligion)),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: signUpCubit.genders.isEmpty
+                                            ? SignUpLoadingWidget()
+                                            : CustomDropTextField(
+                                                items: signUpCubit.genders
+                                                    .map((gender) =>
+                                                        DropdownMenuItem<int>(
+                                                          //alignment: Alignment.center,
+                                                          child: Text(
+                                                              '${gender.metaDataText}'),
+                                                          value: gender.id,
+                                                        ))
+                                                    .toList(),
+                                                text: translateLang(
+                                                    context, 'gender'),
+                                                icon: Image.asset(
+                                                  AppImages.gender,
+                                                  height: 25.0,
+                                                  width: 25,
+                                                  color: AppColors.grey,
+                                                ),
+                                                onChanged:
+                                                    signUpCubit.selectGender)),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Expanded(
+                                        child: signUpCubit.religions.isEmpty
+                                            ? SignUpLoadingWidget()
+                                            : CustomDropTextField(
+                                                items: signUpCubit.religions
+                                                    .map((religion) =>
+                                                        DropdownMenuItem<int>(
+                                                          //alignment: Alignment.center,
+                                                          child: Text(
+                                                              '${religion.religionName}'),
+                                                          value: religion.id,
+                                                        ))
+                                                    .toList(),
+                                                text: translateLang(
+                                                    context, 'religion'),
+                                                icon: Image.asset(
+                                                  AppImages.religion,
+                                                  height: 25.0,
+                                                  width: 25,
+                                                  color: AppColors.grey,
+                                                ),
+                                                onChanged: signUpCubit
+                                                    .selectReligion)),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 16.0,
+                                ),
+                                signUpCubit.maritalStatus.isEmpty
+                                    ? SignUpLoadingWidget()
+                                    : CustomDropTextField(
+                                        items: signUpCubit.maritalStatus
+                                            .map((marital) =>
+                                                DropdownMenuItem<int>(
+                                                  //alignment: Alignment.center,
+                                                  child: Text(
+                                                      '${marital.metaDataText}'),
+                                                  value: marital.id,
+                                                ))
+                                            .toList(),
+                                        text: translateLang(
+                                            context, 'marital_status'),
+                                        icon: Image.asset(
+                                          AppImages.marital_status,
+                                          height: 25.0,
+                                          width: 25.0,
+                                          color: AppColors.grey,
+                                        ),
+                                        onChanged: signUpCubit.selectReligion),
                               ],
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            signUpCubit.maritalStatus.isEmpty
-                                ? SignUpLoadingWidget()
-                                : CustomDropTextField(
-                                    items: signUpCubit.maritalStatus
-                                        .map((marital) => DropdownMenuItem<int>(
-                                              //alignment: Alignment.center,
-                                              child: Text(
-                                                  '${marital.metaDataText}'),
-                                              value: marital.id,
-                                            ))
-                                        .toList(),
-                                    text: translateLang(
-                                        context, 'marital_status'),
-                                    icon: Image.asset(
-                                      AppImages.marital_status,
-                                      height: 25.0,
-                                      width: 25.0,
-                                      color: AppColors.grey,
-                                    ),
-                                    onChanged: signUpCubit.selectReligion),
-
-                            state is SignUpOTPLoadingState?
-                            LoadingWidget():
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16.0),
-                                child: CustomElevatedButton(
-                                    fun: () {
-                                      signUpCubit.getOTP();
-                                    },
-                                    background: AppColors.primary,
-                                    text: translateLang(context, 'sign_up'))),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushReplacementNamed(AppPagesNames.LOGIN);
-                              },
-                              child: Text.rich(
-                                  TextSpan(
-                                    text: translateLang(
-                                        context, "already_have_an_account"),
-                                    children: [
-                                      TextSpan(text: ' '),
-                                      TextSpan(
-                                        text: translateLang(context, "sign_in"),
-                                        style:
-                                            TextStyle(color: AppColors.primary),
-                                      ),
-                                    ],
-                                  ),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall),
-                            ),
-                          ],
+                          ),
                         ),
+                      ),
+                      state is SignUpOTPLoadingState
+                          ? LoadingWidget()
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              child: CustomElevatedButton(
+                                  fun: () {
+                                    signUpCubit.getOTP();
+                                  },
+                                  background: AppColors.primary,
+                                  text: translateLang(context, 'sign_up'))),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed(AppPagesNames.LOGIN);
+                        },
+                        child: Text.rich(
+                            TextSpan(
+                              text: translateLang(
+                                  context, "already_have_an_account"),
+                              children: [
+                                TextSpan(text: ' '),
+                                TextSpan(
+                                  text: translateLang(context, "sign_in"),
+                                  style: TextStyle(color: AppColors.primary),
+                                ),
+                              ],
+                            ),
+                            style: Theme.of(context).textTheme.headlineSmall),
                       ),
                     ],
                   ),

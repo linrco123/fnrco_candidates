@@ -37,7 +37,7 @@ class NameEmailPhoneFormField extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
         ),
       ),
       keyboardType: inputType,

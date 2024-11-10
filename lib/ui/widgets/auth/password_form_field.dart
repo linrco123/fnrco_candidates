@@ -43,7 +43,7 @@ class PasswordFormField extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
         ),
       ),
       keyboardType: TextInputType.visiblePassword,
@@ -83,7 +83,7 @@ class PasswordFormField extends StatelessWidget {
 //                               keyboardType: TextInputType.visiblePassword,
 //                             ),
 
-///////////////////////////////login//////////////////////////////
+///////////////////////////////login/////////////////////TODO:
 ///
 ///
 //  TextFormField(

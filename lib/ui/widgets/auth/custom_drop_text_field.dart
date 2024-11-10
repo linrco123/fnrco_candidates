@@ -27,7 +27,7 @@ class CustomDropTextField extends StatelessWidget {
       items: items,
       menuMaxHeight: 200.0,
       enableFeedback: true,
-      borderRadius: BorderRadius.circular(20.0),
+      borderRadius: BorderRadius.circular(16.0),
       dropdownColor: AppColors.primary,
       icon: const Icon(CupertinoIcons.chevron_compact_down),
       iconEnabledColor: AppColors.grey,
@@ -54,7 +54,7 @@ class CustomDropTextField extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
         ),
       ),
     );
