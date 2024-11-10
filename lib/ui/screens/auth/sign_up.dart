@@ -16,7 +16,6 @@ import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:toastification/toastification.dart';
-
 import '../../../constants/app_pages_names.dart';
 import '../../widgets/logo.dart';
 
@@ -90,7 +89,7 @@ class SignUpScreen extends StatelessWidget {
                                           inputType: TextInputType.name,
                                           prefixIcon: CupertinoIcons.person,
                                           hint: translateLang(
-                                              context, "first_name" ),
+                                              context, "first_name"),
                                           validate:
                                               signUpCubit.validateFullName),
                                     ),
@@ -117,7 +116,7 @@ class SignUpScreen extends StatelessWidget {
                                     controller: signUpCubit.lastNameController,
                                     inputType: TextInputType.name,
                                     prefixIcon: CupertinoIcons.person,
-                                    hint: translateLang(context,"last_name"),
+                                    hint: translateLang(context, "last_name"),
                                     validate: signUpCubit.validateFullName),
                                 const SizedBox(
                                   height: 16.0,
@@ -178,7 +177,7 @@ class SignUpScreen extends StatelessWidget {
                                 signUpCubit.positions.isEmpty
                                     ? SignUpLoadingWidget()
                                     : CustomDropTextField(
-                                        onChanged: signUpCubit.selectPosition,
+                                        onChanged: signUpCubit.selectMajor,
                                         items: signUpCubit.positions
                                             .map((position) =>
                                                 DropdownMenuItem<int>(
@@ -192,7 +191,7 @@ class SignUpScreen extends StatelessWidget {
                                                   value: position.id,
                                                 ))
                                             .toList(),
-                                        text: 'Major',
+                                        text: translateLang(context, 'major'),
                                         icon: Image.asset(
                                           AppImages.position1,
                                           height: 25.0,

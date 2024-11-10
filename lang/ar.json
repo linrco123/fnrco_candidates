@@ -142,5 +142,13 @@
     "marital_status": "الحالة الإجتماعية",
     "congrats": "!تهانينا",
     "account_created_success": "تم انشاء الحساب بنجاح",
-    "go_to_home":"الانتقال للصفحة الرئيسية"
+    "go_to_home":"الانتقال للصفحة الرئيسية",
+    "major":"التخصص",
+    "choose_country":"من فضلك،اختر الدولة",
+    "choose_major":"من فضلك،اختر التخصص",
+    "choose_gender":"من فضلك،اختر الجنس",
+    "choose_religion":"من فضلك،اختر الدين",
+    "choose_marital":"من فضلك،اختر الحالة الاجتماعية"
 }
+
+

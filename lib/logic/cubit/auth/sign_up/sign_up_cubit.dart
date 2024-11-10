@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
@@ -9,6 +10,7 @@ import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
+import 'package:toastification/toastification.dart';
 
 part 'sign_up_state.dart';
 
@@ -24,8 +26,9 @@ class SignUpCubit extends Cubit<SignUpState> {
   final passwordController = TextEditingController();
   final countryController = TextEditingController();
   final emailController = TextEditingController();
+  
   int countryId = 0;
-  int positionId = 0;
+  int majorId = 0;
   int genderId = 0;
   int religionId = 0;
   int maritalStatusId = 0;
@@ -36,8 +39,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignUpChoosingCountryState());
   }
 
-  void selectPosition(Object value) {
-    positionId = int.parse(value.toString());
+  void selectMajor(Object value) {
+    majorId = int.parse(value.toString());
 
     emit(SignUpChoosingPositionState());
   }
@@ -117,14 +120,41 @@ class SignUpCubit extends Cubit<SignUpState> {
     return null;
   }
 
-  void signUp() {
-    if (formKey.currentState!.validate() &&
-        countryId != 0 &&
-        positionId != 0 &&
-        genderId != 0 &&
-        religionId != 0 &&
-        maritalStatusId != 0) {
-      getOTP();
+  void signUp(context) {
+    if (countryId == 0) {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context,"choose_country"),
+          type: ToastificationType.warning);
+    } else if (majorId == 0) {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context,  "choose_major"),
+          type: ToastificationType.warning);
+    } else if (genderId == 0) {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context,  "choose_gender"),
+          type: ToastificationType.warning);
+    } else if (religionId == 0) {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context,  "choose_religion"),
+          type: ToastificationType.warning);
+    } else if (maritalStatusId == 0) {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context, "choose_marital"),
+          type: ToastificationType.warning);
+    } else {
+      if (formKey.currentState!.validate() &&
+          countryId != 0 &&
+          majorId != 0 &&
+          genderId != 0 &&
+          religionId != 0 &&
+          maritalStatusId != 0) {
+        getOTP();
+      }
     }
   }
 
