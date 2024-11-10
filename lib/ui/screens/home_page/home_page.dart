@@ -189,7 +189,7 @@ class HomePageScreen extends StatelessWidget {
                         ListTile(
                           onTap: () {
                             Navigator.of(context)
-                                .pushReplacementNamed(AppPagesNames.AUTH);
+                                .pushNamed(AppPagesNames.AUTH);
                           },
                           leading: SvgPicture.asset(
                             AppImages.LOGOUT,
