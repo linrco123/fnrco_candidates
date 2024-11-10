@@ -17,7 +17,9 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit(this.signUpProvider) : super(SignUpInitialState());
 
   final formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final secondNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final countryController = TextEditingController();

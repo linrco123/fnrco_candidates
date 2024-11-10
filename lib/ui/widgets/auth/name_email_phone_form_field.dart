@@ -20,6 +20,12 @@ class NameEmailPhoneFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofillHints: [
+        AutofillHints.username,
+        AutofillHints.email,
+        AutofillHints.telephoneNumber
+
+      ],
       initialValue: initialValue,
       style: Theme.of(context)
           .textTheme

@@ -24,6 +24,9 @@ class PasswordFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofillHints: [
+        AutofillHints.password
+      ],
       initialValue: initialValue,
       controller: controller,
       style: Theme.of(context)
