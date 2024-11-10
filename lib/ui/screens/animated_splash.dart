@@ -17,7 +17,8 @@ class CustomAnimatedSplashScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
         nextScreen: const OnboardingScreen(),
         centered: true,
-        pageTransitionType:  PageTransitionType.rotate ,
+        pageTransitionType:  PageTransitionType.leftToRight,
+        
        // nextRoute: AppPagesNames.INITIAL,
         splashIconSize: 250,
         duration: 3000,

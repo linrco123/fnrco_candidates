@@ -53,7 +53,7 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
         theme: appTheme,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRouter.routeTo,
-        initialRoute: AppPagesNames.ANIMATED_SPALSH,
+        initialRoute: AppPagesNames.ANIMATED_SPLASH,
       ),
     );
   }

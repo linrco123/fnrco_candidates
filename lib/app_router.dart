@@ -19,95 +19,205 @@ import 'package:fnrco_candidates/ui/screens/profile.dart';
 import 'package:fnrco_candidates/ui/screens/profile_editing.dart';
 import 'package:fnrco_candidates/ui/screens/resume.dart';
 import 'package:fnrco_candidates/ui/screens/success.dart';
+import 'package:page_transition/page_transition.dart';
 
 class AppRouter {
   static Route? routeTo(RouteSettings settings) {
     switch (settings.name) {
       case AppPagesNames.INITIAL:
-        return MaterialPageRoute(
-          builder: (context) => const OnboardingScreen(),
-        );
+        // return MaterialPageRoute(
+        //   builder: (context) => const OnboardingScreen(),
+        // );
+        return PageTransition(
+            child: const OnboardingScreen(),
+            type: PageTransitionType.rotate,
+            alignment: Alignment.centerLeft,
+            duration: const Duration(seconds: 1));
       case AppPagesNames.AUTH:
-        return MaterialPageRoute(
-            builder: (context) => const SigninOrSignupScreen());
+        return PageTransition(
+            child: const SigninOrSignupScreen(),
+            type: PageTransitionType.rotate,
+            alignment: Alignment.centerLeft,
+            duration: const Duration(seconds: 1));
+      // return MaterialPageRoute(
+      //     builder: (context) => const SigninOrSignupScreen());
       case AppPagesNames.LOGIN:
-        return MaterialPageRoute(
-          builder: (context) => const SignInScreen(),
-        );
+        // return MaterialPageRoute(
+        //   builder: (context) => const SignInScreen(),
+        // );
+        return PageTransition(
+            child: const SignInScreen(),
+            type: PageTransitionType.rotate,
+            alignment: Alignment.centerLeft,
+            duration: const Duration(seconds: 1));
       case AppPagesNames.SIGNUP:
-        return MaterialPageRoute(
-          builder: (context) => const SignUpScreen(),
+        // return MaterialPageRoute(
+        //   builder: (context) => const SignUpScreen(),
+        // );
+        return PageTransition(
+          child: const SignUpScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.OTP:
         var identifier = (settings.arguments as Map)['identifier'];
         var page = (settings.arguments as Map)['page'];
 
-        return MaterialPageRoute(
-            builder: (context) => const VerificationScreen(),
+        // return MaterialPageRoute(
+        //     builder: (context) => const VerificationScreen(),
+        //     settings: RouteSettings(
+        //         arguments: {'identifier': identifier, 'page': page}));
+
+        return PageTransition(
+            child: const VerificationScreen(),
+            type: PageTransitionType.rotate,
+            alignment: Alignment.centerLeft,
+            duration: const Duration(seconds: 1),
             settings: RouteSettings(
                 arguments: {'identifier': identifier, 'page': page}));
 
       case AppPagesNames.RESETPASSWORD:
         var identifier = (settings.arguments as Map)['identifier'];
-        return MaterialPageRoute(
-            builder: (context) => ChangePasswordScreen(),
+        // return MaterialPageRoute(
+        //     builder: (context) => ChangePasswordScreen(),
+        //     settings: RouteSettings(arguments: {'identifier': identifier}));
+
+        return PageTransition(
+            child: ChangePasswordScreen(),
+            type: PageTransitionType.rotate,
+            alignment: Alignment.centerLeft,
+            duration: const Duration(seconds: 1),
             settings: RouteSettings(arguments: {'identifier': identifier}));
 
       case AppPagesNames.FORGETPASSWORD:
-        return MaterialPageRoute(
-          builder: (context) => ForgotPassword(),
+        // return MaterialPageRoute(
+        //   builder: (context) => ForgotPassword(),
+        // );
+        return PageTransition(
+          child: ForgotPassword(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.HOMEPAGE:
-        return MaterialPageRoute(
-          builder: (context) => const HomePageScreen(),
+        // return MaterialPageRoute(
+        //   builder: (context) => const HomePageScreen(),
+        // );
+        return PageTransition(
+          child: HomePageScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.PROFILE:
-        return MaterialPageRoute(
-          builder: (context) => const ProfileScreen(),
+        // return MaterialPageRoute(
+        //   builder: (context) => const ProfileScreen(),
+        // );
+        return PageTransition(
+          child: ProfileScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.PROFILE_EDITING:
-        return MaterialPageRoute(
-          builder: (context) => const EditProfileScreen(),
+        // return MaterialPageRoute(
+        //   builder: (context) => const EditProfileScreen(),
+        // );
+        return PageTransition(
+          child: EditProfileScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.RESUME:
-        return MaterialPageRoute(
-          builder: (context) => ResumeScreen(),
+        // return MaterialPageRoute(
+        //   builder: (context) => ResumeScreen(),
+        // );
+        return PageTransition(
+          child: ResumeScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.SUCCESS:
-        return MaterialPageRoute(
-          builder: (context) => SuccessScreen(
+        // return MaterialPageRoute(
+        //   builder: (context) => SuccessScreen(
+        //     screenType: (settings.arguments as Map)[PAGE_KEYWORD],
+        //   ),
+        // );
+        return PageTransition(
+          child: SuccessScreen(
             screenType: (settings.arguments as Map)[PAGE_KEYWORD],
           ),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.HEALTH_CARE:
-        return MaterialPageRoute(
-          builder: (context) => MedicalDeclaration(),
+        // return MaterialPageRoute(
+        //   builder: (context) => MedicalDeclaration(),
+        // );
+        return PageTransition(
+          child: MedicalDeclaration(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.JOB_OFFER:
-        return MaterialPageRoute(
-          builder: (context) => JobOfferScreen(
+        // return MaterialPageRoute(
+        //   builder: (context) => JobOfferScreen(
+        //     pdfLink: '',
+        //   ),
+        // );
+        return PageTransition(
+          child: JobOfferScreen(
             pdfLink: '',
           ),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.INTERNET_CONNECTION:
-        return MaterialPageRoute(
-          builder: (context) => InternetConnectionScreen(),
+        //   return MaterialPageRoute(
+        //     builder: (context) => InternetConnectionScreen(),
+        //   );
+        return PageTransition(
+          child: InternetConnectionScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
       case AppPagesNames.JOB_DETAILS:
-        var args = settings.arguments;
-        return MaterialPageRoute(
-            builder: (context) => JobDetailsScreen(),
-            settings: RouteSettings(arguments: args));
-      case AppPagesNames.ANIMATED_SPALSH:
-        return MaterialPageRoute(
-          builder: (context) => CustomAnimatedSplashScreen(),
+        // return MaterialPageRoute(
+        //   builder: (context) => JobDetailsScreen(),
+        // );
+        return PageTransition(
+          child: JobDetailsScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
         );
-      case AppPagesNames.JOB_APPLICATION:
-        var jobID = settings.arguments as String;
-        return MaterialPageRoute(
-            builder: (context) => JobApplicationScreen(),
-            settings: RouteSettings(arguments: jobID));
 
+      case AppPagesNames.ANIMATED_SPLASH:
+        // return MaterialPageRoute(
+        //   builder: (context) => CustomAnimatedSplashScreen(),
+        // );
+        return PageTransition(
+            child: const CustomAnimatedSplashScreen(),
+            type: PageTransitionType.rotate,
+            alignment: Alignment.centerLeft,
+            duration: const Duration(seconds: 1));
+      case AppPagesNames.JOB_APPLICATION:
+        // return MaterialPageRoute(
+        //     builder: (context) => JobApplicationScreen(),
+        //     );
+        return PageTransition(
+          child: JobApplicationScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
       //JobApplicationScreen
     }
 

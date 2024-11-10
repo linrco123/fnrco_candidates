@@ -25,17 +25,17 @@ class HomePageCubit extends Cubit<HomePageState> {
     SalomonBottomBarItem(
       icon: const Icon(Icons.favorite_border),
       title: const Text("Favorites"),
-      selectedColor: Colors.pink,
+      selectedColor: AppColors.primary,
     ),
     SalomonBottomBarItem(
       icon: Icon(Icons.medical_information_outlined),
       title: const Text("Medical Declare"),
-      selectedColor: Colors.orange,
+      selectedColor: AppColors.primary,
     ),
     SalomonBottomBarItem(
       icon: const Icon(Icons.settings),
       title: const Text("settings"),
-      selectedColor: AppColors.purple,
+      selectedColor: AppColors.primary,
     ),
   ];
   final taps = [

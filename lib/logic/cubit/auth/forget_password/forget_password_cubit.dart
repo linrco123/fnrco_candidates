@@ -29,8 +29,8 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     if (formKey.currentState!.validate()) {
       emit(ForgetPasswordLoadingState());
       Map data = {
-        "provider": CANDIDATE_PROVIDER,
-        "identifier": forgetPasswordController.text
+        PROVIDER_KEYWORD: CANDIDATE_PROVIDER,
+        IDENTIFIER_KEYWORD: forgetPasswordController.text
       };
       forgetPasswordProvider.forgetPassword(data).then((value) {
         emit(ForgetPasswordSuccessState(code: value!));

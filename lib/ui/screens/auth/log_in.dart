@@ -8,6 +8,7 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
+import 'package:fnrco_candidates/ui/screens/home_page/home_page.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
@@ -39,14 +40,12 @@ class SignInScreen extends StatelessWidget {
                       .pushReplacementNamed(AppPagesNames.HOMEPAGE);
                 }
                 if (state is LogInErrorState) {
-                    showToast(context,
+                  showToast(context,
                       title: translateLang(context, 'error'),
                       desc: state.message,
                       type: ToastificationType.error);
 
                   // showErrorSnackBar(context, text: state.message);
-
-                 
                 }
               }, builder: (BuildContext context, state) {
                 final LogInCubit logInCubit = LogInCubit.instance(context);
@@ -118,7 +117,11 @@ class SignInScreen extends StatelessWidget {
                                       fun: () {
                                         //Focus to close Keyboard
                                         FocusScope.of(context).unfocus();
-                                        logInCubit.logIn();
+                                        // logInCubit.logIn();
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HomePageScreen()));
                                       },
                                       background: AppColors.primary,
                                       text: translateLang(context, 'sign_in')),
