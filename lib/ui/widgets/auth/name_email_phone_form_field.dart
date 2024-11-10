@@ -19,34 +19,36 @@ class NameEmailPhoneFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autofillHints: [
-        AutofillHints.username,
-        AutofillHints.email,
-        AutofillHints.telephoneNumber
-
-      ],
-      initialValue: initialValue,
-      style: Theme.of(context)
-          .textTheme
-          .headlineSmall!
-          .copyWith(color: AppColors.secondary),
-      controller: controller,
-      validator: (value) => validate(context, value),
-      decoration: InputDecoration(
-        prefixIcon: Icon(prefixIcon),
-        prefixIconColor: AppColors.grey,
-        hintText: hint,
-        hintStyle: Theme.of(context).textTheme.headlineSmall,
-        filled: true,
-        fillColor: AppColors.blurGreen,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+    return AutofillGroup(
+      child: TextFormField(
+        autofillHints: [
+          AutofillHints.username,
+          AutofillHints.email,
+          AutofillHints.telephoneNumber
+      
+        ],
+        initialValue: initialValue,
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .copyWith(color: AppColors.secondary),
+        controller: controller,
+        validator: (value) => validate(context, value),
+        decoration: InputDecoration(
+          prefixIcon: Icon(prefixIcon),
+          prefixIconColor: AppColors.grey,
+          hintText: hint,
+          hintStyle: Theme.of(context).textTheme.headlineSmall,
+          filled: true,
+          fillColor: AppColors.blurGreen,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          ),
         ),
+        keyboardType: inputType,
       ),
-      keyboardType: inputType,
     );
   }
 }

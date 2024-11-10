@@ -23,33 +23,35 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autofillHints: [
-        AutofillHints.password
-      ],
-      initialValue: initialValue,
-      controller: controller,
-      style: Theme.of(context)
-          .textTheme
-          .headlineSmall!
-          .copyWith(color: AppColors.secondary),
-      obscureText: obscureText,
-      validator: (value) => validate(context, value),
-      decoration: InputDecoration(
-        prefixIcon: Icon(prefixIcon),
-        prefixIconColor: AppColors.grey,
-        suffixIcon: IconButton(onPressed: toggleObscureText, icon: visibleIcon),
-        hintText: hint,
-        hintStyle: Theme.of(context).textTheme.headlineSmall,
-        filled: true,
-        fillColor: AppColors.blurGreen,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+    return AutofillGroup(
+      child: TextFormField(
+        autofillHints: [
+          AutofillHints.password
+        ],
+        initialValue: initialValue,
+        controller: controller,
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .copyWith(color: AppColors.secondary),
+        obscureText: obscureText,
+        validator: (value) => validate(context, value),
+        decoration: InputDecoration(
+          prefixIcon: Icon(prefixIcon),
+          prefixIconColor: AppColors.grey,
+          suffixIcon: IconButton(onPressed: toggleObscureText, icon: visibleIcon),
+          hintText: hint,
+          hintStyle: Theme.of(context).textTheme.headlineSmall,
+          filled: true,
+          fillColor: AppColors.blurGreen,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          ),
         ),
+        keyboardType: TextInputType.visiblePassword,
       ),
-      keyboardType: TextInputType.visiblePassword,
     );
   }
 }
