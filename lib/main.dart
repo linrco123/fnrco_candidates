@@ -33,6 +33,7 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      lazy: false,
       create: (context) => InternetBloc(_connectivity ,nav_Key ),
       child: MaterialApp(
         navigatorKey: nav_Key,

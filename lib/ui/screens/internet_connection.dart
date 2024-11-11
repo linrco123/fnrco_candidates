@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
+import 'package:fnrco_candidates/constants/enums.dart';
+import 'package:fnrco_candidates/core/functions/show_snackbar.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
@@ -24,16 +26,53 @@ class InternetConnectionScreen extends StatelessWidget {
         body: BlocConsumer<InternetBloc, InternetState>(
           listener: (context, state) {
             if (state is InternetConnected) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('${state.internetStatus.toString()}'),
-                backgroundColor: AppColors.success,
-              ));
-            }
-            if (state is InternetDisConnected) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('internet disconnected'),
-                backgroundColor: AppColors.danger,
-              ));
+              print(
+                  '111111111111111111111111111111111111111111111111111111111111111111');
+
+              showGeneralSnackBar(context,
+                  widget: Row(
+                    children: [
+                      const SizedBox(
+                        width: 20.0,
+                      ),
+                      Image.asset(
+                        'assets/images/wifi3.png',
+                        height: 30.0,
+                        width: 30.0,
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        'Internet connection is back via ${state.internetStatus == InternetStatus.Mobile ? 'Mobile' : 'Wifi'}',
+                        style: TextStyle(color: AppColors.white),
+                      )
+                    ],
+                  ));
+            } else if (state is InternetDisConnected) {
+              print(
+                  '222222222222222222222222222222222222222222222222222222222222222222');
+
+              showGeneralSnackBar(context,
+                  widget: Row(
+                    children: [
+                      const SizedBox(
+                        width: 20.0,
+                      ),
+                      Image.asset(
+                        'assets/images/wifi3.png',
+                        height: 30.0,
+                        width: 30.0,
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        'internet went disconnected',
+                        style: TextStyle(color: AppColors.white),
+                      )
+                    ],
+                  ));
             }
           },
           builder: (context, state) {

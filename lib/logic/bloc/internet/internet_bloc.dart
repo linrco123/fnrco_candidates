@@ -12,64 +12,44 @@ part 'internet_state.dart';
 
 class InternetBloc extends Bloc<InternetEvent, InternetState> {
   final Connectivity _connectivity;
-final GlobalKey<NavigatorState> navKey;
+  final GlobalKey<NavigatorState> navKey;
   late StreamSubscription<List<ConnectivityResult>> result;
 
-  InternetBloc(this._connectivity,this.navKey) : super(InternetInitial()) {
-    print(
-        '=======================================check Connectivity=========================');
+  InternetBloc(this._connectivity, this.navKey) : super(InternetInitial()) {
     on<InternetEvent>((event, emit) {
-      print(
-          '==========================on=============check Connectivity=========================');
       print(event);
       if (event is InternetConnectedEvent) {
-        emit(InternetConnected(internetStatus: event.internetStatus));
-         navKey.currentState!.pushNamed(AppPagesNames.INTERNET_CONNECTION);
-        print(
-            'InternetConnectedEvent ===================conn============>>>>>>>>');
-      } else {
-        emit(InternetDisConnected());
         navKey.currentState!.pop();
+        emit(InternetConnected(internetStatus: event.internetStatus));
+      }
+      if (event is InternetNotConnectedEvent) {
         print(
-            'InternetConnectedEvent ================not===============>>>>>>>>');
+            'kjfdjksakjfksgdalkfgldsafjksgfkjsdlvldsv=========================================flnfsdn;lksdalbaksdbbabav');
+        emit(InternetDisConnected());
+        navKey.currentState!.pushNamed(AppPagesNames.INTERNET_CONNECTION);
       }
     });
-   
+
     checkInternetConnectedness();
   }
 
   void checkInternetConnectedness() {
-    try{
-    print('=========================================connnnnnnnnnnnnnnnnnnnnn===========================');
     result = _connectivity.onConnectivityChanged.listen((data) {
-       print('=========================================connnnnnnnnnnnnnnnnnnnnn==========stream=================');
-       print(data);
-       print('data.runtimeType ================>>>>>  ${data.runtimeType}');
-       print('data..first..runtimeType ================>>>>>  ${data.first.runtimeType}');
-       print(ConnectivityResult.wifi.runtimeType);
-      if (data == ConnectivityResult.wifi) {
-          print('=========================================connnnnnnnnnnnnnnnnnnnnn========wifi===================');
+      print(ConnectivityResult.wifi.runtimeType);
+      if (data.first == ConnectivityResult.wifi) {
         // emitInternetConnected(InternetStatus.Wifi);
         add(InternetConnectedEvent(internetStatus: InternetStatus.Wifi));
-      } else if (data == ConnectivityResult.mobile) {
-          print('=========================================connnnnnnnnnnnnnnnnnnnnn========mobile===================');
+      } else if (data.first == ConnectivityResult.mobile) {
         // emitInternetConnected(InternetStatus.Mobile);
         add(InternetConnectedEvent(internetStatus: InternetStatus.Mobile));
-      } else if (data == ConnectivityResult.none) {
-          print('=========================================connnnnnnnnnnnnnnnnnnnnn========none===================');
+      } else if (data.first == ConnectivityResult.none) {
         // emitInternetDisconnected();
         add(InternetNotConnectedEvent());
       }
     });
-    }catch(e){
-      print('exception =======================>>>>>>>>>>>>>>>>>>> $e');
-
-    }
   }
 
   checkConnec() async {
-    print(
-        '==============================checkConnec==============================');
     var result = await Connectivity().checkConnectivity();
     print(result);
 
