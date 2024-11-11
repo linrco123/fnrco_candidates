@@ -27,9 +27,9 @@
     "please_enter_notes": "Please enter notes, Building number, Floor number, etc.",
     "sign_up": "Sign up",
     "full_name": "Full Name",
-    "first_name":"First Name",
-    "second_name":"Second Name",
-    "last_name":"Last Name",
+    "first_name": "First Name",
+    "second_name": "Second Name",
+    "last_name": "Last Name",
     "phone_number": "Phone",
     "iqama_number": "National-Iqama ID",
     "password": "Password",
@@ -40,6 +40,9 @@
     "already_have_an_account": "Already have an account?",
     "no_notifications": "No Notification",
     "msg_plz_enter_full_name": "Please enter full name",
+    "msg_plz_enter_first_name": "Please enter first name",
+    "msg_plz_enter_second_name": "Please enter second name",
+    "msg_plz_enter_last_name": "Please enter last name",
     "msg_plz_name_should_be_more_than_6_char": "Name should be more than 6 characters",
     "msg_plz_enter_email": "Email can't be empty",
     "msg_plz_enter_address": "Please enter Address",
@@ -142,15 +145,12 @@
     "marital_status": "marital status",
     "congrats": "Congratulations!",
     "account_created_success": "Account created successfully",
-    "go_to_home":"Go to Home",
-    "major":"Major",
-    "choose_country":"Please , choose a country !",
-    "choose_major":"Please , choose a major !",
-    "choose_gender":"Please , choose  gender !",
-    "choose_religion":"Please , choose a religion !",
-    "choose_marital":"Please , choose marital status !"
+    "go_to_home": "Go to Home",
+    "major": "Major",
+    "choose_country": "Please , choose a country !",
+    "choose_major": "Please , choose a major !",
+    "choose_gender": "Please , choose  gender !",
+    "choose_religion": "Please , choose a religion !",
+    "choose_marital": "Please , choose marital status !",
+    "msg_plz_enter_major": "Major can/'t be empty"
 }
-
-
-
-

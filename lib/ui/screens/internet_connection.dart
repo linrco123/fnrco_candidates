@@ -1,15 +1,16 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/enums.dart';
 import 'package:fnrco_candidates/core/functions/show_snackbar.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
+import 'package:lottie/lottie.dart';
 
 class InternetConnectionScreen extends StatelessWidget {
   const InternetConnectionScreen({super.key});
@@ -26,9 +27,6 @@ class InternetConnectionScreen extends StatelessWidget {
         body: BlocConsumer<InternetBloc, InternetState>(
           listener: (context, state) {
             if (state is InternetConnected) {
-              print(
-                  '111111111111111111111111111111111111111111111111111111111111111111');
-
               showGeneralSnackBar(context,
                   widget: Row(
                     children: [
@@ -50,9 +48,6 @@ class InternetConnectionScreen extends StatelessWidget {
                     ],
                   ));
             } else if (state is InternetDisConnected) {
-              print(
-                  '222222222222222222222222222222222222222222222222222222222222222222');
-
               showGeneralSnackBar(context,
                   widget: Row(
                     children: [
@@ -68,7 +63,7 @@ class InternetConnectionScreen extends StatelessWidget {
                         width: 5.0,
                       ),
                       Text(
-                        'internet went disconnected',
+                        'Internet went disconnected',
                         style: TextStyle(color: AppColors.white),
                       )
                     ],
@@ -83,88 +78,90 @@ class InternetConnectionScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    AppImages.wifi1,
-                    height: 100.0,
-                    width: 100.0,
-                    color: AppColors.primary,
-                  ),
+                  Lottie.asset(AppImages.SERVER_FAILURE,
+                      height: 400.0, width: 400.0,fit: BoxFit.cover),
+                  // Image.asset(
+                  //   AppImages.wifi1,
+                  //   height: 100.0,
+                  //   width: 100.0,
+                  //   color: AppColors.primary,
+                  // ),
+                  // const SizedBox(
+                  //   height: 15.0,
+                  // ),
+                  // Text(
+                  //   translateLang(context, 'no_internet_conn'),
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 18.0,
+                  //       color: AppColors.grey),
+                  // ),
+                  // Text(
+                  //   translateLang(context, 'steps_back_conn'),
+                  //   style: TextStyle(
+                  //       // fontWeight: FontWeight.bold,
+                  //       fontSize: 16.0,
+                  //       color: AppColors.grey),
+                  // ),
+                  // const SizedBox(
+                  //   height: 20.0,
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Icon(
+                  //       CupertinoIcons.check_mark_circled_solid,
+                  //       size: 20.0,
+                  //       color: AppColors.black.withOpacity(0.6),
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 10.0,
+                  //     ),
+                  //     Text(
+                  //       translateLang(context, "check_modem"),
+                  //       style: TextStyle(
+                  //           // fontWeight: FontWeight.bold,
+                  //           fontSize: 16.0,
+                  //           color: AppColors.grey),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(
+                  //   height: 10.0,
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Icon(
+                  //       CupertinoIcons.check_mark_circled_solid,
+                  //       size: 20.0,
+                  //       color: AppColors.black.withOpacity(0.6),
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 10.0,
+                  //     ),
+                  //     Text(
+                  //       translateLang(context, "check_wifi"),
+                  //       style: TextStyle(
+                  //           // fontWeight: FontWeight.bold,
+                  //           fontSize: 16.0,
+                  //           color: AppColors.grey),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: 15.0,
                   ),
-                  Text(
-                    translateLang(context, 'no_internet_conn'),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                        color: AppColors.grey),
-                  ),
-                  Text(
-                    translateLang(context, 'steps_back_conn'),
-                    style: TextStyle(
-                        // fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                        color: AppColors.grey),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.check_mark_circled_solid,
-                        size: 20.0,
-                        color: AppColors.black.withOpacity(0.6),
-                      ),
-                      const SizedBox(
-                        width: 10.0,
-                      ),
-                      Text(
-                        translateLang(context, "check_modem"),
-                        style: TextStyle(
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
-                            color: AppColors.grey),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.check_mark_circled_solid,
-                        size: 20.0,
-                        color: AppColors.black.withOpacity(0.6),
-                      ),
-                      const SizedBox(
-                        width: 10.0,
-                      ),
-                      Text(
-                        translateLang(context, "check_wifi"),
-                        style: TextStyle(
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
-                            color: AppColors.grey),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  SizedBox(
-                    width: 150.0,
-                    height: 50.0,
-                    child: CustomElevatedButton(
-                        fun: () async {
-                          await context.read<InternetBloc>().checkConnec();
-                        },
-                        background: AppColors.primary,
-                        text: translateLang(context, 'reload')),
-                  )
+                  // SizedBox(
+                  //   width: 150.0,
+                  //   height: 50.0,
+                  //   child: CustomElevatedButton(
+                  //       fun: () async {
+                  //         await context.read<InternetBloc>().checkConnec();
+                  //       },
+                  //       background: AppColors.primary,
+                  //       text: translateLang(context, 'reload')),
+                  // )
                 ],
               ),
             );

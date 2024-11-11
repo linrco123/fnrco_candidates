@@ -26,7 +26,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   final passwordController = TextEditingController();
   final countryController = TextEditingController();
   final emailController = TextEditingController();
-  
+  final majorController = TextEditingController();
+
   int countryId = 0;
   int majorId = 0;
   int genderId = 0;
@@ -76,9 +77,27 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  String? validateFullName(context, String? value) {
+  String? validateFirstName(context, String? value) {
     if (value!.isEmpty) {
-      return translateLang(context, "msg_plz_enter_full_name");
+      return translateLang(context, "msg_plz_enter_first_name");
+    } else if (value.length < 6) {
+      return translateLang(context, "msg_plz_name_should_be_more_than_6_char");
+    }
+    return null;
+  }
+
+  String? validateSecondName(context, String? value) {
+    if (value!.isEmpty) {
+      return translateLang(context, "msg_plz_enter_second_name");
+    } else if (value.length < 6) {
+      return translateLang(context, "msg_plz_name_should_be_more_than_6_char");
+    }
+    return null;
+  }
+
+  String? validateLastName(context, String? value) {
+    if (value!.isEmpty) {
+      return translateLang(context, "msg_plz_enter_last_name");
     } else if (value.length < 6) {
       return translateLang(context, "msg_plz_name_should_be_more_than_6_char");
     }
@@ -120,26 +139,29 @@ class SignUpCubit extends Cubit<SignUpState> {
     return null;
   }
 
+  String? validateMajor(context, String? value) {
+    if (value!.isEmpty) {
+      return translateLang(context, "msg_plz_enter_major");
+    }
+    return null;
+  }
+
   void signUp(context) {
+    
     if (countryId == 0) {
       showToast(context,
           title: translateLang(context, 'warning'),
-          desc: translateLang(context,"choose_country"),
-          type: ToastificationType.warning);
-    } else if (majorId == 0) {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context,  "choose_major"),
+          desc: translateLang(context, "choose_country"),
           type: ToastificationType.warning);
     } else if (genderId == 0) {
       showToast(context,
           title: translateLang(context, 'warning'),
-          desc: translateLang(context,  "choose_gender"),
+          desc: translateLang(context, "choose_gender"),
           type: ToastificationType.warning);
     } else if (religionId == 0) {
       showToast(context,
           title: translateLang(context, 'warning'),
-          desc: translateLang(context,  "choose_religion"),
+          desc: translateLang(context, "choose_religion"),
           type: ToastificationType.warning);
     } else if (maritalStatusId == 0) {
       showToast(context,
@@ -147,13 +169,33 @@ class SignUpCubit extends Cubit<SignUpState> {
           desc: translateLang(context, "choose_marital"),
           type: ToastificationType.warning);
     } else {
-      if (formKey.currentState!.validate() &&
-          countryId != 0 &&
-          majorId != 0 &&
-          genderId != 0 &&
-          religionId != 0 &&
-          maritalStatusId != 0) {
-        getOTP();
+      if (formKey.currentState!.validate()) {
+        Map data = {
+          "first_name": firstNameController.text,
+          "second_name": secondNameController.text,
+          "third_name": lastNameController.text,
+          "email": emailController.text,
+          "phone": phoneController.text,
+          "password": passwordController.text,
+          "religion_id": religionId,
+          "position": majorController.text,
+          "nationality": countryId,
+          "gender": genders
+              .where((gender) => gender.id! == genderId)
+              .toList()
+              .first
+              .metaDataText,
+          "martial_status": maritalStatus
+              .where((marital) => marital.id == maritalStatusId)
+              .toList()
+              .first
+              .metaDataText
+        };
+        signUpProvider.signUp(data).then((value) {
+
+        }).catchError((error) {
+
+        });
       }
     }
   }

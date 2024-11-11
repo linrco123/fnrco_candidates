@@ -91,7 +91,7 @@ class SignUpScreen extends StatelessWidget {
                                           hint: translateLang(
                                               context, "first_name"),
                                           validate:
-                                              signUpCubit.validateFullName),
+                                              signUpCubit.validateFirstName),
                                     ),
                                     const SizedBox(
                                       width: 10.0,
@@ -105,7 +105,7 @@ class SignUpScreen extends StatelessWidget {
                                           hint: translateLang(
                                               context, "second_name"),
                                           validate:
-                                              signUpCubit.validateFullName),
+                                              signUpCubit.validateSecondName),
                                     ),
                                   ],
                                 ),
@@ -117,7 +117,7 @@ class SignUpScreen extends StatelessWidget {
                                     inputType: TextInputType.name,
                                     prefixIcon: CupertinoIcons.person,
                                     hint: translateLang(context, "last_name"),
-                                    validate: signUpCubit.validateFullName),
+                                    validate: signUpCubit.validateLastName),
                                 const SizedBox(
                                   height: 16.0,
                                 ),
@@ -152,6 +152,15 @@ class SignUpScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 16.0,
                                 ),
+                                NameEmailPhoneFormField(
+                                    controller: signUpCubit.majorController,
+                                    inputType: TextInputType.name,
+                                    prefixIcon: Icons.javascript_sharp,
+                                    hint: translateLang(context, "major"),
+                                    validate: signUpCubit.validateMajor),
+                                     const SizedBox(
+                                  height: 16.0,
+                                ),
                                 signUpCubit.countries.isEmpty
                                     ? SignUpLoadingWidget()
                                     : CustomDropTextField(
@@ -174,34 +183,34 @@ class SignUpScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 16.0,
                                 ),
-                                signUpCubit.positions.isEmpty
-                                    ? SignUpLoadingWidget()
-                                    : CustomDropTextField(
-                                        onChanged: signUpCubit.selectMajor,
-                                        items: signUpCubit.positions
-                                            .map((position) =>
-                                                DropdownMenuItem<int>(
-                                                  //alignment: Alignment.center,
-                                                  child: Text(position
-                                                              .positionName!
-                                                              .length >
-                                                          30
-                                                      ? '${position.positionName!.substring(0, 30)}.........'
-                                                      : position.positionName!),
-                                                  value: position.id,
-                                                ))
-                                            .toList(),
-                                        text: translateLang(context, 'major'),
-                                        icon: Image.asset(
-                                          AppImages.position1,
-                                          height: 25.0,
-                                          width: 25,
-                                          color: AppColors.grey,
-                                        ),
-                                      ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
+                                // signUpCubit.positions.isEmpty
+                                //     ? SignUpLoadingWidget()
+                                //     : CustomDropTextField(
+                                //         onChanged: signUpCubit.selectMajor,
+                                //         items: signUpCubit.positions
+                                //             .map((position) =>
+                                //                 DropdownMenuItem<int>(
+                                //                   //alignment: Alignment.center,
+                                //                   child: Text(position
+                                //                               .positionName!
+                                //                               .length >
+                                //                           30
+                                //                       ? '${position.positionName!.substring(0, 30)}.........'
+                                //                       : position.positionName!),
+                                //                   value: position.id,
+                                //                 ))
+                                //             .toList(),
+                                //         text: translateLang(context, 'major'),
+                                //         icon: Image.asset(
+                                //           AppImages.position1,
+                                //           height: 25.0,
+                                //           width: 25,
+                                //           color: AppColors.grey,
+                                //         ),
+                                //       ),
+                                // const SizedBox(
+                                //   height: 16,
+                                // ),
                                 Row(
                                   children: [
                                     Expanded(
@@ -291,7 +300,7 @@ class SignUpScreen extends StatelessWidget {
                                   const EdgeInsets.symmetric(vertical: 16.0),
                               child: CustomElevatedButton(
                                   fun: () {
-                                    signUpCubit.getOTP();
+                                    signUpCubit.signUp(context);
                                   },
                                   background: AppColors.primary,
                                   text: translateLang(context, 'sign_up'))),

@@ -9,6 +9,7 @@ import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/register_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
@@ -28,19 +29,21 @@ class SignUpProvider {
     dio = Dio(_baseOptions);
   }
 
-  Future<LoginModel> signUp(Map data) async {
+  Future<RegisterModel> signUp(Map data) async {
     try {
       final Response response = await dio.post(
         AppLinks.signUp,
         data: data,
       );
       if (response.statusCode == 200) {
-        return LoginModel.fromJson(response.data);
+        return RegisterModel.fromJson(response.data);
       } else {
-        return await Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
-    } catch (e) {
-      return await Future.error(e);
+    } on DioError catch (e) {
+      return await Future.error(
+          Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
 

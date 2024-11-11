@@ -5,7 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/enums.dart';
-import 'package:meta/meta.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 part 'internet_event.dart';
 part 'internet_state.dart';
@@ -16,17 +16,17 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
   late StreamSubscription<List<ConnectivityResult>> result;
 
   InternetBloc(this._connectivity, this.navKey) : super(InternetInitial()) {
-    on<InternetEvent>((event, emit) {
+    on<InternetEvent>((event, emit) async {
       print(event);
       if (event is InternetConnectedEvent) {
         navKey.currentState!.pop();
         emit(InternetConnected(internetStatus: event.internetStatus));
       }
       if (event is InternetNotConnectedEvent) {
-        print(
-            'kjfdjksakjfksgdalkfgldsafjksgfkjsdlvldsv=========================================flnfsdn;lksdalbaksdbbabav');
-        emit(InternetDisConnected());
         navKey.currentState!.pushNamed(AppPagesNames.INTERNET_CONNECTION);
+        await Future.delayed(const Duration(seconds: 1)).then((value) {
+          emit(InternetDisConnected());
+        });
       }
     });
 
@@ -35,15 +35,11 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
 
   void checkInternetConnectedness() {
     result = _connectivity.onConnectivityChanged.listen((data) {
-      print(ConnectivityResult.wifi.runtimeType);
       if (data.first == ConnectivityResult.wifi) {
-        // emitInternetConnected(InternetStatus.Wifi);
         add(InternetConnectedEvent(internetStatus: InternetStatus.Wifi));
       } else if (data.first == ConnectivityResult.mobile) {
-        // emitInternetConnected(InternetStatus.Mobile);
         add(InternetConnectedEvent(internetStatus: InternetStatus.Mobile));
       } else if (data.first == ConnectivityResult.none) {
-        // emitInternetDisconnected();
         add(InternetNotConnectedEvent());
       }
     });
@@ -51,7 +47,7 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
 
   checkConnec() async {
     var result = await Connectivity().checkConnectivity();
-    print(result);
+    logger.d(result);
 
     if (result == ConnectivityResult.wifi) {
       add(InternetConnectedEvent(internetStatus: InternetStatus.Wifi));
