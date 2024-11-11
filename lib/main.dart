@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +16,6 @@ void main() async {
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
   RedExceptionHandler.handleFlutterError;
-  print('===================================platform=====================================');
-  print("paltform localname"+Platform.localeName);
-  print(WidgetsBinding.instance.window.locales);
   await CacheHelper.init();
   runApp(const FnrcoCandidates());
 }
@@ -33,18 +29,20 @@ class FnrcoCandidates extends StatefulWidget {
 
 class _FnrcoCandidatesState extends State<FnrcoCandidates> {
   final Connectivity _connectivity = Connectivity();
+  final nav_Key = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<InternetBloc>(
-          lazy: true,
+          lazy: false,
           create: (context) =>
-              InternetBloc(_connectivity)..add(CheckInternetConnectivity()),
+              InternetBloc(_connectivity , nav_Key),
         )
       ],
       child: MaterialApp(
+        navigatorKey: nav_Key,
         title: 'FNRCO CANDIDATES',
         locale: Locale('en'),
         supportedLocales: AppLocalizationsSetup.supportedLocales,
