@@ -34,23 +34,37 @@ final GlobalKey<NavigatorState> navKey;
             'InternetConnectedEvent ================not===============>>>>>>>>');
       }
     });
-
+   
     checkInternetConnectedness();
   }
 
   void checkInternetConnectedness() {
+    try{
+    print('=========================================connnnnnnnnnnnnnnnnnnnnn===========================');
     result = _connectivity.onConnectivityChanged.listen((data) {
+       print('=========================================connnnnnnnnnnnnnnnnnnnnn==========stream=================');
+       print(data);
+       print('data.runtimeType ================>>>>>  ${data.runtimeType}');
+       print('data..first..runtimeType ================>>>>>  ${data.first.runtimeType}');
+       print(ConnectivityResult.wifi.runtimeType);
       if (data == ConnectivityResult.wifi) {
+          print('=========================================connnnnnnnnnnnnnnnnnnnnn========wifi===================');
         // emitInternetConnected(InternetStatus.Wifi);
         add(InternetConnectedEvent(internetStatus: InternetStatus.Wifi));
       } else if (data == ConnectivityResult.mobile) {
+          print('=========================================connnnnnnnnnnnnnnnnnnnnn========mobile===================');
         // emitInternetConnected(InternetStatus.Mobile);
         add(InternetConnectedEvent(internetStatus: InternetStatus.Mobile));
       } else if (data == ConnectivityResult.none) {
+          print('=========================================connnnnnnnnnnnnnnnnnnnnn========none===================');
         // emitInternetDisconnected();
         add(InternetNotConnectedEvent());
       }
     });
+    }catch(e){
+      print('exception =======================>>>>>>>>>>>>>>>>>>> $e');
+
+    }
   }
 
   checkConnec() async {

@@ -8,7 +8,6 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
-import 'package:fnrco_candidates/ui/screens/home_page/home_page.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
@@ -117,7 +116,9 @@ class SignInScreen extends StatelessWidget {
                                       fun: () {
                                         //Focus to close Keyboard
                                         FocusScope.of(context).unfocus();
-                                         logInCubit.logIn();
+                                        //  logInCubit.logIn();
+                                        Navigator.of(context).pushNamed(
+                                            AppPagesNames.INTERNET_CONNECTION);
                                       },
                                       background: AppColors.primary,
                                       text: translateLang(context, 'sign_in')),

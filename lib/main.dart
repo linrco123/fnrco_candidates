@@ -1,4 +1,3 @@
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,7 @@ import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/classes/red_exception_handler.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations_setup.dart';
 import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
- 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
@@ -33,14 +32,8 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<InternetBloc>(
-          lazy: false,
-          create: (context) =>
-              InternetBloc(_connectivity , nav_Key),
-        )
-      ],
+    return BlocProvider(
+      create: (context) => InternetBloc(_connectivity ,nav_Key ),
       child: MaterialApp(
         navigatorKey: nav_Key,
         title: 'FNRCO CANDIDATES',
