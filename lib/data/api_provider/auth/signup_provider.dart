@@ -4,7 +4,6 @@ import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/exceptions.dart';
 import 'package:fnrco_candidates/core/classes/failure.dart';
-import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
@@ -35,6 +34,8 @@ class SignUpProvider {
         AppLinks.signUp,
         data: data,
       );
+      print('============= signup=============================');
+      print(response.data);
       if (response.statusCode == 200) {
         return RegisterModel.fromJson(response.data);
       } else {
@@ -42,8 +43,12 @@ class SignUpProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
-      return await Future.error(
-          Failure(e.response!.statusCode!, e.response!.data['message']));
+      print('error =====================  >>>>>>>>>>>> $e');
+      // return await Future.error(
+      //     Failure(e.response!.statusCode!, e.response!.data['message']));
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
 

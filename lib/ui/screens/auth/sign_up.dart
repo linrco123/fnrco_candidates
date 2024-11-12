@@ -37,25 +37,25 @@ class SignUpScreen extends StatelessWidget {
           child: LayoutBuilder(builder: (context, constraints) {
             return BlocConsumer<SignUpCubit, SignUpState>(
               listener: (context, state) {
-                if (state is SignUpOTPSuccessState) {
+                if (state is SignUpSuccessState) {
                   Navigator.of(context)
                       .pushReplacementNamed(AppPagesNames.OTP, arguments: {
                     IDENTIFIER_KEYWORD:
                         context.read<SignUpCubit>().emailController.text,
                     PAGE_KEYWORD: SIGNUP_PAGE
                   });
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            content: Text(
-                              'code: ${state.code}',
-                              style: Theme.of(context).textTheme.headlineLarge,
-                            ),
-                          ));
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (context) => AlertDialog(
+                  //           content: Text(
+                  //             'code: ${state.code}',
+                  //             style: Theme.of(context).textTheme.headlineLarge,
+                  //           ),
+                  //         ));
                 }
-                if (state is SignUpOTPFailureState) {
+                if (state is SignUpErrorState) {
                   showToast(context,
-                      title: 'Error',
+                      title: translateLang(context, 'error'),
                       desc: state.message!,
                       type: ToastificationType.error);
                 }
@@ -287,13 +287,13 @@ class SignUpScreen extends StatelessWidget {
                                           width: 25.0,
                                           color: AppColors.grey,
                                         ),
-                                        onChanged: signUpCubit.selectReligion),
+                                        onChanged: signUpCubit.selectMaritalStatus),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      state is SignUpOTPLoadingState
+                      state is SignUpLoadingState
                           ? LoadingWidget()
                           : Padding(
                               padding:

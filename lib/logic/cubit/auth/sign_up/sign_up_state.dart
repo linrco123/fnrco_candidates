@@ -10,7 +10,11 @@ class SignUpLoadingState extends SignUpState {}
 
 class SignUpSuccessState extends SignUpState {}
 
-class SignUpErrorState extends SignUpState {}
+class SignUpErrorState extends SignUpState {
+  final String message;
+
+  SignUpErrorState({required this.message});
+}
 
 //TODO:SignUpChangingObsecureTextState
 class SignUpChangingObsecureTextState extends SignUpState {}

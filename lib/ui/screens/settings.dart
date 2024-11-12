@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/logic/cubit/settings/settings_cubit.dart';
 
@@ -11,176 +12,176 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SettingsCubit(),
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        color: AppColors.primary.withOpacity(0.1),
-        //padding: const EdgeInsets.all(15.0),
-        child: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height / 14,
-              decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadiusDirectional.only(
-                      bottomEnd: Radius.circular(20.0),
-                      bottomStart: Radius.circular(20.0))),
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      color: AppColors.primary.withOpacity(0.1),
+      //padding: const EdgeInsets.all(15.0),
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height / 14,
+            decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadiusDirectional.only(
+                    bottomEnd: Radius.circular(20.0),
+                    bottomStart: Radius.circular(20.0))),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height / 9 + 20),
+            child: BlocConsumer<SettingsCubit, SettingsState>(
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              builder: (context, state) {
+                var settingsCubit = BlocProvider.of<SettingsCubit>(context);
+                return ListView(
+                  children: [
+                    _addSettingItem(
+                        context: context,
+                        image: AppImages.TRANSLATE,
+                        text:
+                            AppLocalizations.of(context)!.translate('language'),
+                        onTap: () {}),
+                    _divider(),
+
+                    // Account Settings field
+                    _addSettingItem(
+                        context: context,
+                        image: AppImages.FAVORITE,
+                        text:
+                            AppLocalizations.of(context)!.translate('favorite'),
+                        onTap: () {}),
+                    _divider(),
+                    _addSettingItem(
+                        context: context,
+                        image: AppImages.FILE_FILLED,
+                        text: AppLocalizations.of(context)!
+                            .translate('terms_conditions'),
+                        onTap: () {}),
+
+                    _divider(),
+
+                    // Blog field
+                    _addSettingItem(
+                        context: context,
+                        image: AppImages.FILE_FILLED,
+                        text: AppLocalizations.of(context)!.translate('blogs'),
+                        onTap: () {}),
+                    _divider(),
+
+                    // Rate App field
+                    _addSettingItem(
+                        context: context,
+                        image: AppImages.RATE,
+                        text: AppLocalizations.of(context)!.translate('rate'),
+                        onTap: () {}),
+                    _divider(),
+
+                    // About Us field
+                    _addSettingItem(
+                        context: context,
+                        image: AppImages.FILE_FILLED,
+                        text: AppLocalizations.of(context)!
+                            .translate('about_candidates'),
+                        onTap: () {}),
+                    _divider(),
+
+                    _addSettingItem(
+                        context: context,
+                        isSVG: false,
+                        image: AppImages.fingerPrint1,
+                        text: AppLocalizations.of(context)!
+                            .translate('login_biometric'),
+                        icon: settingsCubit.isBioMetricShown
+                            ? Icons.keyboard_arrow_down
+                            : Icons.arrow_forward_ios,
+                        size: settingsCubit.isBioMetricShown ? 25 : 15,
+                        onTap: () {
+                          settingsCubit.showBiometric();
+                        }),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Visibility(
+                        visible: settingsCubit.isBioMetricShown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Switch(
+                                trackOutlineColor:
+                                    WidgetStatePropertyAll(AppColors.primary),
+                                value: settingsCubit.isbiometricOperating,
+                                onChanged: (value) =>
+                                    settingsCubit.toggleBioMetric(value)),
+                            Text(
+                              settingsCubit.isbiometricOperating ? 'ON' : 'OFF',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                      color: settingsCubit.isbiometricOperating
+                                          ? AppColors.primary
+                                          : AppColors.black),
+                            )
+                          ],
+                        )),
+                    _divider(),
+
+                    _addSettingItem(
+                        context: context,
+                        isSVG: false,
+                        image: AppImages.brightness,
+                        text: AppLocalizations.of(context)!
+                            .translate('brightness_mode'),
+                        icon: settingsCubit.isBrightnessShown
+                            ? Icons.keyboard_arrow_down
+                            : Icons.arrow_forward_ios,
+                        size: settingsCubit.isBrightnessShown ? 25 : 15,
+                        onTap: () {
+                          settingsCubit.showBrightness();
+                        }),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Visibility(
+                        visible: settingsCubit.isBrightnessShown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Switch(
+                                activeColor: AppColors.black,
+                                inactiveThumbColor: AppColors.white,
+                                trackOutlineColor:
+                                    WidgetStatePropertyAll(AppColors.primary),
+                                value: settingsCubit.brightnessMode == DARK_MODE
+                                    ? true
+                                    : false,
+                                onChanged: (value) =>
+                                    settingsCubit.toggleBrightness(
+                                        value ? DARK_MODE : LIGTH_MODE)),
+                            Text(
+                              settingsCubit.brightnessMode == LIGTH_MODE
+                                  ? 'Bright Mode'
+                                  : 'Dark Mode',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                      color: settingsCubit.brightnessMode == DARK_MODE
+                                          ? AppColors.black
+                                          : AppColors.white),
+                            )
+                          ],
+                        )),
+                  ],
+                );
+              },
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height / 9 + 20),
-              child: BlocConsumer<SettingsCubit, SettingsState>(
-                listener: (context, state) {
-                  // TODO: implement listener
-                },
-                builder: (context, state) {
-                  var settingsCubit = BlocProvider.of<SettingsCubit>(context);
-                  return ListView(
-                    children: [
-                      _addSettingItem(
-                          context: context,
-                          image: AppImages.TRANSLATE,
-                          text: AppLocalizations.of(context)!
-                              .translate('language'),
-                          onTap: () {}),
-                      _divider(),
-
-                      // Account Settings field
-                      _addSettingItem(
-                          context: context,
-                          image: AppImages.FAVORITE,
-                          text: AppLocalizations.of(context)!
-                              .translate('favorite'),
-                          onTap: () {}),
-                      _divider(),
-                      _addSettingItem(
-                          context: context,
-                          image: AppImages.FILE_FILLED,
-                          text: AppLocalizations.of(context)!
-                              .translate('terms_conditions'),
-                          onTap: () {}),
-
-                      _divider(),
-
-                      // Blog field
-                      _addSettingItem(
-                          context: context,
-                          image: AppImages.FILE_FILLED,
-                          text:
-                              AppLocalizations.of(context)!.translate('blogs'),
-                          onTap: () {}),
-                      _divider(),
-
-                      // Rate App field
-                      _addSettingItem(
-                          context: context,
-                          image: AppImages.RATE,
-                          text: AppLocalizations.of(context)!.translate('rate'),
-                          onTap: () {}),
-                      _divider(),
-
-                      // About Us field
-                      _addSettingItem(
-                          context: context,
-                          image: AppImages.FILE_FILLED,
-                          text: AppLocalizations.of(context)!
-                              .translate('about_candidates'),
-                          onTap: () {}),
-                      _divider(),
-
-                      _addSettingItem(
-                          context: context,
-                          isSVG: false,
-                          image: AppImages.fingerPrint1,
-                          text: AppLocalizations.of(context)!
-                              .translate('login_biometric'),
-                          icon: settingsCubit.isBioMetricShown
-                              ? Icons.keyboard_arrow_down
-                              : Icons.arrow_forward_ios,
-                          size: settingsCubit.isBioMetricShown ? 25 : 15,
-                          onTap: () {
-                            settingsCubit.showBiometric();
-                          }),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Visibility(
-                          visible: settingsCubit.isBioMetricShown,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Switch(
-                                  value: settingsCubit.isbiometricOperating,
-                                  onChanged: (value) =>
-                                      settingsCubit.toggleBioMetric(value)),
-                              Text(
-                                settingsCubit.isbiometricOperating
-                                    ? 'ON'
-                                    : 'OFF',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                        color:
-                                            settingsCubit.isbiometricOperating
-                                                ? AppColors.primary
-                                                : AppColors.black),
-                              )
-                            ],
-                          )),
-                      _divider(),
-
-                      _addSettingItem(
-                          context: context,
-                          isSVG: false,
-                          image: AppImages.brightness,
-                          text: AppLocalizations.of(context)!
-                              .translate('brightness_mode'),
-                          icon: settingsCubit.isBrightnessShown
-                              ? Icons.keyboard_arrow_down
-                              : Icons.arrow_forward_ios,
-                          size: settingsCubit.isBrightnessShown ? 25 : 15,
-                          onTap: () {
-                            settingsCubit.showBrightness();
-                          }),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Visibility(
-                          visible: settingsCubit.isBrightnessShown,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Switch(
-                                  value: settingsCubit.brightnessMode == 0
-                                      ? true
-                                      : false,
-                                  onChanged: (value) => settingsCubit
-                                      .toggleBrightness(value ? 0 : 1)),
-                              Text(
-                                settingsCubit.brightnessMode == 1
-                                    ? 'Bright MOde'
-                                    : 'Dark Mode',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                        color: settingsCubit.brightnessMode == 0
-                                            ? AppColors.primary
-                                            : AppColors.black),
-                              )
-                            ],
-                          )),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

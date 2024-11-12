@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/enums.dart';
 import 'package:fnrco_candidates/core/functions/show_snackbar.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:lottie/lottie.dart';
 
 class InternetConnectionScreen extends StatelessWidget {
@@ -34,15 +31,15 @@ class InternetConnectionScreen extends StatelessWidget {
                         width: 20.0,
                       ),
                       Image.asset(
-                        'assets/images/wifi3.png',
+                        AppImages.wifi_on,
                         height: 30.0,
                         width: 30.0,
                       ),
                       const SizedBox(
-                        width: 5.0,
+                        width: 10.0,
                       ),
                       Text(
-                        'Internet connection is back via ${state.internetStatus == InternetStatus.Mobile ? 'Mobile' : 'Wifi'}',
+                        '${translateLang(context, "msg_internet_back")} ${state.internetStatus == InternetStatus.Mobile ? 'Mobile' : 'Wifi'}!',
                         style: TextStyle(color: AppColors.white),
                       )
                     ],
@@ -55,15 +52,15 @@ class InternetConnectionScreen extends StatelessWidget {
                         width: 20.0,
                       ),
                       Image.asset(
-                        'assets/images/wifi3.png',
+                        AppImages.wifi_off,
                         height: 30.0,
                         width: 30.0,
                       ),
                       const SizedBox(
-                        width: 5.0,
+                        width: 10.0,
                       ),
                       Text(
-                        'Internet went disconnected',
+                        translateLang(context, "msg_internet_off"),
                         style: TextStyle(color: AppColors.white),
                       )
                     ],
@@ -78,8 +75,18 @@ class InternetConnectionScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text(
+                    translateLang(context, 'no_internet_conn'),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: AppColors.grey),
+                  ),
+                  const SizedBox(
+                    height: 0.0,
+                  ),
                   Lottie.asset(AppImages.SERVER_FAILURE,
-                      height: 400.0, width: 400.0,fit: BoxFit.cover),
+                      height: 400.0, width: 400.0, fit: BoxFit.cover),
                   // Image.asset(
                   //   AppImages.wifi1,
                   //   height: 100.0,

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/app_router.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/app_theme.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/classes/red_exception_handler.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations_setup.dart';
@@ -40,14 +41,19 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
           create: (context) => InternetBloc(_connectivity, nav_Key),
         ),
         BlocProvider(
+          lazy: false,
           create: (context) => SettingsCubit(),
         ),
       ],
       child: Builder(builder: (context) {
-        var settingsCubit = context.watch<SettingsCubit>();
+        SettingsCubit settingsCubit = context.watch<SettingsCubit>();
+        print(
+            '============= ====builder ==== == ${settingsCubit.state.runtimeType}');
+        print(
+            ' settingsCubit.brightnessMode =======>>>>>>>> ${settingsCubit.brightnessMode}');
         return MaterialApp(
           navigatorKey: nav_Key,
-          darkTheme: settingsCubit.brightnessMode == 0
+          darkTheme: settingsCubit.brightnessMode == DARK_MODE
               ? ThemeData.dark()
               : ThemeData.light(),
           title: 'FNRCO CANDIDATES',

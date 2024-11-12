@@ -4,7 +4,7 @@ class AppLinks {
 
   ////////////////////////TODO: Authentication///////////////////////////////////////////////////
   static const String logIn = '/candidate/login';
-  static const String signUp = '/register';
+  static const String signUp = '/candidate/register';
   static const String otp = '/auth/verify-code';
   static const String resendOtp = '/resendOtp';
   static const String forgetPassword = '/auth/forgot-password';

@@ -5,3 +5,5 @@ const String FORGET_PAGE = 'forget';
 const String SIGNUP_PAGE = 'signup';
 const String IDENTIFIER_KEYWORD = 'identifier';
 const String PROVIDER_KEYWORD = 'provider';
+const int LIGTH_MODE = 1;
+const int DARK_MODE = 0;

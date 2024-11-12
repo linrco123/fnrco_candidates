@@ -116,9 +116,9 @@ class SignInScreen extends StatelessWidget {
                                       fun: () {
                                         //Focus to close Keyboard
                                         FocusScope.of(context).unfocus();
-                                        //  logInCubit.logIn();
-                                        Navigator.of(context).pushNamed(
-                                            AppPagesNames.INTERNET_CONNECTION);
+                                        logInCubit.logIn();
+                                        // Navigator.of(context).pushNamed(
+                                        //     AppPagesNames.HOMEPAGE);
                                       },
                                       background: AppColors.primary,
                                       text: translateLang(context, 'sign_in')),

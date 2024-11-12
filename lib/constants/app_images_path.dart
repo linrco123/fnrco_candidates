@@ -33,9 +33,11 @@ class AppImages {
   static const fingerPrint2 = '$_images/fingerprint2.png';
   static const wifi1 = '$_images/wifi1.png';
   static const wifi3 = '$_images/wifi3.png';
+  static const wifi_off = '$_images/wifi-off.png';
+  static const wifi_on = '$_images/wifi-on.png';
+
   static const brightness = '$_images/brightness.png';
 
-  
   //////////////////////////////TODO onBoarding /////////////////////////////
   ///board1.png
   static const boarding1 = '$_images/board1.png';

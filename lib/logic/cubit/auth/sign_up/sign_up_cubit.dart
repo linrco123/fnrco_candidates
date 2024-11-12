@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
@@ -80,8 +81,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   String? validateFirstName(context, String? value) {
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_first_name");
-    } else if (value.length < 6) {
-      return translateLang(context, "msg_plz_name_should_be_more_than_6_char");
     }
     return null;
   }
@@ -89,8 +88,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   String? validateSecondName(context, String? value) {
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_second_name");
-    } else if (value.length < 6) {
-      return translateLang(context, "msg_plz_name_should_be_more_than_6_char");
     }
     return null;
   }
@@ -98,8 +95,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   String? validateLastName(context, String? value) {
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_last_name");
-    } else if (value.length < 6) {
-      return translateLang(context, "msg_plz_name_should_be_more_than_6_char");
     }
     return null;
   }
@@ -147,7 +142,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void signUp(context) {
-    
     if (countryId == 0) {
       showToast(context,
           title: translateLang(context, 'warning'),
@@ -170,6 +164,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           type: ToastificationType.warning);
     } else {
       if (formKey.currentState!.validate()) {
+        emit(SignUpLoadingState());
         Map data = {
           "first_name": firstNameController.text,
           "second_name": secondNameController.text,
@@ -191,10 +186,13 @@ class SignUpCubit extends Cubit<SignUpState> {
               .first
               .metaDataText
         };
+        print('======================Data===================================');
+        print(data);
         signUpProvider.signUp(data).then((value) {
-
+          CacheHelper.storeUserData(userRData: value);
+          emit(SignUpSuccessState());
         }).catchError((error) {
-
+          emit(SignUpErrorState(message: error.failure.message));
         });
       }
     }

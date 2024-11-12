@@ -28,13 +28,14 @@ class SettingsCubit extends Cubit<SettingsState> {
   int brightnessMode = CacheHelper.getBrightnessMode();
   void showBrightness() {
     isBrightnessShown = !isBrightnessShown;
-    emit(ShowBiometricSettingsState(status: isBioMetricShown));
+    emit(ShowBrightnessModeSettingsState(status: isBrightnessShown));
   }
 
   void toggleBrightness(int status) {
     brightnessMode = status;
+    print('========stsuatus brightness mode ========== $status');
     CacheHelper.storeBrightnessMode(brightnessMode);
-    emit(ToggleBiometricSettingsState(status: isbiometricOperating));
+    emit(ToggleBrightnessModeSettingsState(status: brightnessMode));
  
   }
 }

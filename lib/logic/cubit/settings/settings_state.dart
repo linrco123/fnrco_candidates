@@ -23,7 +23,7 @@ class ToggleBiometricSettingsState extends SettingsState{
 
 
 class ToggleBrightnessModeSettingsState extends SettingsState{
-  final bool status;
+  final int status;
 
   ToggleBrightnessModeSettingsState({required this.status});
 }

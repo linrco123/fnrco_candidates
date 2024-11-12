@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
+import 'package:fnrco_candidates/data/models/auth/sign_up/register_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -13,7 +15,7 @@ class CacheHelper {
     //storeBiometricStatus(false);
   }
 
-  static void removeAll(){
+  static void removeAll() {
     sharedPreferences.remove('user_email');
   }
 
@@ -42,18 +44,21 @@ class CacheHelper {
   }
 
   static storeBiometricStatus(bool value) async {
-     await sharedPreferences.setBool('user_bio', value);
+    await sharedPreferences.setBool('user_bio', value);
   }
 
   static bool getBiometricStatus() {
-    return sharedPreferences.getBool('user_bio')?? false;
+    return sharedPreferences.getBool('user_bio') ?? false;
   }
-    static storeBrightnessMode(int value) async {
-     await sharedPreferences.setInt('brightness_mode', value);
+
+  static storeBrightnessMode(int value) async {
+    print('========shared_preferences brightness mode ========== $value');
+
+    await sharedPreferences.setInt('brightness_mode', value);
   }
 
   static int getBrightnessMode() {
-    return sharedPreferences.getInt('brightness_mode')?? 1;
+    return sharedPreferences.getInt('brightness_mode') ?? LIGTH_MODE;
   }
 
   static storeName(String name) async {
@@ -88,13 +93,22 @@ class CacheHelper {
     return sharedPreferences.getString('user_image');
   }
 
-  static void storeUserData(LoginModel userData) {
-    storeName(userData.data!.candidateUserUname!.isNotEmpty
-        ? userData.data!.candidateUserUname!
-        : 'Guest');
-    storeEmail(userData.data!.email!);
-    storeAuthToken(userData.data!.accessToken!);
-    storePhone('');
-    storePassword('');
+  static void storeUserData({LoginModel? userLData, RegisterModel? userRData}) {
+    if (userLData != null) {
+      storeName(userLData.data!.candidateUserUname!.isNotEmpty
+          ? userLData.data!.candidateUserUname!
+          : 'Guest');
+      storeEmail(userLData.data!.email!);
+      storeAuthToken(userLData.data!.accessToken!);
+    } else if (userRData != null) {
+      storeName(userRData.data!.candidateUserUname!.isNotEmpty
+          ? userRData.data!.candidateUserUname!
+          : 'Guest');
+      storeEmail(userRData.data!.email!);
+      storeAuthToken(userRData.data!.accessToken!);
+    }
+
+    //storePhone('');
+    //storePassword('');
   }
 }
