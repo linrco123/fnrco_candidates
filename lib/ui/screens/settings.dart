@@ -117,17 +117,63 @@ class SettingsScreen extends StatelessWidget {
                                   onChanged: (value) =>
                                       settingsCubit.toggleBioMetric(value)),
                               Text(
-                                settingsCubit.isbiometricOperating ? 'ON' : 'OFF',
+                                settingsCubit.isbiometricOperating
+                                    ? 'ON'
+                                    : 'OFF',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!
                                     .copyWith(
-                                        color: settingsCubit.isbiometricOperating
+                                        color:
+                                            settingsCubit.isbiometricOperating
+                                                ? AppColors.primary
+                                                : AppColors.black),
+                              )
+                            ],
+                          )),
+                      _divider(),
+
+                      _addSettingItem(
+                          context: context,
+                          isSVG: false,
+                          image: AppImages.brightness,
+                          text: AppLocalizations.of(context)!
+                              .translate('brightness_mode'),
+                          icon: settingsCubit.isBrightnessShown
+                              ? Icons.keyboard_arrow_down
+                              : Icons.arrow_forward_ios,
+                          size: settingsCubit.isBrightnessShown ? 25 : 15,
+                          onTap: () {
+                            settingsCubit.showBrightness();
+                          }),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Visibility(
+                          visible: settingsCubit.isBrightnessShown,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Switch(
+                                  value: settingsCubit.brightnessMode == 0
+                                      ? true
+                                      : false,
+                                  onChanged: (value) => settingsCubit
+                                      .toggleBrightness(value ? 0 : 1)),
+                              Text(
+                                settingsCubit.brightnessMode == 1
+                                    ? 'Bright MOde'
+                                    : 'Dark Mode',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge!
+                                    .copyWith(
+                                        color: settingsCubit.brightnessMode == 0
                                             ? AppColors.primary
                                             : AppColors.black),
                               )
                             ],
-                          ))
+                          )),
                     ],
                   );
                 },

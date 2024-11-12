@@ -149,7 +149,8 @@
     "choose_gender":"من فضلك،اختر الجنس",
     "choose_religion":"من فضلك،اختر الدين",
     "choose_marital":"من فضلك،اختر الحالة الاجتماعية",
-     "msg_plz_enter_major":"التخصص لا يمكن آن يكون فارغا"
+     "msg_plz_enter_major":"التخصص لا يمكن آن يكون فارغا",
+     "brightness_mode":"درجة السطوع"
 }
 
 

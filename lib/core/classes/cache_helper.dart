@@ -48,6 +48,13 @@ class CacheHelper {
   static bool getBiometricStatus() {
     return sharedPreferences.getBool('user_bio')?? false;
   }
+    static storeBrightnessMode(int value) async {
+     await sharedPreferences.setInt('brightness_mode', value);
+  }
+
+  static int getBrightnessMode() {
+    return sharedPreferences.getInt('brightness_mode')?? 1;
+  }
 
   static storeName(String name) async {
     await sharedPreferences.setString('user_name', name);

@@ -10,9 +10,20 @@ class ShowBiometricSettingsState extends SettingsState{
 
   ShowBiometricSettingsState({required this.status});
 }
+class ShowBrightnessModeSettingsState extends SettingsState{
+  final bool status;
 
+  ShowBrightnessModeSettingsState({required this.status});
+}
 class ToggleBiometricSettingsState extends SettingsState{
   final bool status;
 
   ToggleBiometricSettingsState({required this.status});
+}
+
+
+class ToggleBrightnessModeSettingsState extends SettingsState{
+  final bool status;
+
+  ToggleBrightnessModeSettingsState({required this.status});
 }

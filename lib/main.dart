@@ -8,6 +8,7 @@ import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/classes/red_exception_handler.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations_setup.dart';
 import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
+import 'package:fnrco_candidates/logic/cubit/settings/settings_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,21 +33,35 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      lazy: false,
-      create: (context) => InternetBloc(_connectivity ,nav_Key ),
-      child: MaterialApp(
-        navigatorKey: nav_Key,
-        title: 'FNRCO CANDIDATES',
-        locale: Locale('en'),
-        supportedLocales: AppLocalizationsSetup.supportedLocales,
-        localizationsDelegates: AppLocalizationsSetup.localizationsDelegate,
-        localeResolutionCallback: AppLocalizationsSetup.localResolutionCallback,
-        theme: appTheme,
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: AppRouter.routeTo,
-        initialRoute: AppPagesNames.ANIMATED_SPLASH,
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          lazy: false,
+          create: (context) => InternetBloc(_connectivity, nav_Key),
+        ),
+        BlocProvider(
+          create: (context) => SettingsCubit(),
+        ),
+      ],
+      child: Builder(builder: (context) {
+        var settingsCubit = context.watch<SettingsCubit>();
+        return MaterialApp(
+          navigatorKey: nav_Key,
+          darkTheme: settingsCubit.brightnessMode == 0
+              ? ThemeData.dark()
+              : ThemeData.light(),
+          title: 'FNRCO CANDIDATES',
+          locale: Locale('en'),
+          supportedLocales: AppLocalizationsSetup.supportedLocales,
+          localizationsDelegates: AppLocalizationsSetup.localizationsDelegate,
+          localeResolutionCallback:
+              AppLocalizationsSetup.localResolutionCallback,
+          theme: appTheme,
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: AppRouter.routeTo,
+          initialRoute: AppPagesNames.ANIMATED_SPLASH,
+        );
+      }),
     );
   }
 

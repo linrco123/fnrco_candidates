@@ -22,4 +22,19 @@ class SettingsCubit extends Cubit<SettingsState> {
     print('get value is '+CacheHelper.getBiometricStatus().toString());
  
   }
+  // bright mode = 1  , dark mode = 0;
+
+    bool isBrightnessShown = false;
+  int brightnessMode = CacheHelper.getBrightnessMode();
+  void showBrightness() {
+    isBrightnessShown = !isBrightnessShown;
+    emit(ShowBiometricSettingsState(status: isBioMetricShown));
+  }
+
+  void toggleBrightness(int status) {
+    brightnessMode = status;
+    CacheHelper.storeBrightnessMode(brightnessMode);
+    emit(ToggleBiometricSettingsState(status: isbiometricOperating));
+ 
+  }
 }

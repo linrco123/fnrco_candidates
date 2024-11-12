@@ -152,5 +152,6 @@
     "choose_gender": "Please , choose  gender !",
     "choose_religion": "Please , choose a religion !",
     "choose_marital": "Please , choose marital status !",
-    "msg_plz_enter_major": "Major can/'t be empty"
+    "msg_plz_enter_major": "Major can/'t be empty",
+    "brightness_mode":"Brightness Mode"
 }
