@@ -47,15 +47,15 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
       ],
       child: Builder(builder: (context) {
         SettingsCubit settingsCubit = context.watch<SettingsCubit>();
-        print(
-            '============= ====builder ==== == ${settingsCubit.state.runtimeType}');
-        print(
-            ' settingsCubit.brightnessMode =======>>>>>>>> ${settingsCubit.brightnessMode}');
+
         return MaterialApp(
           navigatorKey: nav_Key,
-          darkTheme: settingsCubit.brightnessMode == DARK_MODE
-              ? ThemeData.dark()
-              : ThemeData.light(),
+          themeMode: settingsCubit.brightnessMode == DARK_MODE
+              ? ThemeMode.dark
+              : ThemeMode.light,
+          // darkTheme: settingsCubit.brightnessMode == DARK_MODE
+          //     ? ThemeData.dark()
+          //     : ThemeData.light(),
           title: 'FNRCO CANDIDATES',
           locale: Locale('en'),
           supportedLocales: AppLocalizationsSetup.supportedLocales,
@@ -63,6 +63,7 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
           localeResolutionCallback:
               AppLocalizationsSetup.localResolutionCallback,
           theme: appTheme,
+          themeAnimationCurve: Curves.bounceInOut,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRouter.routeTo,
           initialRoute: AppPagesNames.ANIMATED_SPLASH,

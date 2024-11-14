@@ -12,7 +12,6 @@ import 'package:fnrco_candidates/logic/cubit/auth/otp/otp_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:toastification/toastification.dart';
 import '../../widgets/logo.dart';

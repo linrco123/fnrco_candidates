@@ -37,6 +37,9 @@ class AppImages {
   static const wifi_on = '$_images/wifi-on.png';
 
   static const brightness = '$_images/brightness.png';
+  static const facebook = '$_images/facebook.png';
+  static const google = '$_images/google.png';
+  static const linkedIn = '$_images/linkedIn.png';
 
   //////////////////////////////TODO onBoarding /////////////////////////////
   ///board1.png

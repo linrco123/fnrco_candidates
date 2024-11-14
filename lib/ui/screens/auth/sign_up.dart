@@ -56,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
                 if (state is SignUpErrorState) {
                   showToast(context,
                       title: translateLang(context, 'error'),
-                      desc: state.message!,
+                      desc: state.message,
                       type: ToastificationType.error);
                 }
               },

@@ -11,7 +11,7 @@ class SearchFormField extends StatelessWidget {
   final double width;
   final Color borderColor;
   final Color? fillColor;
-
+  final double vPadding;
   const SearchFormField(
       {super.key,
       required this.controller,
@@ -22,7 +22,8 @@ class SearchFormField extends StatelessWidget {
       this.borderColor = const Color(0xFFFFFFFF),
       this.fillColor,
       required this.sufIcon,
-      required this.suFun});
+      required this.suFun,
+      this.vPadding = 5.0});
 
   @override
   Widget build(BuildContext context) {
@@ -30,35 +31,35 @@ class SearchFormField extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .headlineSmall!
-          .copyWith(color: AppColors.secondary), 
+          .copyWith(color: AppColors.secondary),
       controller: controller,
       onFieldSubmitted: (value) => preFun,
       keyboardType: TextInputType.text,
       maxLines: 1,
       decoration: InputDecoration(
-          filled: true,
-          fillColor: fillColor,
-          hintStyle: Theme.of(context).textTheme.headlineSmall,
-          hintText: label,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: BorderSide(width: width, color: borderColor)
-              ),
-          prefixIcon: IconButton(
-              onPressed: preFun,
-              icon: Icon(
-                preIcon,
-                color: AppColors.grey,
-              )),
-          suffixIcon: IconButton(
-              onPressed: suFun,
-              icon: Icon(
-                sufIcon,
-                size: 17.0,
-                color: AppColors.primary,
-              ))),
+        filled: true,
+        fillColor: fillColor,
+        hintStyle: Theme.of(context).textTheme.headlineSmall,
+        hintText: label,
+        contentPadding:
+            EdgeInsets.symmetric(vertical: vPadding, horizontal: 10.0),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.0),
+            borderSide: BorderSide.none),
+        prefixIcon: IconButton(
+            onPressed: preFun,
+            icon: Icon(
+              preIcon,
+              color: AppColors.grey,
+            )),
+        // suffixIcon: IconButton(
+        //     onPressed: suFun,
+        //     icon: Icon(
+        //       sufIcon,
+        //       size: 17.0,
+        //       color: AppColors.primary,
+        //     ))
+      ),
     );
   }
 }

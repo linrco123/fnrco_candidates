@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.fnrco_candidates"
+    namespace = "com.fnrco.fnrco_candidates"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 

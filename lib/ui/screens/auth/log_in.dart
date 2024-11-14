@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/logic/cubit/auth/log_in/log_in_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
+import 'package:fnrco_candidates/ui/screens/welcome.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/ui/widgets/auth/custom_socialMedia_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
@@ -30,13 +33,12 @@ class SignInScreen extends StatelessWidget {
               child: BlocConsumer<LogInCubit, LogInState>(
                   listener: (context, state) {
                 if (state is LogInSuccessState) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(AppPagesNames.HOMEPAGE);
                   showToast(context,
                       title: translateLang(context, 'success'),
                       desc: translateLang(context, "msg_login_success"),
                       type: ToastificationType.success);
-
-                  Navigator.of(context)
-                      .pushReplacementNamed(AppPagesNames.HOMEPAGE);
                 }
                 if (state is LogInErrorState) {
                   showToast(context,
@@ -117,8 +119,10 @@ class SignInScreen extends StatelessWidget {
                                         //Focus to close Keyboard
                                         FocusScope.of(context).unfocus();
                                         logInCubit.logIn();
-                                        // Navigator.of(context).pushNamed(
-                                        //     AppPagesNames.HOMEPAGE);
+                                        // Navigator.of(context).push(
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             WelcomeScreen()));
                                       },
                                       background: AppColors.primary,
                                       text: translateLang(context, 'sign_in')),
@@ -160,6 +164,39 @@ class SignInScreen extends StatelessWidget {
                                         .textTheme
                                         .headlineSmall),
                               ),
+                              const SizedBox(
+                                height: 30.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SocialMediaButton(
+                                    dimension: 50.0,
+                                    image: AppImages.facebook,
+                                    onPressed: () {
+                                      logInCubit.signInWithFacebook();
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  SocialMediaButton(
+                                    dimension: 50.0,
+                                    image: AppImages.google,
+                                    onPressed: () {
+                                      logInCubit.signInWithGoogle();
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  SocialMediaButton(
+                                    dimension: 50.0,
+                                    image: AppImages.linkedIn,
+                                    onPressed: () {},
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),

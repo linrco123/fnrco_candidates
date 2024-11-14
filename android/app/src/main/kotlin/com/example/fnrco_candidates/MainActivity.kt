@@ -1,4 +1,4 @@
-package com.example.fnrco_candidates
+package com.fnrco.fnrco_candidates
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 
