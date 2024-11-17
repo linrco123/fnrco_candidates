@@ -51,7 +51,7 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
 
   void moveToNext(BuildContext context) {
     if (currentPage == pages.length - 1) {
-      Navigator.of(context).pushReplacementNamed(AppPagesNames.AUTH);
+      Navigator.of(context).pushReplacementNamed(AppPagesNames.WELCOME);
     } else {
       pageController.animateToPage(currentPage + 1,
           curve: Curves.easeInOutCubic,

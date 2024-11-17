@@ -9,7 +9,6 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
-import 'package:fnrco_candidates/ui/screens/welcome.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_socialMedia_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
@@ -54,6 +53,15 @@ class SignInScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       children: [
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              translateLang(context, "skip"),
+                              style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            )),
                         SizedBox(height: constraints.maxHeight * 0.1),
                         const LOGO(),
                         SizedBox(height: constraints.maxHeight * 0.04),

@@ -102,7 +102,7 @@ class OnboardingScreen extends StatelessWidget {
                                 onPressed: () {
                                   //TODO: onskip
                                   Navigator.of(context)
-                                      .pushReplacementNamed(AppPagesNames.AUTH);
+                                      .pushReplacementNamed(AppPagesNames.WELCOME);
                                 },
                                 child: Text(AppLocalizations.of(context)!
                                     .translate('skip'))),

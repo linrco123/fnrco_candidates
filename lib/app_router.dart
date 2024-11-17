@@ -19,6 +19,7 @@ import 'package:fnrco_candidates/ui/screens/profile.dart';
 import 'package:fnrco_candidates/ui/screens/profile_editing.dart';
 import 'package:fnrco_candidates/ui/screens/resume.dart';
 import 'package:fnrco_candidates/ui/screens/success.dart';
+import 'package:fnrco_candidates/ui/screens/welcome.dart';
 import 'package:page_transition/page_transition.dart';
 
 class AppRouter {
@@ -30,6 +31,15 @@ class AppRouter {
         // );
         return PageTransition(
             child: const OnboardingScreen(),
+            type: PageTransitionType.rotate,
+            alignment: Alignment.centerLeft,
+            duration: const Duration(seconds: 1));
+            case AppPagesNames.WELCOME:
+              // return MaterialPageRoute(
+        //   builder: (context) => const WelcomeScreen(),
+        // );
+        return PageTransition(
+            child: const WelcomeScreen(),
             type: PageTransitionType.rotate,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
