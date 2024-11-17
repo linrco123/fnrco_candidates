@@ -53,16 +53,31 @@ class SignInScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       children: [
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              translateLang(context, "skip"),
-                              style: TextStyle(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            )),
-                        SizedBox(height: constraints.maxHeight * 0.1),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SizedBox(height: constraints.maxHeight * 0.1),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              AppPagesNames.HOMEPAGE,
+                                              (route) => false);
+                                    },
+                                    child: Text(
+                                      translateLang(context, "skip"),
+                                      style: TextStyle(
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    )),
+                              ],
+                            )
+                          ],
+                        ),
                         const LOGO(),
                         SizedBox(height: constraints.maxHeight * 0.04),
                         Text(

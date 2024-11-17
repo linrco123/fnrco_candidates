@@ -8,10 +8,12 @@ class CacheHelper {
   // ignore: unused_field
   static late final SharedPreferences sharedPreferences;
   static late final FlutterSecureStorage secureStorage;
+  static String? userToken;
 
   static Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
     secureStorage = FlutterSecureStorage();
+    await getAuthToken();
     //storeBiometricStatus(false);
   }
 
@@ -19,12 +21,21 @@ class CacheHelper {
     sharedPreferences.remove('user_email');
   }
 
+  static setOnBoarding() async {
+    await sharedPreferences.setBool('onBoarding', true);
+  }
+
+  static bool? getOnBoarding() {
+    return sharedPreferences.getBool('onBoarding');
+  }
+
   static void storeAuthToken(String authToken) async {
     await secureStorage.write(key: 'auth_key', value: authToken);
   }
 
   static Future<String?> getAuthToken() async {
-    return await secureStorage.read(key: 'auth_key');
+    userToken = await secureStorage.read(key: 'auth_key');
+    return userToken;
   }
 
   static void storeFCMToken(String fcmToken) async {

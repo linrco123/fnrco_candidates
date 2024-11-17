@@ -48,7 +48,33 @@ class SigninOrSignupScreen extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        const Spacer(flex: 2),
+                      //  const Spacer(flex: 2),
+                        Expanded(
+                          flex: 2,
+                          child:   Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            AppPagesNames.HOMEPAGE,
+                                            (route) => false);
+                                  },
+                                  child: Text(
+                                    translateLang(context, "skip"),
+                                    style: TextStyle(
+                                        color: AppColors.primary,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),),
                         const LOGO(),
                         const Spacer(),
                         CustomElevatedButton(

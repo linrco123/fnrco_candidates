@@ -6,8 +6,8 @@ import 'package:fnrco_candidates/ui/screens/sloped_container.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/home_page/search_form_field.dart';
 
-class ConditionJobs extends StatelessWidget {
-  const ConditionJobs({super.key});
+class UnregisteredScreen extends StatelessWidget {
+  const UnregisteredScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/ui/screens/personal_data/personal_details.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileCubit(),
       child: Scaffold(
+        
         backgroundColor: AppColors.primary,
         appBar: AppBar(
           backgroundColor: AppColors.primary,
@@ -45,22 +47,24 @@ class ProfileScreen extends StatelessWidget {
                       image: CacheHelper.getImage() ?? AppImages.User,
                       imageUploadBtnPress: cubit.changeProfileImage,
                     ),
-                    Text("Muhammed Nady",
+                    Text(CacheHelper.getName() ?? 'Guest ',
                         style:
                             Theme.of(context).textTheme.headlineLarge!.copyWith(
                                   color: AppColors.white,
                                 )),
-                    // Text(
-                    //   CacheHelper.getName() ?? ' ',
-                    //  // style: Theme.of(context).textTheme.titleLarge,
-                    // ),
-                    const SizedBox(height: 10.0,),
-                    new CircularPercentIndicator(
-                      radius: 30.0,
+
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    CircularPercentIndicator(
+                      radius: 40.0,
                       lineWidth: 7.0,
-                      percent: 0.3,
-                      center: new Text("50%",style: TextStyle(color: AppColors.white),),
-                      progressColor: AppColors.white,
+                      percent: 0.5,
+                      center: new Text(
+                        "50%",
+                        style: TextStyle(color: AppColors.white),
+                      ),
+                      progressColor: AppColors.success,
                     ),
                     CustomDivider(),
                     const SizedBox(
@@ -86,24 +90,11 @@ class ProfileScreen extends StatelessWidget {
                     //   //info: CacheHelper.getEmail()?? ' ',
                     // ),
                     const SizedBox(height: 16.0),
-                    // Align(
-                    //   alignment: Alignment.centerRight,
-                    //   child: SizedBox(
-                    //       width: 160,
-                    //       child: CustomElevatedButton(
-                    //           fun: () {
-                    //             Navigator.of(context).push(MaterialPageRoute(
-                    //                 builder: (context) =>
-                    //                     const EditProfileScreen()));
-                    //           },
-                    //           background: AppColors.primary,
-                    //           text: 'Edit Profile')),
-                    // ),
                   ],
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.3),
+                      top: MediaQuery.of(context).size.height * 0.34),
                   child: Container(
                     width: double.infinity,
                     height: double.infinity,
@@ -121,7 +112,11 @@ class ProfileScreen extends StatelessWidget {
                                 context: context,
                                 icon: Icons.person,
                                 text: 'Personal Data',
-                                onTap: () {}),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          PersonalDetailsScreen()));
+                                }),
                             _divider(),
                             _addSettingItem(
                                 context: context,

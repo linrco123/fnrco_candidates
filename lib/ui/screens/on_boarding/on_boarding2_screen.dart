@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/logic/cubit/on_boarding/on_boarding_cubit.dart';
 import 'package:fnrco_candidates/logic/cubit/on_boarding/on_boarding_state.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
@@ -43,12 +44,13 @@ class OnboardingScreen extends StatelessWidget {
                                   item.imageUrl,
                                   //height: 200.0,
                                   //width: 200.0,
-                                 // fit: BoxFit.fill,
+                                  // fit: BoxFit.fill,
                                 ),
                               ),
                               Column(children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5.0),
                                   child: Text(item.title,
                                       style: Theme.of(context)
                                           .textTheme
@@ -80,7 +82,7 @@ class OnboardingScreen extends StatelessWidget {
                     ),
 
                     CurrentPageIndicator(
-                      color: AppColors.white,
+                        color: AppColors.white,
                         currentPage: onBoardingCubit.currentPage,
                         list: onBoardingCubit.pages,
                         alignment: MainAxisAlignment.center),
@@ -99,10 +101,11 @@ class OnboardingScreen extends StatelessWidget {
                                     textStyle: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold)),
-                                onPressed: () {
+                                onPressed: () async{
                                   //TODO: onskip
-                                  Navigator.of(context)
-                                      .pushReplacementNamed(AppPagesNames.WELCOME);
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      AppPagesNames.WELCOME, (route) => false);
+                                  await CacheHelper.setOnBoarding();    
                                 },
                                 child: Text(AppLocalizations.of(context)!
                                     .translate('skip'))),
@@ -111,7 +114,8 @@ class OnboardingScreen extends StatelessWidget {
                                   visualDensity: VisualDensity.comfortable,
                                   foregroundColor: Colors.white,
                                   textStyle: const TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold)),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
                               onPressed: () {
                                 onBoardingCubit.moveToNext(context);
                               },
