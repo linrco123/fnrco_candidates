@@ -98,6 +98,8 @@
     "job_alert": "Job Alert",
     "Saved Jobs": "Saved Jobs",
     "logout": "Logout",
+    "msg_logout_success":"Logout done successfully",
+    "msg_logout_failure":"Some error! please try again",
     "skip": "Skip",
     "next": "Next",
     "finish": "Finish",
@@ -160,5 +162,10 @@
     "msg_plz_enter_major": "Major can't be empty",
     "brightness_mode":"Brightness Mode",
     "msg_internet_back":"Internet connection is back via",
-    "msg_internet_off":"Internet went disconnected!"
+    "msg_internet_off":"Internet went disconnected!",
+    "find_jobs": "Find Jobs",
+    "any_time_where":"Anytime, anywhere",
+    "all_countries":"All Countries",
+    "search_by_t_s_c":"Search by title,skills or company",
+    "msg_create_professional_cv":"Create a professional CV that Employers will love"
 }

@@ -17,8 +17,11 @@ class CacheHelper {
     //storeBiometricStatus(false);
   }
 
-  static void removeAll() {
-    sharedPreferences.remove('user_email');
+  static Future<void> removeAll() async {
+    await sharedPreferences.remove('user_name');
+    await sharedPreferences.remove('user_email');
+    await secureStorage.delete(key: 'auth_key');
+    userToken = null;
   }
 
   static setOnBoarding() async {
@@ -30,6 +33,7 @@ class CacheHelper {
   }
 
   static void storeAuthToken(String authToken) async {
+    userToken = authToken;
     await secureStorage.write(key: 'auth_key', value: authToken);
   }
 
@@ -78,14 +82,6 @@ class CacheHelper {
 
   static String? getName() {
     return sharedPreferences.getString('user_name');
-  }
-
-  static storePhone(String phone) async {
-    await sharedPreferences.setString('user_phone', phone);
-  }
-
-  static String? getPhone() {
-    return sharedPreferences.getString('user_phone');
   }
 
   static storeEmail(String email) async {

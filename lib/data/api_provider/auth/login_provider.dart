@@ -35,7 +35,6 @@ class LoginProvider {
         return LoginModel.fromJson(response.data);
       }
     } on DioError catch (e) {
-      
       print('========================login error ================');
       print('e.error   ======================= ${e.error}');
       print('e.message  ======================= ${e.message}');

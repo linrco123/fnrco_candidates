@@ -71,24 +71,7 @@ class ProfileScreen extends StatelessWidget {
                       height: 10.0,
                     ),
 
-                    // Info(
-                    //   infoKey: translateLang(context, 'user_id'),
-                    //   info: "@muhammed.me",
-                    // ),
-                    // Info(
-                    //   infoKey: translateLang(context, 'location'),
-                    //   info: "Cairo , Egypt",
-                    // ),
-                    // Info(
-                    //   infoKey: translateLang(context, 'phone_number'),
-                    //   info: "01153661128"//(239) 555-0108",
-                    //  //info: CacheHelper.getPhone()?? ' ',
-                    // ),
-                    // Info(
-                    //   infoKey: translateLang(context, 'email'),
-                    //   info: "muhammednady49@gmail.com",
-                    //   //info: CacheHelper.getEmail()?? ' ',
-                    // ),
+                  
                     const SizedBox(height: 16.0),
                   ],
                 ),
@@ -130,10 +113,12 @@ class ProfileScreen extends StatelessWidget {
                                 text: 'Education',
                                 onTap: () {}),
                             _divider(),
+                         
+                 //languages-notes-achievements
                             _addSettingItem(
                                 context: context,
                                 icon: Icons.bookmark,
-                                text: 'Applied Jobs',
+                                text: 'Credentials',
                                 onTap: () {}),
                             _divider(),
                             _addSettingItem(
@@ -141,6 +126,32 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.phone_in_talk,
                                 text: 'Contacts',
                                 onTap: () {}),
+                                _divider(),
+                            _addSettingItem(
+                                context: context,
+                                icon: Icons.https_sharp,
+                                text: 'Skills',
+                                onTap: () {}),
+                            _divider(),
+              
+                            _addSettingItem(
+                                context: context,
+                                icon: Icons.https_sharp,
+                                text: 'Language',
+                                onTap: () {}),
+                            _divider(),
+                             _addSettingItem(
+                                context: context,
+                                icon: Icons.https_sharp,
+                                text: 'Notes',
+                                onTap: () {}),
+                            _divider(),
+                             _addSettingItem(
+                                context: context,
+                                icon: Icons.https_sharp,
+                                text: 'Achievements',
+                                onTap: () {}),
+                            _divider(),
                           ],
                         ),
                       ),

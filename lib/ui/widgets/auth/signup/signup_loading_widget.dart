@@ -4,7 +4,6 @@ import 'package:shimmer/shimmer.dart';
 
 class SignUpLoadingWidget extends StatelessWidget {
   const SignUpLoadingWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
@@ -13,9 +12,12 @@ class SignUpLoadingWidget extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius: BorderRadius.circular(50.0)),
+              borderRadius: BorderRadius.circular(16.0)),
         ),
         baseColor: AppColors.primary.withOpacity(0.1),
         highlightColor: Colors.black.withOpacity(0.03));
   }
 }
+
+//experiences-contacts-educations-credentials
+//skills-languages-notes-achievements

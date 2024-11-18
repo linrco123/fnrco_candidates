@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
@@ -86,5 +88,14 @@ class HomePageCubit extends Cubit<HomePageState> {
         DateTime.now().second,
         DateTime.now().millisecond,
         DateTime.now().microsecond);
+  }
+
+  void logout(context) {
+    emit(LogoutLoadingState());
+    CacheHelper.removeAll().then((value) {
+   emit(LogoutSuccessState());
+    }).catchError((error) {
+      emit(LogoutFailureState(error: error));
+    });
   }
 }

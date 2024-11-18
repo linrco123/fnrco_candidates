@@ -13,6 +13,6 @@ class AppLinks {
   static const String country = "/country/index";
   static const String position = "/position";  
   static const String genderStatus = "/gender-status"; 
-  static const String religion = "/religion/index";   
+  static const String religion = "/religion";   
    static const String maritalStatus = "/material-status";
 }

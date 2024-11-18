@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/logic/cubit/home_page/home_page_cubit.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
@@ -14,9 +15,9 @@ import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
 import 'package:fnrco_candidates/ui/screens/notifications.dart';
 import 'package:fnrco_candidates/ui/screens/personal_data/profile.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
-import 'package:fnrco_candidates/ui/screens/test/test.dart';
 import 'package:fnrco_candidates/ui/screens/unregistered_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../constants/app_colors.dart';
 import '../medical_declare.dart';
@@ -29,7 +30,22 @@ class HomePageScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomePageCubit(),
       child: BlocConsumer<HomePageCubit, HomePageState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is LogoutSuccessState) {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(AppPagesNames.WELCOME, (p) => false);
+            showToast(context,
+                title: translateLang(context, 'success'),
+                desc: translateLang(context, "msg_logout_success"),
+                type: ToastificationType.success);
+          }
+          if (state is LogoutFailureState) {
+            showToast(context,
+                title: translateLang(context, 'error'),
+                desc: translateLang(context, "msg_logout_failure"),
+                type: ToastificationType.success);
+          }
+        },
         builder: (context, state) {
           HomePageCubit homePageCubit = BlocProvider.of<HomePageCubit>(context);
           return Scaffold(
@@ -37,7 +53,7 @@ class HomePageScreen extends StatelessWidget {
             drawer: homePageCubit.selectedIndex != 0
                 ? null
                 : CacheHelper.userToken == null
-                    ? SizedBox.shrink()
+                    ? null
                     : Drawer(
                         child: ListView(
                           padding: EdgeInsets.zero,
@@ -77,7 +93,7 @@ class HomePageScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         //'Muhammed Nady',
-                                        CacheHelper.getName()!,
+                                        CacheHelper.getName()??'Guest',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineLarge!
@@ -86,7 +102,6 @@ class HomePageScreen extends StatelessWidget {
                                       Text(
                                         CacheHelper.getEmail() ??
                                             '.....@gmail.com',
-                                        //CacheHelper.sharedPreferences.getString('user_email')!,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall!
@@ -200,8 +215,7 @@ class HomePageScreen extends StatelessWidget {
                             ),
                             ListTile(
                               onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed(AppPagesNames.AUTH);
+                                homePageCubit.logout(context);
                               },
                               leading: SvgPicture.asset(
                                 AppImages.LOGOUT,
@@ -216,10 +230,16 @@ class HomePageScreen extends StatelessWidget {
                               ),
                             ),
                             ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => TestScreenh(),
-                                ));
+                              onTap: () async{
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) => TestScreenh(),
+                                // ));
+                     
+                                var authkey = await CacheHelper.getAuthToken();
+                                print('auth_key ========>>>>>>>>>> $authkey');
+                                CacheHelper.secureStorage.delete(key:  'auth_key');
+                                var ffauthkey = await CacheHelper.getAuthToken();
+                                print('auth_key ====after delete====>>>>>>>>>> $ffauthkey');
                               },
                               leading: SvgPicture.asset(
                                 AppImages.CHECKED,
