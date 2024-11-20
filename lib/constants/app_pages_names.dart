@@ -19,4 +19,5 @@ class AppPagesNames {
   static const String INTERNET_CONNECTION = '/internetConnect';
   static const String SUCCESS = '/success';
   static const String ANIMATED_SPLASH = '/animatedSpalsh';
+   static const String SURVIES = '/survies';
 }

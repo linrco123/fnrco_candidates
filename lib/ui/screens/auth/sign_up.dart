@@ -73,7 +73,7 @@ class SignUpScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              TextButton(
+                              ElevatedButton(
                                   onPressed: () {
                                     Navigator.of(context)
                                         .pushNamedAndRemoveUntil(

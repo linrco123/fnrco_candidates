@@ -29,7 +29,7 @@ class SigninOrSignupScreen extends StatelessWidget {
               listener: (context, state) {
                 if (state is AuthBiometricSuccessState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Login successfully'),
+                    content: Text('Login done successfully'),
                     backgroundColor: AppColors.success,
                   ));
                   Navigator.of(context).pushNamed(AppPagesNames.HOMEPAGE);
@@ -57,20 +57,23 @@ class SigninOrSignupScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            AppPagesNames.HOMEPAGE,
-                                            (route) => false);
-                                  },
-                                  child: Text(
-                                    translateLang(context, "skip"),
-                                    style: TextStyle(
-                                        color: AppColors.primary,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0),
-                                  )),
+                              Padding(
+                                padding: const EdgeInsets.only(top:15.0,left: 10.0,right: 10.0),
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              AppPagesNames.HOMEPAGE,
+                                              (route) => false);
+                                    },
+                                    child: Text(
+                                      translateLang(context, "skip"),
+                                      style: TextStyle(
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0),
+                                    )),
+                              ),
                             ],
                           )
                         ],

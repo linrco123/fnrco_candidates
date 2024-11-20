@@ -213,6 +213,22 @@ class HomePageScreen extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
+                             ListTile(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(AppPagesNames.SURVIES);
+                              },
+                              leading: SvgPicture.asset(
+                                AppImages.SAVED,
+                                // ignore: deprecated_member_use
+                                color: AppColors.primary,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(context)!
+                                    .translate("surveys"),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ),
                             ListTile(
                               onTap: () {
                                 homePageCubit.logout(context);

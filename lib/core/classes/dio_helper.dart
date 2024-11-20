@@ -1,5 +1,6 @@
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 
 class DioHelper {
   static late Dio dio;
@@ -26,6 +27,7 @@ class DioFactory {
     Map<String, String> headers = {
       contentType: applicationJson,
       accept: applicationJson,
+      "Auth":"Bearer ${CacheHelper.getAuthToken()}"
     };
 
     dio.options = BaseOptions(

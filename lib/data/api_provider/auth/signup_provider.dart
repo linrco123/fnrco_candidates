@@ -117,14 +117,10 @@ class SignUpProvider {
 
   Future<ReligionModel> getReligions() async {
     try {
-      // final Response response = await dio.get(
-      //   AppLinks.religion,
-      // );
-      final Response response = await Dio(
-          BaseOptions(baseUrl: 'https://develop.fnrcoerp.com', headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      })).get('/religion');
+      final Response response = await dio.get(
+        AppLinks.religion,
+      );
+      
       if (response.statusCode == 200) {
         return ReligionModel.fromJson(response.data);
       } else {

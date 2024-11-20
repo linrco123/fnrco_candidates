@@ -19,6 +19,7 @@ import 'package:fnrco_candidates/ui/screens/personal_data/profile.dart';
 import 'package:fnrco_candidates/ui/screens/personal_data/profile_editing.dart';
 import 'package:fnrco_candidates/ui/screens/resume.dart';
 import 'package:fnrco_candidates/ui/screens/success.dart';
+import 'package:fnrco_candidates/ui/screens/management_content/surveys.dart';
 import 'package:fnrco_candidates/ui/screens/welcome.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -224,6 +225,16 @@ class AppRouter {
         //     );
         return PageTransition(
           child: JobApplicationScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+        case AppPagesNames.SURVIES:
+        // return MaterialPageRoute(
+        //     builder: (context) => JobApplicationScreen(),
+        //     );
+        return PageTransition(
+          child: SurviesScreen(),
           type: PageTransitionType.rotate,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

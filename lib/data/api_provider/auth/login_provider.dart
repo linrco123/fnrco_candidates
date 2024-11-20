@@ -15,8 +15,8 @@ class LoginProvider {
     BaseOptions _baseOptions = BaseOptions(
         baseUrl: AppLinks.baseUrl,
         receiveDataWhenStatusError: true,
-        connectTimeout: 20 * 1000,
-        receiveTimeout: 20 * 1000,
+        // connectTimeout: 20 * 1000,
+        // receiveTimeout: 20 * 1000,
         headers: {
           'Accept': 'application/json',
           'content-Type': 'application/json',
@@ -36,6 +36,7 @@ class LoginProvider {
       }
     } on DioError catch (e) {
       print('========================login error ================');
+      print(e.response!.data);
       print('e.error   ======================= ${e.error}');
       print('e.message  ======================= ${e.message}');
       print('e.request!.data ======================= ${e.request!.data}');
