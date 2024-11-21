@@ -6,6 +6,7 @@ import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/app_theme.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
+import 'package:fnrco_candidates/core/classes/dio_helper.dart';
 import 'package:fnrco_candidates/core/classes/red_exception_handler.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations_setup.dart';
 import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
@@ -18,6 +19,7 @@ void main() async {
   // );
   RedExceptionHandler.handleFlutterError;
   await CacheHelper.init();
+  await DioHelper.init();
   runApp(const FnrcoCandidates());
 }
 

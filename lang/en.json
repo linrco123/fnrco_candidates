@@ -50,6 +50,8 @@
     "msg_plz_enter_surname":"Surname can't be empty",
     "msg_plz_name_should_be_more_than_6_char": "Name should be more than 6 characters",
     "msg_plz_enter_email": "Email can't be empty",
+    "msg_plz_enter_residence":"ٍResidence can't be empty",
+
     "msg_plz_enter_address": "Please enter Address",
     "msg_plz_enter_correct_email": "Please enter correct email",
     "msg_register_success": "Already, received verification code !",
@@ -99,7 +101,7 @@
     "Saved Jobs": "Saved Jobs",
     "logout": "Logout",
     "msg_logout_success":"Logout done successfully",
-    "msg_logout_failure":"Some error! please try again",
+    "msg_request_failure":"Some error! please try again",
     "skip": "Skip",
     "next": "Next",
     "finish": "Finish",
@@ -155,6 +157,7 @@
     "go_to_home": "Go to Home",
     "major": "Major",
     "choose_country": "Please , choose a country !",
+    "choose_nationality": "Please , choose a nationality !",
     "choose_major": "Please , choose a major !",
     "choose_gender": "Please , choose  gender !",
     "choose_religion": "Please , choose a religion !",
@@ -168,5 +171,9 @@
     "all_countries":"All Countries",
     "search_by_t_s_c":"Search by title,skills or company",
     "msg_create_professional_cv":"Create a professional CV that Employers will love",
-    "surveys":"Surveys"
+    "surveys":"Surveys",
+    "msg_survey_success":"Survey submitted successfully",
+    "save":"Save",
+    "nationality":"Nationality",
+    "residence":"Residence"
 }

@@ -3,9 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fnrco_candidates/data/models/management_content/survey_view_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/survies_model.dart';
 import 'package:meta/meta.dart';
-
 import 'package:fnrco_candidates/data/api_provider/management_contect/surveys.dart';
-
 part 'surveys_state.dart';
 
 class SurveysCubit extends Cubit<SurveysState> {
@@ -13,13 +11,12 @@ class SurveysCubit extends Cubit<SurveysState> {
   SurveysCubit(
     this.surveysProvider,
   ) : super(SurveysInitial());
-
+  List<Survey> surveys = [];
   void getsurveys() {
-    List<Survey> surveys = [];
     emit(SurveysLoadingState());
     surveysProvider.getSurveys().then((value) {
       surveys.addAll(value!.surveys!);
-      emit(SurveysSuccessState(surveys: surveys));
+      emit(SurveysSuccessState(surveys: value.surveys!));
     }).catchError((error) {
       emit(SurveysFailureState(message: error.failure.message));
     });
@@ -29,6 +26,12 @@ class SurveysCubit extends Cubit<SurveysState> {
   List<Map<String, dynamic>> answers = [];
   int question_number = 0;
   int surveyViewID = 0;
+
+  String answer = '';
+  void chooseAnswer(String answer) {
+    this.answer = answer;
+    emit(ChooseAnswerState());
+  }
 
   void getSurveyView(int surveyViewindex) {
     emit(SurveysViewLoadingState());
@@ -42,16 +45,51 @@ class SurveysCubit extends Cubit<SurveysState> {
     });
   }
 
-  void addNewAnswer(int questionID, String answer) {
-    answers.add({
-      "survay_question_id": questionID.toString(),
-      "survay_answer_text": answer
+  void submitSurveyViewQuestion(int questionID) {
+    if (answer.isNotEmpty) {
+      if (question_number < surveyViewQuestions.length - 1) {
+      addNewAnswer(questionID);
+    } else {
+      answers.add({
+        "survey_question_id": questionID.toString(),
+        "survey_answer_text": answer
+      });
+     // answer = '';
+      sendSurveyView();
+    }
+    }else{
+      emit(PickSurveyAnswerState());
+    }
+  }
+
+  void sendSurveyView() {
+    emit(SubmitSurveyViewLoadingState());
+    Map data = {"answers": answers};
+    surveysProvider.sendSurveyView(surveyViewID, data).then((value) {
+      if (value == true) {
+        question_number = 0;
+        emit(SubmitSurveyViewSuccessState());
+      }
+    }).catchError((error) {
+      emit(SubmitSurveyViewFailureState());
     });
   }
-  void moveTONext(){
+
+  void addNewAnswer(int questionID) {
+    answers.add({
+      "survey_question_id": questionID.toString(),
+      "survey_answer_text": answer
+    });
+    answer = '';
+
+    moveTONext();
+  }
+
+  void moveTONext() {
     question_number++;
     emit(MoveToNextQuestionsState());
   }
+
   @override
   Future<void> close() {
     // TODO: implement close

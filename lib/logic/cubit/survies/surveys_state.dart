@@ -35,3 +35,12 @@ class SurveysViewFailureState extends SurveysState {
 
 
 class MoveToNextQuestionsState extends SurveysState{}
+class ChooseAnswerState extends SurveysState{
+}
+
+class SubmitSurveyViewLoadingState extends SurveysState{}
+class SubmitSurveyViewSuccessState extends SurveysState{}
+class SubmitSurveyViewFailureState extends SurveysState{}
+
+
+class PickSurveyAnswerState extends SurveysState{}

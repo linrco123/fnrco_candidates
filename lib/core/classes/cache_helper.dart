@@ -34,6 +34,8 @@ class CacheHelper {
 
   static void storeAuthToken(String authToken) async {
     userToken = authToken;
+    print('=================userToken=======================');
+    print(userToken!);
     await secureStorage.write(key: 'auth_key', value: authToken);
   }
 

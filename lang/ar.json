@@ -51,6 +51,7 @@
     "msg_plz_name_should_be_more_than_6_char": "يجب أن يكون الاسم أكثر من 6 أحرف",
     "msg_plz_enter_email": "الرجاء إدخال البريد الإلكتروني",
     "msg_plz_enter_address": "الرجاء إدخال  العنوان ",
+     "msg_plz_enter_residence":"محل الاقامة لا يمكن ان يكون فارغا",
     "msg_plz_enter_correct_email": "الرجاء إدخال بريد إلكتروني صحيح",
     "msg_register_success": "! لقد استلمت رمز التأكيد بالفعل",
     "msg_phone_already_exist": "رقم الهاتف موجود بالفعل",
@@ -98,7 +99,7 @@
     "Saved Jobs": "الوظائف المحفوظة",
     "logout": "تسجيل خروج",
     "msg_logout_success": "تم تسجيل الخروج بنجاح",
-    "msg_logout_failure": "خطأ ما ، من فضلك حاول مرة",
+    "msg_request_failure": "خطأ ما ، من فضلك حاول مرة",
     "skip": "تخطى",
     "next": "القادم",
     "finish": "انتهى",
@@ -155,6 +156,7 @@
     "go_to_home": "الانتقال للصفحة الرئيسية",
     "major": "التخصص",
     "choose_country": "من فضلك،اختر الدولة",
+    "choose_nationality": "من فضلك،اختر الجنسية",
     "choose_major": "من فضلك،اختر التخصص",
     "choose_gender": "من فضلك،اختر الجنس",
     "choose_religion": "من فضلك،اختر الدين",
@@ -165,5 +167,9 @@
     "all_countries": "اى وقت ، اى مكان",
     "search_by_t_s_c": "ابحث باللقب ،المهارات او الشركة",
     "msg_create_professional_cv": "انشئ سيرة ذاتية احترافية التى تجذب أصحاب العمل",
-     "surveys":"الإستطلاعات"
+    "surveys": "الإستطلاعات",
+    "msg_survey_success": "تم تقديم الإستطلاع بنجاح",
+    "save": "حفظ",
+    "nationality": "الجنسية",
+    "residence": "محل الاقامة"
 }

@@ -100,3 +100,5 @@ class PersonalDetailsGettingMaritalStatusFailureState extends PersonalDetailsSta
 
 
 class PersonalDetailsPickingUpDate extends PersonalDetailsState{}
+
+class PersonalDetailsSuccessChangeImageState extends PersonalDetailsState{}

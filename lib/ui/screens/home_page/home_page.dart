@@ -13,7 +13,7 @@ import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
 import 'package:fnrco_candidates/ui/screens/notifications.dart';
-import 'package:fnrco_candidates/ui/screens/personal_data/profile.dart';
+import 'package:fnrco_candidates/ui/screens/profile/profile.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
 import 'package:fnrco_candidates/ui/screens/unregistered_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -42,7 +42,7 @@ class HomePageScreen extends StatelessWidget {
           if (state is LogoutFailureState) {
             showToast(context,
                 title: translateLang(context, 'error'),
-                desc: translateLang(context, "msg_logout_failure"),
+                desc: translateLang(context, "msg_request_failure"),
                 type: ToastificationType.success);
           }
         },

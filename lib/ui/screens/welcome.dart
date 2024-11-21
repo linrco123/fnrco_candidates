@@ -23,7 +23,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             Text(
               'Welcome to Fnrcoerp.com',
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: AppColors.primary),
             ),
             const SizedBox(
               height: 20.0,
@@ -66,126 +66,6 @@ class WelcomeScreen extends StatelessWidget {
                       description: 'Get Contacted by employers now.',
                       icon: CupertinoIcons.phone_circle,
                       color: Colors.green),
-                  //       Container(
-                  //         padding: const EdgeInsets.symmetric(
-                  //             vertical: 20.0, horizontal: 10.0),
-                  //         decoration: BoxDecoration(
-                  //             color: AppColors.white,
-                  //             borderRadius: BorderRadius.circular(0.0)),
-                  //         child: Row(
-                  //           children: [
-                  //             Container(
-                  //                 padding: const EdgeInsets.all(15.0),
-                  //                 decoration: BoxDecoration(
-                  //                     color: Colors.blue.withOpacity(0.1),
-                  //                     shape: BoxShape.circle),
-                  //                 child: Icon(
-                  //                   CupertinoIcons.person_crop_circle_badge_checkmark,
-                  //                   color: Colors.blue,
-                  //                 )),
-                  //             const SizedBox(
-                  //               width: 15.0,
-                  //             ),
-                  //             Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 Text(
-                  //                   'Build your profile',
-                  //                   style: TextStyle(
-                  //                       color: AppColors.black,
-                  //                       fontSize: 18.0,
-                  //                       fontWeight: FontWeight.bold),
-                  //                 ),
-                  //                 const SizedBox(
-                  //                   height: 5.0,
-                  //                 ),
-                  //                 Text('Sign Up and complete your profile.',
-                  //                     style: Theme.of(context).textTheme.titleSmall),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //       Container(
-                  //         padding: const EdgeInsets.symmetric(
-                  //             vertical: 20.0, horizontal: 10.0),
-                  //         decoration: BoxDecoration(
-                  //             color: AppColors.white,
-                  //             borderRadius: BorderRadius.circular(0.0)),
-                  //         child: Row(
-                  //           children: [
-                  //             Container(
-                  //                 padding: const EdgeInsets.all(15.0),
-                  //                 decoration: BoxDecoration(
-                  //                     color: Colors.yellowAccent.withOpacity(0.1),
-                  //                     shape: BoxShape.circle),
-                  //                 child: Icon(
-                  //                   CupertinoIcons.briefcase,
-                  //                   color: Colors.yellow,
-                  //                 )),
-                  //             const SizedBox(
-                  //               width: 15.0,
-                  //             ),
-                  //             Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 Text(
-                  //                   'Apply to Jobs',
-                  //                   style: TextStyle(
-                  //                       color: AppColors.black,
-                  //                       fontSize: 18.0,
-                  //                       fontWeight: FontWeight.bold),
-                  //                 ),
-                  //                 const SizedBox(
-                  //                   height: 5.0,
-                  //                 ),
-                  //                 Text('Explore and instantly apply to jobs.',
-                  //                     style: Theme.of(context).textTheme.titleSmall),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //       Container(
-                  //         padding: const EdgeInsets.symmetric(
-                  //             vertical: 20.0, horizontal: 10.0),
-                  //         decoration: BoxDecoration(
-                  //             color: AppColors.white,
-                  //             borderRadius: BorderRadius.circular(0.0)),
-                  //         child: Row(
-                  //           children: [
-                  //             Container(
-                  //                 padding: const EdgeInsets.all(15.0),
-                  //                 decoration: BoxDecoration(
-                  //                     color: Colors.green.withOpacity(0.1),
-                  //                     shape: BoxShape.circle),
-                  //                 child: Icon(
-                  //                   CupertinoIcons.phone_circle,
-                  //                   color: Colors.green,
-                  //                 )),
-                  //             const SizedBox(
-                  //               width: 15.0,
-                  //             ),
-                  //             Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 Text(
-                  //                   'Get Contacted',
-                  //                   style: TextStyle(
-                  //                       color: AppColors.black,
-                  //                       fontSize: 18.0,
-                  //                       fontWeight: FontWeight.bold),
-                  //                 ),
-                  //                 const SizedBox(
-                  //                   height: 5.0,
-                  //                 ),
-                  //                 Text('Get Contacted by employers now.',
-                  //                     style: Theme.of(context).textTheme.titleSmall),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
                 ],
               ),
             ),

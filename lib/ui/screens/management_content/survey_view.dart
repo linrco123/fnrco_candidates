@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/management_contect/surveys.dart';
 import 'package:fnrco_candidates/logic/cubit/survies/surveys_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:toastification/toastification.dart';
 
 class SurveyViewScreen extends StatelessWidget {
   final SurveysProvider surviesProvider = SurveysProvider();
@@ -16,8 +18,9 @@ class SurveyViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: AppColors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
+        backgroundColor: AppColors.white,
         title: Text(
           'Survey View',
           style: TextStyle(color: AppColors.primary),
@@ -32,115 +35,154 @@ class SurveyViewScreen extends StatelessWidget {
               color: AppColors.primary,
             )),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.all(15.0),
-        child: BlocBuilder<SurveysCubit, SurveysState>(
-          builder: (context, state) {
-            var surveysCubit = BlocProvider.of<SurveysCubit>(context);
-            if (state is SurveysViewLoadingState) {
-              return Center(
-                child: LoadingWidget(),
-              );
-            }
-            if (state is SurveysViewFailureState) {
-              return Center(
-                child: Text('Some Error occurs'),
-              );
-            }
-            if (state is SurveysViewSuccessState) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          surveysCubit
-                              .surveyViewQuestions[surveysCubit.question_number]
-                              .surveyQuestionText!,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  ...List.generate(
-                    surveysCubit
-                        .surveyViewQuestions[surveysCubit.question_number]
-                        .options!
-                        .length,
-                    (int index) => InkWell(
-                      onTap: () {
+      body: AnimatedSwitcher(
+        duration: const Duration(seconds: 3),
+        reverseDuration: const Duration(seconds: 2),
+        switchInCurve: Curves.bounceIn,
+        switchOutCurve: Curves.bounceInOut,
+        transitionBuilder: (child, animation) => FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          padding: const EdgeInsets.all(15.0),
+          child: BlocConsumer<SurveysCubit, SurveysState>(
+            listener: (context, state) {
+              if (state is PickSurveyAnswerState) {
+                showToast(context,
+                    title: translateLang(context, 'warning'),
+                    desc: "Please , choose an expressible answer",
+                    type: ToastificationType.warning);
+              }
+              if (state is SubmitSurveyViewSuccessState) {
+                Navigator.of(context).pop();
+                showToast(context,
+                    title: translateLang(context, 'success'),
+                    desc: translateLang(context, "msg_survey_success"),
+                    type: ToastificationType.success);
+              }
+              if (state is SubmitSurveyViewFailureState) {
+                showToast(context,
+                    title: translateLang(context, 'error'),
+                    desc: translateLang(context, "msg_request_failure"),
+                    type: ToastificationType.error);
+              }
+            },
+            builder: (context, state) {
+              var surveysCubit = BlocProvider.of<SurveysCubit>(context);
+              if (state is SurveysViewLoadingState) {
+                return Center(
+                  child: LoadingWidget(),
+                );
+              }
+              if (state is SurveysViewFailureState) {
+                return Center(
+                  child: Text('Some Error occurs'),
+                );
+              }
 
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 5.0),
-                        child: Row(
-                          children: [
-                            Text(
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
                               surveysCubit
                                   .surveyViewQuestions[
                                       surveysCubit.question_number]
-                                  .options![index]
-                                  .surveyQuestionOptText!,
+                                  .surveyQuestionText!,
                               style: Theme.of(context).textTheme.headlineLarge,
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      ...List.generate(
+                        surveysCubit
+                            .surveyViewQuestions[surveysCubit.question_number]
+                            .options!
+                            .length,
+                        (int index) => InkWell(
+                          onTap: () {
+                            surveysCubit.chooseAnswer(surveysCubit
+                                .surveyViewQuestions[
+                                    surveysCubit.question_number]
+                                .options![index]
+                                .surveyQuestionOptText!);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: surveysCubit.answer ==
+                                        surveysCubit
+                                            .surveyViewQuestions[
+                                                surveysCubit.question_number]
+                                            .options![index]
+                                            .surveyQuestionOptText!
+                                    ? AppColors.primary
+                                    : AppColors.white,
+                                borderRadius: BorderRadius.circular(10.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15.0, horizontal: 10.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    surveysCubit
+                                        .surveyViewQuestions[
+                                            surveysCubit.question_number]
+                                        .options![index]
+                                        .surveyQuestionOptText!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!
+                                        .copyWith(
+                                            color: surveysCubit.answer ==
+                                                    surveysCubit
+                                                        .surveyViewQuestions[
+                                                            surveysCubit
+                                                                .question_number]
+                                                        .options![index]
+                                                        .surveyQuestionOptText!
+                                                ? AppColors.white
+                                                : AppColors.black),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      const Spacer(),
+                      CustomElevatedButton(
+                          fun: () {
+                            surveysCubit.submitSurveyViewQuestion(surveysCubit
+                                .surveyViewQuestions[
+                                    surveysCubit.question_number]
+                                .id!);
+                          },
+                          background: AppColors.primary,
+                          text: translateLang(
+                              context,
+                              surveysCubit.question_number ==
+                                      surveysCubit.surveyViewQuestions.length -
+                                          1
+                                  ? "submit"
+                                  : 'next'))
+                    ],
                   ),
-                  // Text(
-                  //   surveysCubit
-                  //       .surveyViewQuestions[surveysCubit.question_number]
-                  //       .options![0]
-                  //       .surveyQuestionOptText!,
-                  //   style: Theme.of(context).textTheme.headlineLarge,
-                  // ),
-                  // const SizedBox(
-                  //   height: 10.0,
-                  // ),
-                  // Text(
-                  //   surveysCubit
-                  //       .surveyViewQuestions[surveysCubit.question_number]
-                  //       .options![1]
-                  //       .surveyQuestionOptText!,
-                  //   style: Theme.of(context).textTheme.headlineLarge,
-                  // ),
-                  // const SizedBox(
-                  //   height: 10.0,
-                  // ),
-                  // Text(
-                  //   surveysCubit
-                  //       .surveyViewQuestions[surveysCubit.question_number]
-                  //       .options![2]
-                  //       .surveyQuestionOptText!,
-                  //   style: Theme.of(context).textTheme.headlineLarge,
-                  // ),
-                  // const SizedBox(
-                  //   height: 10.0,
-                  // ),
-                  // Text(
-                  //   surveysCubit
-                  //       .surveyViewQuestions[surveysCubit.question_number]
-                  //       .options![3]
-                  //       .surveyQuestionOptText!,
-                  //   style: Theme.of(context).textTheme.headlineLarge,
-                  // ),
-                  const Spacer(),
-                  CustomElevatedButton(
-                      fun: () {},
-                      background: AppColors.primary,
-                      text: translateLang(context, 'next'))
+                  if (state is SubmitSurveyViewLoadingState) LoadingWidget()
                 ],
               );
-            }
-            return SizedBox();
-          },
+            },
+          ),
         ),
       ),
     );

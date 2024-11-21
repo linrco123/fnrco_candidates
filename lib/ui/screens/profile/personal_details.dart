@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/personal_data/personal_details.dart';
-import 'package:fnrco_candidates/logic/cubit/personal_data/personal_details/personal_details_cubit.dart';
+import 'package:fnrco_candidates/data/api_provider/profile/personal_details.dart';
+import 'package:fnrco_candidates/logic/cubit/profile/personal_data/personal_details/personal_details_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
 import 'package:toastification/toastification.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
@@ -48,7 +50,9 @@ class PersonalDetailsScreen extends StatelessWidget {
         body: LayoutBuilder(builder: (context, constraints) {
           return BlocConsumer<PersonalDetailsCubit, PersonalDetailsState>(
             listener: (context, state) {
-              if (state is PersonalDetailsSuccessState) {}
+              if (state is PersonalDetailsSuccessState) {
+                Navigator.of(context).pop();
+              }
               if (state is PersonalDetailsErrorState) {
                 showToast(context,
                     title: translateLang(context, 'error'),
@@ -64,6 +68,13 @@ class PersonalDetailsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: constraints.maxHeight * 0.04),
+                    ProfilePic(
+                      file: CacheHelper.getImage() == null ? false : true,
+                      image: CacheHelper.getImage() ?? AppImages.User,
+                      imageUploadBtnPress:
+                          personalDetailsCubit.changeProfileImage,
+                    ),
+                    SizedBox(height: constraints.maxHeight * 0.02),
                     Form(
                       key: personalDetailsCubit.formKey,
                       child: Expanded(
@@ -71,50 +82,46 @@ class PersonalDetailsScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               NameEmailPhoneFormField(
-                                  controller: personalDetailsCubit
-                                      .firstNameController,
+                                  controller:
+                                      personalDetailsCubit.firstNameController,
                                   inputType: TextInputType.name,
                                   prefixIcon: CupertinoIcons.person,
-                                  hint: translateLang(
-                                      context, "first_name"),
-                                  validate: personalDetailsCubit
-                                      .validateFirstName),
+                                  hint: translateLang(context, "first_name"),
+                                  validate:
+                                      personalDetailsCubit.validateFirstName),
                               const SizedBox(
                                 height: 10.0,
                               ),
                               NameEmailPhoneFormField(
-                                  controller: personalDetailsCubit
-                                      .secondNameController,
+                                  controller:
+                                      personalDetailsCubit.secondNameController,
                                   inputType: TextInputType.name,
                                   prefixIcon: CupertinoIcons.person,
-                                  hint: translateLang(
-                                      context, "second_name"),
-                                  validate: personalDetailsCubit
-                                      .validateSecondName),
+                                  hint: translateLang(context, "second_name"),
+                                  validate:
+                                      personalDetailsCubit.validateSecondName),
                               const SizedBox(
                                 height: 16.0,
                               ),
                               NameEmailPhoneFormField(
-                                  controller: personalDetailsCubit
-                                      .lastNameController,
+                                  controller:
+                                      personalDetailsCubit.lastNameController,
                                   inputType: TextInputType.name,
                                   prefixIcon: CupertinoIcons.person,
-                                  hint:
-                                      translateLang(context, "last_name"),
-                                  validate: personalDetailsCubit
-                                      .validateLastName),
+                                  hint: translateLang(context, "last_name"),
+                                  validate:
+                                      personalDetailsCubit.validateLastName),
                               const SizedBox(
                                 height: 10.0,
                               ),
                               NameEmailPhoneFormField(
-                                  controller: personalDetailsCubit
-                                      .surNameController,
+                                  controller:
+                                      personalDetailsCubit.surNameController,
                                   inputType: TextInputType.name,
                                   prefixIcon: CupertinoIcons.person,
-                                  hint:
-                                      translateLang(context, "sur_name"),
-                                  validate: personalDetailsCubit
-                                      .validateSurName),
+                                  hint: translateLang(context, "sur_name"),
+                                  validate:
+                                      personalDetailsCubit.validateSurName),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -145,9 +152,15 @@ class PersonalDetailsScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        personalDetailsCubit.birthDate??
-                                        translateLang(context, 'date_birth'),
-                                        style: TextStyle(color: AppColors.grey),
+                                        personalDetailsCubit.birthDate ??
+                                            translateLang(
+                                                context, 'date_birth'),
+                                        style: TextStyle(
+                                            color: personalDetailsCubit
+                                                        .birthDate ==
+                                                    null
+                                                ? AppColors.grey
+                                                : AppColors.black),
                                       ),
                                       const Spacer(),
                                       Icon(
@@ -159,6 +172,17 @@ class PersonalDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+                              NameEmailPhoneFormField(
+                                  controller: personalDetailsCubit
+                                      .countryResidenceController,
+                                  inputType: TextInputType.name,
+                                  prefixIcon: CupertinoIcons.square_list,
+                                  hint: translateLang(context, "residence"),
+                                  validate:
+                                      personalDetailsCubit.validateResidence),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -174,7 +198,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                                                 value: country.id,
                                               ))
                                           .toList(),
-                                      text: translateLang(context, 'country'),
+                                      text:
+                                          translateLang(context, 'nationality'),
                                       icon: Icon(
                                         CupertinoIcons.building_2_fill,
                                         color: AppColors.grey,
@@ -282,7 +307,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                       .submitPersonalData(context);
                                 },
                                 background: AppColors.primary,
-                                text: translateLang(context, 'submit'))),
+                                text: translateLang(context, 'save'))),
                   ],
                 ),
               );

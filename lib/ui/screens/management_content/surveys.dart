@@ -53,15 +53,15 @@ class SurviesScreen extends StatelessWidget {
                   ),
                 );
               }
-              if (state is SurveysSuccessState) {
+         
                 return ListView.separated(
-                  itemCount: state.surveys.length,
+                  itemCount: surveysCubit.surveys.length,
                   itemBuilder: (BuildContext context, int index) => InkWell(
                     onTap: () {
-                     
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (Context) => BlocProvider.value(
-                                value: surveysCubit..getSurveyView( state.surveys[index].id!),
+                                value: surveysCubit
+                                  ..getSurveyView(surveysCubit.surveys[index].id!),
                                 child: SurveyViewScreen(),
                               )));
                     },
@@ -90,7 +90,7 @@ class SurviesScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            state.surveys[index].surveyName!,
+                            surveysCubit.surveys[index].surveyName!,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
@@ -107,7 +107,7 @@ class SurviesScreen extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
                                   html_parser
-                                      .parse(state.surveys[index].surveyDesc!)
+                                      .parse(surveysCubit.surveys[index].surveyDesc!)
                                       .body!
                                       .text,
                                   style: Theme.of(context).textTheme.bodySmall,
@@ -125,7 +125,7 @@ class SurviesScreen extends StatelessWidget {
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                               Text(
-                                state.surveys[index].surveyBy!,
+                               surveysCubit.surveys[index].surveyBy!,
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -144,7 +144,7 @@ class SurviesScreen extends StatelessWidget {
                                 width: 10.0,
                               ),
                               Text(
-                                state.surveys[index].surveyFrom!,
+                                surveysCubit.surveys[index].surveyFrom!,
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                               Padding(
@@ -157,7 +157,7 @@ class SurviesScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                state.surveys[index].surveyTo!,
+                                surveysCubit.surveys[index].surveyTo!,
                                 style: Theme.of(context).textTheme.labelMedium,
                               )
                             ],
@@ -172,7 +172,7 @@ class SurviesScreen extends StatelessWidget {
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                               Text(
-                                state.surveys[index].surveyStatus!,
+                                surveysCubit.surveys[index].surveyStatus!,
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -189,9 +189,9 @@ class SurviesScreen extends StatelessWidget {
                     height: 10.0,
                   ),
                 );
-              }
+         
 
-              return SizedBox();
+              
             },
           ),
         ),
