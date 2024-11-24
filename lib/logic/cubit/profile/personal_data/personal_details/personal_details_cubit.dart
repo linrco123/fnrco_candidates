@@ -136,6 +136,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     await FilePicker.platform.clearTemporaryFiles();
     final result = await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null) {
+      fileImage = File(result.files.first.path!);
       CacheHelper.storeUserImage(result.files.first.path!);
       emit(PersonalDetailsSuccessChangeImageState());
     }
