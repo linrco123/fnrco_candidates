@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
@@ -139,6 +141,18 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     }
   }
 
+  Future<String> convertImageToBase64(String imagePath) async {
+  // Convert image to bytes
+  var bytes = await rootBundle.load(imagePath);
+  var buffer = bytes.buffer;
+  var imageBytes = buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+
+  // Encode the bytes
+  var base64Image = base64Encode(imageBytes);
+
+   return base64Image;
+}
+
   void submitPersonalData(context) {
     if (countryId == 0) {
       showToast(context,
@@ -159,6 +173,11 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_marital"),
+          type: ToastificationType.warning);
+    }else if (fileImage ==  null) {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context, "choose_image"),
           type: ToastificationType.warning);
     } else {
       if (formKey.currentState!.validate()) {
@@ -187,7 +206,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           "email": emailController.text,
           "references": "references",
           "person_dob": birthDate,
-          "person_image": fileImage??''
+          "person_image": convertImageToBase64(fileImage!.path)
         };
         personalDetailsProvider.submitPersonalData(data).then((value) {
           emit(PersonalDetailsSuccessState());

@@ -162,6 +162,7 @@
     "choose_gender": "Please , choose  gender !",
     "choose_religion": "Please , choose a religion !",
     "choose_marital": "Please , choose marital status !",
+    "choose_image":"Please , pick an image ",
     "msg_plz_enter_major": "Major can't be empty",
     "brightness_mode":"Brightness Mode",
     "msg_internet_back":"Internet connection is back via",
