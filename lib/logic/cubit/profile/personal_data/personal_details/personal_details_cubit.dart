@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -131,30 +132,31 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   }
 
   File? fileImage;
+  MultipartFile? partFile;
 
   void changeProfileImage() async {
     await FilePicker.platform.clearTemporaryFiles();
     final result = await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null) {
       fileImage = File(result.files.first.path!);
+     await  createImageFile(fileImage!.path);
       CacheHelper.storeUserImage(result.files.first.path!);
       emit(PersonalDetailsSuccessChangeImageState());
     }
   }
 
-  Future<String> convertImageToBase64(String imagePath) async {
-  // Convert image to bytes
-  var bytes = await rootBundle.load(imagePath);
-  var buffer = bytes.buffer;
-  var imageBytes = buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+  Future<void> createImageFile(String imagePath) async {
+    try {
+      print('====================================================================================');
+      partFile =  await MultipartFile.fromFile(fileImage!.path,
+          filename: fileImage!.path.split('/').last);
+      
+    } catch (e) {
+      print('================================ $e');
+    }
+  }
 
-  // Encode the bytes
-  var base64Image = base64Encode(imageBytes);
-
-   return base64Image;
-}
-
-  void submitPersonalData(context) {
+  Future<void> submitPersonalData(context) async {
     if (countryId == 0) {
       showToast(context,
           title: translateLang(context, 'warning'),
@@ -175,7 +177,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_marital"),
           type: ToastificationType.warning);
-    }else if (fileImage ==  null) {
+    } else if (fileImage == null) {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_image"),
@@ -183,7 +185,8 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     } else {
       if (formKey.currentState!.validate()) {
         emit(PersonalDetailsLoadingState());
-        Map data = {
+
+        var formData = FormData.fromMap({
           "person_nationality": countryId,
           "person_sur_name": surNameController.text,
           "person_first_name": firstNameController.text,
@@ -207,9 +210,35 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           "email": emailController.text,
           "references": "references",
           "person_dob": birthDate,
-          "person_image": convertImageToBase64(fileImage!.path)
-        };
-        personalDetailsProvider.submitPersonalData(data).then((value) {
+          "person_image": partFile,
+        });
+        // Map data = {
+        //   "person_nationality": countryId,
+        //   "person_sur_name": surNameController.text,
+        //   "person_first_name": firstNameController.text,
+        //   "person_second_name": secondNameController.text,
+        //   "person_third_name": lastNameController.text,
+        //   "person_gender": genders
+        //       .where((gender) => gender.id! == genderId)
+        //       .toList()
+        //       .first
+        //       .metaDataText,
+        //   "person_martial_status": maritalStatus
+        //       .where((marital) => marital.id == maritalStatusId)
+        //       .toList()
+        //       .first
+        //       .metaDataText,
+        //   "person_country_residence": countryResidenceController.text,
+        //   "person_height": "150",
+        //   "person_height_unit": "meter",
+        //   "person_weight": "100",
+        //   "person_weight_unit": "kg",
+        //   "email": emailController.text,
+        //   "references": "references",
+        //   "person_dob": birthDate,
+        //   "person_image": fileImage
+        // };
+        personalDetailsProvider.submitPersonalData(formData).then((value) {
           emit(PersonalDetailsSuccessState());
         }).catchError((error) {
           emit(PersonalDetailsErrorState(message: error.failure.message));

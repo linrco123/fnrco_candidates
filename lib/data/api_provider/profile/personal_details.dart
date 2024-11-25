@@ -26,7 +26,7 @@ class PersonalDetailsProvider {
     dio = Dio(_baseOptions);
   }
 
-  Future<bool?> submitPersonalData(Map data) async {
+  Future<bool?> submitPersonalData(data) async {
     try {
       final Response response = await dio.put(
         AppLinks.profile_update,

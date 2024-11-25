@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/register_model.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -34,8 +35,8 @@ class CacheHelper {
 
   static void storeAuthToken(String authToken) async {
     userToken = authToken;
-    print('=================userToken=======================');
-    print(userToken!);
+    logger.d('=================userToken=======================');
+    logger.d(userToken!);
     await secureStorage.write(key: 'auth_key', value: authToken);
   }
 
