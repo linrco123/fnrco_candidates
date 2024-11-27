@@ -24,7 +24,7 @@ class HomeTapScreen extends StatelessWidget {
       builder: (context, state) {
         HomePageCubit homePageCubit = HomePageCubit.instance(context);
         return Container(
-          //color: AppColors.blurGreen,
+          //color: AppColors.blurRed,
           child: Column(
             children: [
               Stack(

@@ -24,12 +24,12 @@ class MedicalDeclaration extends StatelessWidget {
                 'Medical Declaration',
                 style: TextStyle(color: AppColors.primary),
               ),
-              backgroundColor: AppColors.blurGreen,
+              backgroundColor: AppColors.blurRed,
             ),
             body: Container(
               height: double.infinity,
               width: double.infinity,
-              color: AppColors.blurGreen,
+              color: AppColors.blurRed,
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [

@@ -40,7 +40,7 @@ class NameEmailPhoneFormField extends StatelessWidget {
           hintText: hint,
           hintStyle: Theme.of(context).textTheme.headlineSmall,
           filled: true,
-          fillColor: AppColors.blurGreen,
+          fillColor: AppColors.blurRed,
           contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
           border: const OutlineInputBorder(
             borderSide: BorderSide.none,
@@ -70,7 +70,7 @@ class NameEmailPhoneFormField extends StatelessWidget {
                             //     hintStyle:
                             //         Theme.of(context).textTheme.headlineSmall,
                             //     filled: true,
-                            //     fillColor: AppColors.blurGreen,
+                            //     fillColor: AppColors.blurRed,
                             //     contentPadding: const EdgeInsets.symmetric(
                             //         horizontal: 15, vertical: 0),
                             //     border: const OutlineInputBorder(
@@ -103,7 +103,7 @@ class NameEmailPhoneFormField extends StatelessWidget {
                             //     hintStyle:
                             //         Theme.of(context).textTheme.headlineSmall,
                             //     filled: true,
-                            //     fillColor: AppColors.blurGreen,
+                            //     fillColor: AppColors.blurRed,
                             //     contentPadding: const EdgeInsets.symmetric(
                             //         horizontal: 15, vertical: 0),
                             //     border: const OutlineInputBorder(
@@ -128,7 +128,7 @@ class NameEmailPhoneFormField extends StatelessWidget {
                                   //         .textTheme
                                   //         .headlineMedium,
                                   //     filled: true,
-                                  //     fillColor: AppColors.blurGreen,
+                                  //     fillColor: AppColors.blurRed,
                                   //     contentPadding:
                                   //         const EdgeInsets.symmetric(
                                   //             horizontal: 16.0 * 1.5,

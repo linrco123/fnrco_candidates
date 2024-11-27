@@ -22,7 +22,7 @@ class JobDetailsScreen extends StatelessWidget {
         SystemUiOverlayStyle.dark);
     return Scaffold(
       body: Container(
-        color: AppColors.blurGreen,
+        color: AppColors.blurRed,
         child: SafeArea(
             child: Padding(
           padding: const EdgeInsets.all(15.0),

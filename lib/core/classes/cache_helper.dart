@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/classes/dio_helper.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/register_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
@@ -117,8 +118,6 @@ class CacheHelper {
       storeEmail(userRData.data!.email!);
       storeAuthToken(userRData.data!.accessToken!);
     }
-
-    //storePhone('');
-    //storePassword('');
+    DioHelper.updateAuthKey();
   }
 }

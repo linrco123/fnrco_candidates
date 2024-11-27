@@ -19,7 +19,9 @@ class AppLinks {
   static const String genderStatus = "$metaData/221";
   static const String religion = "/religion";
   static const String maritalStatus = "$metaData/120";
-  static const String skill = "$metaData/124";
+  static const String skills = "$metaData/124";
+  static const String years = "$metaData/129";
+  static const String contactType = "$metaData/123";
   ////////////////////// TODO:Management::Content ////////////////////////////
   static const String survies = "/surveys?module_id=91";
   static const String surveyView = "/surveys/view/";

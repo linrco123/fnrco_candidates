@@ -7,6 +7,7 @@ class CustomDropTextField extends StatelessWidget {
   final String text;
   final Widget icon;
   final String? desc;
+  final int? value;
   final void Function(Object) onChanged;
   const CustomDropTextField(
       {super.key,
@@ -14,7 +15,7 @@ class CustomDropTextField extends StatelessWidget {
       required this.text,
       required this.icon,
       this.desc,
-      required this.onChanged});
+      required this.onChanged,  this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class CustomDropTextField extends StatelessWidget {
         helperStyle: Theme.of(context).textTheme.headlineMedium,
         hintStyle: Theme.of(context).textTheme.headlineSmall,
         filled: true,
-        fillColor: AppColors.blurGreen,
+        fillColor: AppColors.blurRed,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         border: const OutlineInputBorder(

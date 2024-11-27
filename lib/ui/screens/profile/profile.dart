@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/logic/cubit/profile/profile/profile_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/ui/screens/profile/achievements.dart';
+import 'package:fnrco_candidates/ui/screens/profile/contacts.dart';
+import 'package:fnrco_candidates/ui/screens/profile/credentials.dart';
+import 'package:fnrco_candidates/ui/screens/profile/education.dart';
+import 'package:fnrco_candidates/ui/screens/profile/key_words.dart';
+import 'package:fnrco_candidates/ui/screens/profile/language.dart';
+import 'package:fnrco_candidates/ui/screens/profile/notes.dart';
 import 'package:fnrco_candidates/ui/screens/profile/personal_details.dart';
+import 'package:fnrco_candidates/ui/screens/profile/skills.dart';
+import 'package:fnrco_candidates/ui/screens/profile/work_experience.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -18,7 +28,6 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileCubit(),
       child: Scaffold(
-        
         backgroundColor: AppColors.primary,
         appBar: AppBar(
           backgroundColor: AppColors.primary,
@@ -52,7 +61,6 @@ class ProfileScreen extends StatelessWidget {
                             Theme.of(context).textTheme.headlineLarge!.copyWith(
                                   color: AppColors.white,
                                 )),
-
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -70,8 +78,6 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 10.0,
                     ),
-
-                  
                     const SizedBox(height: 16.0),
                   ],
                 ),
@@ -105,53 +111,112 @@ class ProfileScreen extends StatelessWidget {
                                 context: context,
                                 icon: Icons.work,
                                 text: 'Work Experience',
-                                onTap: () {}),
+                                onTap: () {
+                                  //  Navigator.of(context).pushNamed(AppPagesNames.EXPERIENCES);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          ExperienceScreen()));
+                                }),
                             _divider(),
                             _addSettingItem(
                                 context: context,
-                                icon: Icons.https_sharp,
+                                icon: Icons.logo_dev,
                                 text: 'Education',
-                                onTap: () {}),
+                                onTap: () {
+                                      Navigator.of(context).pushNamed(AppPagesNames.EDUCATION);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          EducationAndQualificationScreen()));
+
+                                }),
                             _divider(),
-                         
-                 //languages-notes-achievements
+
+                            //languages-notes-achievements
                             _addSettingItem(
                                 context: context,
                                 icon: Icons.bookmark,
                                 text: 'Credentials',
-                                onTap: () {}),
+                                onTap: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => CredentialsScreen(),
+                                  ));
+                                  // Navigator.of(context)
+                                  //     .pushNamed(AppPagesNames.CREDENTIALS);
+                                }),
                             _divider(),
                             _addSettingItem(
                                 context: context,
                                 icon: Icons.phone_in_talk,
                                 text: 'Contacts',
-                                onTap: () {}),
-                                _divider(),
+                                onTap: () {
+                                   Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ContactsScreen(),
+                                  ));
+                                  // Navigator.of(context)
+                                  //     .pushNamed(AppPagesNames.CONTACT_TYPE);
+
+                                }),
+                            _divider(),
                             _addSettingItem(
                                 context: context,
-                                icon: Icons.https_sharp,
+                                icon: Icons.waves,
                                 text: 'Skills',
-                                onTap: () {}),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SkillsSCreen(),
+                                  ));
+                                  // Navigator.of(context)
+                                  //     .pushNamed(AppPagesNames.SKILLS);
+                                }),
                             _divider(),
-              
+
                             _addSettingItem(
                                 context: context,
-                                icon: Icons.https_sharp,
+                                icon: Icons.language,
                                 text: 'Language',
-                                onTap: () {}),
+                                onTap: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => LanguageScreen(),
+                                  ));
+                                  // Navigator.of(context)
+                                  //     .pushNamed(AppPagesNames.LANGUAGE);
+                                }),
                             _divider(),
-                             _addSettingItem(
+                            _addSettingItem(
                                 context: context,
-                                icon: Icons.https_sharp,
+                                icon: Icons.note,
                                 text: 'Notes',
-                                onTap: () {}),
+                                onTap: () {
+                                   Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => NotesScreen(),
+                                  ));
+                                  // Navigator.of(context)
+                                  //     .pushNamed(AppPagesNames.NOTES);
+                                }),
+                            _divider(),
+                            _addSettingItem(
+                                context: context,
+                                icon: Icons.work,
+                                text: 'Achievements',
+                                onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => AchievementsSCreen(),
+                                  ));
+                                  // Navigator.of(context)
+                                  //     .pushNamed(AppPagesNames.ACHIEVEMENTS);
+                                }),
                             _divider(),
                              _addSettingItem(
                                 context: context,
-                                icon: Icons.https_sharp,
-                                text: 'Achievements',
-                                onTap: () {}),
-                            _divider(),
+                                icon: Icons.work,
+                                text: 'KeyWords',
+                                onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => KeyWordsSCreen(),
+                                  ));
+                                  // Navigator.of(context)
+                                  //     .pushNamed(AppPagesNames.KEYWORDS);
+                                }),
                           ],
                         ),
                       ),
@@ -172,7 +237,7 @@ Widget _addSettingItem(
     required IconData icon,
     required String text,
     required void Function() onTap}) {
-  return GestureDetector(
+  return InkWell(
     onTap: onTap,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

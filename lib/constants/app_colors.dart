@@ -8,7 +8,7 @@ class AppColors {
   static Color secondary =   const Color(0xff181818);//const Color(0xfffeae4f);  0xFFFE9901
   static Color indigo = const Color(0xff3f51b5);
   static Color purple = const Color(0xffab47bc);
-  static Color blurGreen = primary.withOpacity(0.1);//const Color(0xFFF5FCF9);
+  static Color blurRed = primary.withOpacity(0.1);//const Color(0xFFF5FCF9);
   static Color grey = const Color(0xFFBDBDBD);
   //////
   static Color black = const Color(0xFF020202);

@@ -6,13 +6,14 @@ import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/profile/personal_details.dart';
+import 'package:fnrco_candidates/data/api_provider/profile_update/personal_details.dart';
 import 'package:fnrco_candidates/logic/cubit/profile/personal_data/personal_details/personal_details_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
 import 'package:toastification/toastification.dart';
 
@@ -81,57 +82,134 @@ class PersonalDetailsScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              NameEmailPhoneFormField(
+                              Row(
+                                children: [
+                                  Text(
+                                    translateLang(context, "first_name"),
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              CustomInputField(
                                   controller:
                                       personalDetailsCubit.firstNameController,
-                                  inputType: TextInputType.name,
-                                  prefixIcon: CupertinoIcons.person,
-                                  hint: translateLang(context, "first_name"),
                                   validate:
-                                      personalDetailsCubit.validateFirstName),
+                                      personalDetailsCubit.validateFirstName,
+                                  inputType: TextInputType.name,
+                                  hint: translateLang(context, "first_name")),
                               const SizedBox(
-                                height: 10.0,
+                                height: 16.0,
                               ),
-                              NameEmailPhoneFormField(
+                              Row(
+                                children: [
+                                  Text(
+                                    translateLang(context, "second_name"),
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              CustomInputField(
                                   controller:
                                       personalDetailsCubit.secondNameController,
-                                  inputType: TextInputType.name,
-                                  prefixIcon: CupertinoIcons.person,
-                                  hint: translateLang(context, "second_name"),
                                   validate:
-                                      personalDetailsCubit.validateSecondName),
+                                      personalDetailsCubit.validateSecondName,
+                                  inputType: TextInputType.name,
+                                  hint: translateLang(context, "second_name")),
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              NameEmailPhoneFormField(
+                              Row(
+                                children: [
+                                  Text(
+                                    translateLang(context, "last_name"),
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              CustomInputField(
                                   controller:
                                       personalDetailsCubit.lastNameController,
-                                  inputType: TextInputType.name,
-                                  prefixIcon: CupertinoIcons.person,
-                                  hint: translateLang(context, "last_name"),
                                   validate:
-                                      personalDetailsCubit.validateLastName),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              NameEmailPhoneFormField(
-                                  controller:
-                                      personalDetailsCubit.surNameController,
+                                      personalDetailsCubit.validateLastName,
                                   inputType: TextInputType.name,
-                                  prefixIcon: CupertinoIcons.person,
-                                  hint: translateLang(context, "sur_name"),
-                                  validate:
-                                      personalDetailsCubit.validateSurName),
+                                  hint: translateLang(context, "last_name")),
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              NameEmailPhoneFormField(
+                              Row(
+                                children: [
+                                  Text(
+                                    translateLang(context, "sur_name"),
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              CustomInputField(
+                                  controller:
+                                      personalDetailsCubit.surNameController,
+                                  validate:
+                                      personalDetailsCubit.validateSurName,
+                                  inputType: TextInputType.name,
+                                  hint: translateLang(context, "sur_name")),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    translateLang(context, "email"),
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              CustomInputField(
                                   controller:
                                       personalDetailsCubit.emailController,
+                                  validate: personalDetailsCubit.validateEmail,
                                   inputType: TextInputType.emailAddress,
-                                  prefixIcon: CupertinoIcons.mail,
-                                  hint: translateLang(context, "email"),
-                                  validate: personalDetailsCubit.validateEmail),
+                                  hint: translateLang(context, "email")),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    translateLang(context, "residence"),
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              CustomInputField(
+                                  controller: personalDetailsCubit
+                                      .countryResidenceController,
+                                  validate:
+                                      personalDetailsCubit.validateResidence,
+                                  inputType: TextInputType.name,
+                                  hint: translateLang(context, "residence")),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -172,17 +250,6 @@ class PersonalDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 16.0,
-                              ),
-                              NameEmailPhoneFormField(
-                                  controller: personalDetailsCubit
-                                      .countryResidenceController,
-                                  inputType: TextInputType.name,
-                                  prefixIcon: CupertinoIcons.square_list,
-                                  hint: translateLang(context, "residence"),
-                                  validate:
-                                      personalDetailsCubit.validateResidence),
                               const SizedBox(
                                 height: 16.0,
                               ),

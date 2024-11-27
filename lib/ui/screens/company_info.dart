@@ -21,7 +21,7 @@ class CompanyInfoScreen extends StatelessWidget {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(270.0),
           child: Container(
-            color: AppColors.blurGreen,
+            color: AppColors.blurRed,
             child: Stack(
               children: [
                 Container(
@@ -97,7 +97,7 @@ class CompanyInfoScreen extends StatelessWidget {
             ),
           )),
       body: Container(
-        color: AppColors.blurGreen,
+        color: AppColors.blurRed,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: SingleChildScrollView(

@@ -9,7 +9,7 @@ class DioHelper {
   static const int apiTimeOut = 60000;
   static late Dio dio;
 
-  static Future<void> init() async{
+  static Future<void> init() async {
     // BaseOptions _baseOptions = BaseOptions(
     //     baseUrl: AppLinks.baseUrl,
     //     receiveDataWhenStatusError: true,
@@ -31,7 +31,12 @@ class DioHelper {
       sendTimeout: apiTimeOut,
       connectTimeout: apiTimeOut,
     );
+
+    
+  }
+
+  static void updateAuthKey(){
+    dio.options.headers
+        .update("Auth", (value) => "bearer ${CacheHelper.userToken}");
   }
 }
-
-

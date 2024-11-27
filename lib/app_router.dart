@@ -15,8 +15,17 @@ import 'package:fnrco_candidates/ui/screens/medical_declare.dart';
 import 'package:fnrco_candidates/ui/screens/on_boarding/on_boarding2_screen.dart';
 import 'package:fnrco_candidates/ui/screens/auth/otp.dart';
 import 'package:fnrco_candidates/ui/screens/auth/sign_up.dart';
+import 'package:fnrco_candidates/ui/screens/profile/achievements.dart';
+import 'package:fnrco_candidates/ui/screens/profile/contacts.dart';
+import 'package:fnrco_candidates/ui/screens/profile/credentials.dart';
+import 'package:fnrco_candidates/ui/screens/profile/education.dart';
+import 'package:fnrco_candidates/ui/screens/profile/key_words.dart';
+import 'package:fnrco_candidates/ui/screens/profile/language.dart';
+import 'package:fnrco_candidates/ui/screens/profile/notes.dart';
 import 'package:fnrco_candidates/ui/screens/profile/profile.dart';
 import 'package:fnrco_candidates/ui/screens/profile/profile_editing.dart';
+import 'package:fnrco_candidates/ui/screens/profile/skills.dart';
+import 'package:fnrco_candidates/ui/screens/profile/work_experience.dart';
 import 'package:fnrco_candidates/ui/screens/resume.dart';
 import 'package:fnrco_candidates/ui/screens/success.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/surveys.dart';
@@ -231,7 +240,7 @@ class AppRouter {
         );
         case AppPagesNames.SURVIES:
         // return MaterialPageRoute(
-        //     builder: (context) => JobApplicationScreen(),
+        //     builder: (context) => SurviesScreen(),
         //     );
         return PageTransition(
           child: SurviesScreen(),
@@ -240,6 +249,101 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
       //JobApplicationScreen
+       case AppPagesNames.SKILLS:
+        // return MaterialPageRoute(
+        //     builder: (context) => SkillsSCreen(),
+        //     );
+        return PageTransition(
+          child: SkillsSCreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+        case AppPagesNames.EXPERIENCES:
+        // return MaterialPageRoute(
+        //     builder: (context) => ExperienceScreen(),
+        //     );
+        return PageTransition(
+          child: ExperienceScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+         case AppPagesNames.EDUCATION:
+        // return MaterialPageRoute(
+        //     builder: (context) => EducationAndQualificationScreen(),
+        //     );
+        return PageTransition(
+          child: EducationAndQualificationScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+        case AppPagesNames.CONTACT_TYPE:
+        // return MaterialPageRoute(
+        //     builder: (context) => ContactsScreen(),
+        //     );
+        return PageTransition(
+          child: ContactsScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+         case AppPagesNames.CREDENTIALS:
+        // return MaterialPageRoute(
+        //     builder: (context) => CredentialsScreen(),
+        //     );
+        return PageTransition(
+          child: CredentialsScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+         case AppPagesNames.LANGUAGE:
+        // return MaterialPageRoute(
+        //     builder: (context) => CredentialsScreen(),
+        //     );
+        return PageTransition(
+          child: LanguageScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+        case AppPagesNames.ACHIEVEMENTS:
+        // return MaterialPageRoute(
+        //     builder: (context) => AchievementsSCreen(),
+        //     );
+        return PageTransition(
+          child: AchievementsSCreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+         case AppPagesNames.NOTES:
+        // return MaterialPageRoute(
+        //     builder: (context) => NotesScreen(),
+        //     );
+        return PageTransition(
+          child: NotesScreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+         case AppPagesNames.KEYWORDS:
+        // return MaterialPageRoute(
+        //     builder: (context) => KeyWordsSCreen(),
+        //     );
+        return PageTransition(
+          child: KeyWordsSCreen(),
+          type: PageTransitionType.rotate,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
     }
 
     return null;

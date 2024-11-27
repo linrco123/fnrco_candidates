@@ -19,5 +19,14 @@ class AppPagesNames {
   static const String INTERNET_CONNECTION = '/internetConnect';
   static const String SUCCESS = '/success';
   static const String ANIMATED_SPLASH = '/animatedSpalsh';
-   static const String SURVIES = '/survies';
+  static const String SURVIES = '/survies';
+  static const String SKILLS = '/skills';
+  static const String EXPERIENCES = '/experience';
+  static const String EDUCATION = '/education';
+  static const String CONTACT_TYPE = '/contact';
+  static const String CREDENTIALS = '/credentials';
+  static const String LANGUAGE = '/language';
+  static const String ACHIEVEMENTS = '/achievements';
+  static const String NOTES = '/notes';
+  static const String KEYWORDS = '/keyword';
 }

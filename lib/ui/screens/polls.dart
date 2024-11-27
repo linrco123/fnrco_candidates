@@ -16,7 +16,7 @@ class PollsScreen extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        //color: AppColors.blurGreen,
+        //color: AppColors.blurRed,
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
