@@ -93,7 +93,7 @@ class HomePageScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         //'Muhammed Nady',
-                                        CacheHelper.getName()??'Guest',
+                                        CacheHelper.getName() ?? 'Guest',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineLarge!
@@ -115,7 +115,7 @@ class HomePageScreen extends StatelessWidget {
                             ListTile(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed(AppPagesNames.PROFILE);
+                                    .popAndPushNamed(AppPagesNames.PROFILE);
                               },
                               leading: SvgPicture.asset(
                                 AppImages.PERSON,
@@ -131,9 +131,8 @@ class HomePageScreen extends StatelessWidget {
                             ),
                             ListTile(
                               onTap: () {
-                                Navigator.of(context).pop();
                                 Navigator.of(context)
-                                    .pushNamed(AppPagesNames.JOB_OFFER);
+                                    .popAndPushNamed(AppPagesNames.JOB_OFFER);
                               },
                               leading: SvgPicture.asset(
                                 AppImages.FILE,
@@ -150,7 +149,7 @@ class HomePageScreen extends StatelessWidget {
                             ListTile(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed(AppPagesNames.HEALTH_CARE);
+                                    .popAndPushNamed(AppPagesNames.HEALTH_CARE);
                               },
                               leading: SvgPicture.asset(
                                 AppImages.HEALTH_CARE,
@@ -167,7 +166,7 @@ class HomePageScreen extends StatelessWidget {
                             ListTile(
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed(AppPagesNames.RESUME);
+                                    .popAndPushNamed(AppPagesNames.RESUME);
                               },
                               leading: SvgPicture.asset(
                                 AppImages.RESUME,
@@ -183,9 +182,11 @@ class HomePageScreen extends StatelessWidget {
                             ),
                             ListTile(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => NotificationsScreen(),
-                                ));
+                                Navigator.of(context).popAndPushNamed(
+                                    AppPagesNames.NOTIFICATION);
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) => NotificationsScreen(),
+                                // ));
                               },
                               leading: SvgPicture.asset(
                                 AppImages.NOTIFICATIONS,
@@ -213,18 +214,40 @@ class HomePageScreen extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
-                             ListTile(
+                            ListTile(
                               onTap: () {
-                                Navigator.of(context).pushNamed(AppPagesNames.SURVIES);
+                                Navigator.of(context)
+                                    .popAndPushNamed(AppPagesNames.SURVIES);
                               },
                               leading: SvgPicture.asset(
-                                AppImages.SAVED,
+                                AppImages.survey,
+                                height: 25.0,
+                                width: 25.0,
                                 // ignore: deprecated_member_use
                                 color: AppColors.primary,
                               ),
                               title: Text(
                                 AppLocalizations.of(context)!
                                     .translate("surveys"),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .popAndPushNamed(AppPagesNames.POLLS);
+                              },
+                              leading: SvgPicture.asset(
+                                AppImages.poll,
+                                // ignore: deprecated_member_use
+                                color: AppColors.primary,
+                                height: 25.0,
+                                width: 25.0,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(context)!
+                                    .translate("polls"),
                                 style:
                                     Theme.of(context).textTheme.displayMedium,
                               ),
@@ -245,29 +268,26 @@ class HomePageScreen extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
-                            ListTile(
-                              onTap: () async{
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //   builder: (context) => TestScreenh(),
-                                // ));
-                     
-                                var authkey = await CacheHelper.getAuthToken();
-                                print('auth_key ========>>>>>>>>>> $authkey');
-                                CacheHelper.secureStorage.delete(key:  'auth_key');
-                                var ffauthkey = await CacheHelper.getAuthToken();
-                                print('auth_key ====after delete====>>>>>>>>>> $ffauthkey');
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.CHECKED,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                'Testing',
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
+                            // ListTile(
+                            //   onTap: () async {
+                            //     // Navigator.of(context).push(MaterialPageRoute(
+                            //     //   builder: (context) => TestScreenh(),
+                            //     // ));
+
+                            //     CacheHelper.secureStorage
+                            //         .delete(key: 'auth_key');
+                            //   },
+                            //   leading: SvgPicture.asset(
+                            //     AppImages.CHECKED,
+                            //     // ignore: deprecated_member_use
+                            //     color: AppColors.primary,
+                            //   ),
+                            //   title: Text(
+                            //     'Testing',
+                            //     style:
+                            //         Theme.of(context).textTheme.displayMedium,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

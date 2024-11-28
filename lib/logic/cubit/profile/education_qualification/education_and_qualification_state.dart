@@ -35,8 +35,7 @@ class ExperiencesGettingYearsSuccessState extends EducationAndQualificationState
   });
  }
 
- class Year {
- }
+ 
  class  ExperiencesGettingYearsErrorState extends EducationAndQualificationState{
   final String message;
 

@@ -11,14 +11,16 @@ import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
 import 'package:fnrco_candidates/ui/screens/job_application.dart';
 import 'package:fnrco_candidates/ui/screens/job_details.dart';
 import 'package:fnrco_candidates/ui/screens/job_offer.dart';
+import 'package:fnrco_candidates/ui/screens/management_content/polls.dart';
 import 'package:fnrco_candidates/ui/screens/medical_declare.dart';
+import 'package:fnrco_candidates/ui/screens/notifications.dart';
 import 'package:fnrco_candidates/ui/screens/on_boarding/on_boarding2_screen.dart';
 import 'package:fnrco_candidates/ui/screens/auth/otp.dart';
 import 'package:fnrco_candidates/ui/screens/auth/sign_up.dart';
 import 'package:fnrco_candidates/ui/screens/profile/achievements.dart';
 import 'package:fnrco_candidates/ui/screens/profile/contacts.dart';
 import 'package:fnrco_candidates/ui/screens/profile/credentials.dart';
-import 'package:fnrco_candidates/ui/screens/profile/education.dart';
+import 'package:fnrco_candidates/ui/screens/profile/education_qualification.dart';
 import 'package:fnrco_candidates/ui/screens/profile/key_words.dart';
 import 'package:fnrco_candidates/ui/screens/profile/language.dart';
 import 'package:fnrco_candidates/ui/screens/profile/notes.dart';
@@ -41,7 +43,7 @@ class AppRouter {
         // );
         return PageTransition(
             child: const OnboardingScreen(),
-            type: PageTransitionType.rotate,
+            type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
             case AppPagesNames.WELCOME:
@@ -50,13 +52,13 @@ class AppRouter {
         // );
         return PageTransition(
             child: const WelcomeScreen(),
-            type: PageTransitionType.rotate,
+            type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
       case AppPagesNames.AUTH:
         return PageTransition(
             child: const SigninOrSignupScreen(),
-            type: PageTransitionType.rotate,
+            type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
       // return MaterialPageRoute(
@@ -67,7 +69,7 @@ class AppRouter {
         // );
         return PageTransition(
             child: const SignInScreen(),
-            type: PageTransitionType.rotate,
+            type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
       case AppPagesNames.SIGNUP:
@@ -76,7 +78,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: const SignUpScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -91,7 +93,7 @@ class AppRouter {
 
         return PageTransition(
             child: const VerificationScreen(),
-            type: PageTransitionType.rotate,
+            type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1),
             settings: RouteSettings(
@@ -105,7 +107,7 @@ class AppRouter {
 
         return PageTransition(
             child: ChangePasswordScreen(),
-            type: PageTransitionType.rotate,
+            type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1),
             settings: RouteSettings(arguments: {'identifier': identifier}));
@@ -116,7 +118,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: ForgotPassword(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -126,7 +128,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: HomePageScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -136,7 +138,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: ProfileScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -146,7 +148,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: EditProfileScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -156,7 +158,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: ResumeScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -170,7 +172,7 @@ class AppRouter {
           child: SuccessScreen(
             screenType: (settings.arguments as Map)[PAGE_KEYWORD],
           ),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -180,7 +182,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: MedicalDeclaration(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -194,7 +196,7 @@ class AppRouter {
           child: JobOfferScreen(
             pdfLink: '',
           ),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -204,7 +206,7 @@ class AppRouter {
         //   );
         return PageTransition(
           child: InternetConnectionScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -214,7 +216,7 @@ class AppRouter {
         // );
         return PageTransition(
           child: JobDetailsScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -225,7 +227,7 @@ class AppRouter {
         // );
         return PageTransition(
             child: const CustomAnimatedSplashScreen(),
-            type: PageTransitionType.rotate,
+            type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
       case AppPagesNames.JOB_APPLICATION:
@@ -234,7 +236,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: JobApplicationScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -244,7 +246,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: SurviesScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -255,7 +257,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: SkillsSCreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -265,7 +267,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: ExperienceScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -275,7 +277,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: EducationAndQualificationScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -285,7 +287,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: ContactsScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -296,7 +298,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: CredentialsScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -307,7 +309,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: LanguageScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -318,7 +320,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: AchievementsSCreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -329,7 +331,7 @@ class AppRouter {
         //     );
         return PageTransition(
           child: NotesScreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
@@ -340,7 +342,28 @@ class AppRouter {
         //     );
         return PageTransition(
           child: KeyWordsSCreen(),
-          type: PageTransitionType.rotate,
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+          case AppPagesNames.NOTIFICATION:
+        // return MaterialPageRoute(
+        //     builder: (context) => KeyWordsSCreen(),
+        //     );
+        return PageTransition(
+          child: NotificationsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+         case AppPagesNames.POLLS:
+        // return MaterialPageRoute(
+        //     builder: (context) => KeyWordsSCreen(),
+        //     );
+        return PageTransition(
+          child: PollsScreen(),
+          type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );

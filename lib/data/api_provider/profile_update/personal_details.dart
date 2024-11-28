@@ -28,7 +28,7 @@ class PersonalDetailsProvider {
 
   Future<bool?> submitPersonalData(data) async {
     try {
-      final Response response = await dio.put(
+      final Response response = await dio.post(
         AppLinks.profile_update,
         data: data,
       );

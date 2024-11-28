@@ -22,7 +22,7 @@ final class SurveysFailureState extends SurveysState {
 class SurveysViewLoadingState extends SurveysState {}
 
 class SurveysViewSuccessState extends SurveysState {
-  final List<Questions> questions;
+  final List<SQuestions> questions;
 
   SurveysViewSuccessState({required this.questions});
 }

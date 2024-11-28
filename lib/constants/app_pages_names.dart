@@ -29,4 +29,6 @@ class AppPagesNames {
   static const String ACHIEVEMENTS = '/achievements';
   static const String NOTES = '/notes';
   static const String KEYWORDS = '/keyword';
+  static const String NOTIFICATION = '/notification';
+  static const String POLLS = '/polls';
 }

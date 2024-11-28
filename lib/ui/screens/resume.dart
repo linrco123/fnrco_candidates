@@ -6,6 +6,7 @@ import 'package:fnrco_candidates/logic/cubit/resume/resume_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 
 class ResumeScreen extends StatelessWidget {
   const ResumeScreen({super.key});
@@ -27,6 +28,7 @@ class ResumeScreen extends StatelessWidget {
             color: AppColors.primary,
           ),
         ),
+        leading: ReturnButton(),
         elevation: 0.0,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),

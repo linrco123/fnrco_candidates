@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/logic/cubit/profile/profile/profile_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
@@ -9,7 +8,7 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/ui/screens/profile/achievements.dart';
 import 'package:fnrco_candidates/ui/screens/profile/contacts.dart';
 import 'package:fnrco_candidates/ui/screens/profile/credentials.dart';
-import 'package:fnrco_candidates/ui/screens/profile/education.dart';
+import 'package:fnrco_candidates/ui/screens/profile/education_qualification.dart';
 import 'package:fnrco_candidates/ui/screens/profile/key_words.dart';
 import 'package:fnrco_candidates/ui/screens/profile/language.dart';
 import 'package:fnrco_candidates/ui/screens/profile/notes.dart';
@@ -18,6 +17,7 @@ import 'package:fnrco_candidates/ui/screens/profile/skills.dart';
 import 'package:fnrco_candidates/ui/screens/profile/work_experience.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
+import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -36,9 +36,7 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyle(color: AppColors.white),
           ),
           centerTitle: true,
-          leading: BackButton(
-            color: AppColors.white,
-          ),
+          leading: ReturnButton(color: AppColors.white,)
         ),
         body: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
@@ -123,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.logo_dev,
                                 text: 'Education',
                                 onTap: () {
-                                      Navigator.of(context).pushNamed(AppPagesNames.EDUCATION);
+                                      // Navigator.of(context).pushNamed(AppPagesNames.EDUCATION);
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           EducationAndQualificationScreen()));

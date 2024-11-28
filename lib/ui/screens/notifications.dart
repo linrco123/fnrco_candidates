@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class NotificationsScreen extends StatelessWidget {
             style: TextStyle(color: AppColors.white),
             
           ),
+          leading: ReturnButton(color: AppColors.white,),
           
           centerTitle: true,
         ),

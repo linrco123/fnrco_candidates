@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/education_qualification.dart';
+import 'package:fnrco_candidates/data/models/profile/years_model.dart';
 part 'education_and_qualification_state.dart';
 
 class EducationAndQualificationCubit
@@ -36,10 +37,7 @@ class EducationAndQualificationCubit
       yearsNumber--;
     }
     yearsNumCntroller.text = yearsNumber.toString();
-   
   }
-
-
 
   //void Function(String)? onChanged
   void onChanged(String number) {
@@ -127,7 +125,7 @@ class EducationAndQualificationCubit
     emit(EducationGettingYearsLoadingState());
     years.clear();
     educationAndQualificationProvider.getYears().then((value) {
-      for (var country in value.years) years.add(country);
+      for (var year in value.years! as List) years.add(year);
       emit(EducationGettingYearsSuccessState(years: years));
     }).catchError((error) {
       emit(EducationGettingYearsFailureState(message: error.failure.message));
@@ -140,10 +138,14 @@ class EducationAndQualificationCubit
       if (yearsId != 0 && certIssueDate != null && certExpireDate != null) {
         submittedQualifications.add({
           "edu_degree": degreeCntroller.text,
-          "edu_years": yearsNumber,
+          "edu_years": yearsNumber.toString(),
           "edu_field_of_study": spcCntroller.text,
           "edu_institution_name": instituteCntroller.text,
-          "edu_graduation_year": yearsId,
+          "edu_graduation_year": years
+              .where((year) => year.id! == yearsId)
+              .toList()
+              .first
+              .metaDataText,
           "edu_certification_name": certCntroller.text,
           "edu_certification_issues_in": certIssueDate,
           "edu_certification_expiry_in": certExpireDate
@@ -164,12 +166,12 @@ class EducationAndQualificationCubit
     certCntroller.clear();
     yearsId = 0;
     certExpireDate = null;
-    certExpireDate = null;
+    certIssueDate = null;
     emit(EmptyEducationAndQualificationFieldsState());
   }
 
   void SubmitEducationAndQualification() {
-    var data = {"experiences": submittedQualifications};
+    var data = {"educations": submittedQualifications};
     if (submittedQualifications.isNotEmpty) {
       emit(SubmitEducationAndQualificationLoadingState());
       educationAndQualificationProvider

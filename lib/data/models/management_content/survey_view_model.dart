@@ -36,7 +36,7 @@ class SurveyView {
   String? surveyFrom;
   String? surveyTo;
   String? surveyStatus;
-  List<Questions>? questions;
+  List<SQuestions>? questions;
 
   SurveyView(
       {this.id,
@@ -59,9 +59,9 @@ class SurveyView {
     surveyTo = json['survey_to'];
     surveyStatus = json['survey_status'];
     if (json['questions'] != null) {
-      questions = <Questions>[];
+      questions = <SQuestions>[];
       json['questions'].forEach((v) {
-        questions!.add(new Questions.fromJson(v));
+        questions!.add(new SQuestions.fromJson(v));
       });
     }
   }
@@ -83,21 +83,21 @@ class SurveyView {
   }
 }
 
-class Questions {
+class SQuestions {
   int? id;
   int? surveyId;
   String? surveyQuestionText;
   String? surveyQuestionType;
   List<Options>? options;
 
-  Questions(
+  SQuestions(
       {this.id,
       this.surveyId,
       this.surveyQuestionText,
       this.surveyQuestionType,
       this.options});
 
-  Questions.fromJson(Map<String, dynamic> json) {
+  SQuestions.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     surveyId = json['survey_id'];
     surveyQuestionText = json['survey_question_text'];

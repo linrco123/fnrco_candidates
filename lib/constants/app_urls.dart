@@ -26,6 +26,11 @@ class AppLinks {
   static const String survies = "/surveys?module_id=91";
   static const String surveyView = "/surveys/view/";
   static const String surveyViewAnswer = "/surveys/store-answers/";
+  //------------------------------------------------------
+    static const String polls = "/poll?module_id=91";
+  static const String pollView = "/poll/view/";
+  static const String pollViewAnswer = "/polls/store-answers/";
+    ////////////////////// TODO:Management::Polls ////////////////////////////
   static const String profile_update = "/person/update";
 ///section//////////?sections=(skillls)
   static const String profile_section = "/person/sections";

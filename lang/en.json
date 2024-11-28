@@ -132,6 +132,7 @@
     "good_evening": "Good Evening ",
     "country": "Country",
     "select_country": "Select Country",
+    "select_year":"Select Year",
     "home_page": "Home Page",
     "settings": "Settings",
     "favorites": "Favorites",
@@ -182,6 +183,11 @@
     "choose_marital": "Please , choose marital status !",
     "choose_image": "Please , pick an image ",
     "msg_plz_enter_major": "Major can't be empty",
+    "msg_plz_enter_degree":"Degree can't be empty",
+    "msg_plz_enter_spec": "Degree can't be empty",
+    "msg_plz_enter_years":  "Specialization can't be empty",
+    "msg_plz_enter_instit":  "Institution can't be empty",
+    "msg_plz_enter_cert":  "Certification can't be empty",
     "brightness_mode": "Brightness Mode",
     "msg_internet_back": "Internet connection is back via",
     "msg_internet_off": "Internet went disconnected!",
@@ -208,6 +214,7 @@
     "education_qualification": "Education and Qualification",
     "msg_qual_add_success": "Qualifications added successfully",
     "msg_langs_add_success": "Languages added successfully",
+    "msg_p_Dets_sav_success":"Personal Details saved successfully",
     "bach_scie": "e.g.Bachelor of Science",
     "degree": "Degree",
     "specialization": "Specialization",
@@ -240,6 +247,7 @@
     "notes":"Notes",
     "note":"Note",
     "keywords":"Keywords",
-    "keyword":"Keyword"
+    "keyword":"Keyword",
+    "polls":"Polls"
 
 }

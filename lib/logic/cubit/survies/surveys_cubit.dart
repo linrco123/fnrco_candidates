@@ -22,7 +22,7 @@ class SurveysCubit extends Cubit<SurveysState> {
     });
   }
 
-  List<Questions> surveyViewQuestions = [];
+  List<SQuestions> surveyViewQuestions = [];
   List<Map<String, dynamic>> answers = [];
   int question_number = 0;
   int surveyViewID = 0;

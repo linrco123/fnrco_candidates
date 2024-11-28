@@ -135,10 +135,10 @@ class HomeTapScreen extends StatelessWidget {
                                 listIcons.length,
                                 (index) => InkWell(
                                       onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const CategoryDetailsScreen()));
+                                        // Navigator.of(context).push(
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             const CategoryDetailsScreen()));
                                       },
                                       child: Container(
                                         width: 50.0,

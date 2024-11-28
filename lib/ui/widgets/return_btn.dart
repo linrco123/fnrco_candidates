@@ -3,7 +3,11 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 
 class ReturnButton extends StatelessWidget {
   final IconData icon;
-  const ReturnButton({super.key,  this.icon = Icons.arrow_back_ios_new_outlined});
+  final Color color;
+  ReturnButton(
+      {super.key,
+      this.icon = Icons.arrow_back_ios_new_outlined,
+      this.color = const Color(0xFFae1f23)});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +17,10 @@ class ReturnButton extends StatelessWidget {
         },
         icon: Icon(
           icon,
-          color: AppColors.primary,
+          color: color,
         ));
   }
 }
-
 
 class CounterButton extends StatelessWidget {
   final String text;

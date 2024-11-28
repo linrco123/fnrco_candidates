@@ -210,7 +210,11 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           "references": "references",
           "person_dob": birthDate,
           "person_image": partFile,
+          "_method":"PUT"
         });
+        print('===============personal Data =====================');
+        print(formData.fields);
+        print(formData.files.first.value);
         // Map data = {
         //   "person_nationality": countryId,
         //   "person_sur_name": surNameController.text,

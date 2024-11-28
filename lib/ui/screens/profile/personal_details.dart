@@ -14,6 +14,8 @@ import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.da
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
+import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
@@ -36,14 +38,7 @@ class PersonalDetailsScreen extends StatelessWidget {
             style: TextStyle(
                 color: AppColors.primary, fontWeight: FontWeight.bold),
           ),
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_new_outlined,
-                color: AppColors.primary,
-              )),
+          leading: ReturnButton(),
           centerTitle: true,
         ),
         backgroundColor: AppColors.white,
@@ -51,6 +46,10 @@ class PersonalDetailsScreen extends StatelessWidget {
           return BlocConsumer<PersonalDetailsCubit, PersonalDetailsState>(
             listener: (context, state) {
               if (state is PersonalDetailsSuccessState) {
+                showToast(context,
+                    title: translateLang(context, 'success'),
+                    desc: translateLang(context, 'msg_p_Dets_sav_success'),
+                    type: ToastificationType.success);
                 Navigator.of(context).pop();
               }
               if (state is PersonalDetailsErrorState) {
@@ -81,15 +80,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    translateLang(context, "first_name"),
-                                    style:
-                                        Theme.of(context).textTheme.displayMedium,
-                                  ),
-                                ],
-                              ),
+                             
+                              CustomTitle(title: "first_name",),
                               const SizedBox(
                                 height: 5.0,
                               ),
@@ -103,15 +95,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    translateLang(context, "second_name"),
-                                    style:
-                                        Theme.of(context).textTheme.displayMedium,
-                                  ),
-                                ],
-                              ),
+                             
+                              CustomTitle(title: "second_name",),
                               const SizedBox(
                                 height: 5.0,
                               ),
@@ -125,15 +110,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    translateLang(context, "last_name"),
-                                    style:
-                                        Theme.of(context).textTheme.displayMedium,
-                                  ),
-                                ],
-                              ),
+                             
+                               CustomTitle(title: "last_name",),
                               const SizedBox(
                                 height: 5.0,
                               ),
@@ -147,15 +125,9 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    translateLang(context, "sur_name"),
-                                    style:
-                                        Theme.of(context).textTheme.displayMedium,
-                                  ),
-                                ],
-                              ),
+                             
+                            CustomTitle(title: "sur_name",),
+
                               const SizedBox(
                                 height: 5.0,
                               ),
@@ -169,15 +141,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    translateLang(context, "email"),
-                                    style:
-                                        Theme.of(context).textTheme.displayMedium,
-                                  ),
-                                ],
-                              ),
+                              
+                              CustomTitle(title:"email",),
                               const SizedBox(
                                 height: 5.0,
                               ),
@@ -190,15 +155,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    translateLang(context, "residence"),
-                                    style:
-                                        Theme.of(context).textTheme.displayMedium,
-                                  ),
-                                ],
-                              ),
+                             
+                               CustomTitle(title:"residence",),
                               const SizedBox(
                                 height: 5.0,
                               ),

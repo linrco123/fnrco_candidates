@@ -3,13 +3,14 @@ import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/dio_helper.dart';
 import 'package:fnrco_candidates/core/classes/exceptions.dart';
 import 'package:fnrco_candidates/core/classes/failure.dart';
+import 'package:fnrco_candidates/data/models/profile/years_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class EducationAndQualificationProvider {
   //late Dio dio;
-  EducationAndQualificationProvider() {}
+  EducationAndQualificationProvider();
 
-Future<YearsModel> getYears() async {
+  Future<YearsModel> getYears() async {
     try {
       final Response response = await DioHelper.dio.get(
         AppLinks.years,
@@ -24,10 +25,13 @@ Future<YearsModel> getYears() async {
           Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
+
   Future<bool> submitEducationQualification(data) async {
     try {
       final Response response =
           await DioHelper.dio.put(AppLinks.profile_update, data: data);
+          logger.d('========================response===============');
+          logger.e(response.data);
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
@@ -42,11 +46,5 @@ Future<YearsModel> getYears() async {
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
     }
-  }
-}
-
-class YearsModel {
-  final List years = [];
-  YearsModel.fromJson(Map<String , dynamic> json){
   }
 }

@@ -19,6 +19,8 @@ class AppImages {
   static const CHECKED = '$_images/check.png';
   static const COMPANY = '$_images/company.jpg';
   static const User = '$_images/user.png';
+  static const graduate1 = '$_images/graduate1.png';
+  static const graduate = '$_images/graduate.png';
 
   static const position = '$_images/position.png';
   static const position1 = '$_images/position1.png';
@@ -66,4 +68,6 @@ class AppImages {
   static const NOTIFICATIONS = '$_svg/notifications.svg';
   static const UserSvg = '$_svg/User.svg';
   static const jobsvg = '$_svg/jobsvg.svg';
+  static const survey = '$_svg/survey.svg';
+  static const poll = '$_svg/poll.svg'; 
 }

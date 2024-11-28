@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/education_qualification.dart';
 import 'package:fnrco_candidates/logic/cubit/profile/education_qualification/education_and_qualification_cubit.dart';
+import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
@@ -21,7 +23,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          EducationAndQualificationCubit(EducationAndQualificationProvider())..getYears(),
+          EducationAndQualificationCubit(EducationAndQualificationProvider())
+            ..getYears(),
       child: Scaffold(
         appBar: AppBar(
           //backgroundColor: AppColors.white,
@@ -44,12 +47,14 @@ class EducationAndQualificationScreen extends StatelessWidget {
                   type: ToastificationType.warning);
             }
             if (state is SubmitEducationAndQualificationSuccessState) {
+               Navigator.of(context).pop();
               showToast(context,
                   title: translateLang(context, 'success'),
-                  desc: translateLang(context, "msg_experience_add_success"),
+                  desc: translateLang(context, "msg_qual_add_success"),
                   type: ToastificationType.success);
-              Navigator.of(context).pop();
+                 
             }
+            
             if (state is SubmitEducationAndQualificationFailureState) {
               showToast(context,
                   title: translateLang(context, 'error'),
@@ -171,21 +176,23 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 5.0,
                             ),
-                            //  CustomDropTextField(
-                            //         items: cubit.years
-                            //             .map((year) => DropdownMenuItem<int>(
-                            //                   //alignment: Alignment.center,
-                            //                   child: Text('${year.countryName}'),
-                            //                   value: year.id,
-                            //                 ))
-                            //             .toList(),
-                            //         text: translateLang(context, 'select_country'),
-                            //         icon: Icon(
-                            //           CupertinoIcons.building_2_fill,
-                            //           color: AppColors.grey,
-                            //         ),
-                            //         onChanged: (skill) => cubit
-                            //             .selectYear(int.parse(skill.toString()))),
+                            CustomDropTextField(
+                                items: cubit.years
+                                    .map((year) => DropdownMenuItem<int>(
+                                          //alignment: Alignment.center,
+                                          child: Text('${year.metaDataText}'),
+                                          value: year.id,
+                                        ))
+                                    .toList(),
+                                text: translateLang(context, 'select_year'),
+                                icon: Image.asset(
+                                  AppImages.graduate,
+                                  height: 30.0,
+                                  width: 30.0,
+                                  color: AppColors.grey,
+                                ),
+                                onChanged: (year) => cubit
+                                    .selectYear(int.parse(year.toString()))),
                             const SizedBox(
                               height: 10.0,
                             ),
@@ -315,7 +322,7 @@ class EducationAndQualificationScreen extends StatelessWidget {
                                   background: AppColors.black,
                                   text: translateLang(context, "add_new_qual")),
                             ),
-                           //const Spacer(),
+                            //const Spacer(),
 
                             const SizedBox(
                               height: 10.0,

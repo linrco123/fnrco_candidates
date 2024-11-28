@@ -5,6 +5,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:fnrco_candidates/logic/cubit/job_offer/job_offer_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 //import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class JobOfferScreen extends StatelessWidget {
@@ -64,9 +65,7 @@ class JobOfferScreen extends StatelessWidget {
             ),
             elevation: 0.0,
             systemOverlayStyle: SystemUiOverlayStyle.dark,
-            leading: BackButton(
-              color: AppColors.white,
-            ),
+            leading: ReturnButton(color: AppColors.white,)
           ),
           body: BlocConsumer<JobOfferCubit, JobOfferState>(
             listener: (context, state) {
