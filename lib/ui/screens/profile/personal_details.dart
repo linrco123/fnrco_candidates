@@ -10,7 +10,6 @@ import 'package:fnrco_candidates/data/api_provider/profile_update/personal_detai
 import 'package:fnrco_candidates/logic/cubit/profile/personal_data/personal_details/personal_details_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';

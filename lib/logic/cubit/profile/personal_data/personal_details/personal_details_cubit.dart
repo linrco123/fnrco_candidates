@@ -118,6 +118,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   }
 
   void getUserData() {}
+  
   void requestPermissionforImage() async {
     final PermissionStatus result = await Permission.storage.request();
     if (result == PermissionStatus.granted) {
@@ -137,7 +138,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     final result = await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null) {
       fileImage = File(result.files.first.path!);
-     await  createImageFile(fileImage!.path);
+      await createImageFile(fileImage!.path);
       CacheHelper.storeUserImage(result.files.first.path!);
       emit(PersonalDetailsSuccessChangeImageState());
     }
@@ -145,10 +146,10 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
 
   Future<void> createImageFile(String imagePath) async {
     try {
-      print('====================================================================================');
-      partFile =  await MultipartFile.fromFile(fileImage!.path,
+      print(
+          '====================================================================================');
+      partFile = await MultipartFile.fromFile(fileImage!.path,
           filename: fileImage!.path.split('/').last);
-      
     } catch (e) {
       print('================================ $e');
     }

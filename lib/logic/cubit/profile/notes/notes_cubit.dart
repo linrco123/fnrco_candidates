@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 import 'package:fnrco_candidates/core/functions/translate.dart';

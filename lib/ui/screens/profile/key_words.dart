@@ -5,7 +5,6 @@ import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/keywords.dart';
 import 'package:fnrco_candidates/logic/cubit/profile/key_words/key_words_cubit.dart';
-import 'package:fnrco_candidates/logic/cubit/profile/skills/skills_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
@@ -42,7 +41,7 @@ class KeyWordsSCreen extends StatelessWidget {
             if (state is SubmitKeyWordsFailureState) {
               showToast(context,
                   title: translateLang(context, 'error'),
-                  desc: state.message!,
+                  desc: state.message,
                   type: ToastificationType.error);
             }
           },

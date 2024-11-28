@@ -4,7 +4,6 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/notes.dart';
-import 'package:fnrco_candidates/logic/cubit/profile/achievements/achievements_cubit.dart';
 import 'package:fnrco_candidates/logic/cubit/profile/notes/notes_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
@@ -42,7 +41,7 @@ class NotesScreen extends StatelessWidget {
             if (state is SubmitNotesFailureState) {
               showToast(context,
                   title: translateLang(context, 'error'),
-                  desc: state.message!,
+                  desc: state.message,
                   type: ToastificationType.error);
             }
           },
