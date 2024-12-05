@@ -87,6 +87,13 @@ class CacheHelper {
   static String? getName() {
     return sharedPreferences.getString('user_name');
   }
+  static storeLang(String name) async {
+    await sharedPreferences.setString('lang', name);
+  }
+
+  static String getLang() {
+    return sharedPreferences.getString('lang')??'en';
+  }
 
   static storeEmail(String email) async {
     await sharedPreferences.setString('user_email', email);

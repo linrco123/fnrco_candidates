@@ -8,7 +8,7 @@ import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/education_qualification.dart';
-import 'package:fnrco_candidates/logic/cubit/profile/education_qualification/education_and_qualification_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/profile_update/education_qualification/education_and_qualification_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
@@ -65,7 +65,7 @@ class EducationAndQualificationScreen extends StatelessWidget {
           builder: (context, state) {
             EducationAndQualificationCubit cubit = BlocProvider.of(context);
             if (state is EducationGettingYearsLoadingState)
-              return LoadingWidget();
+              return AnimatedLoadingWidget();
             return Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
@@ -82,6 +82,7 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
+                          
                             Text(
                               translateLang(context, "degree"),
                               style: Theme.of(context).textTheme.displayMedium,

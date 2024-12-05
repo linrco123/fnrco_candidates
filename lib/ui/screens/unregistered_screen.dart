@@ -4,7 +4,7 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/cubit/unregistered/unregistered_cubit.dart';
-import 'package:fnrco_candidates/ui/screens/sloped_container.dart';
+import 'package:fnrco_candidates/ui/widgets/sloped_container.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/home_page/search_form_field.dart';
 

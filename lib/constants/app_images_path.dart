@@ -6,10 +6,12 @@ class AppImages {
 
   ////////////////////TODO:////  lottie.......////////////////////////////////
   static const SUCCESS = '$_lottie/success.json';
-  static const EMPTY = '$_lottie/emptydata.json';
+  static const EMPTYDATA = '$_lottie/emptydata.json';
   static const SERVER_FAILURE = '$_lottie/serverfailure.json';
   static const OFFLINE_FAILURE = '$_lottie/offlinefailure.json';
   static const LOADING = '$_lottie/loading.json';
+  static const DATAEMPTY = '$_lottie/dataEmpty.json';
+  static const CIRCLELOADING = '$_lottie/circle_loading.json';
 
   ////////////////////TODO:////  IMAGES.......////////////////////////////////
   static const LOGO = '$_images/fnrcoerp_logo.png';
@@ -43,6 +45,10 @@ class AppImages {
   static const google = '$_images/google.png';
   static const linkedIn = '$_images/linkedIn.png';
 
+static const youtubePNG= '$_images/youtube.png';
+static const arabic = '$_images/ar.png';
+static const english = '$_images/en.jpeg';
+
   //////////////////////////////TODO onBoarding /////////////////////////////
   ///board1.png
   static const boarding1 = '$_images/board1.png';
@@ -69,5 +75,10 @@ class AppImages {
   static const UserSvg = '$_svg/User.svg';
   static const jobsvg = '$_svg/jobsvg.svg';
   static const survey = '$_svg/survey.svg';
-  static const poll = '$_svg/poll.svg'; 
+  static const poll = '$_svg/poll.svg';
+  static const tutorial = '$_svg/tutorial.svg';
+  static const youtube = '$_svg/youtube.svg';
+  static const checked = '$_svg/selected.svg';
+  static const announcement = '$_svg/announcement.svg';
+  static const content = '$_svg/content.svg';
 }

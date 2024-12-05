@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/logic/cubit/profile/profile/profile_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/profile_update/profile/profile_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
@@ -15,6 +15,7 @@ import 'package:fnrco_candidates/ui/screens/profile/notes.dart';
 import 'package:fnrco_candidates/ui/screens/profile/personal_details.dart';
 import 'package:fnrco_candidates/ui/screens/profile/skills.dart';
 import 'package:fnrco_candidates/ui/screens/profile/work_experience.dart';
+import 'package:fnrco_candidates/ui/screens/profile_get/about_me.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
@@ -95,6 +96,16 @@ class ProfileScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                              _addSettingItem(
+                                context: context,
+                                icon: Icons.data_exploration_sharp,
+                                text: 'About Me',
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          AboutMe()));
+                                }),
+                            _divider(),
                             _addSettingItem(
                                 context: context,
                                 icon: Icons.person,

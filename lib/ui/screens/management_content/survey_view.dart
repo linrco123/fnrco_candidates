@@ -5,10 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/management_contect/surveys.dart';
-import 'package:fnrco_candidates/logic/cubit/survies/surveys_cubit.dart';
+import 'package:fnrco_candidates/data/api_provider/management_content/surveys.dart';
+import 'package:fnrco_candidates/logic/cubit/management_content/survies/surveys_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/management_content/answer_card.dart';
+import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class SurveyViewScreen extends StatelessWidget {
@@ -20,21 +23,13 @@ class SurveyViewScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Text(
-          'Survey View',
-          style: TextStyle(color: AppColors.primary),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: AppColors.primary,
-            )),
-      ),
+          backgroundColor: AppColors.white,
+          title: Text(
+            'Survey View',
+            style: TextStyle(color: AppColors.primary),
+          ),
+          centerTitle: true,
+          leading: ReturnButton()),
       body: AnimatedSwitcher(
         duration: const Duration(seconds: 3),
         reverseDuration: const Duration(seconds: 2),
@@ -74,7 +69,7 @@ class SurveyViewScreen extends StatelessWidget {
               var surveysCubit = BlocProvider.of<SurveysCubit>(context);
               if (state is SurveysViewLoadingState) {
                 return Center(
-                  child: LoadingWidget(),
+                  child: AnimatedLoadingWidget(),
                 );
               }
               if (state is SurveysViewFailureState) {
@@ -102,6 +97,7 @@ class SurveyViewScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      CustomDivider(),
                       const SizedBox(
                         height: 15.0,
                       ),
@@ -111,54 +107,17 @@ class SurveyViewScreen extends StatelessWidget {
                             .options!
                             .length,
                         (int index) => InkWell(
-                          onTap: () {
-                            surveysCubit.chooseAnswer(surveysCubit
-                                .surveyViewQuestions[
-                                    surveysCubit.question_number]
-                                .options![index]
-                                .surveyQuestionOptText!);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: surveysCubit.answer ==
-                                        surveysCubit
-                                            .surveyViewQuestions[
-                                                surveysCubit.question_number]
-                                            .options![index]
-                                            .surveyQuestionOptText!
-                                    ? AppColors.primary
-                                    : AppColors.white,
-                                borderRadius: BorderRadius.circular(10.0)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 10.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    surveysCubit
-                                        .surveyViewQuestions[
-                                            surveysCubit.question_number]
-                                        .options![index]
-                                        .surveyQuestionOptText!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge!
-                                        .copyWith(
-                                            color: surveysCubit.answer ==
-                                                    surveysCubit
-                                                        .surveyViewQuestions[
-                                                            surveysCubit
-                                                                .question_number]
-                                                        .options![index]
-                                                        .surveyQuestionOptText!
-                                                ? AppColors.white
-                                                : AppColors.black),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                            onTap: () {
+                              surveysCubit.chooseAnswer(surveysCubit
+                                  .surveyViewQuestions[
+                                      surveysCubit.question_number]
+                                  .options![index]
+                                  .surveyQuestionOptText!);
+                            },
+                            child: AnswerCard(
+                                answerReference: surveysCubit.answer,
+                                answer: surveysCubit.surveyViewQuestions[surveysCubit.question_number]
+                                    .options![index].surveyQuestionOptText!)),
                       ),
                       const Spacer(),
                       CustomElevatedButton(
@@ -178,7 +137,7 @@ class SurveyViewScreen extends StatelessWidget {
                                   : 'next'))
                     ],
                   ),
-                  if (state is SubmitSurveyViewLoadingState) LoadingWidget()
+                  if (state is SubmitSurveyViewLoadingState) AnimatedLoadingWidget()
                 ],
               );
             },

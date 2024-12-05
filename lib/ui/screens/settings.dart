@@ -44,7 +44,10 @@ class SettingsScreen extends StatelessWidget {
                         image: AppImages.TRANSLATE,
                         text:
                             AppLocalizations.of(context)!.translate('language'),
-                        onTap: () {}),
+                        onTap: () {
+                          //////language change
+                          settingsCubit.showLanguageDialogue(context);
+                        }),
                     _divider(),
 
                     // Account Settings field
@@ -170,7 +173,8 @@ class SettingsScreen extends StatelessWidget {
                                   .textTheme
                                   .headlineLarge!
                                   .copyWith(
-                                      color: settingsCubit.brightnessMode == DARK_MODE
+                                      color: settingsCubit.brightnessMode ==
+                                              DARK_MODE
                                           ? AppColors.black
                                           : AppColors.white),
                             )

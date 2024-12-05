@@ -6,7 +6,7 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/work_experiences.dart';
-import 'package:fnrco_candidates/logic/cubit/profile/experience/experience_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/profile_update/experience/experience_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
@@ -60,7 +60,7 @@ class ExperienceScreen extends StatelessWidget {
           builder: (context, state) {
             ExperienceCubit experiencesCubit = BlocProvider.of(context);
             if (state is ExperiencesGettingCountriesLoadingState)
-              return LoadingWidget();
+              return AnimatedLoadingWidget();
             return Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),

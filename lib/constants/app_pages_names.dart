@@ -31,4 +31,8 @@ class AppPagesNames {
   static const String KEYWORDS = '/keyword';
   static const String NOTIFICATION = '/notification';
   static const String POLLS = '/polls';
+  static const String FAQS = '/faqs';
+  static const String TUTORIAL = '/tutorial';
+  static const String ANNOUNCEMENT = '/announcement';
+  static const String CONTENTS = '/contents';
 }

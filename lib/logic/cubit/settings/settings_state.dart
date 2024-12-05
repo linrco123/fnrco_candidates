@@ -27,3 +27,6 @@ class ToggleBrightnessModeSettingsState extends SettingsState{
 
   ToggleBrightnessModeSettingsState({required this.status});
 }
+
+class SettingsChangeLanguageState extends SettingsState {
+}

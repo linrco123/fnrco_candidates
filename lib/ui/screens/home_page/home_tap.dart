@@ -8,7 +8,6 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/job_details.dart';
 import 'package:fnrco_candidates/ui/widgets/home_page/home_page_title.dart';
 import 'package:fnrco_candidates/ui/widgets/home_page/job_home_card.dart';

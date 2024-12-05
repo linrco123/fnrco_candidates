@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fancy_bottom_navigation_plus/fancy_bottom_navigation_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,11 +13,9 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
-import 'package:fnrco_candidates/ui/screens/notifications.dart';
 import 'package:fnrco_candidates/ui/screens/profile/profile.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
 import 'package:fnrco_candidates/ui/screens/unregistered_screen.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../../constants/app_colors.dart';
@@ -254,6 +253,73 @@ class HomePageScreen extends StatelessWidget {
                             ),
                             ListTile(
                               onTap: () {
+                                Navigator.of(context)
+                                    .popAndPushNamed(AppPagesNames.FAQS);
+                              },
+                              leading: Icon(
+                                Icons.question_answer_outlined,
+                                size: 30.0,
+                                color: AppColors.primary,
+                              ),
+                              title: Text(
+                                "FAQs",
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .popAndPushNamed(AppPagesNames.TUTORIAL);
+                              },
+                              leading: SvgPicture.asset(
+                                AppImages.tutorial,
+                                color: AppColors.primary,
+                                height: 30.0,
+                                width: 30.0,
+                              ),
+                              title: Text(
+                                translateLang(context, "tutorials"),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .popAndPushNamed(AppPagesNames.ANNOUNCEMENT);
+                              },
+                              leading: SvgPicture.asset(
+                                AppImages.announcement,
+                                color: AppColors.primary,
+                                height: 30.0,
+                                width: 30.0,
+                              ),
+                              title: Text(
+                                translateLang(context, "annnouncements"),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ),
+                             ListTile(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .popAndPushNamed(AppPagesNames.CONTENTS);
+                              },
+                              leading: SvgPicture.asset(
+                                AppImages.content,
+                                color: AppColors.primary,
+                                height: 30.0,
+                                width: 30.0,
+                              ),
+                              title: Text(
+                                translateLang(context, "contents"),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ),
+                            ListTile(
+                              onTap: () {
                                 homePageCubit.logout(context);
                               },
                               leading: SvgPicture.asset(
@@ -292,14 +358,16 @@ class HomePageScreen extends StatelessWidget {
                         ),
                       ),
             body: _buildBody(context, homePageCubit.selectedIndex),
-            bottomNavigationBar: SalomonBottomBar(
-                currentIndex: homePageCubit.selectedIndex,
-                //selectedItemColor: const Color(0xff6200ee),
-                unselectedItemColor: const Color(0xff757575),
-                onTap: (index) {
+            bottomNavigationBar: FancyBottomNavigationPlus(
+                // currentIndex: homePageCubit.selectedIndex,
+                // //selectedItemColor: const Color(0xff6200ee),
+                // unselectedItemColor: const Color(0xff757575),
+                onTabChangedListener: (index) {
                   homePageCubit.changeState(index);
                 },
-                items: homePageCubit.navBarItems),
+                circleColor: AppColors.primary,
+                circleOutline: 10.0,
+                tabs: homePageCubit.navBarItems),
           );
         },
       ),

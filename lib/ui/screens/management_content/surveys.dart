@@ -1,12 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/data/api_provider/management_contect/surveys.dart';
-import 'package:fnrco_candidates/logic/cubit/survies/surveys_cubit.dart';
+import 'package:fnrco_candidates/data/api_provider/management_content/surveys.dart';
+import 'package:fnrco_candidates/logic/cubit/management_content/survies/surveys_cubit.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/survey_view.dart';
+import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/management_content/survey_card.dart';
 
 class SurviesScreen extends StatelessWidget {
   final SurveysProvider surviesProvider = SurveysProvider();
@@ -42,167 +43,43 @@ class SurviesScreen extends StatelessWidget {
               var surveysCubit = BlocProvider.of<SurveysCubit>(context);
               if (state is SurveysLoadingState) {
                 return Center(
-                  child: LoadingWidget(),
+                  child: AnimatedLoadingWidget(height: 150,width: 150,),
                 );
               }
               if (state is SurveysFailureState) {
                 return Center(
                   child: Text(
-                    'Some Error occurs !!!',
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    'Some Error occurs !!! try again',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(color: AppColors.grey),
                   ),
                 );
               }
-
-              return ListView.separated(
-                itemCount: surveysCubit.surveys.length,
-                itemBuilder: (BuildContext context, int index) => InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (Context) => BlocProvider.value(
-                              value: surveysCubit
-                                ..getSurveyView(
-                                    surveysCubit.surveys[index].id!),
-                              child: SurveyViewScreen(),
-                            )));
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          //   BoxShadow(
-                          //   color: AppColors.primary.withOpacity(0.1),
-                          //   blurRadius: 5.0,
-                          //   spreadRadius: 5.0,
-                          // blurStyle: BlurStyle.outer,
-                          //   offset: Offset(0, 1)
-                          // )
-                        ],
-                        color: AppColors.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: BorderDirectional(
-                            top: BorderSide(
-                                color: AppColors.primary, width: 5.0),
-                            bottom: BorderSide(
-                                color: AppColors.primary, width: 5.0))),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          surveysCubit.surveys[index].surveyName!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .copyWith(color: AppColors.black),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        // Row(
-                        //   children: [
-                        //     Expanded(
-                        //       child: Text(
-                        //         textAlign: TextAlign.justify,
-                        //         overflow: TextOverflow.ellipsis,
-                        //         maxLines: 3,
-                        //         html_parser
-                        //             .parse(surveysCubit.surveys[index].surveyDesc!)
-                        //             .body!
-                        //             .text,
-                        //         style: Theme.of(context).textTheme.bodySmall,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        // Builder(builder: (context) {
-                        //   var document =
-                        //       parse(surveysCubit.surveys[index].surveyDesc!);
-                        //   print(
-                        //       '===============document.outerHtml==============');
-                        //   print(document.outerHtml);
-                        //   return Text(document.outerHtml);
-                        //   // return HtmlWidget(
-                        //   //     surveysCubit.surveys[index].surveyDesc!);
-                        // }),
-                        HtmlWidget(
-                               surveysCubit.surveys[index].surveyDesc!),
-
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Survey By: ',
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
-                            Text(
-                              surveysCubit.surveys[index].surveyBy!,
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.calendar_month,
-                              color: AppColors.primary,
-                              size: 20.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              surveysCubit.surveys[index].surveyFrom!,
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Text(
-                                'to',
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            Text(
-                              surveysCubit.surveys[index].surveyTo!,
-                              style: Theme.of(context).textTheme.labelMedium,
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Status: ',
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
-                            Text(
-                              surveysCubit.surveys[index].surveyStatus!,
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(
-                  height: 10.0,
-                ),
-              );
+              return surveysCubit.surveys.isEmpty
+                  ? EmptyDataWidget(
+                      message: "No Surveys available Yet!!!",
+                    )
+                  : ListView.separated(
+                      itemCount: surveysCubit.surveys.length,
+                      itemBuilder: (BuildContext context, int index) => InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (Context) => BlocProvider.value(
+                                      value: surveysCubit
+                                        ..getSurveyView(
+                                            surveysCubit.surveys[index].id!),
+                                      child: SurveyViewScreen(),
+                                    )));
+                          },
+                          child:
+                              SurveyCard(survey: surveysCubit.surveys[index])),
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(
+                        height: 10.0,
+                      ),
+                    );
             },
           ),
         ),

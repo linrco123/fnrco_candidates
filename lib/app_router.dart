@@ -11,6 +11,9 @@ import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
 import 'package:fnrco_candidates/ui/screens/job_application.dart';
 import 'package:fnrco_candidates/ui/screens/job_details.dart';
 import 'package:fnrco_candidates/ui/screens/job_offer.dart';
+import 'package:fnrco_candidates/ui/screens/management_content/announcement.dart';
+import 'package:fnrco_candidates/ui/screens/management_content/contents.dart';
+import 'package:fnrco_candidates/ui/screens/management_content/faqs.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/polls.dart';
 import 'package:fnrco_candidates/ui/screens/medical_declare.dart';
 import 'package:fnrco_candidates/ui/screens/notifications.dart';
@@ -31,6 +34,7 @@ import 'package:fnrco_candidates/ui/screens/profile/work_experience.dart';
 import 'package:fnrco_candidates/ui/screens/resume.dart';
 import 'package:fnrco_candidates/ui/screens/success.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/surveys.dart';
+import 'package:fnrco_candidates/ui/screens/tutorial/tutorial_content.dart';
 import 'package:fnrco_candidates/ui/screens/welcome.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -348,7 +352,7 @@ class AppRouter {
         );
           case AppPagesNames.NOTIFICATION:
         // return MaterialPageRoute(
-        //     builder: (context) => KeyWordsSCreen(),
+        //     builder: (context) => NotificationsScreen(),
         //     );
         return PageTransition(
           child: NotificationsScreen(),
@@ -359,10 +363,50 @@ class AppRouter {
 
          case AppPagesNames.POLLS:
         // return MaterialPageRoute(
-        //     builder: (context) => KeyWordsSCreen(),
+        //     builder: (context) => PollsScreen(),
         //     );
         return PageTransition(
           child: PollsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+          case AppPagesNames.FAQS:
+        // return MaterialPageRoute(
+        //     builder: (context) => FAQsScreen(),
+        //     );
+        return PageTransition(
+          child: FAQsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+        case AppPagesNames.TUTORIAL:
+        // return MaterialPageRoute(
+        //     builder: (context) => TutorialsContentScreen(),
+        //     );
+        return PageTransition(
+          child: TutorialsContentScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+        case AppPagesNames.ANNOUNCEMENT:
+        // return MaterialPageRoute(
+        //     builder: (context) => AnnouncementScreen(),
+        //     );
+        return PageTransition(
+          child: AnnouncementScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+        case AppPagesNames.CONTENTS:
+        // return MaterialPageRoute(
+        //     builder: (context) => ContentsScreen(),
+        //     );
+        return PageTransition(
+          child: ContentsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

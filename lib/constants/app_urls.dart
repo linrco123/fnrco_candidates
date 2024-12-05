@@ -23,15 +23,27 @@ class AppLinks {
   static const String years = "$metaData/129";
   static const String contactType = "$metaData/123";
   ////////////////////// TODO:Management::Content ////////////////////////////
-  static const String survies = "/surveys?module_id=91";
+  //------------------------surveys-------------------------------
+  static const String survies = "/surveys?module_id=$moduleID";
   static const String surveyView = "/surveys/view/";
   static const String surveyViewAnswer = "/surveys/store-answers/";
-  //------------------------------------------------------
-    static const String polls = "/poll?module_id=91";
-  static const String pollView = "/poll/view/";
+  //------------------------polls------------------------------
+    static const String polls = "/poll?module_id=$moduleID";
+  static const String pollView = "/poll/view";
   static const String pollViewAnswer = "/polls/store-answers/";
-    ////////////////////// TODO:Management::Polls ////////////////////////////
+  //---------------------------FAQs---------------------------------
+    static const String faqs = "/faqs";
+  //-------------------------tutorial------------------------------
+  static const String tutorial = "/tutorial?module_id=$moduleID";
+   // --------------------------------Announcement--------------------------
+  static const String announcement = "/announcement?module_id=$moduleID";
+   // --------------------------------contents--------------------------
+  static const String contents = "/content?module_id=$moduleID";
+    ////////////////////// TODO:Management::Polls //////////////////
   static const String profile_update = "/person/update";
 ///section//////////?sections=(skillls)
   static const String profile_section = "/person/sections";
+  //////////////////////////////////TODO:GET_PROFILE.///////////////
+  static const String profile_get = "/person/sections";
+
 }

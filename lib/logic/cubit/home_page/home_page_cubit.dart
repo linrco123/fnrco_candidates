@@ -1,13 +1,11 @@
+import 'package:fancy_bottom_navigation_plus/fancy_bottom_navigation_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-
 part 'home_page_state.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
@@ -18,30 +16,30 @@ class HomePageCubit extends Cubit<HomePageState> {
   int selectedIndex = 0;
 
   final navBarItems = [
-    SalomonBottomBarItem(
-      icon: const Icon(Icons.home),
-      title: const Text("Home"),
-      selectedColor: AppColors.primary,
+    TabData(
+      icon:  Icon(Icons.home ,),
+      title: "Home",
+     // selectedColor: AppColors.primary,
+
     ),
-    SalomonBottomBarItem(
-      icon: const Icon(Icons.favorite_border),
-      title: const Text("Favorites"),
-      selectedColor: AppColors.primary,
+    TabData(
+      icon:  Icon(Icons.favorite_border),
+      title: "Favorites",
+     // selectedColor: AppColors.primary,
     ),
-    SalomonBottomBarItem(
+    TabData(
       icon: Icon(Icons.medical_information_outlined),
-      title: const Text("Medical Declare"),
-      selectedColor: AppColors.primary,
+      title: "Medical Declare",
+      ///selectedColor: AppColors.primary,
     ),
-    SalomonBottomBarItem(
+    TabData(
       icon: const Icon(Icons.settings),
-      title: const Text("settings"),
-      selectedColor: AppColors.primary,
+      title: "settings",
+      //selectedColor: AppColors.primary,
     ),
   ];
   final taps = [
     const HomeTapScreen(),
-    //const SizedBox(),
     const CategoryDetailsScreen(),
     const SizedBox(),
     const SettingsScreen()

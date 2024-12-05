@@ -5,7 +5,7 @@ import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/skills.dart';
-import 'package:fnrco_candidates/logic/cubit/profile/skills/skills_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/profile_update/skills/skills_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
@@ -58,7 +58,7 @@ class SkillsSCreen extends StatelessWidget {
           builder: (context, state) {
             SkillsCubit skillsCubit = BlocProvider.of(context);
             if(state is GettingSkillsLevelLoadingState)
-            return LoadingWidget();
+            return AnimatedLoadingWidget();
             return Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),

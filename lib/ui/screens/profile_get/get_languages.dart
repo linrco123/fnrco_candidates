@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/logic/cubit/profile_get/about_me/about_me_cubit.dart';
+import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/language_card.dart';
+
+class GetLanguagesScreen extends StatefulWidget {
+  const GetLanguagesScreen({super.key});
+
+  @override
+  State<GetLanguagesScreen> createState() => _GetPersonalDetailsScreenState();
+}
+
+class _GetPersonalDetailsScreenState extends State<GetLanguagesScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<AboutMeCubit>().getLanguages();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AboutMeCubit, AboutMeState>(
+      builder: (context, state) {
+        if (state is AboutMeGetLanguagesLoadingState) {
+          return AnimatedLoadingWidget();
+        }
+        if (state is AboutMeGetLanguagesErrorState) {
+          return FailureWidget(
+              title: 'Error ocurred on getting Languages',
+              onTap: () {
+                context.read<AboutMeCubit>().getLanguages();
+              });
+        }
+       if(state is AboutMeGetLanguagesSuccessState){
+        return state.languages.isEmpty
+            ? EmptyDataWidget()
+            : Container(
+                height: double.infinity,
+                width: double.infinity,
+                child: ListView.separated(
+                  itemCount: state.languages.length,
+                  itemBuilder: (context, index) =>
+                      LanguageCard(language: state.languages[index]),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(
+                    height: 10.0,
+                  ),
+                ),
+              );
+       }
+       return SizedBox.shrink();
+      },
+    );
+  }
+}

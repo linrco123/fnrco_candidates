@@ -55,11 +55,8 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
           themeMode: settingsCubit.brightnessMode == DARK_MODE
               ? ThemeMode.dark
               : ThemeMode.light,
-          // darkTheme: settingsCubit.brightnessMode == DARK_MODE
-          //     ? ThemeData.dark()
-          //     : ThemeData.light(),
           title: 'FNRCO CANDIDATES',
-          locale: Locale('en'),
+          locale: Locale(CacheHelper.getLang()),
           supportedLocales: AppLocalizationsSetup.supportedLocales,
           localizationsDelegates: AppLocalizationsSetup.localizationsDelegate,
           localeResolutionCallback:

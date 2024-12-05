@@ -7,7 +7,7 @@ import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/personal_details.dart';
-import 'package:fnrco_candidates/logic/cubit/profile/personal_data/personal_details/personal_details_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/profile_update/personal_data/personal_details/personal_details_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';

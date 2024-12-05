@@ -41,6 +41,9 @@ class PersonalDetailsProvider {
       }
     } on DioError catch (e) {
       print('error =====================  >>>>>>>>>>>> $e');
+      print(e.message);
+      print('========dddddd=======================================');
+      print(e.response!.data['message']);
 
       throw ApiException(
           failure:
