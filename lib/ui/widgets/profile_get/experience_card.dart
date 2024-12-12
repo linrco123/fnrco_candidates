@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/profile_get/experiences_model.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 
 class ExperienceCard extends StatelessWidget {
   final GetExperience experience;
@@ -34,104 +34,14 @@ class ExperienceCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //  "country_id": 173,
-          //   "experience_job_title": "nnnn",
-          //   "experience_start_in": "2024-11-13",
-          //   "experience_end_in": "2024-11-06",
-          //   "experience_description": "nnbbnbnbn",
-          //   "experience_company": "bbbbbb"
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "country",
-              ),
-              Text(
-                experience.countryId!.toString(),
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "job_title",
-              ),
-              Text(
-                experience.experienceJobTitle!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "start_date",
-              ),
-              Text(
-                experience.experienceStartIn!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "end_date",
-              ),
-              Text(
-                experience.experienceEndIn!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-
-           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "job_desc",
-              ),
-              Text(
-                experience.experienceDescription!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "company_name",
-              ),
-              Text(
-                experience.experienceCompany!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-         
+          ProfileItem(kkey: "country", value: experience.countryId!.toString()),
+          ProfileItem(kkey: "job_title", value: experience.experienceJobTitle!),
+          ProfileItem(kkey: "start_date", value: experience.experienceStartIn!),
+          ProfileItem(kkey: "end_date", value: experience.experienceEndIn!),
+          ProfileItem(
+              kkey: "job_desc", value: experience.experienceDescription!),
+          ProfileItem(
+              kkey: "company_name", value: experience.experienceCompany!),
         ],
       ),
     );

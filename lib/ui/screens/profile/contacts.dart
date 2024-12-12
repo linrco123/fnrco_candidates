@@ -12,6 +12,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -87,22 +88,17 @@ class ContactsScreen extends StatelessWidget {
                             onChanged: (contact) => cubit.selectContactType(
                                 int.parse(contact.toString()))),
                     const SizedBox(
-                      height: 15.0,
+                      height: 16.0,
                     ),
-                    Text(
-                      translateLang(context, 'contact_value'),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                   
+                    CustomTitle(title: 'contact_value'),
                     CustomInputField(
                       controller: cubit.cntCntroller,
                       validate: cubit.validateContactType,
                       hint: translateLang(context, 'contact_value'),
                     ),
                     const SizedBox(
-                      height: 15.0,
+                      height: 16.0,
                     ),
                     RadioListTile(
                       value: 1,

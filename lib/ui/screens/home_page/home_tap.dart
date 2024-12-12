@@ -54,7 +54,7 @@ class HomeTapScreen extends StatelessWidget {
                                   .copyWith(color: AppColors.white),
                             ),
                             Text(
-                              CacheHelper.getName()??'Guest',
+                              CacheHelper.getName() ?? 'Guest',
                               //'Muhammed Nady',
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
@@ -76,14 +76,14 @@ class HomeTapScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           top: 70.0, left: 30.0, right: 30.0),
                       child: SearchFormField(
-                          controller: homePageCubit.searchController,
-                          label: 'search a job here',
-                          fillColor: AppColors.white,
-                          preIcon: Icons.search,
-                          preFun: homePageCubit.searchAJob ,
-                          sufIcon: Icons.close,
-                          borderColor: AppColors.white,
-                          suFun: (){},
+                        controller: homePageCubit.searchController,
+                        label: 'search a job here',
+                        fillColor: AppColors.white,
+                        preIcon: Icons.search,
+                        preFun: homePageCubit.searchAJob,
+                        sufIcon: Icons.close,
+                        borderColor: AppColors.white,
+                        suFun: () {},
                       )),
                 ],
               ),
@@ -165,19 +165,29 @@ class HomeTapScreen extends StatelessWidget {
                               separatorBuilder: (context, index) =>
                                   const SizedBox(width: 5.0),
                               scrollDirection: Axis.horizontal,
-                              itemCount: 7,
+                              itemCount: homePageCubit.jobs.length,
                               itemBuilder: (BuildContext context, int index) =>
                                   JobHomeCard(
                                       onTap: () {
+                                        // Navigator.of(context).pushNamed(
+                                        //     AppPagesNames.JOB_DETAILS,
+                                        //     arguments: {
+                                        //       'job': homePageCubit.jobs[index]
+                                        //     });
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const JobDetailsScreen()));
+                                                    JobDetailsScreen(
+                                                      job: homePageCubit
+                                                          .jobs[index],
+                                                    )));
                                       },
                                       image: AppImages.JOB_OFFER,
-                                      job: 'software engineer',
-                                      company: 'Jakarata, Indonisa',
-                                      salary: '500 - \$2000')
+                                      job: homePageCubit.jobs[index].position!,
+                                      company: homePageCubit
+                                          .jobs[index].erpMprItemWorkLocation!,
+                                      salary: homePageCubit
+                                          .jobs[index].erpMprItemSalary!)
                               //     GestureDetector(
                               //   onTap: () {
                               //     Navigator.of(context).push(MaterialPageRoute(
@@ -265,19 +275,23 @@ class HomeTapScreen extends StatelessWidget {
                             separatorBuilder: (context, index) =>
                                 const SizedBox(height: 5.0),
                             scrollDirection: Axis.vertical,
-                            itemCount: 50,
+                            itemCount: homePageCubit.jobs.length,
                             itemBuilder: (BuildContext context, int index) =>
                                 JobHomeCard(
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const JobDetailsScreen()));
+                                                  JobDetailsScreen(
+                                                      job: homePageCubit
+                                                          .jobs[index])));
                                     },
                                     image: AppImages.JOB_OFFER,
-                                    job: 'UI/UX designer',
-                                    company: 'Jakarata, Indonisa',
-                                    salary: '500 - \$2000')),
+                                    job: homePageCubit.jobs[index].position!,
+                                    company: homePageCubit
+                                        .jobs[index].erpMprItemWorkLocation!,
+                                    salary: homePageCubit
+                                        .jobs[index].erpMprItemSalary!)),
                       ]),
                 ),
               ),

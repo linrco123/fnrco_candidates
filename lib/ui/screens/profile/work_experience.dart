@@ -12,6 +12,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -93,45 +94,29 @@ class ExperienceScreen extends StatelessWidget {
                                       experiencesCubit.selectCountry(
                                           int.parse(skill.toString()))),
                           const SizedBox(
-                            height: 10.0,
+                            height: 16.0,
                           ),
-                          Text(
-                            translateLang(context, 'job_title'),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
+
+                          CustomTitle(title: 'job_title'),
                           CustomInputField(
                             controller: experiencesCubit.jobTitleCntroller,
                             validate: experiencesCubit.validateJobTitle,
                             hint: translateLang(context, 'job_title'),
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: 16.0,
                           ),
-                          Text(
-                            translateLang(context, 'company_name'),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
+
+                          CustomTitle(title: 'company_name'),
                           CustomInputField(
                             controller: experiencesCubit.companyCntroller,
                             validate: experiencesCubit.validateCompany,
                             hint: translateLang(context, 'company_name'),
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: 16.0,
                           ),
-                          Text(
-                            translateLang(context, 'start_date'),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
+                          CustomTitle(title: 'start_date'),
                           GestureDetector(
                             onTap: () {
                               experiencesCubit.selectStartDate(context);
@@ -166,15 +151,10 @@ class ExperienceScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: 16.0,
                           ),
-                          Text(
-                            translateLang(context, 'end_date'),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
+                       
+                          CustomTitle(title: 'end_date'),
                           GestureDetector(
                             onTap: () {
                               experiencesCubit.selectEndDate(context);
@@ -208,15 +188,10 @@ class ExperienceScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 16,
                           ),
-                          Text(
-                            translateLang(context, 'job_desc'),
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
+                         
+                          CustomTitle(title: 'job_desc'),
                           CustomInputField(
                             linesNum: 3,
                             controller: experiencesCubit.jobDescCntroller,

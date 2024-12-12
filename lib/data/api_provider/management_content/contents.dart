@@ -3,7 +3,7 @@ import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/dio_helper.dart';
 import 'package:fnrco_candidates/core/classes/exceptions.dart';
 import 'package:fnrco_candidates/core/classes/failure.dart';
-import 'package:fnrco_candidates/data/models/management_content/Contents_model.dart';
+import 'package:fnrco_candidates/data/models/management_content/contents_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class ContentsProvider {

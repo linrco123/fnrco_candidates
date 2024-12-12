@@ -1,10 +1,9 @@
 import 'dart:io';
-
-import 'package:fancy_bottom_navigation_plus/fancy_bottom_navigation_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
+import 'package:fnrco_candidates/data/api_provider/home/home_tap_provider.dart';
 import 'package:fnrco_candidates/logic/cubit/home_page/home_page_cubit.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
@@ -16,8 +15,8 @@ import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
 import 'package:fnrco_candidates/ui/screens/profile/profile.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
 import 'package:fnrco_candidates/ui/screens/unregistered_screen.dart';
+import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'package:toastification/toastification.dart';
-
 import '../../../constants/app_colors.dart';
 import '../medical_declare.dart';
 
@@ -27,7 +26,7 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomePageCubit(),
+      create: (context) => HomePageCubit(HomePageProvider())..getJobs(),
       child: BlocConsumer<HomePageCubit, HomePageState>(
         listener: (context, state) {
           if (state is LogoutSuccessState) {
@@ -208,7 +207,26 @@ class HomePageScreen extends StatelessWidget {
                               ),
                               title: Text(
                                 AppLocalizations.of(context)!
-                                    .translate("Saved Jobs"),
+                                    .translate("saved_jobs"),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                            ),
+                            ListTile(
+                              onTap: () {
+                                 Navigator.of(context).popAndPushNamed(
+                                    AppPagesNames.TICKETS);
+                              },
+                              leading: SvgPicture.asset(
+                                AppImages.ticket,
+                                // ignore: deprecated_member_use
+                                color: AppColors.primary,
+                                height: 25.0,
+                                width: 25.0,
+                              ),
+                              title: Text(
+                                AppLocalizations.of(context)!
+                                    .translate("tickets"),
                                 style:
                                     Theme.of(context).textTheme.displayMedium,
                               ),
@@ -286,8 +304,8 @@ class HomePageScreen extends StatelessWidget {
                             ),
                             ListTile(
                               onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.ANNOUNCEMENT);
+                                Navigator.of(context).popAndPushNamed(
+                                    AppPagesNames.ANNOUNCEMENT);
                               },
                               leading: SvgPicture.asset(
                                 AppImages.announcement,
@@ -301,7 +319,7 @@ class HomePageScreen extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
-                             ListTile(
+                            ListTile(
                               onTap: () {
                                 Navigator.of(context)
                                     .popAndPushNamed(AppPagesNames.CONTENTS);
@@ -358,16 +376,40 @@ class HomePageScreen extends StatelessWidget {
                         ),
                       ),
             body: _buildBody(context, homePageCubit.selectedIndex),
-            bottomNavigationBar: FancyBottomNavigationPlus(
-                // currentIndex: homePageCubit.selectedIndex,
-                // //selectedItemColor: const Color(0xff6200ee),
-                // unselectedItemColor: const Color(0xff757575),
-                onTabChangedListener: (index) {
-                  homePageCubit.changeState(index);
-                },
-                circleColor: AppColors.primary,
-                circleOutline: 10.0,
-                tabs: homePageCubit.navBarItems),
+            bottomNavigationBar: StylishBottomBar(
+              borderRadius: BorderRadius.circular(16.0),
+              backgroundColor: AppColors.white,
+              option: AnimatedBarOptions(
+                iconSize: 27,
+                barAnimation: BarAnimation.drop,
+                iconStyle: IconStyle.animated,
+                opacity: 0.9,
+              ),
+              // option: BubbleBarOptions(
+              //   barStyle: BubbleBarStyle.vertical,
+              //   // barStyle: BubbleBarStyle.vertical,
+              //   bubbleFillStyle: BubbleFillStyle.fill,
+              //   // bubbleFillStyle: BubbleFillStyle.outlined,
+              //   opacity: 0.3,
+              // ),
+              // option: DotBarOptions(
+              //   dotStyle: DotStyle.tile,
+              //   gradient: const LinearGradient(
+              //     colors: [
+              //       Colors.deepPurple,
+              //       Colors.pink,
+              //     ],
+              //     begin: Alignment.topLeft,
+              //     end: Alignment.bottomRight,
+              //   ),
+              // ),
+              items: homePageCubit.navBarItems,
+              fabLocation: StylishBarFabLocation.center,
+              hasNotch: true,
+
+              currentIndex: homePageCubit.selectedIndex,
+              onTap: (index) => homePageCubit.changeState(index),
+            ),
           );
         },
       ),

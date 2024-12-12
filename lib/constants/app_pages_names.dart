@@ -35,4 +35,6 @@ class AppPagesNames {
   static const String TUTORIAL = '/tutorial';
   static const String ANNOUNCEMENT = '/announcement';
   static const String CONTENTS = '/contents';
+  static const String TICKETS = '/tickets';
+
 }

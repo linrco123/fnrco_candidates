@@ -8,7 +8,7 @@ final class ContentsInitial extends ContentsState {}
 final class ContentsLoadingState extends ContentsState {}
 
 final class ContentsSuccessState extends ContentsState {
-  final List<ContentData> contents;
+  final List<DataContent> contents;
 
   ContentsSuccessState({required this.contents});
 }

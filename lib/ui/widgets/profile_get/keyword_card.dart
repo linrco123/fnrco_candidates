@@ -1,12 +1,9 @@
-
-
-
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/custom_profile_text.dart';
 
 class KeyWordCard extends StatelessWidget {
   final GetKeyword keyword;
@@ -38,10 +35,7 @@ class KeyWordCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            keyword.keywordText!,
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
+          CustomProfileText(text: keyword.keywordText!),
         ],
       ),
     );

@@ -8,6 +8,7 @@ import 'package:fnrco_candidates/logic/cubit/profile_update/languages/languages_
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -57,43 +58,25 @@ class LanguageScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Text(
-                      translateLang(context, 'language'),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                    CustomTitle(title: 'language'),
                     CustomInputField(
                       controller: cubit.langCntroller,
                       validate: cubit.validateLanguage,
-                      hint: translateLang(context,'language'),
+                      hint: translateLang(context, 'language'),
                     ),
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Text(
-                      translateLang(context, "lang_test_by"),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                    CustomTitle(title: 'lang_test_by'),
                     CustomInputField(
                       controller: cubit.testCntroller,
                       validate: cubit.validateTestBy,
-                      hint: translateLang(context,  "lang_test_by"),
+                      hint: translateLang(context, "lang_test_by"),
                     ),
                     const SizedBox(
                       height: 15.0,
                     ),
-                     Text(
-                      translateLang(context, "lang_level"),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                    CustomTitle(title: "lang_level"),
                     RadioListTile(
                       value: 1,
                       groupValue: cubit.languageLevel,
@@ -105,7 +88,7 @@ class LanguageScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5.0,
                     ),
-              RadioListTile(
+                    RadioListTile(
                       value: 2,
                       groupValue: cubit.languageLevel,
                       onChanged: (int? value) =>
@@ -116,7 +99,7 @@ class LanguageScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5.0,
                     ),
-              RadioListTile(
+                    RadioListTile(
                       value: 3,
                       groupValue: cubit.languageLevel,
                       onChanged: (int? value) =>
@@ -127,7 +110,7 @@ class LanguageScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5.0,
                     ),
-              RadioListTile(
+                    RadioListTile(
                       value: 4,
                       groupValue: cubit.languageLevel,
                       onChanged: (int? value) =>
@@ -138,7 +121,7 @@ class LanguageScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5.0,
                     ),
-              RadioListTile(
+                    RadioListTile(
                       value: 5,
                       groupValue: cubit.languageLevel,
                       onChanged: (int? value) =>
@@ -156,7 +139,7 @@ class LanguageScreen extends StatelessWidget {
                             cubit.addNewLanguage();
                           },
                           background: AppColors.black,
-                          text: translateLang(context,'add_new_lang')),
+                          text: translateLang(context, 'add_new_lang')),
                     ),
                     const Spacer(),
                     state is SubmitLanguagesLoadingState

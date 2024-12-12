@@ -8,8 +8,6 @@ import 'package:fnrco_candidates/ui/screens/auth/forget_password.dart';
 import 'package:fnrco_candidates/ui/screens/auth/log_in.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_page.dart';
 import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
-import 'package:fnrco_candidates/ui/screens/job_application.dart';
-import 'package:fnrco_candidates/ui/screens/job_details.dart';
 import 'package:fnrco_candidates/ui/screens/job_offer.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/announcement.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/contents.dart';
@@ -34,6 +32,7 @@ import 'package:fnrco_candidates/ui/screens/profile/work_experience.dart';
 import 'package:fnrco_candidates/ui/screens/resume.dart';
 import 'package:fnrco_candidates/ui/screens/success.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/surveys.dart';
+import 'package:fnrco_candidates/ui/screens/ticket.dart';
 import 'package:fnrco_candidates/ui/screens/tutorial/tutorial_content.dart';
 import 'package:fnrco_candidates/ui/screens/welcome.dart';
 import 'package:page_transition/page_transition.dart';
@@ -214,16 +213,16 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-      case AppPagesNames.JOB_DETAILS:
-        // return MaterialPageRoute(
-        //   builder: (context) => JobDetailsScreen(),
-        // );
-        return PageTransition(
-          child: JobDetailsScreen(),
-          type: PageTransitionType.fade,
-          alignment: Alignment.centerLeft,
-          duration: const Duration(seconds: 1),
-        );
+      // case AppPagesNames.JOB_DETAILS:
+      //   // return MaterialPageRoute(
+      //   //   builder: (context) => JobDetailsScreen(),
+      //   // );
+      //   return PageTransition(
+      //     child: JobDetailsScreen(),
+      //     type: PageTransitionType.fade,
+      //     alignment: Alignment.centerLeft,
+      //     duration: const Duration(seconds: 1),
+      //   );
 
       case AppPagesNames.ANIMATED_SPLASH:
         // return MaterialPageRoute(
@@ -234,16 +233,16 @@ class AppRouter {
             type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
-      case AppPagesNames.JOB_APPLICATION:
-        // return MaterialPageRoute(
-        //     builder: (context) => JobApplicationScreen(),
-        //     );
-        return PageTransition(
-          child: JobApplicationScreen(),
-          type: PageTransitionType.fade,
-          alignment: Alignment.centerLeft,
-          duration: const Duration(seconds: 1),
-        );
+      // case AppPagesNames.JOB_APPLICATION:
+      //   // return MaterialPageRoute(
+      //   //     builder: (context) => JobApplicationScreen(),
+      //   //     );
+      //   return PageTransition(
+      //     child: JobApplicationScreen(),
+      //     type: PageTransitionType.fade,
+      //     alignment: Alignment.centerLeft,
+      //     duration: const Duration(seconds: 1),
+      //   );
         case AppPagesNames.SURVIES:
         // return MaterialPageRoute(
         //     builder: (context) => SurviesScreen(),
@@ -407,6 +406,17 @@ class AppRouter {
         //     );
         return PageTransition(
           child: ContentsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+         case AppPagesNames.TICKETS:
+        // return MaterialPageRoute(
+        //     builder: (context) => TicketsScreen(),
+        //     );
+        return PageTransition(
+          child: TicketsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

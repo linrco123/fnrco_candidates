@@ -1,17 +1,17 @@
-class JobsModel {
+class GetJobsModel {
   bool? status;
   String? message;
-  List<Job>? jobs;
+  List<GetJob>? data;
 
-  JobsModel({this.status, this.message, this.jobs});
+  GetJobsModel({this.status, this.message, this.data});
 
-  JobsModel.fromJson(Map<String, dynamic> json) {
+  GetJobsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      jobs = <Job>[];
+      data = <GetJob>[];
       json['data'].forEach((v) {
-        jobs!.add(new Job.fromJson(v));
+        data!.add(new GetJob.fromJson(v));
       });
     }
   }
@@ -20,14 +20,40 @@ class JobsModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.jobs != null) {
-      data['data'] = this.jobs!.map((v) => v.toJson()).toList();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Job {
+class GetJob {
+  int? id;
+  int? erpMprId;
+  ErpMprItemId? erpMprItemId;
+
+  GetJob({this.id, this.erpMprId, this.erpMprItemId});
+
+  GetJob.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    erpMprId = json['erp_mpr_id'];
+    erpMprItemId = json['erp_mpr_item_id'] != null
+        ? new ErpMprItemId.fromJson(json['erp_mpr_item_id'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['erp_mpr_id'] = this.erpMprId;
+    if (this.erpMprItemId != null) {
+      data['erp_mpr_item_id'] = this.erpMprItemId!.toJson();
+    }
+    return data;
+  }
+}
+
+class ErpMprItemId {
   int? id;
   String? position;
   String? erpMprItemWorkingHours;
@@ -51,7 +77,7 @@ class Job {
   String? erpMprItemClientDisplay;
   String? erpMprItemSectorDisplay;
 
-  Job(
+  ErpMprItemId(
       {this.id,
       this.position,
       this.erpMprItemWorkingHours,
@@ -75,7 +101,7 @@ class Job {
       this.erpMprItemClientDisplay,
       this.erpMprItemSectorDisplay});
 
-  Job.fromJson(Map<String, dynamic> json) {
+  ErpMprItemId.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     position = json['position'];
     erpMprItemWorkingHours = json['erp_mpr_item_working_hours'];

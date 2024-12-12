@@ -1,7 +1,7 @@
 class ContentsModel {
   bool? status;
   String? message;
-  List<ContentData>? contents;
+  List<DataContent>? contents;
 
   ContentsModel({this.status, this.message, this.contents});
 
@@ -9,9 +9,9 @@ class ContentsModel {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      contents = <ContentData>[];
+      contents = <DataContent>[];
       json['data'].forEach((v) {
-        contents!.add(new ContentData.fromJson(v));
+        contents!.add(new DataContent.fromJson(v));
       });
     }
   }
@@ -27,7 +27,7 @@ class ContentsModel {
   }
 }
 
-class ContentData {
+class DataContent {
   int? id;
   String? contentText;
   String? contentStatus;
@@ -37,7 +37,7 @@ class ContentData {
   String? createdAt;
   String? updatedAt;
 
-  ContentData(
+  DataContent(
       {this.id,
       this.contentText,
       this.contentStatus,
@@ -47,7 +47,7 @@ class ContentData {
       this.createdAt,
       this.updatedAt});
 
-  ContentData.fromJson(Map<String, dynamic> json) {
+  DataContent.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     contentText = json['content_text'];
     contentStatus = json['content_status'];

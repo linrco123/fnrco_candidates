@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/models/profile_get/contacts_model.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 
 class ContactCard extends StatelessWidget {
   final GetContact contact;
@@ -47,38 +47,13 @@ class ContactCard extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "contact_type",
-              ),
-              Text(
-                contact.personContactType!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
+          ProfileItem(kkey: "contact_type", value:  contact.personContactType!),
+         
           const SizedBox(
             height: 16.0,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "contact_value",
-              ),
-              Expanded(
-                child: Text(
-                  textAlign: TextAlign.end,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  contact.personContactValue!,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-              ),
-            ],
-          ),
+          ProfileItem(kkey: "contact_value", value: contact.personContactValue!)
+          
         ],
       ),
     );

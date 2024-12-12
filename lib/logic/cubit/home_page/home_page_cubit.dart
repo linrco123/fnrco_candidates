@@ -1,43 +1,66 @@
-import 'package:fancy_bottom_navigation_plus/fancy_bottom_navigation_plus.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/data/models/home/jobs_model.dart';
+import 'package:stylish_bottom_bar/model/bar_items.dart';
+
+import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/data/api_provider/home/home_tap_provider.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
+
 part 'home_page_state.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit() : super(HomePageInitial());
+  HomePageProvider homePageProvider;
+  HomePageCubit(
+    this.homePageProvider,
+  ) : super(HomePageInitial());
 
   static HomePageCubit instance(context) => BlocProvider.of(context);
   var searchController = TextEditingController();
   int selectedIndex = 0;
 
   final navBarItems = [
-    TabData(
-      icon:  Icon(Icons.home ,),
-      title: "Home",
-     // selectedColor: AppColors.primary,
+    BottomBarItem(
+      selectedColor: AppColors.primary,
+      unSelectedColor: AppColors.grey,
+      icon: Icon(
+        Icons.home,
+      ),
+      title: Text("Home"),
+      //backgroundColor: Colors.red,
+      selectedIcon: const Icon(Icons.read_more),
+    ),
+    BottomBarItem(
+      selectedColor: AppColors.primary,
+      unSelectedColor: AppColors.grey,
 
+      icon: Icon(Icons.favorite_border),
+      title: Text("Favorites"),
+      // backgroundColor: Colors.orange,
     ),
-    TabData(
-      icon:  Icon(Icons.favorite_border),
-      title: "Favorites",
-     // selectedColor: AppColors.primary,
-    ),
-    TabData(
+    BottomBarItem(
+      selectedColor: AppColors.primary,
+      unSelectedColor: AppColors.grey,
+
       icon: Icon(Icons.medical_information_outlined),
-      title: "Medical Declare",
-      ///selectedColor: AppColors.primary,
+      title: Text("Medical Declare"),
+      // backgroundColor: Colors.purple,
     ),
-    TabData(
+    BottomBarItem(
+      selectedColor: AppColors.primary,
+      unSelectedColor: AppColors.grey,
+
       icon: const Icon(Icons.settings),
-      title: "settings",
-      //selectedColor: AppColors.primary,
+      title: Text("settings"),
+      // backgroundColor: Colors.purple,
     ),
   ];
+
   final taps = [
     const HomeTapScreen(),
     const CategoryDetailsScreen(),
@@ -90,9 +113,23 @@ class HomePageCubit extends Cubit<HomePageState> {
   void logout(context) {
     emit(LogoutLoadingState());
     CacheHelper.removeAll().then((value) {
-   emit(LogoutSuccessState());
+      emit(LogoutSuccessState());
     }).catchError((error) {
       emit(LogoutFailureState(error: error));
+    });
+  }
+
+var jobs = List<Job>.empty(growable: true);
+  getJobs() {
+    emit(GetJobsLoadingState());
+    homePageProvider.getJobs().then((value) {
+      jobs.addAll(value.jobs!);
+      emit(GetJobsSuccessState(jobs: value.jobs!));
+
+
+    }).catchError((error) {
+      emit(GetJobsFailureState(message: error.failure.message));
+
     });
   }
 }

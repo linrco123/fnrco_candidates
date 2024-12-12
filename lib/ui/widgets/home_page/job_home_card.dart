@@ -58,7 +58,10 @@ class JobHomeCard extends StatelessWidget {
                     const SizedBox(
                       width: 5.0,
                     ),
-                    Text('\$${salary}',
+                    Text(
+                        // overflow: TextOverflow.ellipsis,
+                        // maxLines: 1,
+                        '\$ ${salary.length < 20 ? salary : salary.substring(0, 20)}',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.bold)),

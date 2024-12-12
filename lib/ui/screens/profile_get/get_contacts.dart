@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/cubit/profile_get/about_me/about_me_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
@@ -30,15 +31,12 @@ class _GetPersonalDetailsScreenState extends State<GetContactsScreen> {
         }
         if (state is AboutMeGetContactsErrorState) {
           return FailureWidget(
-              title: 'Error ocurred on getting Contacts',
+              title: translateLang(context, "error_get_contacts"),
               onTap: () {
                 context.read<AboutMeCubit>().getContacts();
               });
         }
-        // "id": 44,
-        // "person_contact_type": "mobile",
-        // "person_contact_value": "dfhhhd",
-        // "person_contact_primary": "1"
+      
      if(state is AboutMeGetContactsSuccessState){ 
         return state.contacts.isEmpty
             ? EmptyDataWidget()

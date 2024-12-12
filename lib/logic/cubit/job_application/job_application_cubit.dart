@@ -1,15 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/data/api_provider/job_application.dart';
 
 part 'job_application_state.dart';
 
 class JobApplicationCubit extends Cubit<JobApplicationState> {
-  JobApplicationCubit() : super(JobApplicationInitial());
+  JobApplicationProvider jobApplicationProvider;
+  JobApplicationCubit(
+    this.jobApplicationProvider,
+  ) : super(JobApplicationInitial());
 
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -29,17 +36,18 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
   }
 
   String? validatePhone(context, String? value) {
-    final regExp = RegExp(
-      'Constance.phoneRegExp',
-      caseSensitive: false,
-      multiLine: false,
-    );
+    // final regExp = RegExp(
+    //   'Constance.phoneRegExp',
+    //   caseSensitive: false,
+    //   multiLine: false,
+    // );
 
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_phone");
-    } else if (!regExp.hasMatch(value)) {
-      return translateLang(context, "msg_plz_enter_correct_phone");
-    }
+   } 
+  // else if (!regExp.hasMatch(value)) {
+    //   return translateLang(context, "msg_plz_enter_correct_phone");
+    // }
     return null;
   }
 
@@ -53,16 +61,14 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
     return null;
   }
 
-  void requestPermission()async{
+  void requestPermission() async {
     final PermissionStatus result = await Permission.storage.request();
-    if(result == PermissionStatus.granted){
+    if (result == PermissionStatus.granted) {
       uploadResume();
-    }else if(result == PermissionStatus.denied){
-
+    } else if (result == PermissionStatus.denied) {
       print('give permission for app to accesss local storage');
-
-    }else if(result == PermissionStatus.permanentlyDenied){
-        // access settings to grant app permission 
+    } else if (result == PermissionStatus.permanentlyDenied) {
+      // access settings to grant app permission
     }
   }
 
@@ -81,11 +87,16 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
     emit(JobApplicationDeletionResumeState());
   }
 
-  void applyJob() {
-    emit(JobApplicationLoadingState());
+  void applyJob(int jobID) {
     if (formKey.currentState!.validate()) {
-      emit(JobApplicationSuccessState());
+      emit(JobApplicationLoadingState());
+      var data = {"erp_mpr_id": MODULE_ID, "erp_mpr_item_id": jobID};
+
+      jobApplicationProvider.applyJob(data).then((value) {
+        emit(JobApplicationSuccessState());
+      }).catchError((error) {
+        emit(JobApplicationFailureState(error: error.failure.message));
+      });
     }
-    emit(JobApplicationFailureState());
   }
 }

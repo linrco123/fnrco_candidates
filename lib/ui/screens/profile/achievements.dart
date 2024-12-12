@@ -8,6 +8,7 @@ import 'package:fnrco_candidates/logic/cubit/profile_update/achievements/achieve
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -57,13 +58,7 @@ class AchievementsSCreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      translateLang(context, 'achievement'),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                    CustomTitle(title: 'achievement'),
                     CustomInputField(
                       controller: skillsCubit.achvCntroller,
                       validate: skillsCubit.validateAch,

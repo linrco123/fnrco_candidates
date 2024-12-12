@@ -13,6 +13,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -83,13 +84,7 @@ class EducationAndQualificationScreen extends StatelessWidget {
                               height: 10.0,
                             ),
                           
-                            Text(
-                              translateLang(context, "degree"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                            CustomTitle(title: "degree"),
                             CustomInputField(
                               controller: cubit.degreeCntroller,
                               validate: cubit.validateDegree,
@@ -98,13 +93,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "specialization"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                           
+                            CustomTitle(title:  "specialization"),
                             CustomInputField(
                               controller: cubit.spcCntroller,
                               validate: cubit.validateSpecialization,
@@ -113,13 +103,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "education_years"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
+                           
+                             CustomTitle(title:  "education_years"),
                             Row(
                               children: [
                                 CounterButton(
@@ -170,13 +155,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "pass_year"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                           
+                            CustomTitle(title: "pass_year"),
                             CustomDropTextField(
                                 items: cubit.years
                                     .map((year) => DropdownMenuItem<int>(
@@ -197,13 +177,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "institution_name"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                            
+                            CustomTitle(title: "institution_name"),
                             CustomInputField(
                               controller: cubit.instituteCntroller,
                               validate: cubit.validateInstitution,
@@ -212,13 +187,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "cert_name"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                           
+                            CustomTitle(title: "cert_name"),
                             CustomInputField(
                               controller: cubit.certCntroller,
                               validate: cubit.validateCertification,
@@ -227,13 +197,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "cert_issue_date"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                            
+                            CustomTitle(title: "cert_issue_date"),
                             GestureDetector(
                               onTap: () {
                                 cubit.selectIssueDate(context);
@@ -270,13 +235,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "cert_expire_date"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                           
+                            CustomTitle(title: "cert_expire_date"),
                             GestureDetector(
                               onTap: () {
                                 cubit.selectExpiryDate(context);

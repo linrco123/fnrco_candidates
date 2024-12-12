@@ -80,10 +80,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                             
-                              CustomTitle(title: "first_name",),
-                              const SizedBox(
-                                height: 5.0,
+                              CustomTitle(
+                                title: "first_name",
                               ),
                               CustomInputField(
                                   controller:
@@ -95,10 +93,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                             
-                              CustomTitle(title: "second_name",),
-                              const SizedBox(
-                                height: 5.0,
+                              CustomTitle(
+                                title: "second_name",
                               ),
                               CustomInputField(
                                   controller:
@@ -110,10 +106,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                             
-                               CustomTitle(title: "last_name",),
-                              const SizedBox(
-                                height: 5.0,
+                              CustomTitle(
+                                title: "last_name",
                               ),
                               CustomInputField(
                                   controller:
@@ -125,11 +119,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                             
-                            CustomTitle(title: "sur_name",),
-
-                              const SizedBox(
-                                height: 5.0,
+                              CustomTitle(
+                                title: "sur_name",
                               ),
                               CustomInputField(
                                   controller:
@@ -141,10 +132,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              
-                              CustomTitle(title:"email",),
-                              const SizedBox(
-                                height: 5.0,
+                              CustomTitle(
+                                title: "email",
                               ),
                               CustomInputField(
                                   controller:
@@ -155,10 +144,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                             
-                               CustomTitle(title:"residence",),
-                              const SizedBox(
-                                height: 5.0,
+                              CustomTitle(
+                                title: "residence",
                               ),
                               CustomInputField(
                                   controller: personalDetailsCubit

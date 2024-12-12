@@ -184,7 +184,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     } else {
       if (formKey.currentState!.validate()) {
         emit(PersonalDetailsLoadingState());
-
+       
         var formData = FormData.fromMap({
           "person_nationality": countryId,
           "person_sur_name": surNameController.text,

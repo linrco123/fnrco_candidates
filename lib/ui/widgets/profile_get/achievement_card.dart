@@ -1,6 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/profile_get/achievements_model.dart';
 import 'package:fnrco_candidates/ui/widgets/profile_get/custom_profile_text.dart';

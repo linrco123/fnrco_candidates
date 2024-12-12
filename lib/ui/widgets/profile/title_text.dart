@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 
 class CustomTitle extends StatelessWidget {
@@ -7,15 +8,23 @@ class CustomTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
       children: [
-        const SizedBox(
-          width: 10.0,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              width: 10.0,
+            ),
+            Text(
+              translateLang(context, title),
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  color: AppColors.black, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-        Text(
-          translateLang(context, title),
-          style: Theme.of(context).textTheme.displayMedium,
+        const SizedBox(
+          height: 10.0,
         ),
       ],
     );

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
+import 'package:fnrco_candidates/data/api_provider/job_application.dart';
 import 'package:fnrco_candidates/logic/cubit/job_application/job_application_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/classes/dotted_border.dart';
@@ -11,19 +13,37 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
 import 'package:fnrco_candidates/ui/widgets/job_details/back_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/job_details/custom_job_header.dart';
+import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:toastification/toastification.dart';
 
 class JobApplicationScreen extends StatelessWidget {
-  const JobApplicationScreen({super.key});
+  final int jobID;
+  const JobApplicationScreen({super.key, required this.jobID});
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return BlocProvider(
-      create: (context) => JobApplicationCubit(),
+      create: (context) => JobApplicationCubit(JobApplicationProvider()),
       child: Scaffold(
         body: BlocConsumer<JobApplicationCubit, JobApplicationState>(
           listener: (context, state) {
-            // TODO: implement listener
+            if (state is JobApplicationSuccessState) {
+              showToast(context,
+                  title: translateLang(context, 'success'),
+                  desc: 'Job applied successfully',
+                  type: ToastificationType.success);
+
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const CompanyInfoScreen()));
+                  
+            }
+            if (state is JobApplicationFailureState) {
+              showToast(context,
+                  title: translateLang(context, 'error'),
+                  desc: state.error.toString(),
+                  type: ToastificationType.success);
+            }
           },
           builder: (context, state) {
             var jobApplicationCubit =
@@ -137,14 +157,16 @@ class JobApplicationScreen extends StatelessWidget {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      jobApplicationCubit.fileName.isEmpty
-                                          ? translateLang(
-                                              context, "upload_resume")
-                                          : jobApplicationCubit.fileName,
-                                      style: TextStyle(
-                                          color: AppColors.grey,
-                                          fontSize: 14.0),
+                                    Expanded(
+                                      child: Text(
+                                        jobApplicationCubit.fileName.isEmpty
+                                            ? translateLang(
+                                                context, "upload_resume")
+                                            : jobApplicationCubit.fileName,
+                                        style: TextStyle(
+                                            color: AppColors.grey,
+                                            fontSize: 14.0),
+                                      ),
                                     ),
                                     const Spacer(),
                                     jobApplicationCubit.fileName.isEmpty
@@ -159,6 +181,7 @@ class JobApplicationScreen extends StatelessWidget {
                                             child: Icon(
                                               CupertinoIcons.delete_simple,
                                               color: AppColors.primary,
+                                              size: 25.0,
                                             ))
                                   ],
                                 )),
@@ -194,15 +217,19 @@ class JobApplicationScreen extends StatelessWidget {
                             height: MediaQuery.of(context).size.height / 4.5,
                           ),
                           // const Spacer(),
-                          CustomElevatedButton(
-                              fun: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CompanyInfoScreen()));
-                              },
-                              background: AppColors.primary,
-                              textSize: 20.0,
-                              text: translateLang(context,"apply_job").toUpperCase() , ),
+                          state is JobApplicationLoadingState
+                              ? AnimatedLoadingWidget()
+                              : CustomElevatedButton(
+                                  fun: () {
+                                    context
+                                        .read<JobApplicationCubit>()
+                                        .applyJob(jobID);
+                                  },
+                                  background: AppColors.primary,
+                                  textSize: 20.0,
+                                  text: translateLang(context, "apply_job")
+                                      .toUpperCase(),
+                                ),
 
                           const SizedBox(
                             height: 10.0,

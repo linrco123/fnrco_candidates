@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/cubit/profile_get/about_me/about_me_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
@@ -30,7 +31,7 @@ class _GetPersonalDetailsScreenState extends State<GetNotesScreen> {
         }
         if (state is AboutMeGetNotesErrorState) {
           return FailureWidget(
-              title: 'Error ocurred on getting Achievements',
+              title:translateLang(context, "error_get_notes"),
               onTap: () {
                 context.read<AboutMeCubit>().getNotes();
               });

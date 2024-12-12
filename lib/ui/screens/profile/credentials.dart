@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -11,6 +10,7 @@ import 'package:fnrco_candidates/logic/cubit/profile_update/credentials/credenti
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -18,21 +18,19 @@ class CredentialsScreen extends StatelessWidget {
   const CredentialsScreen({super.key});
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          CredentialsCubit(CredentialsProvider()),
+      create: (context) => CredentialsCubit(CredentialsProvider()),
       child: Scaffold(
         appBar: AppBar(
           //backgroundColor: AppColors.white,
           title: Text(
-            translateLang(context,  "credentials"),
+            translateLang(context, "credentials"),
             style: TextStyle(
                 color: AppColors.primary, fontWeight: FontWeight.bold),
           ),
           leading: ReturnButton(),
           centerTitle: true,
         ),
-        body: BlocConsumer<CredentialsCubit,
-            CredentialsState>(
+        body: BlocConsumer<CredentialsCubit, CredentialsState>(
           listener: (context, state) {
             if (state is CheckCredentialsEmptyFieldsState) {
               showToast(context,
@@ -73,60 +71,39 @@ class CredentialsScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context,  "credentials_cat"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+
+                            CustomTitle(title: "credentials_cat"),
                             CustomInputField(
                               controller: cubit.catCntroller,
                               validate: cubit.validateCategory,
-                              hint: translateLang(context,  "credentials_cat"),
+                              hint: translateLang(context, "credentials_cat"),
                             ),
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context,  "credentials_name"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                            CustomTitle(title: "credentials_name"),
                             CustomInputField(
                               controller: cubit.nameCntroller,
                               validate: cubit.validateName,
                               hint: translateLang(context, "credentials_name"),
                             ),
-                        
+
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context,  "credentials_Number"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+                            CustomTitle(title: "credentials_Number"),
                             CustomInputField(
                               controller: cubit.numbCntroller,
                               validate: cubit.validateNumber,
                               inputType: TextInputType.number,
-                              hint: translateLang(context,  "credentials_Number"),
+                              hint:
+                                  translateLang(context, "credentials_Number"),
                             ),
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "issue_date"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+
+                            CustomTitle(title: "issue_date"),
                             GestureDetector(
                               onTap: () {
                                 cubit.selectIssueDate(context);
@@ -143,8 +120,7 @@ class CredentialsScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       cubit.issueDate ??
-                                          translateLang(
-                                              context, "issue_date"),
+                                          translateLang(context, "issue_date"),
                                       style: TextStyle(
                                           color: cubit.issueDate == null
                                               ? AppColors.grey
@@ -163,13 +139,8 @@ class CredentialsScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
-                              translateLang(context, "expire_date"),
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
+
+                            CustomTitle(title: "expire_date"),
                             GestureDetector(
                               onTap: () {
                                 cubit.selectExpiryDate(context);
@@ -186,8 +157,7 @@ class CredentialsScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       cubit.expireDate ??
-                                          translateLang(
-                                              context, "expire_date"),
+                                          translateLang(context, "expire_date"),
                                       style: TextStyle(
                                           color: cubit.expireDate == null
                                               ? AppColors.grey
@@ -216,7 +186,7 @@ class CredentialsScreen extends StatelessWidget {
                                   background: AppColors.black,
                                   text: translateLang(context, "add_new_cred")),
                             ),
-                           //const Spacer(),
+                            //const Spacer(),
 
                             const SizedBox(
                               height: 10.0,

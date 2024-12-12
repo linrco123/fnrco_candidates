@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/profile_get/education_model.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 
 class EducationCard extends StatelessWidget {
   final GetEducation education;
@@ -33,135 +33,21 @@ class EducationCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-            // "person_cred_cat": "ssdsss",
-            // "person_cred_name": "sssss",
-            // "person_cred_number": "12345678",
-            // "person_cred_status": "",
-            // "person_cred_issued_in": "2024-11-12",
-            // "person_cred_exp_in": "2024-11-21"
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "degree",
-              ),
-              Text(
-                education.eduDegree!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title:  "specialization",
-              ),
-              Text(
-                education.eduFieldOfStudy!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title:  "education_years",
-              ),
-              Text(
-                education.eduYears!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title:  "pass_year",
-              ),
-              Text(
-                education.eduGraduationYear!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-
-           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title:   "institution_name"
-        ,
-              ),
-              Text(
-                education.eduInstitutionName!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "cert_issue_date"
-              ),
-              Text(
-                education.eduCertificationIssuesIn!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "cert_expire_date",
-              ),
-              Text(
-                education.eduCertificationExpiryIn!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title:"cert_name",
-              ),
-              Text(
-                education.eduCertificationName!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-         
+          ProfileItem(kkey: "degree", value: education.eduDegree!),
+          ProfileItem(
+              kkey: "specialization", value: education.eduFieldOfStudy!),
+          ProfileItem(kkey: "education_years", value: education.eduYears!),
+          ProfileItem(kkey: "pass_year", value: education.eduGraduationYear!),
+          ProfileItem(
+              kkey: "institution_name", value: education.eduInstitutionName!),
+          ProfileItem(
+              kkey: "cert_issue_date",
+              value: education.eduCertificationIssuesIn!),
+          ProfileItem(
+              kkey: "cert_expire_date",
+              value: education.eduCertificationExpiryIn!),
+          ProfileItem(
+              kkey: "cert_name", value: education.eduCertificationName!),
         ],
       ),
     );

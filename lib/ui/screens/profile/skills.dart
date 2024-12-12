@@ -11,6 +11,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -67,21 +68,17 @@ class SkillsSCreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      translateLang(context, 'skill_name'),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                   
+                    CustomTitle(title: 'skill_name'),
                     CustomInputField(
                       controller: skillsCubit.skillsCntroller,
                       validate: skillsCubit.validateSkill,
                       hint: translateLang(context, 'skill_name'),
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: 16.0,
                     ),
+                    CustomTitle(title: 'skill_level'),
                     state is GettingSkillsLevelLoadingState?
                     SignUpLoadingWidget():
                     CustomDropTextField(

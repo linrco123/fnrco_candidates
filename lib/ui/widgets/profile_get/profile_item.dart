@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 
 import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 
@@ -20,14 +21,17 @@ class ProfileItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CustomTitle(title: kkey),
-          const SizedBox(width:30.0,),
+          const SizedBox(
+            width: 30.0,
+          ),
           Expanded(
             child: Text(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               textAlign: TextAlign.end,
               value,
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontWeight: FontWeight.bold, color: AppColors.primary),
             ),
           ),
         ],

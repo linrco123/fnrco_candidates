@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/profile_get/languages_model.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
-import 'package:fnrco_candidates/ui/widgets/profile_get/custom_profile_text.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 
 class LanguageCard extends StatelessWidget {
   final GetLanguage language;
@@ -34,40 +33,10 @@ class LanguageCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "language",
-              ),
-              CustomProfileText(text: language.langText!)
-            ],
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(title: "lang_test_by"),
-              CustomProfileText(text: language.langTestBy!)
-            ],
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "lang_test_by",
-              ),
-              CustomProfileText(text: language.langLevel!.toString())
-            ],
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          ProfileItem(kkey: "language", value: language.langText!),
+          ProfileItem(kkey: "lang_test_by", value: language.langTestBy!),
+          ProfileItem(
+              kkey: "lang_test_by", value: language.langLevel!.toString()),
         ],
       ),
     );

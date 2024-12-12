@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/logic/cubit/profile_get/about_me/about_me_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
@@ -30,7 +31,7 @@ class _GetPersonalDetailsScreenState extends State<GetCredentialsScreen> {
         }
         if (state is AboutMeGetCredentialsErrorState) {
           return FailureWidget(
-              title: 'Error ocurred on getting credentials',
+              title: translateLang(context, "error_get_credentials"),
               onTap: () {
                 context.read<AboutMeCubit>().getCredentials();
               });

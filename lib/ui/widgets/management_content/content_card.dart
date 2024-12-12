@@ -1,12 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/data/models/management_content/announcement_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/contents_model.dart';
 
 
  class ContentCard extends StatelessWidget {
-  final ContentData content;
+  final DataContent content;
   const ContentCard
 ({
     Key? key,
@@ -57,7 +56,7 @@ import 'package:fnrco_candidates/data/models/management_content/contents_model.d
                 width: 10.0,
               ),
               Text(
-               content.contentFrom!,
+               content.contentFrom!.split(' ').first,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Padding(
@@ -68,25 +67,13 @@ import 'package:fnrco_candidates/data/models/management_content/contents_model.d
                 ),
               ),
               Text(
-               content.contentTo!,
+               content.contentTo!.split(' ').first,
                 style: Theme.of(context).textTheme.labelMedium,
               )
             ],
           ),
           const SizedBox(
             height: 10.0,
-          ),
-          Row(
-            children: [
-              Text(
-                'Status: ',
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              Text(
-                content.contentStatus!,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-            ],
           ),
           const SizedBox(
             height: 10.0,

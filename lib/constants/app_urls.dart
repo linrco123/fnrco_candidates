@@ -45,5 +45,13 @@ class AppLinks {
   static const String profile_section = "/person/sections";
   //////////////////////////////////TODO:GET_PROFILE.///////////////
   static const String profile_get = "/person/sections";
+  ////////////////////////////////////////TODO:JObs/////////////////
+  static const String jobs = "/jobs";
+
+  static String applyJob = '/candidate/apply-job';
+  static String appliedJobs = '/candidate/applied-jobs';
+ //////////////////////////TODO:tickets/////////////////
+  static String ticket = '/ticket';
+
 
 }

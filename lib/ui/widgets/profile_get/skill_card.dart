@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/profile_get/skills_model.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 
 class SkillCard extends StatelessWidget {
   final GetSkill skill;
@@ -33,39 +33,8 @@ class SkillCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "skill_name",
-              ),
-              Text(
-                skill.skillName!,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTitle(
-                title: "skill_level",
-              ),
-              Expanded(
-                child: Text(
-                  textAlign: TextAlign.end,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  skill.skillLevel!,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-              ),
-            ],
-          ),
+          ProfileItem(kkey: "skill_name", value: skill.skillName!),
+          ProfileItem(kkey: "skill_level", value: skill.skillLevel!),
         ],
       ),
     );

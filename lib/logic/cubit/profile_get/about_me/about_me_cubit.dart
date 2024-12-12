@@ -7,6 +7,7 @@ import 'package:fnrco_candidates/data/models/profile_get/contacts_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/credentials_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/education_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/experiences_model.dart';
+import 'package:fnrco_candidates/data/models/profile_get/get_jobs_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/languages_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/notes_model.dart';
@@ -183,12 +184,14 @@ class AboutMeCubit extends Cubit<AboutMeState> {
     });
   }
 
-  getAppliedJobs() {
-    Map<String, dynamic> data = {
-      'k1': "v1",
-      'k2': "v1",
-      'k3': "v1",
-    };
-    data.keys;
+   getAppliedJobs() {
+    emit(AboutMeGetAppliedJobsLoadingState());
+    aboutMeProvider.getAppliedJobs().then((value) {
+      emit(AboutMeGetAppliedJobsSuccessState(appliedJobs: value.data!));
+    }).catchError((error) {
+      emit(AboutMeGetAppliedJobsErrorState(message: error.failure.message));
+    });
   }
+
+  
 }

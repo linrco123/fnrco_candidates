@@ -8,6 +8,7 @@ import 'package:fnrco_candidates/logic/cubit/profile_update/notes/notes_cubit.da
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -59,13 +60,8 @@ class NotesScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Text(
-                      translateLang(context, 'note'),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                    
+                    CustomTitle(title: 'note'),
                     CustomInputField(
                       controller: cubit.notCntroller,
                       validate: cubit.validateNotes,

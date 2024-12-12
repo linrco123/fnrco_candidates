@@ -45,9 +45,9 @@ class AppImages {
   static const google = '$_images/google.png';
   static const linkedIn = '$_images/linkedIn.png';
 
-static const youtubePNG= '$_images/youtube.png';
-static const arabic = '$_images/ar.png';
-static const english = '$_images/en.jpeg';
+  static const youtubePNG = '$_images/youtube.png';
+  static const arabic = '$_images/ar.png';
+  static const english = '$_images/en.jpeg';
 
   //////////////////////////////TODO onBoarding /////////////////////////////
   ///board1.png
@@ -81,4 +81,7 @@ static const english = '$_images/en.jpeg';
   static const checked = '$_svg/selected.svg';
   static const announcement = '$_svg/announcement.svg';
   static const content = '$_svg/content.svg';
+  static const ticket = "$_svg/ticket.svg";
+  static const priority = "$_svg/priority.svg";
+  static const type = "$_svg/types.svg";
 }

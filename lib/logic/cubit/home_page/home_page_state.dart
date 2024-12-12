@@ -16,4 +16,19 @@ final class LogoutFailureState extends HomePageState{
 }
 
 
+final class GetJobsLoadingState extends HomePageState{}
+
+final class GetJobsSuccessState extends HomePageState{
+  final List<Job> jobs;
+
+  GetJobsSuccessState({required this.jobs});
+}
+
+
+final class GetJobsFailureState extends HomePageState{
+  final String message;
+
+  GetJobsFailureState({required this.message});
+}
+
 

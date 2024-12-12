@@ -9,6 +9,7 @@ import 'package:fnrco_candidates/data/models/profile_get/contacts_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/credentials_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/education_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/experiences_model.dart';
+import 'package:fnrco_candidates/data/models/profile_get/get_jobs_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/languages_model.dart';
 import 'package:fnrco_candidates/data/models/profile_get/notes_model.dart';
@@ -60,8 +61,8 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: CREDENTIALS});
-          logger.d('================response===============');
-          logger.e(response.data);
+      logger.d('================response===============');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return CredentialsModel.fromJson(response.data);
       } else {
@@ -130,18 +131,16 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: EXPERIENCES});
-          print(response.data);
+      print(response.data);
       if (response.statusCode == 200) {
         return ExperiencesModel.fromJson(response.data);
       } else {
         return await Future.error(response.statusCode!);
       }
-    }on DioError catch (e) {
-
+    } on DioError catch (e) {
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
-   
     }
   }
 
@@ -193,5 +192,18 @@ class AboutMeProvider {
     }
   }
 
-  getAppliedJobs() {}
+  Future<GetJobsModel> getAppliedJobs() async {
+    try {
+      final Response response = await DioHelper.dio.get(AppLinks.appliedJobs);
+      if (response.statusCode == 200) {
+        return GetJobsModel.fromJson(response.data);
+      } else {
+        return await Future.error(response.statusCode!);
+      }
+    } on DioError catch (e) {
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
+    }
+  }
 }

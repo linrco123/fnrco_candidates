@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/models/profile_get/notes_model.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/custom_profile_text.dart';
 
 class NoteCard extends StatelessWidget {
   final GetNote note;
@@ -34,10 +35,11 @@ class NoteCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            note.personNoteText!,
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
+          CustomProfileText(text: note.personNoteText!),
+          // Text(
+          //   note.personNoteText!,
+          //   style: Theme.of(context).textTheme.headlineLarge,
+          // ),
         ],
       ),
     );

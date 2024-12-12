@@ -167,11 +167,11 @@ class AboutMeGetSkillsErrorState extends AboutMeState {
 
 class AboutMeGetAppliedJobsLoadingState extends AboutMeState {}
 
-// class AboutMeGetAppliedJobsSuccessState extends AboutMeState {
-//   final List<GetAppliedJob> appliedJobs;
+class AboutMeGetAppliedJobsSuccessState extends AboutMeState {
+  final List<GetJob> appliedJobs;
 
-//   AboutMeGetAppliedJobsSuccessState({required this.appliedJobs});
-// }
+  AboutMeGetAppliedJobsSuccessState({required this.appliedJobs});
+}
 
 class AboutMeGetAppliedJobsErrorState extends AboutMeState {
   final String message;

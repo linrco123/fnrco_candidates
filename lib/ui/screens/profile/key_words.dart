@@ -8,6 +8,7 @@ import 'package:fnrco_candidates/logic/cubit/profile_update/key_words/key_words_
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -59,13 +60,8 @@ class KeyWordsSCreen extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Text(
-                      translateLang(context, 'keyword'),
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
+                 
+                    CustomTitle(title: 'keyword'),
                     CustomInputField(
                       controller: cubit.keyWCntroller,
                       validate: cubit.validateKeyWord,
