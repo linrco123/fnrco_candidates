@@ -26,7 +26,7 @@ class JobDetailsScreen extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       body: Container(
-        color: AppColors.blurRed,
+        color: AppColors.white,
         child: SafeArea(
             child: Padding(
           padding: const EdgeInsets.all(15.0),

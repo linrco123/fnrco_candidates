@@ -1,10 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 
 class CustomTitle extends StatelessWidget {
   final String title;
-  const CustomTitle({super.key, required this.title});
+  final double frontP ;
+  const CustomTitle({
+    Key? key,
+    required this.title,
+     this.frontP = 10.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +20,8 @@ class CustomTitle extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(
-              width: 10.0,
+             SizedBox(
+              width: frontP,
             ),
             Text(
               translateLang(context, title),

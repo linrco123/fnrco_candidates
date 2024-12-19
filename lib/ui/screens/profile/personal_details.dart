@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
@@ -13,6 +12,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/date_picker_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
@@ -157,152 +157,120 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  personalDetailsCubit
-                                      .selectDateOfBirth(context);
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0),
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primary.withOpacity(0.1),
-                                      borderRadius:
-                                          BorderRadius.circular(16.0)),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        personalDetailsCubit.birthDate ??
-                                            translateLang(
-                                                context, 'date_birth'),
-                                        style: TextStyle(
-                                            color: personalDetailsCubit
-                                                        .birthDate ==
-                                                    null
-                                                ? AppColors.grey
-                                                : AppColors.black),
-                                      ),
-                                      const Spacer(),
-                                      Icon(
-                                        CupertinoIcons.calendar,
-                                        size: 25.0,
-                                        color: AppColors.grey,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     personalDetailsCubit
+                              //         .selectDateOfBirth(context);
+                              //   },
+                              //   child: Container(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 20.0, vertical: 25.0),
+                              //     width: double.infinity,
+                              //     // height: 50.0,
+                              //     decoration: BoxDecoration(
+                              //         border: Border.all(
+                              //             color: Colors.grey.shade300),
+                              //         color: AppColors.white,
+                              //         borderRadius:
+                              //             BorderRadius.circular(16.0)),
+                              //     child: Row(
+                              //       children: [
+                              //         Text(
+                              //           personalDetailsCubit.birthDate ??
+                              //               translateLang(
+                              //                   context, 'date_birth'),
+                              //           style: Theme.of(context)
+                              //               .textTheme
+                              //               .labelMedium,
+                              //         ),
+                              //         const Spacer(),
+                              //         Icon(
+                              //           CupertinoIcons.calendar,
+                              //           size: 25.0,
+                              //           color: AppColors.primary,
+                              //         )
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                              CustomDatePicker(
+                                  onTap: () {
+                                    personalDetailsCubit
+                                        .selectDateOfBirth(context);
+                                  },
+                                  text: personalDetailsCubit.birthDate ??
+                                      translateLang(context, 'date_birth')),
                               const SizedBox(
                                 height: 16.0,
                               ),
                               personalDetailsCubit.countries.isEmpty
                                   ? SignUpLoadingWidget()
-                                  : CustomDropTextField(
+                                  : CustomDropDownSearch(
+                                      label: translateLang(
+                                          context, 'select_country'),
                                       items: personalDetailsCubit.countries
-                                          .map((country) =>
-                                              DropdownMenuItem<int>(
-                                                //alignment: Alignment.center,
-                                                child: Text(
-                                                    '${country.countryName!} (${country.countryCode})'),
-                                                value: country.id,
-                                              ))
+                                          .map(
+                                              (country) => country.countryName!)
                                           .toList(),
-                                      text:
-                                          translateLang(context, 'nationality'),
-                                      icon: Icon(
-                                        CupertinoIcons.building_2_fill,
-                                        color: AppColors.grey,
-                                      ),
-                                      onChanged:
-                                          personalDetailsCubit.selectCountry,
+                                      selectedItem:
+                                          translateLang(context, 'country'),
+                                      onChanged: (value) => personalDetailsCubit
+                                          .selectCountry(value!),
                                     ),
+
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: personalDetailsCubit
-                                              .genders.isEmpty
-                                          ? SignUpLoadingWidget()
-                                          : CustomDropTextField(
-                                              items: personalDetailsCubit
-                                                  .genders
-                                                  .map((gender) =>
-                                                      DropdownMenuItem<int>(
-                                                        //alignment: Alignment.center,
-                                                        child: Text(
-                                                            '${gender.metaDataText}'),
-                                                        value: gender.id,
-                                                      ))
-                                                  .toList(),
-                                              text: translateLang(
-                                                  context, 'gender'),
-                                              icon: Image.asset(
-                                                AppImages.gender,
-                                                height: 25.0,
-                                                width: 25,
-                                                color: AppColors.grey,
-                                              ),
-                                              onChanged: personalDetailsCubit
-                                                  .selectGender)),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Expanded(
-                                      child: personalDetailsCubit
-                                              .religions.isEmpty
-                                          ? SignUpLoadingWidget()
-                                          : CustomDropTextField(
-                                              items: personalDetailsCubit
-                                                  .religions
-                                                  .map((religion) =>
-                                                      DropdownMenuItem<int>(
-                                                        //alignment: Alignment.center,
-                                                        child: Text(
-                                                            '${religion.religionName}'),
-                                                        value: religion.id,
-                                                      ))
-                                                  .toList(),
-                                              text: translateLang(
-                                                  context, 'religion'),
-                                              icon: Image.asset(
-                                                AppImages.religion,
-                                                height: 25.0,
-                                                width: 25,
-                                                color: AppColors.grey,
-                                              ),
-                                              onChanged: personalDetailsCubit
-                                                  .selectReligion)),
-                                ],
+                              personalDetailsCubit.genders.isEmpty
+                                  ? SignUpLoadingWidget()
+                                  : CustomDropDownSearch(
+                                      isSearchEnabled: false,
+                                      label: translateLang(
+                                          context, 'select_gender'),
+                                      items: personalDetailsCubit.genders
+                                          .map((gender) => gender.metaDataText!)
+                                          .toList(),
+                                      selectedItem:
+                                          translateLang(context, 'gender'),
+                                      onChanged: (value) => personalDetailsCubit
+                                          .selectGender(value!),
+                                    ),
+
+                              const SizedBox(
+                                height: 16.0,
                               ),
+                              personalDetailsCubit.religions.isEmpty
+                                  ? SignUpLoadingWidget()
+                                  : CustomDropDownSearch(
+                                      label: translateLang(
+                                          context, 'select_religion'),
+                                      items: personalDetailsCubit.religions
+                                          .map((religion) =>
+                                              religion.religionName!)
+                                          .toList(),
+                                      selectedItem:
+                                          translateLang(context, 'religion'),
+                                      onChanged: (value) => personalDetailsCubit
+                                          .selectReligion(value!),
+                                    ),
+
                               const SizedBox(
                                 height: 16.0,
                               ),
                               personalDetailsCubit.maritalStatus.isEmpty
                                   ? SignUpLoadingWidget()
-                                  : CustomDropTextField(
+                                  : CustomDropDownSearch(
+                                      label: translateLang(
+                                          context, 'select_marital_status'),
                                       items: personalDetailsCubit.maritalStatus
                                           .map((marital) =>
-                                              DropdownMenuItem<int>(
-                                                //alignment: Alignment.center,
-                                                child: Text(
-                                                    '${marital.metaDataText}'),
-                                                value: marital.id,
-                                              ))
+                                              marital.metaDataText!)
                                           .toList(),
-                                      text: translateLang(
+                                      selectedItem: translateLang(
                                           context, 'marital_status'),
-                                      icon: Image.asset(
-                                        AppImages.marital_status,
-                                        height: 25.0,
-                                        width: 25.0,
-                                        color: AppColors.grey,
-                                      ),
-                                      onChanged: personalDetailsCubit
-                                          .selectMaritalStatus),
+                                      onChanged: (value) => personalDetailsCubit
+                                          .selectMaritalStatus(value!),
+                                    ),
                             ],
                           ),
                         ),

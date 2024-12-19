@@ -4,3 +4,6 @@ part of 'resume_cubit.dart';
 sealed class ResumeState {}
 
 final class ResumeInitial extends ResumeState {}
+
+
+final class ResumePickAttachmentFileState extends ResumeState{}

@@ -7,7 +7,7 @@ import 'package:fnrco_candidates/data/models/home/jobs_model.dart';
 
 class HomePageProvider {
   // late Dio dio;
-  LoginProvider() {
+  HomePageProvider() {
     // BaseOptions _baseOptions = BaseOptions(
     //     baseUrl: AppLinks.baseUrl,
     //     receiveDataWhenStatusError: true,

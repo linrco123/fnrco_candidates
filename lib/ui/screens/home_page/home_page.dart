@@ -18,7 +18,7 @@ import 'package:fnrco_candidates/ui/screens/unregistered_screen.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'package:toastification/toastification.dart';
 import '../../../constants/app_colors.dart';
-import '../medical_declare.dart';
+import '../medical_declaration/medical_declaration.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
@@ -214,8 +214,8 @@ class HomePageScreen extends StatelessWidget {
                             ),
                             ListTile(
                               onTap: () {
-                                 Navigator.of(context).popAndPushNamed(
-                                    AppPagesNames.TICKETS);
+                                Navigator.of(context)
+                                    .popAndPushNamed(AppPagesNames.TICKETS);
                               },
                               leading: SvgPicture.asset(
                                 AppImages.ticket,
@@ -274,10 +274,11 @@ class HomePageScreen extends StatelessWidget {
                                 Navigator.of(context)
                                     .popAndPushNamed(AppPagesNames.FAQS);
                               },
-                              leading: Icon(
-                                Icons.question_answer_outlined,
-                                size: 30.0,
+                              leading: SvgPicture.asset(
+                                AppImages.faqs,
                                 color: AppColors.primary,
+                                height: 30.0,
+                                width: 30.0,
                               ),
                               title: Text(
                                 "FAQs",
@@ -352,57 +353,22 @@ class HomePageScreen extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
-                            // ListTile(
-                            //   onTap: () async {
-                            //     // Navigator.of(context).push(MaterialPageRoute(
-                            //     //   builder: (context) => TestScreenh(),
-                            //     // ));
-
-                            //     CacheHelper.secureStorage
-                            //         .delete(key: 'auth_key');
-                            //   },
-                            //   leading: SvgPicture.asset(
-                            //     AppImages.CHECKED,
-                            //     // ignore: deprecated_member_use
-                            //     color: AppColors.primary,
-                            //   ),
-                            //   title: Text(
-                            //     'Testing',
-                            //     style:
-                            //         Theme.of(context).textTheme.displayMedium,
-                            //   ),
-                            // ),
+                            
                           ],
                         ),
                       ),
             body: _buildBody(context, homePageCubit.selectedIndex),
+         
             bottomNavigationBar: StylishBottomBar(
               borderRadius: BorderRadius.circular(16.0),
               backgroundColor: AppColors.white,
               option: AnimatedBarOptions(
                 iconSize: 27,
-                barAnimation: BarAnimation.drop,
+                barAnimation: BarAnimation.fade,
                 iconStyle: IconStyle.animated,
                 opacity: 0.9,
               ),
-              // option: BubbleBarOptions(
-              //   barStyle: BubbleBarStyle.vertical,
-              //   // barStyle: BubbleBarStyle.vertical,
-              //   bubbleFillStyle: BubbleFillStyle.fill,
-              //   // bubbleFillStyle: BubbleFillStyle.outlined,
-              //   opacity: 0.3,
-              // ),
-              // option: DotBarOptions(
-              //   dotStyle: DotStyle.tile,
-              //   gradient: const LinearGradient(
-              //     colors: [
-              //       Colors.deepPurple,
-              //       Colors.pink,
-              //     ],
-              //     begin: Alignment.topLeft,
-              //     end: Alignment.bottomRight,
-              //   ),
-              // ),
+
               items: homePageCubit.navBarItems,
               fabLocation: StylishBarFabLocation.center,
               hasNotch: true,

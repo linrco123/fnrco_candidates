@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/education_qualification.dart';
@@ -13,6 +11,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/date_picker_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
@@ -28,7 +27,7 @@ class EducationAndQualificationScreen extends StatelessWidget {
             ..getYears(),
       child: Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'education_qualification'),
             style: TextStyle(
@@ -48,14 +47,13 @@ class EducationAndQualificationScreen extends StatelessWidget {
                   type: ToastificationType.warning);
             }
             if (state is SubmitEducationAndQualificationSuccessState) {
-               Navigator.of(context).pop();
+              Navigator.of(context).pop();
               showToast(context,
                   title: translateLang(context, 'success'),
                   desc: translateLang(context, "msg_qual_add_success"),
                   type: ToastificationType.success);
-                 
             }
-            
+
             if (state is SubmitEducationAndQualificationFailureState) {
               showToast(context,
                   title: translateLang(context, 'error'),
@@ -83,7 +81,7 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                          
+
                             CustomTitle(title: "degree"),
                             CustomInputField(
                               controller: cubit.degreeCntroller,
@@ -93,8 +91,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                           
-                            CustomTitle(title:  "specialization"),
+
+                            CustomTitle(title: "specialization"),
                             CustomInputField(
                               controller: cubit.spcCntroller,
                               validate: cubit.validateSpecialization,
@@ -103,8 +101,8 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                           
-                             CustomTitle(title:  "education_years"),
+
+                            CustomTitle(title: "education_years"),
                             Row(
                               children: [
                                 CounterButton(
@@ -155,29 +153,20 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                           
+
                             CustomTitle(title: "pass_year"),
-                            CustomDropTextField(
-                                items: cubit.years
-                                    .map((year) => DropdownMenuItem<int>(
-                                          //alignment: Alignment.center,
-                                          child: Text('${year.metaDataText}'),
-                                          value: year.id,
-                                        ))
-                                    .toList(),
-                                text: translateLang(context, 'select_year'),
-                                icon: Image.asset(
-                                  AppImages.graduate,
-                                  height: 30.0,
-                                  width: 30.0,
-                                  color: AppColors.grey,
+                            CustomDropDownSearch(
+                                selectedItem: translateLang(context, 'select_year'),
+                                items: cubit.years.map((year)=>year.metaDataText!).toList(),
+                                label: translateLang(context, 'select_year'),
+                                onChanged:(value)=> cubit
+                                    .selectYear(value!),
                                 ),
-                                onChanged: (year) => cubit
-                                    .selectYear(int.parse(year.toString()))),
+                          
                             const SizedBox(
                               height: 10.0,
                             ),
-                            
+
                             CustomTitle(title: "institution_name"),
                             CustomInputField(
                               controller: cubit.instituteCntroller,
@@ -187,7 +176,7 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                           
+
                             CustomTitle(title: "cert_name"),
                             CustomInputField(
                               controller: cubit.certCntroller,
@@ -197,79 +186,25 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            
+
                             CustomTitle(title: "cert_issue_date"),
-                            GestureDetector(
-                              onTap: () {
+                            CustomDatePicker(onTap:() {
                                 cubit.selectIssueDate(context);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                width: double.infinity,
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(16.0)),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      cubit.certIssueDate ??
+                              } ,text:cubit.certIssueDate ??
                                           translateLang(
-                                              context, "cert_issue_date"),
-                                      style: TextStyle(
-                                          color: cubit.certIssueDate == null
-                                              ? AppColors.grey
-                                              : AppColors.black),
-                                    ),
-                                    const Spacer(),
-                                    Icon(
-                                      CupertinoIcons.calendar,
-                                      size: 25.0,
-                                      color: AppColors.grey,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                                              context, "cert_issue_date"),),
+                          
                             const SizedBox(
                               height: 10.0,
                             ),
-                           
+
                             CustomTitle(title: "cert_expire_date"),
-                            GestureDetector(
-                              onTap: () {
-                                cubit.selectExpiryDate(context);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                width: double.infinity,
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(16.0)),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      cubit.certExpireDate ??
+                             CustomDatePicker(onTap:() {
+                                 cubit.selectExpiryDate(context);
+                              } ,text:cubit.certExpireDate ??
                                           translateLang(
-                                              context, "cert_expire_date"),
-                                      style: TextStyle(
-                                          color: cubit.certExpireDate == null
-                                              ? AppColors.grey
-                                              : AppColors.black),
-                                    ),
-                                    const Spacer(),
-                                    Icon(
-                                      CupertinoIcons.calendar,
-                                      size: 25.0,
-                                      color: AppColors.grey,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                                              context, "cert_expire_date"),),
+                           
                             const SizedBox(
                               height: 10,
                             ),

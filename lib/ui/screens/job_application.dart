@@ -108,7 +108,7 @@ class JobApplicationScreen extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color: AppColors.screenColor,
                       borderRadius: const BorderRadiusDirectional.only(
                           topStart: Radius.circular(30.0),
                           topEnd: Radius.circular(30.0))),

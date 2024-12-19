@@ -45,22 +45,18 @@ class CredentialsCubit extends Cubit<CredentialsState> {
   void selectIssueDate(context) async {
     DateTime? pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
-    if (pickedDate != null) {
-      issueDate =
-          "${pickedDate.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-      emit(CredentialsPickingUpIssueDate());
+    issueDate =
+        "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+    emit(CredentialsPickingUpIssueDate());
     }
-  }
 
   void selectExpiryDate(context) async {
     DateTime? pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
-    if (pickedDate != null) {
-      expireDate =
-          "${pickedDate.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-      emit(CredentialsPickingUpExpireDate());
+    expireDate =
+        "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+    emit(CredentialsPickingUpExpireDate());
     }
-  }
 
   List<Map<String, dynamic>> submittedCredentials = [];
   void addNewCredentials() {
@@ -91,18 +87,6 @@ class CredentialsCubit extends Cubit<CredentialsState> {
     expireDate = null;
     emit(EmptyCredentialsFieldsState());
   }
-
-/*
-"credentials":[
-//         {
-//             "person_cred_cat":"credentials",
-//             "person_cred_name":"name",
-//             "person_cred_number":121212,
-//             "person_cred_issued_in":"2024-12-11",
-//             "person_cred_exp_in":"2024-12-20"
-//         }
-
-*/
   void submitCredentials() {
     var data = {"credentials": submittedCredentials};
     if (submittedCredentials.isNotEmpty) {

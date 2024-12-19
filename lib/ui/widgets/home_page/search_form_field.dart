@@ -5,7 +5,7 @@ class SearchFormField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final IconData preIcon;
-  final void Function() preFun;
+  final void Function(String) preFun;
   final IconData sufIcon;
   final void Function() suFun;
   final double width;
@@ -33,7 +33,8 @@ class SearchFormField extends StatelessWidget {
           .headlineSmall!
           .copyWith(color: AppColors.secondary),
       controller: controller,
-      onFieldSubmitted: (value) => preFun,
+      onFieldSubmitted:  preFun,
+      onChanged: preFun ,
       keyboardType: TextInputType.text,
       maxLines: 1,
       decoration: InputDecoration(
@@ -46,12 +47,14 @@ class SearchFormField extends StatelessWidget {
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.0),
             borderSide: BorderSide.none),
+        
         prefixIcon: IconButton(
-            onPressed: preFun,
+            onPressed: (){},
             icon: Icon(
               preIcon,
               color: AppColors.grey,
             )),
+            
         // suffixIcon: IconButton(
         //     onPressed: suFun,
         //     icon: Icon(

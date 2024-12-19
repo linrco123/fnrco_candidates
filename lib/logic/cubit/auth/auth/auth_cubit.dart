@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
+import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
 import 'package:meta/meta.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_darwin/local_auth_darwin.dart';
@@ -32,14 +34,21 @@ class AuthCubit extends Cubit<AuthState> {
               ),
             ]);
         if (didAuthenticate) {
-          emit(AuthBiometricSuccessState());
+          var email = CacheHelper.getEmail();
+          var password = await CacheHelper.getAPassword();
+          LoginProvider()
+              .logIn({'email': email, 'password': password}).then((value) {
+                  CacheHelper.storeUserData(userLData: value);
+                 // CacheHelper.storePassword(passwordController.text);
+            emit(AuthBiometricSuccessState());
+          }).catchError((error) {
+            emit(AuthBiometricErrorState(message: 'Please , try again'));
+          });
         }
         if (!didAuthenticate) {
-          emit(AuthBiometricErrorState(
-              message: 'Biometric closed suddenly'));
+          emit(AuthBiometricErrorState(message: 'Biometric closed suddenly'));
         }
       } on PlatformException catch (e) {
-
         if (e.code == auth_error.notAvailable) {
           // Add handling of no hardware here.
           emit(AuthBiometricErrorState(
@@ -48,7 +57,7 @@ class AuthCubit extends Cubit<AuthState> {
           emit(AuthBiometricErrorState(
               message: 'submitted Finger print is not enrolled'));
         } else {
-           emit(AuthBiometricErrorState(
+          emit(AuthBiometricErrorState(
               message: 'Unexpected Error ! try again '));
         }
         // ...

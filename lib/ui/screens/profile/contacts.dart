@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
@@ -25,7 +24,7 @@ class ContactsScreen extends StatelessWidget {
       create: (context) => ContactsTypeCubit(ContactsProvider())..getContacts(),
       child: Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, "contact_type"),
             style: TextStyle(
@@ -72,25 +71,36 @@ class ContactsScreen extends StatelessWidget {
                   children: [
                     state is ContactsGettingContactTypeLoadingState
                         ? SignUpLoadingWidget()
-                        : CustomDropTextField(
+                        : CustomDropDownSearch(
+                            selectedItem:
+                                translateLang(context, "contact_type"),
                             items: cubit.contactsType
-                                .map((contact) => DropdownMenuItem<int>(
-                                      //alignment: Alignment.center,
-                                      child: Text('${contact.metaDataText}'),
-                                      value: contact.id,
-                                    ))
+                                .map((contact) => contact.metaDataText!)
                                 .toList(),
-                            text: translateLang(context, "contact_type"),
-                            icon: Icon(
-                              CupertinoIcons.phone_fill_badge_plus,
-                              color: AppColors.grey,
-                            ),
-                            onChanged: (contact) => cubit.selectContactType(
-                                int.parse(contact.toString()))),
+                            label: translateLang(context, "contact_type"),
+                            onChanged: (value) =>
+                                cubit.selectContactType(value!),
+                          ),
+
+                    // CustomDropTextField(
+                    //     items: cubit.contactsType
+                    //         .map((contact) => DropdownMenuItem<int>(
+                    //               //alignment: Alignment.center,
+                    //               child: Text('${contact.metaDataText}'),
+                    //               value: contact.id,
+                    //             ))
+                    //         .toList(),
+                    //     text: translateLang(context, "contact_type"),
+                    //     icon: Icon(
+                    //       CupertinoIcons.phone_fill_badge_plus,
+                    //       color: AppColors.grey,
+                    //     ),
+                    //     onChanged: (contact) => cubit.selectContactType(
+                    //         int.parse(contact.toString()))),
                     const SizedBox(
                       height: 16.0,
                     ),
-                   
+
                     CustomTitle(title: 'contact_value'),
                     CustomInputField(
                       controller: cubit.cntCntroller,
@@ -103,7 +113,8 @@ class ContactsScreen extends StatelessWidget {
                     RadioListTile(
                       value: 1,
                       groupValue: cubit.contactImportance,
-                      onChanged: (int? value)=> cubit.changeContactImportance(value!),
+                      onChanged: (int? value) =>
+                          cubit.changeContactImportance(value!),
                       title: Text('Primary',
                           style: Theme.of(context).textTheme.displayMedium),
                     ),
@@ -113,7 +124,8 @@ class ContactsScreen extends StatelessWidget {
                     RadioListTile(
                         value: 0,
                         groupValue: cubit.contactImportance,
-                        onChanged: (int? value)=> cubit.changeContactImportance(value!),
+                        onChanged: (int? value) =>
+                            cubit.changeContactImportance(value!),
                         title: Text('Not Primary',
                             style: Theme.of(context).textTheme.displayMedium)),
                     const SizedBox(
@@ -126,7 +138,7 @@ class ContactsScreen extends StatelessWidget {
                             cubit.addNewContact();
                           },
                           background: AppColors.black,
-                          text: 'add New Contact'),
+                          text: translateLang(context, "add_n_contact")),
                     ),
                     const Spacer(),
                     state is SubmitContactsTypeLoadingState

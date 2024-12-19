@@ -21,9 +21,16 @@ class ResumeCubit extends Cubit<ResumeState> {
       pdfFile = File(file.path!);
       fileName =  file.name;
       // file.identifier;
+      emit(ResumePickAttachmentFileState());
     }
     }catch(e){
       print('exception:::::::::::::::::::::::::::::::::::: $e');
     }
+  }
+
+  void removeFile(){
+    pdfFile = null;
+    fileName = '';
+    emit(ResumePickAttachmentFileState());
   }
 }

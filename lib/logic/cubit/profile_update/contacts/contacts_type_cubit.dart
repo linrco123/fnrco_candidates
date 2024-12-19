@@ -15,7 +15,7 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
 
   var formKey = GlobalKey<FormState>();
   final cntCntroller = TextEditingController();
-  int contactTypeID = 0;
+  String contactTypeID = '';
   int contactImportance = 2;
 
   void changeContactImportance(int value) {
@@ -30,8 +30,8 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
     return null;
   }
 
-  void selectContactType(Object value) {
-    contactTypeID = int.parse(value.toString());
+  void selectContactType(String value) {
+    contactTypeID = value;
 
     emit(ContactsChoosingContactTypeState());
   }
@@ -54,11 +54,7 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
     if (formKey.currentState!.validate()) {
       if (contactTypeID != 0 && contactImportance != 2) {
         submittedContacts.add({
-          "person_contact_type": contactsType
-              .where((contact) => contact.id == contactTypeID)
-              .toList()
-              .first
-              .metaDataText,
+          "person_contact_type": contactTypeID,
           "person_contact_value": cntCntroller.text,
           "person_contact_primary": contactImportance.toString()
         });
@@ -73,7 +69,7 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
 
   clearFields() {
     cntCntroller.clear();
-    contactTypeID = 0;
+    contactTypeID = '';
     contactImportance = 2;
     emit(EmptyContactFieldsState());
   }

@@ -19,6 +19,7 @@ class AppLinks {
   static const String genderStatus = "$metaData/221";
   static const String religion = "/religion";
   static const String maritalStatus = "$metaData/120";
+   static const String classification = "$metaData/422";
   static const String skills = "$metaData/124";
   static const String years = "$metaData/129";
   static const String contactType = "$metaData/123";
@@ -52,6 +53,8 @@ class AppLinks {
   static String appliedJobs = '/candidate/applied-jobs';
  //////////////////////////TODO:tickets/////////////////
   static String ticket = '/ticket';
+  //////////////////////////TODO:Medical Declaration////////
+  static String medical = "/umdf/item";
 
 
 }

@@ -64,16 +64,7 @@ class PollsProvider {
   Future<bool?> sendPollView(int surveyID, Map data) async {
     try {
       final response =
-          await Dio(BaseOptions(
-          baseUrl: AppLinks.baseUrl,
-          receiveDataWhenStatusError: true,
-          connectTimeout: 20 * 1000,
-          receiveTimeout: 20 * 1000,
-          headers: {
-            'Accept': 'application/json',
-            'content-Type': 'application/json',
-            "Auth": "bearer ${CacheHelper.userToken}"
-          })).post('${AppLinks.pollViewAnswer}/$surveyID', data: data);
+          await DioHelper.dio.post('${AppLinks.pollViewAnswer}/$surveyID', data: data);
       logger.e('======================= response =================');
       logger.e(response.data);
       if (response.statusCode == 200) {

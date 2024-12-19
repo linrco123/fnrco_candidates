@@ -29,6 +29,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     return Icon(
       obscureText1 ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
       color: AppColors.primary,
+      size: 30.0,
     );
   }
 
@@ -40,7 +41,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   Icon getIcon2() {
     return Icon(
       obscureText2 ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
-      color: AppColors.primary,
+      color: AppColors.primary,size: 30.0,
     );
   }
 

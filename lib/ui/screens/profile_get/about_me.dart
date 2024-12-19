@@ -55,7 +55,7 @@ class AboutMe extends StatelessWidget {
                                         ? AppColors.white
                                         : AppColors.black,
                                     text: cubit.sections[index].section
-                                        .toUpperCase()),
+                                        ),
                               ),
                           separatorBuilder: (context, index) => const SizedBox(
                                 width: 5.0,

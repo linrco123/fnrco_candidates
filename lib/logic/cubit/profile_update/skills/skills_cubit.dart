@@ -19,7 +19,7 @@ class SkillsCubit extends Cubit<SkillsState> {
   // final descCntroller = TextEditingController();
   var formKey = GlobalKey<FormState>();
   final skillsCntroller = TextEditingController();
-  int skillLevel = 0;
+  String skillLevel = '';
 
   String? validateSkill(context, String? value) {
     if (value!.isEmpty) {
@@ -28,7 +28,7 @@ class SkillsCubit extends Cubit<SkillsState> {
     return null;
   }
 
-  void chooseSkill(int Level) {
+  void chooseSkill(String Level) {
     skillLevel = Level;
     emit(ChooseSkillLevelState());
   }
@@ -52,15 +52,11 @@ class SkillsCubit extends Cubit<SkillsState> {
         submittedSkills.add({
           "id": skillLevel,
           "skill_name": skillsCntroller.text,
-          "skill_level": skills
-              .where((skill) => skill.id! == skillLevel)
-              .toList()
-              .first
-              .metaDataText
+          "skill_level": skillLevel
         });
         Future.delayed(const Duration(seconds: 1)).then((value) {
           skillsCntroller.clear();
-          skillLevel = 0;
+          skillLevel = '';
           emit(EmptySkillLevelstate());
         });
       } else {

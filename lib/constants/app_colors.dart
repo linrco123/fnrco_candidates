@@ -1,21 +1,21 @@
-
 import 'package:flutter/material.dart';
 
 //Colors.indigo,Color(0xfffeae4f),Colors.purple,const Color(0xff1eb090)
 class AppColors {
-   static Color primary = const Color(0xFFae1f23);
- // static Color primary = const Color(0xFFCE0C3D);ظظ0xff1eb090
-  static Color secondary =   const Color(0xff181818);//const Color(0xfffeae4f);  0xFFFE9901
+  static Color primary = const Color(0xFFae1f23);
+  // static Color primary = const Color(0xFFCE0C3D);ظظ0xff1eb090
+  static Color secondary =
+      const Color(0xff181818); //const Color(0xfffeae4f);  0xFFFE9901
   static Color indigo = const Color(0xff3f51b5);
   static Color purple = const Color(0xffab47bc);
-  static Color blurRed = primary.withOpacity(0.1);//const Color(0xFFF5FCF9);
-  static Color grey = const Color(0xFFBDBDBD);
+  static Color blurRed = primary.withOpacity(0.1); //const Color(0xFFF5FCF9);
+  static Color grey = const Color(0xFF989898);
   //////
   static Color black = const Color(0xFF020202);
   static Color greyDeep = const Color(0xFF646464);
   static Color white = const Color(0xFFFFFFFF);
   static Color transparent = Colors.transparent;
-
+  static Color screenColor = Colors.grey.shade200;
   static Color background = const Color(0xFFFFFFFF);
   static Color accent = const Color(0xFFF2F2F2);
 

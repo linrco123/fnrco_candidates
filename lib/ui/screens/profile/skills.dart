@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
@@ -24,7 +23,7 @@ class SkillsSCreen extends StatelessWidget {
       create: (context) => SkillsCubit(SkillsProvider())..getSkills(),
       child: Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'skills'),
             style: TextStyle(
@@ -58,8 +57,8 @@ class SkillsSCreen extends StatelessWidget {
           },
           builder: (context, state) {
             SkillsCubit skillsCubit = BlocProvider.of(context);
-            if(state is GettingSkillsLevelLoadingState)
-            return AnimatedLoadingWidget();
+            if (state is GettingSkillsLevelLoadingState)
+              return AnimatedLoadingWidget();
             return Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
@@ -68,7 +67,6 @@ class SkillsSCreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   
                     CustomTitle(title: 'skill_name'),
                     CustomInputField(
                       controller: skillsCubit.skillsCntroller,
@@ -79,23 +77,32 @@ class SkillsSCreen extends StatelessWidget {
                       height: 16.0,
                     ),
                     CustomTitle(title: 'skill_level'),
-                    state is GettingSkillsLevelLoadingState?
-                    SignUpLoadingWidget():
-                    CustomDropTextField(
-                        items: skillsCubit.skills
-                            .map((skill) => DropdownMenuItem<int>(
-                                  //alignment: Alignment.center,
-                                  child: Text('${skill.metaDataText}'),
-                                  value: skill.id,
-                                ))
-                            .toList(),
-                        text: translateLang(context, 'skill_level'),
-                        icon: Icon(
-                          CupertinoIcons.waveform_circle,
-                          color: AppColors.grey,
-                        ),
-                        onChanged: (skill) => skillsCubit
-                            .chooseSkill(int.parse(skill.toString()))),
+                    state is GettingSkillsLevelLoadingState
+                        ? SignUpLoadingWidget()
+                        : CustomDropDownSearch(
+                            selectedItem: translateLang(context, 'skill_level'),
+                            items: skillsCubit.skills
+                                .map((skill) => skill.metaDataText!)
+                                .toList(),
+                            label: translateLang(context, 'skill_level'),
+                            onChanged: (skill) =>
+                                skillsCubit.chooseSkill(skill!),
+                          ),
+                    // CustomDropTextField(
+                    //     items: skillsCubit.skills
+                    //         .map((skill) => DropdownMenuItem<int>(
+                    //               //alignment: Alignment.center,
+                    //               child: Text('${skill.metaDataText}'),
+                    //               value: skill.id,
+                    //             ))
+                    //         .toList(),
+                    //     text: translateLang(context, 'skill_level'),
+                    //     icon: Icon(
+                    //       CupertinoIcons.waveform_circle,
+                    //       color: AppColors.grey,
+                    //     ),
+                    //     onChanged: (skill) => skillsCubit
+                    //         .chooseSkill(int.parse(skill.toString()))),
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -106,17 +113,17 @@ class SkillsSCreen extends StatelessWidget {
                             skillsCubit.addNewSkill();
                           },
                           background: AppColors.black,
-                          text: 'add New Skill'),
+                          text: translateLang(context, "add_n_skill")),
                     ),
                     const Spacer(),
-                    state is SubmitSkillsLoadingState?
-                    LoadingWidget():
-                    CustomElevatedButton(
-                        fun: () {
-                          skillsCubit.submitSkills();
-                        },
-                        background: AppColors.primary,
-                        text: translateLang(context, 'submit')),
+                    state is SubmitSkillsLoadingState
+                        ? LoadingWidget()
+                        : CustomElevatedButton(
+                            fun: () {
+                              skillsCubit.submitSkills();
+                            },
+                            background: AppColors.primary,
+                            text: translateLang(context, 'submit')),
                     const SizedBox(
                       height: 10.0,
                     ),

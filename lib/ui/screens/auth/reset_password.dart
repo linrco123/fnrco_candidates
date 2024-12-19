@@ -79,9 +79,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
                 ),
                 state is ResetPasswordLoadingState
-                    ? Center(
-                        child: LoadingWidget(),
-                      )
+                    ? AnimatedLoadingWidget()
                     : CustomElevatedButton(
                         fun: () {
                           cubit.resetPassword(
@@ -123,7 +121,9 @@ class LogoWithTitle extends StatelessWidget {
               ),
               Text(
                 title,
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),

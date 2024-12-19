@@ -29,38 +29,35 @@ class SignUpCubit extends Cubit<SignUpState> {
   final emailController = TextEditingController();
   final majorController = TextEditingController();
 
-  int countryId = 0;
-  int majorId = 0;
-  int genderId = 0;
-  int religionId = 0;
-  int maritalStatusId = 0;
+  String countryId = '';
+  String genderId = '';
+  String religionId = '';
+  String maritalStatusId = '';
 
-  void selectCountry(Object value) {
-    countryId = int.parse(value.toString());
+  void selectCountry(String value) {
+    countryId = value;
+    print(value);
 
     emit(SignUpChoosingCountryState());
   }
 
-  void selectMajor(Object value) {
-    majorId = int.parse(value.toString());
-
-    emit(SignUpChoosingPositionState());
-  }
-
-  void selectGender(Object value) {
-    genderId = int.parse(value.toString());
+  void selectGender(String value) {
+    genderId = value;
+    print(value);
 
     emit(SignUpChoosingGenderState());
   }
 
-  void selectReligion(Object value) {
-    religionId = int.parse(value.toString());
+  void selectReligion(String value) {
+    religionId = value;
+    print(value);
 
     emit(SignUpChoosingReligionState());
   }
 
-  void selectMaritalStatus(Object value) {
-    maritalStatusId = int.parse(value.toString());
+  void selectMaritalStatus(String value) {
+    maritalStatusId = value;
+    print(value);
 
     emit(SignUpChoosingReligionState());
   }
@@ -75,6 +72,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     return Icon(
       obscureText ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
       color: AppColors.primary,
+      size: 30.0,
     );
   }
 
@@ -142,22 +140,22 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void signUp(context) {
-    if (countryId == 0) {
+    if (countryId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_country"),
           type: ToastificationType.warning);
-    } else if (genderId == 0) {
+    } else if (genderId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_gender"),
           type: ToastificationType.warning);
-    } else if (religionId == 0) {
+    } else if (religionId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_religion"),
           type: ToastificationType.warning);
-    } else if (maritalStatusId == 0) {
+    } else if (maritalStatusId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_marital"),
@@ -174,17 +172,13 @@ class SignUpCubit extends Cubit<SignUpState> {
           "password": passwordController.text,
           "religion_id": religionId,
           "position": majorController.text,
-          "nationality": countryId,
-          "gender": genders
-              .where((gender) => gender.id! == genderId)
+          "nationality": countries
+              .where((country) => country.countryName == countryId)
               .toList()
               .first
-              .metaDataText,
-          "martial_status": maritalStatus
-              .where((marital) => marital.id == maritalStatusId)
-              .toList()
-              .first
-              .metaDataText
+              .id,
+          "gender": genderId,
+          "martial_status": maritalStatusId
         };
         print('======================Data===================================');
         print(data);

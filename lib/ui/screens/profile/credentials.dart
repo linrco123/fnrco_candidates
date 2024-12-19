@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
@@ -10,6 +8,7 @@ import 'package:fnrco_candidates/logic/cubit/profile_update/credentials/credenti
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/date_picker_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
@@ -21,7 +20,7 @@ class CredentialsScreen extends StatelessWidget {
       create: (context) => CredentialsCubit(CredentialsProvider()),
       child: Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, "credentials"),
             style: TextStyle(
@@ -104,75 +103,27 @@ class CredentialsScreen extends StatelessWidget {
                             ),
 
                             CustomTitle(title: "issue_date"),
-                            GestureDetector(
+                            CustomDatePicker(
                               onTap: () {
                                 cubit.selectIssueDate(context);
                               },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                width: double.infinity,
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(16.0)),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      cubit.issueDate ??
-                                          translateLang(context, "issue_date"),
-                                      style: TextStyle(
-                                          color: cubit.issueDate == null
-                                              ? AppColors.grey
-                                              : AppColors.black),
-                                    ),
-                                    const Spacer(),
-                                    Icon(
-                                      CupertinoIcons.calendar,
-                                      size: 25.0,
-                                      color: AppColors.grey,
-                                    )
-                                  ],
-                                ),
-                              ),
+                              text: cubit.issueDate ??
+                                  translateLang(context, "issue_date"),
                             ),
+
                             const SizedBox(
                               height: 10.0,
                             ),
 
                             CustomTitle(title: "expire_date"),
-                            GestureDetector(
+                            CustomDatePicker(
                               onTap: () {
                                 cubit.selectExpiryDate(context);
                               },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                width: double.infinity,
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(16.0)),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      cubit.expireDate ??
-                                          translateLang(context, "expire_date"),
-                                      style: TextStyle(
-                                          color: cubit.expireDate == null
-                                              ? AppColors.grey
-                                              : AppColors.black),
-                                    ),
-                                    const Spacer(),
-                                    Icon(
-                                      CupertinoIcons.calendar,
-                                      size: 25.0,
-                                      color: AppColors.grey,
-                                    )
-                                  ],
-                                ),
-                              ),
+                              text: cubit.expireDate ??
+                                  translateLang(context, "expire_date"),
                             ),
+
                             const SizedBox(
                               height: 10,
                             ),

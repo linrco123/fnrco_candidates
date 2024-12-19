@@ -22,27 +22,33 @@ class CustomInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      autovalidateMode: autovalidateMode?AutovalidateMode.always:null,
+      // autovalidateMode:
+      //     autovalidateMode ? AutovalidateMode.onUserInteraction : null,
       autofillHints: [
         AutofillHints.username,
       ],
       maxLines: linesNum,
       initialValue: initialValue,
-      style: Theme.of(context)
-          .textTheme
-          .headlineSmall!
-          .copyWith(color: AppColors.secondary),
+      style: Theme.of(context).textTheme.labelMedium,
       controller: controller,
       validator: (value) => validate(context, value),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: Theme.of(context).textTheme.headlineSmall,
+        hintStyle: Theme.of(context).textTheme.labelMedium,
         filled: true,
-        fillColor: AppColors.blurRed,
+        fillColor: AppColors.white,
         contentPadding:
-            const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
+            const EdgeInsets.symmetric(horizontal: 15, vertical: 25.0),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.black, width: 1),
+          borderSide: BorderSide(color: Colors.grey.shade300, width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade300, width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.primary, width: 1),
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
         ),
       ),

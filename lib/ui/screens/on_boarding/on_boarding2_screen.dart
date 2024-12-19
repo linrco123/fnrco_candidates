@@ -101,11 +101,11 @@ class OnboardingScreen extends StatelessWidget {
                                     textStyle: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold)),
-                                onPressed: () async{
+                                onPressed: () async {
                                   //TODO: onskip
                                   Navigator.of(context).pushNamedAndRemoveUntil(
                                       AppPagesNames.WELCOME, (route) => false);
-                                  await CacheHelper.setOnBoarding();    
+                                  await CacheHelper.setOnBoarding();
                                 },
                                 child: Text(AppLocalizations.of(context)!
                                     .translate('skip'))),
@@ -130,10 +130,13 @@ class OnboardingScreen extends StatelessWidget {
                                             .translate("next"),
                                   ),
                                   const SizedBox(width: 8),
-                                  Icon(onBoardingCubit.currentPage ==
-                                          onBoardingCubit.pages.length - 1
-                                      ? Icons.done
-                                      : Icons.arrow_forward),
+                                  Icon(
+                                    onBoardingCubit.currentPage ==
+                                            onBoardingCubit.pages.length - 1
+                                        ? Icons.done
+                                        : Icons.arrow_forward,
+                                    color: AppColors.white,
+                                  ),
                                 ],
                               ),
                             ),

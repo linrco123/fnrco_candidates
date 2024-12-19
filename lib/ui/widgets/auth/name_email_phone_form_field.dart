@@ -25,25 +25,48 @@ class NameEmailPhoneFormField extends StatelessWidget {
           AutofillHints.username,
           AutofillHints.email,
           AutofillHints.telephoneNumber
-      
         ],
+        cursorColor: AppColors.primary,
         initialValue: initialValue,
         style: Theme.of(context)
             .textTheme
-            .headlineSmall!
-            .copyWith(color: AppColors.secondary),
+            .labelMedium!
+            .copyWith(color: AppColors.greyDeep, fontWeight: FontWeight.w400),
         controller: controller,
         validator: (value) => validate(context, value),
         decoration: InputDecoration(
-          prefixIcon: Icon(prefixIcon),
-          prefixIconColor: AppColors.grey,
+          prefixIcon: Icon(
+            prefixIcon,
+            size: 30,
+          ),
+          prefixIconColor:AppColors.grey,
           hintText: hint,
-          hintStyle: Theme.of(context).textTheme.headlineSmall,
+          hintStyle: Theme.of(context).textTheme.labelMedium!
+              .copyWith(color: AppColors.greyDeep, fontWeight: FontWeight.w400),
           filled: true,
-          fillColor: AppColors.blurRed,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
+          fillColor: AppColors.white,
+          //alignLabelWithHint: true,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          floatingLabelAlignment: FloatingLabelAlignment.start,
+          label: Text(
+            hint!,
+          ),
+          labelStyle: Theme.of(context)
+              .textTheme
+              .labelMedium!
+              .copyWith(color: AppColors.greyDeep, fontWeight: FontWeight.w400),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 30.0, vertical:25.0),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade400),
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.primary),
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
         ),
@@ -53,94 +76,3 @@ class NameEmailPhoneFormField extends StatelessWidget {
   }
 }
 
-
-                            // TextFormField(
-                            //   controller: signUpCubit.phoneController,
-                            //   style: Theme.of(context)
-                            //       .textTheme
-                            //       .headlineSmall!
-                            //       .copyWith(color: AppColors.secondary),
-                            //   validator: (value) =>
-                            //       signUpCubit.validatePhone(context, value!),
-                            //   decoration: InputDecoration(
-                            //     prefixIcon: Icon(CupertinoIcons.phone),
-                            //     prefixIconColor: AppColors.grey,
-                            //     hintText:
-                            //         translateLang(context, "phone_number"),
-                            //     hintStyle:
-                            //         Theme.of(context).textTheme.headlineSmall,
-                            //     filled: true,
-                            //     fillColor: AppColors.blurRed,
-                            //     contentPadding: const EdgeInsets.symmetric(
-                            //         horizontal: 15, vertical: 0),
-                            //     border: const OutlineInputBorder(
-                            //       borderSide: BorderSide.none,
-                            //       borderRadius:
-                            //           BorderRadius.all(Radius.circular(50)),
-                            //     ),
-                            //   ),
-                            //   keyboardType: TextInputType.phone,
-                            //   // onSaved: (phone) {
-                            //   //   // Save it
-                            //   // },
-                            // ),
-
-
-                               // TextFormField(
-                            //   style: Theme.of(context)
-                            //       .textTheme
-                            //       .headlineSmall!
-                            //       .copyWith(color: AppColors.secondary),
-                            //   controller: signUpCubit.nameController,
-                            //   validator: (value) {
-                            //     return signUpCubit.validateFullName(
-                            //         context, value!);
-                            //   },
-                            //   decoration: InputDecoration(
-                            //     prefixIcon: Icon(CupertinoIcons.person),
-                            //     prefixIconColor: AppColors.grey,
-                            //     hintText: translateLang(context, "full_name"),
-                            //     hintStyle:
-                            //         Theme.of(context).textTheme.headlineSmall,
-                            //     filled: true,
-                            //     fillColor: AppColors.blurRed,
-                            //     contentPadding: const EdgeInsets.symmetric(
-                            //         horizontal: 15, vertical: 0),
-                            //     border: const OutlineInputBorder(
-                            //       borderSide: BorderSide.none,
-                            //       borderRadius:
-                            //           BorderRadius.all(Radius.circular(50)),
-                            //     ),
-                            //   ),
-                            //   keyboardType: TextInputType.name,
-                            // ),
-                            /////////////////////TODO:LOGIN 
-                            ///  TextFormField(
-                                  //   controller: logInCubit.phoneController,
-                                  //   validator: (value) => logInCubit
-                                  //       .validatePhone(context, value!),
-                                  //   decoration: InputDecoration(
-                                  //     prefixIcon: Icon(CupertinoIcons.phone),
-                                  //     prefixIconColor: AppColors.grey,
-                                  //     hintText: translateLang(
-                                  //         context, "phone_number"),
-                                  //     hintStyle: Theme.of(context)
-                                  //         .textTheme
-                                  //         .headlineMedium,
-                                  //     filled: true,
-                                  //     fillColor: AppColors.blurRed,
-                                  //     contentPadding:
-                                  //         const EdgeInsets.symmetric(
-                                  //             horizontal: 16.0 * 1.5,
-                                  //             vertical: 16.0),
-                                  //     border: const OutlineInputBorder(
-                                  //       borderSide: BorderSide.none,
-                                  //       borderRadius: BorderRadius.all(
-                                  //           Radius.circular(50)),
-                                  //     ),
-                                  //   ),
-                                  //   keyboardType: TextInputType.phone,
-                                  //   // onSaved: (phone) {
-                                  //   //   // Save it
-                                  //   // },
-                                  // ),

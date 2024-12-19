@@ -10,13 +10,21 @@ class TicketProvider {
 
   Future<bool> submitTicket(data) async {
     try {
-      final Response response = await DioHelper.dio.post(
+      // final Response response = await DioHelper.dio.post(
+      //   AppLinks.ticket,
+      //   data: data
+      // );
+      var response = await DioHelper.dio.request(
         AppLinks.ticket,
-        data: data
+        options: Options(
+          method: 'POST',
+          // headers: headers,
+        ),
+        data: data,
       );
       logger.e('====================response==================');
       logger.e(response.data);
-      
+
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
@@ -29,5 +37,4 @@ class TicketProvider {
           Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
-
 }

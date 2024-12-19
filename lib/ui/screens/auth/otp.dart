@@ -27,7 +27,13 @@ class VerificationScreen extends StatelessWidget {
         title: translateLang(context, "verification_code"),
         subText: translateLang(context, "enter_the_code_sent_to"),
         children: [
-          const Text("+1 18577 11111"),
+          Text(
+            "+1 18577 11111",
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: AppColors.grey),
+          ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           // OTP Form
           const OtpForm(),
@@ -214,6 +220,10 @@ class OtpForm extends StatelessWidget {
                           TextSpan(
                             text: translateLang(
                                 context, "did_not_receive_the_code"),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(color: AppColors.grey),
                             children: [
                               TextSpan(text: ' '),
                               TextSpan(
@@ -229,14 +239,14 @@ class OtpForm extends StatelessWidget {
               ),
               if (state is OtpLoadingState ||
                   state is OTPResendVerificationCodeLoadingState)
-
-                  Center(
-                    child: Lottie.asset(AppImages.LOADING,
-                        height: 300.0, width: 300.0, fit: BoxFit.cover),
-                  ),
-                // Center(
-                //   child: LoadingWidget(),
-                // )
+                Center(
+                  child: Lottie.asset(AppImages.LOADING,
+                      height: 300.0,
+                      width: 300.0,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter),
+                ),
+              // AnimatedLoadingWidget(height: 150.0,width: 150,)
             ],
           );
         },
@@ -245,11 +255,11 @@ class OtpForm extends StatelessWidget {
   }
 }
 
-const InputDecoration otpInputDecoration = InputDecoration(
-  filled: false,
-  border: UnderlineInputBorder(),
-  hintText: "0",
-);
+InputDecoration otpInputDecoration = InputDecoration(
+    filled: false,
+    border: UnderlineInputBorder(),
+    hintText: "0",
+    hintStyle: TextStyle(color: AppColors.grey, fontSize: 18.0));
 
 class OtpTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
@@ -282,7 +292,10 @@ class OtpTextFormField extends StatelessWidget {
       ],
       textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
-      style: Theme.of(context).textTheme.headlineSmall,
+      style: Theme.of(context)
+          .textTheme
+          .labelMedium!
+          .copyWith(color: AppColors.grey),
       decoration: otpInputDecoration,
     );
   }
@@ -320,7 +333,8 @@ class LogoWithTitle extends StatelessWidget {
                 child: Text(
                   subText,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      color: AppColors.grey, fontWeight: FontWeight.w500),
                   // style: TextStyle(
                   //   height: 1.5,
                   //   color: Theme.of(context)

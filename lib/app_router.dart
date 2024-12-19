@@ -13,7 +13,7 @@ import 'package:fnrco_candidates/ui/screens/management_content/announcement.dart
 import 'package:fnrco_candidates/ui/screens/management_content/contents.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/faqs.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/polls.dart';
-import 'package:fnrco_candidates/ui/screens/medical_declare.dart';
+import 'package:fnrco_candidates/ui/screens/medical_declaration/medical_declaration.dart';
 import 'package:fnrco_candidates/ui/screens/notifications.dart';
 import 'package:fnrco_candidates/ui/screens/on_boarding/on_boarding2_screen.dart';
 import 'package:fnrco_candidates/ui/screens/auth/otp.dart';

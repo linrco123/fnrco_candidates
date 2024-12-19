@@ -57,7 +57,7 @@ class TicketsScreen extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 16.0, vertical: 16.0),
-                color: AppColors.grey.withOpacity(0.3),
+                color: AppColors.white,
                 child: Column(
                   children: [
                     Form(
@@ -127,118 +127,116 @@ class TicketsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 20.0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppColors.grey, width: 1.0),
-                                    borderRadius: BorderRadius.circular(16.0)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CustomPaint(
-                                      painter: DottedBorderPainter(),
-                                      child: OutlinedButton(
-                                          style: OutlinedButton.styleFrom(
-                                              enableFeedback: true,
-                                              maximumSize:
-                                                  Size(double.infinity, 48),
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 20.0,
-                                                      horizontal: 15.0),
-                                              iconColor: AppColors.primary,
-                                              visualDensity:
-                                                  VisualDensity.compact,
-                                              // textStyle:TextStyle(color: AppColors.grey, fontSize: 17.0) ,
-                                              side: BorderSide.none),
-                                          onPressed: () {
-                                            cubit.uploadTicketFile();
-                                          },
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  cubit.fileName.isEmpty
-                                                      ? translateLang(context,
-                                                          "upload_attach")
-                                                      : cubit.fileName,
-                                                  style: TextStyle(
-                                                      color: AppColors.grey,
-                                                      fontSize: 14.0),
-                                                ),
-                                              ),
-                                              const Spacer(),
-                                              cubit.fileName.isEmpty
-                                                  ? Icon(
-                                                      Icons.upload_file_rounded,
-                                                      color: AppColors.primary,
-                                                    )
-                                                  : InkWell(
-                                                      onTap: () {
-                                                        cubit
-                                                            .deleteTicketFile();
-                                                      },
-                                                      child: Icon(
-                                                        CupertinoIcons
-                                                            .delete_simple,
-                                                        color:
-                                                            AppColors.primary,
-                                                        size: 25.0,
-                                                      ))
-                                            ],
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      height: 16.0,
-                                    ),
-                                    CustomTitle(
-                                      title: "remark",
-                                    ),
-                                    CustomInputField(
-                                        autovalidateMode: true,
-                                        controller: cubit.remarksController,
-                                        validate:
-                                            cubit.validateTckAttachRemarks,
-                                        inputType: TextInputType.name,
-                                        hint: translateLang(
-                                            context, "enter_remark_here")),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        IconButton.outlined(
-                                            style: IconButton.styleFrom(
-                                                backgroundColor:
-                                                    AppColors.black,
-                                                foregroundColor:
-                                                    AppColors.white),
-                                            onPressed: () {
-                                              cubit.addAttachmentAndRemark();
-                                            },
-                                            icon: Icon(CupertinoIcons.add))
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
                             ],
                           ),
                         ),
                       ),
                     ),
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 20.0),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: AppColors.grey, width: 1.0),
+                              borderRadius: BorderRadius.circular(16.0)),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CustomPaint(
+                                painter: DottedBorderPainter(),
+                                child: OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                        enableFeedback: true,
+                                        maximumSize: Size(double.infinity, 70),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 30.0, horizontal: 15.0),
+                                        iconColor: AppColors.primary,
+                                        visualDensity: VisualDensity.compact,
+                                        // textStyle:TextStyle(color: AppColors.grey, fontSize: 17.0) ,
+                                        side: BorderSide.none),
+                                    onPressed: () {
+                                      cubit.uploadTicketFile();
+                                    },
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            cubit.fileName.isEmpty
+                                                ? translateLang(
+                                                    context, "upload_attach")
+                                                : cubit.fileName,
+                                            style: TextStyle(
+                                                color: AppColors.grey,
+                                                fontSize: 16.0),
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        cubit.fileName.isEmpty
+                                            ? Icon(
+                                                Icons.upload_file_rounded,
+                                                color: AppColors.primary,
+                                                size: 25.0,
+                                              )
+                                            : InkWell(
+                                                onTap: () {
+                                                  cubit.deleteTicketFile();
+                                                },
+                                                child: Icon(
+                                                  CupertinoIcons.delete_simple,
+                                                  color: AppColors.primary,
+                                                  size: 25.0,
+                                                ))
+                                      ],
+                                    )),
+                              ),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+                              CustomTitle(
+                                title: "remark",
+                              ),
+                              CustomInputField(
+                                  autovalidateMode: true,
+                                  controller: cubit.remarksController,
+                                  validate: cubit.validateTckAttachRemarks,
+                                  inputType: TextInputType.name,
+                                  hint: translateLang(
+                                      context, "enter_remark_here")),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton.outlined(
+                                      style: IconButton.styleFrom(
+                                          backgroundColor: AppColors.black,
+                                          foregroundColor: AppColors.white),
+                                      onPressed: () {
+                                        cubit.addAttachmentAndRemark();
+                                      },
+                                      icon: Icon(CupertinoIcons.add))
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
                     state is SubmitTicketLoadingState
                         ? AnimatedLoadingWidget()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: CustomElevatedButton(
                                 fun: () {
-                                  cubit.submitTicket();
+                                  //cubit.submitTicket();
+                                  //cubit.tryyyy();
+                                  cubit.gfgfgfggff();
                                 },
                                 background: AppColors.primary,
                                 text: translateLang(context, 'save'))),

@@ -14,12 +14,12 @@ class CustomElevatedButton extends StatelessWidget {
       {super.key,
       required this.fun,
       this.elevation = 0,
-      this.height = 48,
+      this.height = 60.0,
       this.width = double.infinity,
       required this.background,
       this.foreground = const Color(0xFFFFFFFF),
       required this.text,
-      this.textSize = 15.0});
+      this.textSize = 18.0});
 
   @override
   Widget build(BuildContext context) {

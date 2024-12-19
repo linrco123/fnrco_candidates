@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/app_router.dart';
 import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/constants/app_theme.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/classes/dio_helper.dart';
 import 'package:fnrco_candidates/core/classes/red_exception_handler.dart';
@@ -52,16 +51,17 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
 
         return MaterialApp(
           navigatorKey: nav_Key,
-          themeMode: settingsCubit.brightnessMode == DARK_MODE
-              ? ThemeMode.dark
-              : ThemeMode.light,
+          theme: appTheme,
+          // darkTheme: darkAppTheme,
+          // themeMode: settingsCubit.brightnessMode == DARK_MODE
+          //     ? ThemeMode.dark
+          //     : ThemeMode.light,
           title: 'FNRCO CANDIDATES',
           locale: Locale(CacheHelper.getLang()),
           supportedLocales: AppLocalizationsSetup.supportedLocales,
           localizationsDelegates: AppLocalizationsSetup.localizationsDelegate,
           localeResolutionCallback:
               AppLocalizationsSetup.localResolutionCallback,
-          theme: appTheme,
           themeAnimationCurve: Curves.bounceInOut,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRouter.routeTo,

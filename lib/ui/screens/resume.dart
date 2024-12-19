@@ -6,28 +6,23 @@ import 'package:fnrco_candidates/logic/cubit/resume/resume_cubit.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 
 class ResumeScreen extends StatelessWidget {
   const ResumeScreen({super.key});
-  // final List<String> items = [
-  //   'Item1',
-  //   'Item2',
-  //   'Item3',
-  //   'Item4',
-  // ];
-  // String? selectedValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary.withOpacity(0.1),
+        backgroundColor: Colors.grey[200],
         title: Text(
           'My Resume',
           style: TextStyle(
             color: AppColors.primary,
           ),
         ),
+        centerTitle: true,
         leading: ReturnButton(),
         elevation: 0.0,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -42,17 +37,24 @@ class ResumeScreen extends StatelessWidget {
             ResumeCubit resumeCubit = ResumeCubit.instance(context);
             return SingleChildScrollView(
               child: Container(
-                color: AppColors.primary.withOpacity(0.1),
+                color: Colors.grey.shade200,
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text('Resume Attachment',
-                          style: TextStyle(
-                              color: AppColors.primary, fontSize: 18.0)),
+                    // Container(
+                    //   margin: const EdgeInsets.symmetric(vertical: 15.0),
+                    //   child: Text('Resume Attachment',
+                    //       style: TextStyle(
+                    //           color: AppColors.primary, fontSize: 18.0)),
+                    // ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    CustomTitle(
+                      title: "resume_attch",
+                      frontP: 0.0,
                     ),
                     Container(
                       width: double.infinity / 2,
@@ -77,7 +79,7 @@ class ResumeScreen extends StatelessWidget {
                                   )
                                 : GestureDetector(
                                     onTap: () {
-                                      // controller.removeFile()
+                                      resumeCubit.removeFile();
                                     },
                                     child: Icon(
                                       CupertinoIcons.bin_xmark,
@@ -98,11 +100,18 @@ class ResumeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text('Intro & Overview',
-                          style: TextStyle(
-                              color: AppColors.primary, fontSize: 18.0)),
+                    // Container(
+                    //   margin: const EdgeInsets.symmetric(vertical: 15.0),
+                    //   child: Text('Intro & Overview',
+                    //       style: TextStyle(
+                    //           color: AppColors.primary, fontSize: 18.0)),
+                    // ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    CustomTitle(
+                      title: "into_ov_view",
+                      frontP: 0.0,
                     ),
                     TextFormField(
                       maxLines: 3,
@@ -119,11 +128,19 @@ class ResumeScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.0),
                           )),
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text('Education',
-                          style: TextStyle(
-                              color: AppColors.primary, fontSize: 18.0)),
+                    // Container(
+                    //   margin: const EdgeInsets.symmetric(vertical: 15.0),
+                    //   child: Text('Education',
+                    //       style: TextStyle(
+                    //           color: AppColors.primary, fontSize: 18.0)),
+                    // ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+
+                    CustomTitle(
+                      title: "education",
+                      frontP: 0.0,
                     ),
                     Row(
                       children: [
@@ -212,12 +229,17 @@ class ResumeScreen extends StatelessWidget {
                         ))
                       ],
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text('Skills & Experience',
-                          style: TextStyle(
-                              color: AppColors.primary, fontSize: 18.0)),
+                    // Container(
+                    //   margin: const EdgeInsets.symmetric(vertical: 15.0),
+                    //   child: Text('Skills & Experience',
+                    //       style: TextStyle(
+                    //           color: AppColors.primary, fontSize: 18.0)),
+                    // ),
+                    const SizedBox(
+                      height: 20.0,
                     ),
+
+                    CustomTitle(title: "skills_expers",frontP: 0.0,),
                     Row(
                       children: [
                         Expanded(

@@ -19,7 +19,7 @@ class EducationAndQualificationCubit
   final eduYrsCntroller = TextEditingController();
   final instituteCntroller = TextEditingController();
   final certCntroller = TextEditingController();
-  int yearsId = 0;
+  String yearsId = '';
   int yearsNumber = 1;
   String? certIssueDate;
   String? certExpireDate;
@@ -97,25 +97,21 @@ class EducationAndQualificationCubit
   void selectIssueDate(context) async {
     DateTime? pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
-    if (pickedDate != null) {
-      certIssueDate =
-          "${pickedDate.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-      emit(EducationAndQualificationPickingUpCertIssueDate());
+    certIssueDate =
+        "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+    emit(EducationAndQualificationPickingUpCertIssueDate());
     }
-  }
 
   void selectExpiryDate(context) async {
     DateTime? pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
-    if (pickedDate != null) {
-      certExpireDate =
-          "${pickedDate.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-      emit(EducationAndQualificationPickingUpCertExpireDate());
+    certExpireDate =
+        "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+    emit(EducationAndQualificationPickingUpCertExpireDate());
     }
-  }
 
-  void selectYear(Object value) {
-    yearsId = int.parse(value.toString());
+  void selectYear(String value) {
+    yearsId = value;
 
     emit(EducationAndQualificationChoosingYearsState());
   }
@@ -141,11 +137,7 @@ class EducationAndQualificationCubit
           "edu_years": yearsNumber.toString(),
           "edu_field_of_study": spcCntroller.text,
           "edu_institution_name": instituteCntroller.text,
-          "edu_graduation_year": years
-              .where((year) => year.id! == yearsId)
-              .toList()
-              .first
-              .metaDataText,
+          "edu_graduation_year": yearsId,
           "edu_certification_name": certCntroller.text,
           "edu_certification_issues_in": certIssueDate,
           "edu_certification_expiry_in": certExpireDate
@@ -164,7 +156,7 @@ class EducationAndQualificationCubit
     spcCntroller.clear();
     instituteCntroller.clear();
     certCntroller.clear();
-    yearsId = 0;
+    yearsId = '';
     certExpireDate = null;
     certIssueDate = null;
     emit(EmptyEducationAndQualificationFieldsState());

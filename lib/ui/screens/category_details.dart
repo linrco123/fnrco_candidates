@@ -37,7 +37,7 @@ class CategoryDetailsScreen extends StatelessWidget {
               label: 'search a job here',
               borderColor: AppColors.black,
               preIcon: Icons.search,
-              preFun: () {},
+              preFun: (value) {},
               sufIcon: Icons.close,
               suFun: () {},
             ),

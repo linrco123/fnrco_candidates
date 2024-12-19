@@ -31,43 +31,41 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   final countryResidenceController = TextEditingController();
   final emailController = TextEditingController();
 
-  int countryId = 0;
+  String countryId = '';
   int Id = 0;
-  int genderId = 0;
-  int religionId = 0;
-  int maritalStatusId = 0;
+  String genderId = '';
+  String religionId = '';
+  String maritalStatusId = '';
   String? birthDate;
 
   void selectDateOfBirth(context) async {
     DateTime? birthofDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
-    if (birthofDate != null) {
-      birthDate =
-          "${birthofDate.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
-      emit(PersonalDetailsPickingUpDate());
-    }
+    birthDate =
+        "${birthofDate!.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
+    emit(PersonalDetailsPickingUpDate());
   }
 
-  void selectCountry(Object value) {
-    countryId = int.parse(value.toString());
+  void selectCountry(String value) {
+    countryId = value;
 
     emit(PersonalDetailsChoosingCountryState());
   }
 
-  void selectGender(Object value) {
-    genderId = int.parse(value.toString());
+  void selectGender(String value) {
+    genderId = value;
 
     emit(PersonalDetailsChoosingGenderState());
   }
 
-  void selectReligion(Object value) {
-    religionId = int.parse(value.toString());
+  void selectReligion(String value) {
+    religionId = value;
 
     emit(PersonalDetailsChoosingReligionState());
   }
 
-  void selectMaritalStatus(Object value) {
-    maritalStatusId = int.parse(value.toString());
+  void selectMaritalStatus(String value) {
+    maritalStatusId = value;
 
     emit(PersonalDetailsChoosingReligionState());
   }
@@ -118,7 +116,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   }
 
   void getUserData() {}
-  
+
   void requestPermissionforImage() async {
     final PermissionStatus result = await Permission.storage.request();
     if (result == PermissionStatus.granted) {
@@ -156,22 +154,22 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   }
 
   Future<void> submitPersonalData(context) async {
-    if (countryId == 0) {
+    if (countryId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_nationality"),
           type: ToastificationType.warning);
-    } else if (genderId == 0) {
+    } else if (genderId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_gender"),
           type: ToastificationType.warning);
-    } else if (religionId == 0) {
+    } else if (religionId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_religion"),
           type: ToastificationType.warning);
-    } else if (maritalStatusId == 0) {
+    } else if (maritalStatusId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_marital"),
@@ -184,23 +182,19 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     } else {
       if (formKey.currentState!.validate()) {
         emit(PersonalDetailsLoadingState());
-       
-        var formData = FormData.fromMap({
-          "person_nationality": countryId,
+
+        FormData formData = FormData.fromMap({
+          "person_nationality": countries
+              .where((country) => country.countryName == countryId)
+              .toList()
+              .first
+              .id,
           "person_sur_name": surNameController.text,
           "person_first_name": firstNameController.text,
           "person_second_name": secondNameController.text,
           "person_third_name": lastNameController.text,
-          "person_gender": genders
-              .where((gender) => gender.id! == genderId)
-              .toList()
-              .first
-              .metaDataText,
-          "person_martial_status": maritalStatus
-              .where((marital) => marital.id == maritalStatusId)
-              .toList()
-              .first
-              .metaDataText,
+          "person_gender": genderId,
+          "person_martial_status": maritalStatusId,
           "person_country_residence": countryResidenceController.text,
           "person_height": "150",
           "person_height_unit": "meter",
@@ -209,38 +203,13 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           "email": emailController.text,
           "references": "references",
           "person_dob": birthDate,
-          "person_image": partFile,
-          "_method":"PUT"
+         // "person_image": partFile,
+          "_method": "PUT"
         });
+        formData.files.add(MapEntry("person_image", partFile!));
         print('===============personal Data =====================');
         print(formData.fields);
         print(formData.files.first.value);
-        // Map data = {
-        //   "person_nationality": countryId,
-        //   "person_sur_name": surNameController.text,
-        //   "person_first_name": firstNameController.text,
-        //   "person_second_name": secondNameController.text,
-        //   "person_third_name": lastNameController.text,
-        //   "person_gender": genders
-        //       .where((gender) => gender.id! == genderId)
-        //       .toList()
-        //       .first
-        //       .metaDataText,
-        //   "person_martial_status": maritalStatus
-        //       .where((marital) => marital.id == maritalStatusId)
-        //       .toList()
-        //       .first
-        //       .metaDataText,
-        //   "person_country_residence": countryResidenceController.text,
-        //   "person_height": "150",
-        //   "person_height_unit": "meter",
-        //   "person_weight": "100",
-        //   "person_weight_unit": "kg",
-        //   "email": emailController.text,
-        //   "references": "references",
-        //   "person_dob": birthDate,
-        //   "person_image": fileImage
-        // };
         personalDetailsProvider.submitPersonalData(formData).then((value) {
           emit(PersonalDetailsSuccessState());
         }).catchError((error) {

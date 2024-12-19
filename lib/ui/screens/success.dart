@@ -14,7 +14,6 @@ class SuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('===========screenType=============>>>>>>>>>> $screenType');
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -34,7 +33,10 @@ class SuccessScreen extends StatelessWidget {
               ),
               Text(
                 translateLang(context, 'congrats'),
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(fontSize: 30.0),
               ),
               const SizedBox(
                 height: 10.0,
@@ -45,24 +47,27 @@ class SuccessScreen extends StatelessWidget {
                     screenType == FORGET_PAGE
                         ? "msg_reset_password"
                         : "account_created_success"),
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .copyWith(color: AppColors.grey),
               ),
               const Spacer(),
               screenType == FORGET_PAGE
-                        ?
-              CustomElevatedButton(
-                  fun: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(AppPagesNames.AUTH);
-                  },
-                  background: AppColors.primary,
-                  text: translateLang(context, "back_to_login")):CustomElevatedButton(
-                  fun: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(AppPagesNames.HOMEPAGE);
-                  },
-                  background: AppColors.primary,
-                  text: translateLang(context, "go_to_home")),
+                  ? CustomElevatedButton(
+                      fun: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(AppPagesNames.AUTH);
+                      },
+                      background: AppColors.primary,
+                      text: translateLang(context, "back_to_login"))
+                  : CustomElevatedButton(
+                      fun: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(AppPagesNames.HOMEPAGE);
+                      },
+                      background: AppColors.primary,
+                      text: translateLang(context, "go_to_home")),
               const SizedBox(
                 height: 10.0,
               ),

@@ -16,7 +16,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   final jobTitleCntroller = TextEditingController();
   final companyCntroller = TextEditingController();
   final jobDescCntroller = TextEditingController();
-  int countryId = 0;
+  String countryId = '';
   String? startDate;
   String? endDate;
 
@@ -44,25 +44,21 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   void selectStartDate(context) async {
     DateTime? birthofDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
-    if (birthofDate != null) {
-      startDate =
-          "${birthofDate.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
-      emit(ExperiencesPickingUpStartDate());
+    startDate =
+        "${birthofDate!.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
+    emit(ExperiencesPickingUpStartDate());
     }
-  }
 
   void selectEndDate(context) async {
     DateTime? birthofDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
-    if (birthofDate != null) {
-      endDate =
-          "${birthofDate.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
-      emit(ExperiencesPickingUpEndDate());
+    endDate =
+        "${birthofDate!.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
+    emit(ExperiencesPickingUpEndDate());
     }
-  }
 
-  void selectCountry(Object value) {
-    countryId = int.parse(value.toString());
+  void selectCountry(String value) {
+    countryId = value;
 
     emit(WorkExperienceChoosingCountryState());
   }
@@ -83,14 +79,14 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   List<Map<String, dynamic>> submittedExperiences = [];
   void addNewExperience() {
     if (formKey.currentState!.validate()) {
-      if (countryId != 0 && startDate != null && endDate != null) {
+      if (countryId != '' && startDate != null && endDate != null) {
         submittedExperiences.add({
           "experience_job_title": jobTitleCntroller.text,
           "experience_company": companyCntroller.text,
           "experience_start_in": startDate,
           "experience_end_in": endDate,
           "country_id": countries
-              .where((country) => country.id == countryId)
+              .where((country) => country.countryName == countryId)
               .toList()
               .first
               .id,
@@ -109,7 +105,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     jobTitleCntroller.clear();
     companyCntroller.clear();
     jobDescCntroller.clear();
-    countryId = 0;
+    countryId = '';
     startDate = null;
     endDate = null;
     emit(EmptyExperienceFieldsState());

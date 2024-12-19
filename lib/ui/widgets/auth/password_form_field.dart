@@ -28,25 +28,46 @@ class PasswordFormField extends StatelessWidget {
         autofillHints: [
           AutofillHints.password
         ],
+
         initialValue: initialValue,
         controller: controller,
         style: Theme.of(context)
             .textTheme
-            .headlineSmall!
-            .copyWith(color: AppColors.secondary),
+            .labelMedium!
+            .copyWith(color: AppColors.greyDeep,fontWeight: FontWeight.w400),
         obscureText: obscureText,
         validator: (value) => validate(context, value),
         decoration: InputDecoration(
-          prefixIcon: Icon(prefixIcon),
+          prefixIcon: Icon(prefixIcon,  size: 30,),
           prefixIconColor: AppColors.grey,
           suffixIcon: IconButton(onPressed: toggleObscureText, icon: visibleIcon),
+          //alignLabelWithHint: true,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          floatingLabelAlignment: FloatingLabelAlignment.start,
           hintText: hint,
-          hintStyle: Theme.of(context).textTheme.headlineSmall,
+          hintStyle: Theme.of(context).textTheme.labelMedium!
+              .copyWith(color: AppColors.greyDeep, fontWeight: FontWeight.w400),
           filled: true,
-          fillColor: AppColors.blurRed,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
+          fillColor: AppColors.white,
+          label: Text(
+            hint,
+          ),
+         labelStyle: Theme.of(context)
+              .textTheme
+              .labelMedium!
+              .copyWith(color: AppColors.greyDeep, fontWeight: FontWeight.w400),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 30.0, vertical:25.0),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade400),
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.primary),
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
         ),
@@ -55,70 +76,3 @@ class PasswordFormField extends StatelessWidget {
     );
   }
 }
-
-
-// TextFormField(
-//                               controller: signUpCubit.passwordController,
-//                               style: Theme.of(context)
-//                                   .textTheme
-//                                   .headlineSmall!
-//                                   .copyWith(color: AppColors.secondary),
-//                               obscureText: signUpCubit.obscureText,
-//                               validator: (value) => signUpCubit
-//                                   .validatePassword(context, value!),
-//                               decoration: InputDecoration(
-//                                 prefixIcon: Icon(CupertinoIcons.lock),
-//                                 prefixIconColor: AppColors.grey,
-//                                 suffixIcon: IconButton(
-//                                     onPressed: signUpCubit.toggleObscureText,
-//                                     icon: signUpCubit.getIcon()),
-//                                 hintText: translateLang(context, "password"),
-//                                 hintStyle:
-//                                     Theme.of(context).textTheme.headlineSmall,
-//                                 filled: true,
-//                                 fillColor: AppColors.blurRed,
-//                                 contentPadding: const EdgeInsets.symmetric(
-//                                     horizontal: 15, vertical: 0),
-//                                 border: const OutlineInputBorder(
-//                                   borderSide: BorderSide.none,
-//                                   borderRadius:
-//                                       BorderRadius.all(Radius.circular(50)),
-//                                 ),
-//                               ),
-//                               keyboardType: TextInputType.visiblePassword,
-//                             ),
-
-///////////////////////////////login/////////////////////TODO:
-///
-///
-//  TextFormField(
-//  controller: logInCubit.passwordController,
-//  obscureText: logInCubit.obscureText,
-//   validator: (value) => logInCubit
-//  .validatePassword(context, value!),
-//  decoration: InputDecoration(
-//   prefixIcon: Icon(CupertinoIcons.lock),
-//                                       prefixIconColor: AppColors.grey,
-//                                       suffixIcon: IconButton(
-//                                           onPressed:
-//                                               logInCubit.toggleObscureText,
-//                                           icon: logInCubit.getIcon()),
-//                                       hintText:
-//                                           translateLang(context, "password"),
-//                                       hintStyle: Theme.of(context)
-//                                           .textTheme
-//                                           .headlineMedium,
-//                                       filled: true,
-//                                       fillColor: AppColors.blurRed,
-//                                       contentPadding:
-//                                           const EdgeInsets.symmetric(
-//                                               horizontal: 16.0 * 1.5,
-//                                               vertical: 16.0),
-//                                       border: const OutlineInputBorder(
-//                                         borderSide: BorderSide.none,
-//                                         borderRadius: BorderRadius.all(
-//                                             Radius.circular(50)),
-//                                       ),
-//                                     ),
-//                                     keyboardType: TextInputType.visiblePassword,
-//                                   ),

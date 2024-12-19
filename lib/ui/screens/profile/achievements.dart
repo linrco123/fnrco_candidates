@@ -21,7 +21,7 @@ class AchievementsSCreen extends StatelessWidget {
       create: (context) => AchievementsCubit(AchievementsProvider()),
       child: Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'achievements'),
             style: TextStyle(
@@ -32,7 +32,6 @@ class AchievementsSCreen extends StatelessWidget {
         ),
         body: BlocConsumer<AchievementsCubit, AchievementsState>(
           listener: (context, state) {
-        
             if (state is SubmitAchievementsSuccessState) {
               showToast(context,
                   title: translateLang(context, 'success'),
@@ -49,7 +48,7 @@ class AchievementsSCreen extends StatelessWidget {
           },
           builder: (context, state) {
             AchievementsCubit skillsCubit = BlocProvider.of(context);
-          
+
             return Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
@@ -62,13 +61,10 @@ class AchievementsSCreen extends StatelessWidget {
                     CustomInputField(
                       controller: skillsCubit.achvCntroller,
                       validate: skillsCubit.validateAch,
-                      linesNum: 3,
-                      hint: translateLang(context, 'achievement'),
+                      linesNum: 10,
+                      hint: translateLang(context, "enter_achievements"),
                     ),
                     const SizedBox(
-                      height: 20.0,
-                    ),
-                         const SizedBox(
                       height: 20.0,
                     ),
                     SizedBox(
@@ -81,14 +77,14 @@ class AchievementsSCreen extends StatelessWidget {
                           text: translateLang(context, 'add_new_ach')),
                     ),
                     const Spacer(),
-                    state is SubmitAchievementsLoadingState?
-                    LoadingWidget():
-                    CustomElevatedButton(
-                        fun: () {
-                          skillsCubit.submitAchievements();
-                        },
-                        background: AppColors.primary,
-                        text: translateLang(context, 'submit')),
+                    state is SubmitAchievementsLoadingState
+                        ? LoadingWidget()
+                        : CustomElevatedButton(
+                            fun: () {
+                              skillsCubit.submitAchievements();
+                            },
+                            background: AppColors.primary,
+                            text: translateLang(context, 'submit')),
                     const SizedBox(
                       height: 10.0,
                     ),

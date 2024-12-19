@@ -78,11 +78,11 @@ class SignInScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                        const LOGO(),
+                         const LOGO(),
                         SizedBox(height: constraints.maxHeight * 0.04),
                         Text(
                           translateLang(context, 'sign_in'),
-                          style: Theme.of(context).textTheme.headlineLarge,
+                          style: Theme.of(context).textTheme.headlineLarge!,
                         ),
                         SizedBox(height: constraints.maxHeight * 0.05),
                         Form(
@@ -136,7 +136,7 @@ class SignInScreen extends StatelessWidget {
                                 height: 16.0,
                               ),
                               state is LogInLoadingState
-                                  ? LoadingWidget()
+                                  ? AnimatedLoadingWidget()
                                   : CustomElevatedButton(
                                       fun: () {
                                         //Focus to close Keyboard
@@ -159,8 +159,8 @@ class SignInScreen extends StatelessWidget {
                                     translateLang(context, "forgot_password"),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall!
-                                        .copyWith(color: AppColors.greyDeep)),
+                                        .labelMedium!
+                                        .copyWith(color: AppColors.grey)),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -172,7 +172,10 @@ class SignInScreen extends StatelessWidget {
                                       text: translateLang(
                                           context, "do_not_have_an_account"),
                                       style:
-                                          TextStyle(color: AppColors.greyDeep),
+                                         Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .copyWith(color: AppColors.grey),
                                       children: [
                                         TextSpan(text: ' '),
                                         TextSpan(

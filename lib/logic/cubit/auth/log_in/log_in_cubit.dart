@@ -28,7 +28,7 @@ class LogInCubit extends Cubit<LogInState> {
   Icon getIcon() {
     return Icon(
       obscureText ? CupertinoIcons.eye_slash_fill : CupertinoIcons.eye,
-      color: AppColors.primary,
+      color: AppColors.primary,size: 30.0,
     );
   }
 
@@ -110,6 +110,7 @@ class LogInCubit extends Cubit<LogInState> {
       };
       logInProvider.logIn(data).then((value) {
         CacheHelper.storeUserData(userLData: value);
+        CacheHelper.storePassword(passwordController.text);
         emit(LogInSuccessState());
       }).catchError((error) {
         emit(LogInErrorState(message: error.failure.message.toString()));

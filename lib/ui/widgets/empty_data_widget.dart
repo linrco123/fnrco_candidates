@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_images_path.dart';
@@ -8,7 +7,7 @@ class EmptyDataWidget extends StatelessWidget {
   final String message;
   const EmptyDataWidget({
     Key? key,
-     this.message = '',
+    this.message = '',
   }) : super(key: key);
 
   @override
@@ -20,14 +19,19 @@ class EmptyDataWidget extends StatelessWidget {
         children: [
           Text(
             message,
-            style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: AppColors.grey),
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(color: AppColors.grey),
           ),
           //const SizedBox(height: 10.0,),
-          Lottie.asset(AppImages.EMPTYDATA,
-                      repeat: true,
-                   // backgroundLoading: true,
-                   alignment: Alignment.center,
-              height: 400.0, width: 400.0,fit: BoxFit.cover)
+          Lottie.asset(AppImages.DATAEMPTY,
+              repeat: true,
+              // backgroundLoading: true,
+              alignment: Alignment.center,
+              height: 400.0,
+              width: 400.0,
+              fit: BoxFit.cover)
         ],
       ),
     );

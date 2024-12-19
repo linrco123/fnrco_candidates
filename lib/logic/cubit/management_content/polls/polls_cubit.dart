@@ -68,6 +68,8 @@ class PollsCubit extends Cubit<PollsState> {
   void sendPollView() {
     emit(SubmitPollViewLoadingState());
     Map data = {"answers": answers};
+    print('===============polls==================');
+    print(data);
     pollsProvider.sendPollView(pollViewID, data).then((value) {
       if (value == true) {
         question_number = 0;

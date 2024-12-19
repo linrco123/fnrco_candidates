@@ -84,4 +84,5 @@ class AppImages {
   static const ticket = "$_svg/ticket.svg";
   static const priority = "$_svg/priority.svg";
   static const type = "$_svg/types.svg";
+  static const faqs = "$_svg/faq.svg";
 }

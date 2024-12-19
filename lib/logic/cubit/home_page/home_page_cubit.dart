@@ -73,10 +73,19 @@ class HomePageCubit extends Cubit<HomePageState> {
     emit(HomePageChangeState());
   }
 
-  void searchAJob() {
-    if (searchController.text.isNotEmpty) {
+  var searchedJobs = List<Job>.empty(growable: true);
+
+  void searchAJob(String value) {
+    if (value.isNotEmpty) {
+      searchedJobs = jobs
+          .where((job) => job.position!
+              .toLowerCase()
+              .contains(searchController.text.toLowerCase()))
+          .toList();
+      emit(GetJobsSuccessState(jobs: searchedJobs));
     } else {
-      print('Please  , Enter a job you are searching for');
+      searchedJobs = [];
+      emit(GetJobsSuccessState(jobs: searchedJobs));
     }
   }
 
@@ -118,18 +127,16 @@ class HomePageCubit extends Cubit<HomePageState> {
       emit(LogoutFailureState(error: error));
     });
   }
+  
+  var jobs = List<Job>.empty(growable: true);
 
-var jobs = List<Job>.empty(growable: true);
   getJobs() {
     emit(GetJobsLoadingState());
     homePageProvider.getJobs().then((value) {
       jobs.addAll(value.jobs!);
       emit(GetJobsSuccessState(jobs: value.jobs!));
-
-
     }).catchError((error) {
       emit(GetJobsFailureState(message: error.failure.message));
-
     });
   }
 }

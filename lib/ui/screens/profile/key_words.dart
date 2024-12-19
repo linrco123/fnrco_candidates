@@ -21,7 +21,7 @@ class KeyWordsSCreen extends StatelessWidget {
       create: (context) => KeyWordsCubit(KeywordsProvider()),
       child: Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'keywords'),
             style: TextStyle(
@@ -65,8 +65,8 @@ class KeyWordsSCreen extends StatelessWidget {
                     CustomInputField(
                       controller: cubit.keyWCntroller,
                       validate: cubit.validateKeyWord,
-                      linesNum: 3,
-                      hint: translateLang(context, 'keyword'),
+                      linesNum: 10,
+                      hint: translateLang(context,  "enter_keywords"),
                     ),
                     const SizedBox(
                       height: 20.0,

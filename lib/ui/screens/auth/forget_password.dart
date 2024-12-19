@@ -74,7 +74,7 @@ class ForgotPassword extends StatelessWidget {
                             hint: translateLang(context, "email"),
                             validate: forgetPasswordCubit.validateEmail))),
                 state is ForgetPasswordLoadingState
-                    ? LoadingWidget()
+                    ? AnimatedLoadingWidget()
                     : CustomElevatedButton(
                         fun: () {
                           forgetPasswordCubit.verifyEmail(context);
@@ -120,18 +120,12 @@ class LogoWithTitle extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: 16.0, horizontal: 30.0),
-                child: Text(
-                  subText,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height: 1.5,
-                    color: Theme.of(context)
+                child: Text(subText,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
                         .textTheme
-                        .bodyLarge!
-                        .color!
-                        .withOpacity(0.64),
-                  ),
-                ),
+                        .labelMedium!
+                        .copyWith(color: AppColors.grey)),
               ),
               ...children,
             ],

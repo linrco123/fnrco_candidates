@@ -19,6 +19,7 @@ class FAQsScreen extends StatelessWidget {
       create: (context) => FAQsCubit(FaqsProvider())..getFAQs(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.white,
             title: Text(
               'FAQs',
               style: TextStyle(color: AppColors.primary),

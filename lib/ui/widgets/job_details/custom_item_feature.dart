@@ -32,21 +32,25 @@ class CustomItemFeature extends StatelessWidget {
         const SizedBox(
           width: 15.0,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            Text(
-              subTitle,
-              style: Theme.of(context).textTheme.labelMedium
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(
+                height: 5.0,
+              ),
+              Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                subTitle,
+                style: Theme.of(context).textTheme.labelMedium
+              ),
+            ],
+          ),
         ),
       ],
     );

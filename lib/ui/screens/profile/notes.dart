@@ -21,7 +21,7 @@ class NotesScreen extends StatelessWidget {
       create: (context) => NotesCubit(NotesProvider()),
       child: Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'notes'),
             style: TextStyle(
@@ -65,8 +65,8 @@ class NotesScreen extends StatelessWidget {
                     CustomInputField(
                       controller: cubit.notCntroller,
                       validate: cubit.validateNotes,
-                      linesNum: 3,
-                      hint: translateLang(context, 'note'),
+                      linesNum: 10,
+                      hint: translateLang(context, 'enter_notes'),
                     ),
                     const SizedBox(
                       height: 20.0,
