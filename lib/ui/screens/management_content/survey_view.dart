@@ -11,6 +11,7 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/management_content/answer_card.dart';
+import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
@@ -101,24 +102,41 @@ class SurveyViewScreen extends StatelessWidget {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      ...List.generate(
-                        surveysCubit
-                            .surveyViewQuestions[surveysCubit.question_number]
-                            .options!
-                            .length,
-                        (int index) => InkWell(
-                            onTap: () {
-                              surveysCubit.chooseAnswer(surveysCubit
-                                  .surveyViewQuestions[
-                                      surveysCubit.question_number]
-                                  .options![index]
-                                  .surveyQuestionOptText!);
-                            },
-                            child: AnswerCard(
-                                answerReference: surveysCubit.answer,
-                                answer: surveysCubit.surveyViewQuestions[surveysCubit.question_number]
-                                    .options![index].surveyQuestionOptText!)),
-                      ),
+                      if (surveysCubit
+                              .surveyViewQuestions[surveysCubit.question_number]
+                              .surveyQuestionType ==
+                          'text')
+                        CustomInputField(
+                            hint: translateLang(context, "enter_answer"),
+                            linesNum: 7,
+                            controller: surveysCubit.answerCntroller,
+                            inputType: TextInputType.text,
+                            validate: (context, value) => ''),
+                      if (surveysCubit
+                              .surveyViewQuestions[surveysCubit.question_number]
+                              .surveyQuestionType ==
+                          'option')
+                        ...List.generate(
+                          surveysCubit
+                              .surveyViewQuestions[surveysCubit.question_number]
+                              .options!
+                              .length,
+                          (int index) => InkWell(
+                              onTap: () {
+                                surveysCubit.chooseAnswer(surveysCubit
+                                    .surveyViewQuestions[
+                                        surveysCubit.question_number]
+                                    .options![index]
+                                    .surveyQuestionOptText!);
+                              },
+                              child: AnswerCard(
+                                  answerReference: surveysCubit.answer,
+                                  answer: surveysCubit
+                                      .surveyViewQuestions[
+                                          surveysCubit.question_number]
+                                      .options![index]
+                                      .surveyQuestionOptText!)),
+                        ),
                       const Spacer(),
                       CustomElevatedButton(
                           fun: () {
@@ -137,7 +155,8 @@ class SurveyViewScreen extends StatelessWidget {
                                   : 'next'))
                     ],
                   ),
-                  if (state is SubmitSurveyViewLoadingState) AnimatedLoadingWidget()
+                  if (state is SubmitSurveyViewLoadingState)
+                    AnimatedLoadingWidget()
                 ],
               );
             },

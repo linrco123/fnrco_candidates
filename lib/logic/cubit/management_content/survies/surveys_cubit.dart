@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/data/models/management_content/survey_view_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/survies_model.dart';
 import 'package:meta/meta.dart';
@@ -12,6 +13,7 @@ class SurveysCubit extends Cubit<SurveysState> {
     this.surveysProvider,
   ) : super(SurveysInitial());
   List<Survey> surveys = [];
+
   void getsurveys() {
     emit(SurveysLoadingState());
     surveysProvider.getSurveys().then((value) {
@@ -21,7 +23,7 @@ class SurveysCubit extends Cubit<SurveysState> {
       emit(SurveysFailureState(message: error.failure.message));
     });
   }
-
+  final answerCntroller = TextEditingController();
   List<SQuestions> surveyViewQuestions = [];
   List<Map<String, dynamic>> answers = [];
   int question_number = 0;
@@ -48,14 +50,11 @@ class SurveysCubit extends Cubit<SurveysState> {
   }
 
   void submitSurveyViewQuestion(int questionID) {
-    if (answer.isNotEmpty) {
+    if (answer.isNotEmpty || answerCntroller.text.isNotEmpty) {
       if (question_number < surveyViewQuestions.length - 1) {
         addNewAnswer(questionID);
       } else {
-        answers.add({
-          "survey_question_id": questionID.toString(),
-          "survey_answer_text": answer
-        });
+        addNewAnswer(questionID); 
         // answer = '';
         sendSurveyView();
       }
@@ -78,18 +77,32 @@ class SurveysCubit extends Cubit<SurveysState> {
   }
 
   void addNewAnswer(int questionID) {
-    answers.add({
-      "survey_question_id": questionID.toString(),
-      "survey_answer_text": answer
-    });
+    if (surveyViewQuestions[question_number].surveyQuestionType == 'option') {
+      answers.add({
+        "survey_question_id": questionID.toString(),
+        "survey_answer_text": answer
+      });
+    } else if (surveyViewQuestions[question_number].surveyQuestionType ==
+        "text") {
+      answers.add({
+        "survey_question_id": questionID.toString(),
+        "survey_answer_text": answerCntroller.text
+      });
+    }
+    answerCntroller.clear();
     answer = '';
-    
-    moveTONext();
+    if(question_number < surveyViewQuestions.length){
+        moveTONext();
+    }
+   
   }
 
   void moveTONext() {
     question_number++;
-    answer = surveyViewQuestions[question_number].options!.first.surveyQuestionOptText!;
+    answer = surveyViewQuestions[question_number]
+        .options!
+        .first
+        .surveyQuestionOptText!;
     emit(MoveToNextQuestionsState());
   }
 

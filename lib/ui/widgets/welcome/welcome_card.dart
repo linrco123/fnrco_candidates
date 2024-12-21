@@ -34,21 +34,26 @@ class WelcomeCard extends StatelessWidget {
           const SizedBox(
             width: 15.0,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 5.0,
-              ),
-              Text(description, style: Theme.of(context).textTheme.titleSmall),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                      color: AppColors.black,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 5.0,
+                ),
+                Text(
+                  overflow:TextOverflow.ellipsis,
+                  maxLines: 1,
+                  description, style: Theme.of(context).textTheme.titleSmall),
+              ],
+            ),
           ),
         ],
       ),

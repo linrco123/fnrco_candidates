@@ -19,7 +19,7 @@ class PersonalInformationScreen extends StatelessWidget {
             child: Column(
               children: [
                 NameEmailPhoneFormField(
-                    controller: cubit.nameCntroller,
+                    controller: TextEditingController(),
                     inputType: TextInputType.name,
                     prefixIcon: CupertinoIcons.person,
                     hint: translateLang(context, "full_name"),
@@ -28,7 +28,7 @@ class PersonalInformationScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 NameEmailPhoneFormField(
-                    controller: cubit.phone1Cntroller,
+                    controller: TextEditingController(),
                     inputType: TextInputType.phone,
                     prefixIcon: CupertinoIcons.phone,
                     hint: translateLang(context, "phone_number"),
@@ -37,11 +37,11 @@ class PersonalInformationScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 NameEmailPhoneFormField(
-                    controller: cubit.identity1Cntroller,
+                    controller: TextEditingController(),
                     inputType: TextInputType.number,
                     prefixIcon: CupertinoIcons.number,
                     hint: translateLang(context, "iqama_number"),
-                    validate: cubit.validateIdentity),
+                    validate: cubit.validatePasport),
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -67,7 +67,7 @@ class PersonalInformationScreen extends StatelessWidget {
                             .map((gender) => gender.metaDataText!)
                             .toList(),
                         selectedItem: translateLang(context, 'gender'),
-                        onChanged: (value) => cubit.selectGender1(value!),
+                        onChanged: (value) => cubit.selectGender(value!),
                       ),
                 const SizedBox(
                   height: 16.0,

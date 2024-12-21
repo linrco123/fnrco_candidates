@@ -11,33 +11,36 @@ class MedicalQuestionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<MedicalDeclareCubit>(context);
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Row(
-        children: [
-          Expanded(
-            child: Text(
-              CacheHelper.getLang() == 'en'
-                  ? cubit.mQuestions[cubit.currentQuestion].nameEn!
-                  : cubit.mQuestions[cubit.currentQuestion].nameAr!,
-              style: Theme.of(context).textTheme.headlineLarge,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                CacheHelper.getLang() == 'en'
+                    ? cubit.mQuestions[cubit.currentQuestion].nameEn!
+                    : cubit.mQuestions[cubit.currentQuestion].nameAr!,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
             ),
-          ),
-        ],
-      ),
-      CustomDivider(),
-      const SizedBox(
-        height: 15.0,
-      ),
-      // CustomInputField(
-      //     hint: 'Enter your answer',
-      //     linesNum: 5,
-      //     autovalidateMode: true,
-      //     controller: cubit.answerCntroller,
-      //     inputType: TextInputType.text,
-      //     validate: cubit.validateAnswer),
-      _getSuitableAnswerForm(
-       context, 'text', cubit),
-    ]);
+          ],
+        ),
+        CustomDivider(),
+        const SizedBox(
+          height: 15.0,
+        ),
+        // CustomInputField(
+        //     hint: 'Enter your answer',
+        //     linesNum: 5,
+        //     autovalidateMode: true,
+        //     controller: cubit.answerCntroller,
+        //     inputType: TextInputType.text,
+        //     validate: cubit.validateAnswer),
+        _getSuitableAnswerForm(
+         context,cubit.mQuestions[cubit.currentQuestion].type!, cubit),
+      ]),
+    );
   }
 
   Widget _getSuitableAnswerForm(context, String type, dynamic cubit) {

@@ -38,6 +38,7 @@
     "sur_name": "Sur Name",
     "phone_number": "Phone",
     "iqama_number": "National ID",
+    "passport_number": "Passport Number",
     "password": "Password",
     "email": "Email Address",
     "by_clicking_on_create": "By clicking on create an account, you agree to the",
@@ -203,6 +204,7 @@
     "msg_plz_enter_relation": "Relation Degree can't be empty",
     "msg_plz_enter_height": "Height can't be empty",
     "msg_plz_enter_weight": "Weight can't be empty",
+    "msg_plz_enter_passport":  "Passport number can't be empty",
     "brightness_mode": "Brightness Mode",
     "msg_internet_back": "Internet connection is back via",
     "msg_internet_off": "Internet went disconnected!",
@@ -249,6 +251,7 @@
     "add_new_lang": "add new Language",
     "add_new_cred": "add new credential",
     "add_n_exper": "add New Experience",
+    "add_new_relative":"add new relative",
     "contact_type": "Contact Type",
     "contact_value": "Contact Value",
     "credentials": "Credentials",
@@ -318,6 +321,10 @@
     "relation_degree": "Relation Degree",
     "employee_name": "Employee Name",
     "height":"Height",
-    "weight":"Weight"
+    "weight":"Weight",
+    "select_relation":"Select Relation",
+    "relation":"Relation",
+    "choose_relation":"Please , Choose Relation",
+    "choose_date":"Please , Choose Date"
 
 }

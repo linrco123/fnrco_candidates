@@ -24,13 +24,8 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
 
   //personal data
   final nameCntroller = TextEditingController();
-  final phone1Cntroller = TextEditingController();
-  final identity1Cntroller = TextEditingController();
-
-  // family data
-  final employeeCntroller = TextEditingController();
-  final phone2Cntroller = TextEditingController();
-  final identity2Cntroller = TextEditingController();
+  final phoneCntroller = TextEditingController();
+  final passportCntroller = TextEditingController();
   final relationCntroller = TextEditingController();
   final heightCntroller = TextEditingController();
   final weightCntroller = TextEditingController();
@@ -38,34 +33,9 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
   int currentStep = 1;
   var formKey = GlobalKey<FormState>();
   String countryId = '';
-  String gender1Id = '';
-  String gender2Id = '';
+  String genderId = '';
   String maritalStatusId = '';
   String relation = '';
-
-  void submitPersonal(context) {
-    if (countryId == '') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_country"),
-          type: ToastificationType.warning);
-    } else if (gender1Id == '') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_gender"),
-          type: ToastificationType.warning);
-    } else if (maritalStatusId == '') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_marital"),
-          type: ToastificationType.warning);
-    } else {
-      if (formKey.currentState!.validate()) {
-        var personalData = {};
-        _incrementStepper();
-      }
-    }
-  }
 
   final answerCntroller = TextEditingController();
   String date = '';
@@ -88,7 +58,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
   final answers = List<Map<String, dynamic>>.empty(growable: true);
   void submit(context) {
     if (currentStep == 1) {
-      submitPersonal(context);
+      _incrementStepper();
     } else if (currentStep == 2) {
       if (currentQuestion < mQuestions.length - 1) {
         if (answerCntroller.text.isNotEmpty ||
@@ -111,12 +81,12 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
         }
       }
     } else if (currentStep == 3) {
-      _submitMedicalData();
+      if (dependents.isEmpty) {
+        emit(EnterOneFamilyMemberAtLeastState());
+      } else {
+        sendMedicalDeclare();
+      }
     }
-  }
-
-  void _submitMedicalData() {
-    if (formKey.currentState!.validate()) {}
   }
 
   void _nextQuestion() {
@@ -130,33 +100,24 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     switchAnswer = '';
   }
 
-  // void _clearPersonalFields() {
-  //   nameCntroller.clear();
-  //   phoneCntroller.clear();
-  //   identityCntroller.clear();
-  //   countryId = '';
-  //   genderId = '';
-  //   maritalStatusId = '';
-  // }
-
   void _storeAnswer(String type) {
     switch (type) {
       case 'switch':
         answers.add({
-          "q": mQuestions[currentQuestion].id,
-          "a": switchAnswer,
+          "umdf_item_id": mQuestions[currentQuestion].id,
+          "person_umdf_value": switchAnswer,
         });
         break;
       case 'text':
         answers.add({
-          "q": mQuestions[currentQuestion].id,
-          "a": answerCntroller.text,
+          "umdf_item_id": mQuestions[currentQuestion].id,
+          "person_umdf_value": answerCntroller.text,
         });
         break;
       case 'date':
         answers.add({
-          "q": mQuestions[currentQuestion].id,
-          "a": date,
+          "umdf_item_id": mQuestions[currentQuestion].id,
+          "person_umdf_value": date,
         });
         break;
       default:
@@ -174,6 +135,78 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     });
   }
 
+  var dependents = List<Map<String, dynamic>>.empty(growable: true);
+
+  void addNewRelative(context) {
+    if (genderId == '') {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context, "choose_gender"),
+          type: ToastificationType.warning);
+    } else if (relation == '') {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context, "choose_relation"),
+          type: ToastificationType.warning);
+    } else if (date == '') {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context, "choose_date"),
+          type: ToastificationType.warning);
+    } else {
+      if (formKey.currentState!.validate()) {
+        dependents.add(
+          {
+            "relation_classification_id": classifications
+                .where((classifi) => classifi.metaDataText! == relation)
+                .toList()
+                .single
+                .id!,
+            "dependent_name": nameCntroller.text,
+            "dependent_gender": genderId,
+            "dependent_dob": date,
+            "dependent_passport": passportCntroller.text,
+            "dependent_phone": phoneCntroller.text,
+            "dependent_weight": weightCntroller.text,
+            "dependent_weight_unit": "kg",
+            "dependent_height": heightCntroller.text,
+            "dependent_height_unit": "cm"
+          },
+        );
+      }
+    }
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      _clearFamilyFields();
+    });
+  }
+
+  void sendMedicalDeclare() {
+    emit(SendMedicalDeclareLoadingState());
+    var data = {
+      "identity_number": "5656565656",
+      "person_umdf_company_id": 63,
+      "person_id": 31533,
+      "candidate_app_id": 16406,
+      "items": answers,
+      "dependent": dependents
+    };
+
+    medicalDeclareProvider.sendMedicalDeclare(data).then((data) {
+      emit(SendMedicalDeclareSuccessState());
+    }).catchError((error) {
+      emit(SendMedicalDeclareFailureState());
+    });
+  }
+
+  _clearFamilyFields() {
+    nameCntroller.clear();
+    passportCntroller.clear();
+    phoneCntroller.clear();
+    weightCntroller.clear();
+    heightCntroller.clear();
+    date = '';
+  }
+
   void _incrementStepper() {
     if (currentStep < 3) {
       currentStep++;
@@ -188,15 +221,8 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     emit(MedicalDeclareChoosingCountryState());
   }
 
-  void selectGender1(String value) {
-    gender1Id = value;
-    print(value);
-
-    emit(MedicalDeclareChoosingGenderState());
-  }
-
-  void selectGender2(String value) {
-    gender2Id = value;
+  void selectGender(String value) {
+    genderId = value;
     print(value);
 
     emit(MedicalDeclareChoosingGenderState());
@@ -245,16 +271,9 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     return null;
   }
 
-  String? validateIdentity(context, String? value) {
+  String? validatePasport(context, String? value) {
     if (value!.isEmpty) {
-      return translateLang(context, "msg_plz_enter_identity");
-    }
-    return null;
-  }
-
-  String? validateRelation(context, String? value) {
-    if (value!.isEmpty) {
-      return translateLang(context, "msg_plz_enter_relation");
+      return translateLang(context, "msg_plz_enter_passport");
     }
     return null;
   }

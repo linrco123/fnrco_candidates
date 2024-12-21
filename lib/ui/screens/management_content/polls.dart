@@ -47,7 +47,7 @@ class PollsScreen extends StatelessWidget {
               if (state is PollsFailureState) {
                 return Column(
                   children: [
-                    Text("Some Error ocurrs when getting surveys !!!",
+                    Text("Some Error ocurrs when getting Polls !!!",
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!

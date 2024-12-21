@@ -71,3 +71,14 @@ class MedicalDeclareGettingClassificationsFailureState
     extends MedicalDeclareState {}
 
 class MedicalDeclareChoosingRelationState extends MedicalDeclareState{}
+
+class SendMedicalDeclareLoadingState extends MedicalDeclareState{}
+
+
+class SendMedicalDeclareSuccessState extends MedicalDeclareState{}
+
+
+class SendMedicalDeclareFailureState extends MedicalDeclareState{}
+
+class EnterOneFamilyMemberAtLeastState extends MedicalDeclareState{}
+

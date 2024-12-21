@@ -36,6 +36,7 @@
     "sur_name": "اسم العائلة",
     "phone_number": "الهاتف",
     "iqama_number": "رقم الهوية",
+    "passport_number": "رقم جواز السفر ",
     "password": "كلمة المرور",
     "email": "البريد الالكتروني",
     "by_clicking_on_create": "بالضغط على إنشاء حساب جديد تكون موافق على",
@@ -92,7 +93,7 @@
     "msg_plz_enter_ach": " الإنجاز لا يمكن ان يكون فارغة",
     "msg_plz_enter_notes": "الكلمة الاساسية لا يمكن ان تكون فارغة",
     "msg_login_success": "تم تسجيل الدخول بنجاح",
-
+    "msg_plz_enter_passport":  "رقم جواز السفر لا  يمكن ان يكون فارغا",
     "reset_password": "اعادة تعيين كلمة المرور",
     "send_verification_code": "ارسال رمز التحقق",
     "back_to_login": "العودة لتسجيل الدخول",
@@ -247,6 +248,7 @@
     "add_new_ach": "اضافةإنجاز جديد",
     "add_new_note": "اضافة ملاحظة جديد",
     "add_new_keyw": "اضافة كلمةاساسية جديد",
+    "add_new_relative":"اضافة قريب جديد",
     "add_n_exper": "اضافة خبرة جديد",
     "expire_date": "تاريخ الانتهاء",
     "issue_date": "تاريخ الاصدار",
@@ -310,5 +312,9 @@
     "relation_degree": "درجة القرابة",
     "employee_name": "اسم الموظف",
     "height":"الطول",
-    "weight":"الوزن"
+    "weight":"الوزن",
+    "select_relation":"اختر العلاقه العائليه",
+    "relation":"العلاقه",
+    "choose_relation":"من فضلك اختر العلاقه",
+    "choose_date":"من فضلك اختر الناريخ"
 }

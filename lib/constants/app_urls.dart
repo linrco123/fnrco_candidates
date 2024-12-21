@@ -54,7 +54,10 @@ class AppLinks {
  //////////////////////////TODO:tickets/////////////////
   static String ticket = '/ticket';
   //////////////////////////TODO:Medical Declaration////////
-  static String medical = "/umdf/item";
+  
+  static String submit_medical = "/umdf/item";
 
+  static String medicalQuestions= "/umdf/item";
+  
 
 }

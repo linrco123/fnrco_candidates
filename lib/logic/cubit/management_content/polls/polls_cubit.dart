@@ -53,10 +53,7 @@ class PollsCubit extends Cubit<PollsState> {
       if (question_number < pollViewQuestions.length - 1) {
       addNewAnswer(questionID);
     } else {
-      answers.add({
-        "poll_question_id": questionID.toString(),
-        "poll_answer_text": answer
-      });
+     addNewAnswer(questionID);
      // answer = '';
       sendPollView();
     }
@@ -86,8 +83,10 @@ class PollsCubit extends Cubit<PollsState> {
       "poll_answer_text": answer
     });
     answer = '';
-
-    moveTONext();
+   if(question_number < pollViewQuestions.length-1){
+     moveTONext();
+   }
+   
   }
 
   void moveTONext() {

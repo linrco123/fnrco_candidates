@@ -94,12 +94,33 @@ class MedicalDeclareProvider {
   Future<MedicalQuestionsModel> getMedQuestions() async {
     try {
       final Response response = await DioHelper.dio.get(
-        AppLinks.medical,
+        AppLinks.medicalQuestions,
       );
       logger.e('====================response==================');
       logger.e(response.data);
       if (response.statusCode == 200) {
         return MedicalQuestionsModel.fromJson(response.data);
+      } else {
+        return await Future.error(response.statusCode!);
+      }
+    } on DioError catch (e) {
+      logger.e('====================Error==================');
+      logger.e(e);
+      return await Future.error(
+          Failure(e.response!.statusCode!, e.response!.data['message']));
+    }
+  }
+
+Future<bool>  sendMedicalDeclare(Map data) async{
+    try {
+      final Response response = await DioHelper.dio.post(
+        AppLinks.submit_medical,
+        data: data
+      );
+      logger.e('====================response==================');
+      logger.e(response.data);
+      if (response.statusCode == 200) {
+        return response.data['status'];
       } else {
         return await Future.error(response.statusCode!);
       }
