@@ -1,15 +1,16 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/app_router.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/constants/app_theme.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/classes/dio_helper.dart';
-import 'package:fnrco_candidates/core/classes/red_exception_handler.dart';
-import 'package:fnrco_candidates/core/localizations/app_localizations_setup.dart';
-import 'package:fnrco_candidates/logic/bloc/internet/internet_bloc.dart';
-import 'package:fnrco_candidates/logic/cubit/settings/settings_cubit.dart';
+import 'package:fnrco_candidates/ui/screens/internet_connection.dart';
+import 'app_router.dart';
+import 'constants/app_pages_names.dart';
+import 'constants/app_theme.dart';
+import 'core/classes/cache_helper.dart';
+import 'core/classes/dio_helper.dart';
+import 'core/classes/red_exception_handler.dart';
+import 'core/localizations/app_localizations_setup.dart';
+import 'logic/bloc/internet/internet_bloc.dart';
+import 'logic/cubit/settings/settings_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +65,9 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
               AppLocalizationsSetup.localResolutionCallback,
           themeAnimationCurve: Curves.bounceInOut,
           debugShowCheckedModeBanner: false,
+          routes: {
+            '/internetConnect': (context)=> InternetConnectionScreen()
+          },
           onGenerateRoute: AppRouter.routeTo,
           initialRoute: AppPagesNames.ANIMATED_SPLASH,
         );

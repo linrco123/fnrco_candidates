@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/data/models/management_content/faqs_model.dart';
+import '../../../constants/app_colors.dart';
+import '../../../data/models/management_content/faqs_model.dart';
 
 class FAQCard extends StatefulWidget {
   final FAQ faq;

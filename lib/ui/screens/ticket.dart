@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/classes/dotted_border.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/ticket_provider.dart';
-import 'package:fnrco_candidates/logic/cubit/tickets/tickets_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../constants/app_colors.dart';
+import '../../core/classes/dotted_border.dart';
+import '../../core/functions/show_toast.dart';
+import '../../core/functions/translate.dart';
+import '../../data/api_provider/ticket_provider.dart';
+import '../../logic/cubit/tickets/tickets_cubit.dart';
+import '../widgets/auth/custom_elevated_btn.dart';
+import '../widgets/loading_widget.dart';
+import '../widgets/profile/custom_text_field.dart';
+import '../widgets/profile/title_text.dart';
+import '../widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class TicketsScreen extends StatelessWidget {
@@ -20,17 +20,17 @@ class TicketsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TicketsCubit(TicketProvider()),
+      create: (context) => TicketsCubit(TicketProvider())..getUIWidget(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'tickets'),
             style:
-                TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
+                TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
           ),
           leading: ReturnButton(
-            color: AppColors.white,
+            color: AppColors.primary,
           ),
           centerTitle: true,
         ),
@@ -60,6 +60,7 @@ class TicketsScreen extends StatelessWidget {
                 color: AppColors.white,
                 child: Column(
                   children: [
+                    const SizedBox(height: 10.0,),
                     Form(
                       key: cubit.formKey,
                       child: Expanded(
@@ -132,6 +133,7 @@ class TicketsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10.0,),
                     Expanded(
                         child: Column(
                       children: [
@@ -234,9 +236,8 @@ class TicketsScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: CustomElevatedButton(
                                 fun: () {
-                                  //cubit.submitTicket();
-                                  //cubit.tryyyy();
-                                  cubit.gfgfgfggff();
+                                  cubit.submitTicket(context);
+
                                 },
                                 background: AppColors.primary,
                                 text: translateLang(context, 'save'))),

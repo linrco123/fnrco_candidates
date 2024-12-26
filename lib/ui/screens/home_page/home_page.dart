@@ -2,19 +2,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/data/api_provider/home/home_tap_provider.dart';
-import 'package:fnrco_candidates/logic/cubit/home_page/home_page_cubit.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
-import 'package:fnrco_candidates/ui/screens/category_details.dart';
-import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
-import 'package:fnrco_candidates/ui/screens/profile/profile.dart';
-import 'package:fnrco_candidates/ui/screens/settings.dart';
-import 'package:fnrco_candidates/ui/screens/unregistered_screen.dart';
+import '../../../core/functions/show_toast.dart';
+import '../../../data/api_provider/home/home_tap_provider.dart';
+import '../../../logic/cubit/home_page/home_page_cubit.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../constants/app_pages_names.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../core/functions/translate.dart';
+import '../../../core/localizations/app_localizations.dart';
+import '../category_details.dart';
+import 'home_tap.dart';
+import '../profile/profile.dart';
+import '../settings.dart';
+import '../unregistered_screen.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'package:toastification/toastification.dart';
 import '../../../constants/app_colors.dart';
@@ -26,7 +26,9 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomePageCubit(HomePageProvider())..getJobs(),
+      create: (context) => HomePageCubit(HomePageProvider())
+        ..getJobs()
+        ..getAppliedJobs(),
       child: BlocConsumer<HomePageCubit, HomePageState>(
         listener: (context, state) {
           if (state is LogoutSuccessState) {
@@ -91,7 +93,8 @@ class HomePageScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         //'Muhammed Nady',
-                                        CacheHelper.getName() ?? 'Guest',
+                                        CacheHelper.getName() ??
+                                            translateLang(context, "guest"),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineLarge!
@@ -198,20 +201,19 @@ class HomePageScreen extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
-                            ListTile(
-                              onTap: () {},
-                              leading: SvgPicture.asset(
-                                AppImages.SAVED,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("saved_jobs"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
+                            // ListTile(
+                            //   onTap: () {},
+                            //   leading: SvgPicture.asset(
+                            //     AppImages.SAVED,
+                            //     color: AppColors.primary,
+                            //   ),
+                            //   title: Text(
+                            //     AppLocalizations.of(context)!
+                            //         .translate("saved_jobs"),
+                            //     style:
+                            //         Theme.of(context).textTheme.displayMedium,
+                            //   ),
+                            // ),
                             ListTile(
                               onTap: () {
                                 Navigator.of(context)
@@ -353,12 +355,10 @@ class HomePageScreen extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium,
                               ),
                             ),
-                            
                           ],
                         ),
                       ),
             body: _buildBody(context, homePageCubit.selectedIndex),
-         
             bottomNavigationBar: StylishBottomBar(
               borderRadius: BorderRadius.circular(16.0),
               backgroundColor: AppColors.white,
@@ -368,11 +368,9 @@ class HomePageScreen extends StatelessWidget {
                 iconStyle: IconStyle.animated,
                 opacity: 0.9,
               ),
-
               items: homePageCubit.navBarItems,
               fabLocation: StylishBarFabLocation.center,
               hasNotch: true,
-
               currentIndex: homePageCubit.selectedIndex,
               onTap: (index) => homePageCubit.changeState(index),
             ),
@@ -394,14 +392,16 @@ class HomePageScreen extends StatelessWidget {
           backgroundColor: AppColors.primary,
           centerTitle: true,
           leading: Builder(
-            builder: (context) => IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: Icon(
-                  Icons.menu,
-                  color: AppColors.white,
-                )),
+            builder: (context) => CacheHelper.userToken == null
+                ? SizedBox.shrink()
+                : IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    icon: Icon(
+                      Icons.menu,
+                      color: AppColors.white,
+                    )),
           ),
         );
       case 1:

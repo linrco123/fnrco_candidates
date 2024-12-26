@@ -11,6 +11,7 @@ import 'package:fnrco_candidates/data/api_provider/home/home_tap_provider.dart';
 import 'package:fnrco_candidates/ui/screens/category_details.dart';
 import 'package:fnrco_candidates/ui/screens/home_page/home_tap.dart';
 import 'package:fnrco_candidates/ui/screens/settings.dart';
+import 'package:fnrco_candidates/data/models/profile_get/get_jobs_model.dart';
 
 part 'home_page_state.dart';
 
@@ -127,7 +128,7 @@ class HomePageCubit extends Cubit<HomePageState> {
       emit(LogoutFailureState(error: error));
     });
   }
-  
+
   var jobs = List<Job>.empty(growable: true);
 
   getJobs() {
@@ -137,6 +138,18 @@ class HomePageCubit extends Cubit<HomePageState> {
       emit(GetJobsSuccessState(jobs: value.jobs!));
     }).catchError((error) {
       emit(GetJobsFailureState(message: error.failure.message));
+    });
+  }
+
+  var appliedJobs = List<GetJob>.empty(growable: true);
+  getAppliedJobs() {
+   // emit(HomePageGetAppliedJobsLoadingState());
+    homePageProvider.getAppliedJobs().then((value) {
+      appliedJobs.addAll(value.data!);
+    ///  emit(HomePageGetAppliedJobsSuccessState());
+    }).catchError((error) {
+      // emit(HomePageGetAppliedJobsFailureState(
+      //     message: error.message.toString()));
     });
   }
 }

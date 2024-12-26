@@ -12,7 +12,6 @@ class TicketUploadFileState extends TicketsState{}
 class TicketDeletionFileState extends TicketsState{}
 
 
-
 class SubmitTicketLoadingState extends TicketsState{}
 
 
@@ -24,3 +23,15 @@ class SubmitTicketFailureState extends TicketsState{
   SubmitTicketFailureState({required this.message});
 }
 class emptyAttachmentAndRemarksState extends TicketsState{}
+
+
+class TicketUIWidgetLoadingState extends    TicketsState{}  
+
+class TicketUIWidgetSuccessState extends    TicketsState{}  
+
+class TicketUIWidgetFailureState extends    TicketsState{
+  final String message;
+
+  TicketUIWidgetFailureState({required this.message});
+  
+}  

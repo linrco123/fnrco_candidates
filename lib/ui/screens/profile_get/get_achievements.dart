@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/logic/cubit/profile_get/about_me/about_me_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile_get/achievement_card.dart';
+import '../../../core/functions/translate.dart';
+import '../../../logic/cubit/profile_get/about_me/about_me_cubit.dart';
+import '../../widgets/empty_data_widget.dart';
+import '../../widgets/error_widget.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/profile_get/achievement_card.dart';
 
 class GetAchievementsScreen extends StatefulWidget {
   const GetAchievementsScreen({super.key});
@@ -50,7 +50,7 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
                       AchievementCard(achievement: state.achievements[index]),
                   separatorBuilder: (BuildContext context, int index) =>
                       const SizedBox(
-                    height: 10.0,
+                    height: 16.0,
                   ),
                 ),
               );

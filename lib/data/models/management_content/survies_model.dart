@@ -1,28 +1,22 @@
-
-class SurviesModel {
+class SurveysModel {
   bool? status;
   String? message;
-  List<Survey>? surveys;
+ Survey? survey;
 
-  SurviesModel({this.status, this.message, this.surveys});
+  SurveysModel({this.status, this.message, this.survey});
 
-  SurviesModel.fromJson(Map<String, dynamic> json) {
+  SurveysModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
-      surveys = <Survey>[];
-      json['data'].forEach((v) {
-        surveys!.add(new Survey.fromJson(v));
-      });
-    }
+    survey = json['data'] != null ? new Survey.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.surveys != null) {
-      data['data'] = this.surveys!.map((v) => v.toJson()).toList();
+    if (this.survey != null) {
+      data['data'] = this.survey!.toJson();
     }
     return data;
   }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:fnrco_candidates/logic/cubit/job_offer/job_offer_cubit.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../logic/cubit/job_offer/job_offer_cubit.dart';
+import '../../constants/app_colors.dart';
+import '../widgets/loading_widget.dart';
+import '../widgets/return_btn.dart';
 //import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class JobOfferScreen extends StatelessWidget {

@@ -1,10 +1,11 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/app_urls.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/classes/exceptions.dart';
-import 'package:fnrco_candidates/core/classes/failure.dart';
-import 'package:fnrco_candidates/data/models/management_content/survey_view_model.dart';
-import 'package:fnrco_candidates/data/models/management_content/survies_model.dart';
+import '../../../constants/app_urls.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../core/classes/dio_helper.dart';
+import '../../../core/classes/exceptions.dart';
+import '../../../core/classes/failure.dart';
+import '../../models/management_content/survey_view_model.dart';
+import '../../models/management_content/survies_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class SurveysProvider {
@@ -23,22 +24,13 @@ class SurveysProvider {
     dio = Dio(_baseOptions);
   }
 
-  Future<SurviesModel?> getSurveys() async {
+  Future<SurveysModel?> getSurveys() async {
     try {
-      final response = await Dio(BaseOptions(
-          baseUrl: AppLinks.baseUrl,
-          receiveDataWhenStatusError: true,
-          connectTimeout: 20 * 1000,
-          receiveTimeout: 20 * 1000,
-          headers: {
-            'Accept': 'application/json',
-            'content-Type': 'application/json',
-            "Auth": "bearer ${CacheHelper.userToken}"
-          })).get(AppLinks.survies);
+      final response = await DioHelper.dio.get(AppLinks.survies);
       logger.e('======================= response =================');
       logger.e(response.data);
       if (response.statusCode == 200) {
-        return SurviesModel.fromJson(response.data);
+        return SurveysModel.fromJson(response.data);
       }
     } on DioError catch (e) {
       logger.e('======================= Error =================');
@@ -52,16 +44,7 @@ class SurveysProvider {
 
   Future<SurveyViewModel?> getSurveyView(int surveyViewIndex) async {
     try {
-      final response = await Dio(BaseOptions(
-          baseUrl: AppLinks.baseUrl,
-          receiveDataWhenStatusError: true,
-          connectTimeout: 20 * 1000,
-          receiveTimeout: 20 * 1000,
-          headers: {
-            'Accept': 'application/json',
-            'content-Type': 'application/json',
-            "Auth": "bearer ${CacheHelper.userToken}"
-          })).get('${AppLinks.surveyView}/$surveyViewIndex');
+      final response = await DioHelper.dio.get('${AppLinks.surveyView}/$surveyViewIndex');
       logger.e('======================= response =================');
       logger.e(response.data);
       if (response.statusCode == 200) {

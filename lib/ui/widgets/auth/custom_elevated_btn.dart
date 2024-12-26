@@ -35,6 +35,7 @@ class CustomElevatedButton extends StatelessWidget {
               borderRadius:
                   BorderRadiusDirectional.all(Radius.circular(16.0)))),
       child: Text(
+        textAlign: TextAlign.center,
         text,
         style: TextStyle(fontSize: textSize),
       ),

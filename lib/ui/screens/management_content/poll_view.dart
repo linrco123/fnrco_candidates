@@ -89,8 +89,7 @@ class PollsViewScreen extends StatelessWidget {
                             child: Text(
                               textAlign: TextAlign.justify,
                               pollCubit
-                                  .pollViewQuestions[pollCubit.question_number]
-                                  .pollText!,
+                                  .pollViewQuestions[pollCubit.question_number],
                               style: Theme.of(context).textTheme.headlineLarge,
                             ),
                           ),
@@ -101,29 +100,24 @@ class PollsViewScreen extends StatelessWidget {
                         height: 15.0,
                       ),
                       ...List.generate(
-                        pollCubit.pollViewQuestions[pollCubit.question_number]
-                            .options!.length,
+                        pollCubit.pollView!.options!.length,
                         (int index) => InkWell(
                             onTap: () {
+                              
                               pollCubit.chooseAnswer(pollCubit
-                                  .pollViewQuestions[pollCubit.question_number]
-                                  .options![index]
-                                  .pollOptText!);
+                                  .pollView!.options![index].pollOptText!);
                             },
                             child: AnswerCard(
                                 answerReference: pollCubit.answer,
                                 answer: pollCubit
-                                    .pollViewQuestions[
-                                        pollCubit.question_number]
-                                    .options![index]
-                                    .pollOptText!)),
+                                    .pollView!.options![index].pollOptText!)),
                       ),
                       const Spacer(),
                       CustomElevatedButton(
                         fun: () {
                           pollCubit.submitPollViewQuestion(pollCubit
                               .pollViewQuestions[pollCubit.question_number]
-                              .id!);
+                              );
                         },
                         background: AppColors.primary,
                         text: translateLang(

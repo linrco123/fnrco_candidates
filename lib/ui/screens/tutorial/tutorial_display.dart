@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../../constants/app_colors.dart';
+import '../../../core/functions/translate.dart';
+import '../../widgets/return_btn.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TutorialDisplayScreen extends StatefulWidget {

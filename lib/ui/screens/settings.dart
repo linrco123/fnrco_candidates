@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
-import 'package:fnrco_candidates/logic/cubit/settings/settings_cubit.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_images_path.dart';
+import '../../core/localizations/app_localizations.dart';
+import '../../logic/cubit/settings/settings_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -39,15 +38,15 @@ class SettingsScreen extends StatelessWidget {
                 var settingsCubit = BlocProvider.of<SettingsCubit>(context);
                 return ListView(
                   children: [
-                    _addSettingItem(
-                        context: context,
-                        image: AppImages.TRANSLATE,
-                        text:
-                            AppLocalizations.of(context)!.translate('language'),
-                        onTap: () {
-                          //////language change
-                          settingsCubit.showLanguageDialogue(context);
-                        }),
+                    // _addSettingItem(
+                    //     context: context,
+                    //     image: AppImages.TRANSLATE,
+                    //     text:
+                    //         AppLocalizations.of(context)!.translate('language'),
+                    //     onTap: () {
+                    //       //////language change
+                    //       settingsCubit.showLanguageDialogue(context);
+                    //     }),
                     _divider(),
 
                     // Account Settings field
@@ -133,53 +132,53 @@ class SettingsScreen extends StatelessWidget {
                         )),
                     _divider(),
 
-                    _addSettingItem(
-                        context: context,
-                        isSVG: false,
-                        image: AppImages.brightness,
-                        text: AppLocalizations.of(context)!
-                            .translate('brightness_mode'),
-                        icon: settingsCubit.isBrightnessShown
-                            ? Icons.keyboard_arrow_down
-                            : Icons.arrow_forward_ios,
-                        size: settingsCubit.isBrightnessShown ? 25 : 15,
-                        onTap: () {
-                          settingsCubit.showBrightness();
-                        }),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Visibility(
-                        visible: settingsCubit.isBrightnessShown,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Switch(
-                                activeColor: AppColors.black,
-                                inactiveThumbColor: AppColors.white,
-                                trackOutlineColor:
-                                    WidgetStatePropertyAll(AppColors.primary),
-                                value: settingsCubit.brightnessMode == DARK_MODE
-                                    ? true
-                                    : false,
-                                onChanged: (value) =>
-                                    settingsCubit.toggleBrightness(
-                                        value ? DARK_MODE : LIGTH_MODE)),
-                            Text(
-                              settingsCubit.brightnessMode == LIGTH_MODE
-                                  ? 'Bright Mode'
-                                  : 'Dark Mode',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineLarge!
-                                  .copyWith(
-                                      color: settingsCubit.brightnessMode ==
-                                              DARK_MODE
-                                          ? AppColors.black
-                                          : AppColors.white),
-                            )
-                          ],
-                        )),
+                    // _addSettingItem(
+                    //     context: context,
+                    //     isSVG: false,
+                    //     image: AppImages.brightness,
+                    //     text: AppLocalizations.of(context)!
+                    //         .translate('brightness_mode'),
+                    //     icon: settingsCubit.isBrightnessShown
+                    //         ? Icons.keyboard_arrow_down
+                    //         : Icons.arrow_forward_ios,
+                    //     size: settingsCubit.isBrightnessShown ? 25 : 15,
+                    //     onTap: () {
+                    //       settingsCubit.showBrightness();
+                    //     }),
+                    // const SizedBox(
+                    //   height: 10.0,
+                    // ),
+                    // Visibility(
+                    //     visible: settingsCubit.isBrightnessShown,
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //       children: [
+                    //         Switch(
+                    //             activeColor: AppColors.black,
+                    //             inactiveThumbColor: AppColors.white,
+                    //             trackOutlineColor:
+                    //                 WidgetStatePropertyAll(AppColors.primary),
+                    //             value: settingsCubit.brightnessMode == DARK_MODE
+                    //                 ? true
+                    //                 : false,
+                    //             onChanged: (value) =>
+                    //                 settingsCubit.toggleBrightness(
+                    //                     value ? DARK_MODE : LIGTH_MODE)),
+                    //         Text(
+                    //           settingsCubit.brightnessMode == LIGTH_MODE
+                    //               ? 'Bright Mode'
+                    //               : 'Dark Mode',
+                    //           style: Theme.of(context)
+                    //               .textTheme
+                    //               .headlineLarge!
+                    //               .copyWith(
+                    //                   color: settingsCubit.brightnessMode ==
+                    //                           DARK_MODE
+                    //                       ? AppColors.black
+                    //                       : AppColors.white),
+                    //         )
+                    //       ],
+                    //     )),
                   ],
                 );
               },

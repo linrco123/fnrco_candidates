@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/widgets/company_info/company_info_header.dart';
-import 'package:fnrco_candidates/ui/widgets/job_details/custom_app_bar.dart';
-import 'package:fnrco_candidates/ui/widgets/job_details/custom_item_feature.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_images_path.dart';
+import '../../core/functions/translate.dart';
+import '../widgets/company_info/company_info_header.dart';
+import '../widgets/job_details/custom_app_bar.dart';
+import '../widgets/job_details/custom_item_feature.dart';
 
 class CompanyInfoScreen extends StatelessWidget {
   const CompanyInfoScreen({super.key});

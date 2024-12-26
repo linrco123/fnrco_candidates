@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class CustomDivider extends StatelessWidget {
   final double vPadding;

@@ -20,6 +20,7 @@ class SurviesScreen extends StatelessWidget {
       create: (context) => surveysCubit..getsurveys(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.white,
           title: Text(
             'Surveys',
             style: TextStyle(color: AppColors.primary),

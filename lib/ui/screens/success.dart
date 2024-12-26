@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_images_path.dart';
+import '../../constants/app_pages_names.dart';
+import '../../constants/constances.dart';
+import '../../core/functions/translate.dart';
+import '../widgets/auth/custom_elevated_btn.dart';
 import 'package:lottie/lottie.dart';
 
 class SuccessScreen extends StatelessWidget {

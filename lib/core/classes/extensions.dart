@@ -1,7 +1,7 @@
-import 'package:fnrco_candidates/constants/enums.dart';
-import 'package:fnrco_candidates/constants/response_messages.dart';
-import 'package:fnrco_candidates/constants/responses_code.dart';
-import 'package:fnrco_candidates/core/classes/failure.dart';
+import '../../constants/enums.dart';
+import '../../constants/response_messages.dart';
+import '../../constants/responses_code.dart';
+import 'failure.dart';
  
 
 extension DataSourceExtension on DataSource {

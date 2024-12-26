@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/logic/cubit/on_boarding/on_boarding_state.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/data/models/onboarding_model.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../core/classes/cache_helper.dart';
+import 'on_boarding_state.dart';
+import '../../../constants/app_pages_names.dart';
+import '../../../data/models/onboarding_model.dart';
 
 class OnBoardingCubit extends Cubit<OnBoardingState> {
   OnBoardingCubit() : super(OnBoardingInitialState());

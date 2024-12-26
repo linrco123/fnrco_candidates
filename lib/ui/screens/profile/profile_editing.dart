@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/logic/cubit/profile_update/profile/profile_cubit.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
-import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/profile_pic.dart';
+import '../../../logic/cubit/profile_update/profile/profile_cubit.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../constants/app_pages_names.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../core/functions/translate.dart';
+import '../../widgets/auth/custom_elevated_btn.dart';
+import '../../widgets/auth/name_email_phone_form_field.dart';
+import '../../widgets/auth/password_form_field.dart';
+import '../../widgets/custom_divider.dart';
+import '../../widgets/profile/profile_pic.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});

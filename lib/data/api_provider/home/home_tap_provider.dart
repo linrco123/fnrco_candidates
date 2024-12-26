@@ -1,10 +1,10 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/app_urls.dart';
-import 'package:fnrco_candidates/core/classes/dio_helper.dart';
-import 'package:fnrco_candidates/core/classes/exceptions.dart';
-import 'package:fnrco_candidates/core/classes/failure.dart';
-import 'package:fnrco_candidates/data/models/home/jobs_model.dart';
-
+import '../../../constants/app_urls.dart';
+import '../../../core/classes/dio_helper.dart';
+import '../../../core/classes/exceptions.dart';
+import '../../../core/classes/failure.dart';
+import '../../models/home/jobs_model.dart';
+import '../../models/profile_get/get_jobs_model.dart';
 class HomePageProvider {
   // late Dio dio;
   HomePageProvider() {
@@ -37,6 +37,22 @@ class HomePageProvider {
       }
     } on DioError catch (e) {
       print('error =================================>>>>>>>>>>>>> $e');
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
+    }
+  }
+
+
+  Future<GetJobsModel> getAppliedJobs() async {
+    try {
+      final Response response = await DioHelper.dio.get(AppLinks.appliedJobs);
+      if (response.statusCode == 200) {
+        return GetJobsModel.fromJson(response.data);
+      } else {
+        return await Future.error(response.statusCode!);
+      }
+    } on DioError catch (e) {
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));

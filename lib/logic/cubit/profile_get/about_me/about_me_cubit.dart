@@ -1,29 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/data/api_provider/profile_get/about_me_provider.dart';
-import 'package:fnrco_candidates/data/models/profile/profile_section_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/achievements_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/contacts_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/credentials_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/education_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/experiences_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/get_jobs_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/languages_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/notes_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/personal_data_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/skills_model.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/applied_jobs.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_achievements.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_contacts.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_credentials.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_education.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_experiences.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_keywords.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_languages.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_notes.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_personal_details.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get/get_skills.dart';
+import '../../../../data/api_provider/profile_get/about_me_provider.dart';
+import '../../../../data/models/profile/profile_section_model.dart';
+import '../../../../data/models/profile_get/achievements_model.dart';
+import '../../../../data/models/profile_get/contacts_model.dart';
+import '../../../../data/models/profile_get/credentials_model.dart';
+import '../../../../data/models/profile_get/education_model.dart';
+import '../../../../data/models/profile_get/experiences_model.dart';
+import '../../../../data/models/profile_get/get_jobs_model.dart';
+import '../../../../data/models/profile_get/keywords_model.dart';
+import '../../../../data/models/profile_get/languages_model.dart';
+import '../../../../data/models/profile_get/notes_model.dart';
+import '../../../../data/models/profile_get/personal_data_model.dart';
+import '../../../../data/models/profile_get/skills_model.dart';
+import '../../../../ui/screens/profile_get/applied_jobs.dart';
+import '../../../../ui/screens/profile_get/get_achievements.dart';
+import '../../../../ui/screens/profile_get/get_contacts.dart';
+import '../../../../ui/screens/profile_get/get_credentials.dart';
+import '../../../../ui/screens/profile_get/get_education.dart';
+import '../../../../ui/screens/profile_get/get_experiences.dart';
+import '../../../../ui/screens/profile_get/get_keywords.dart';
+import '../../../../ui/screens/profile_get/get_languages.dart';
+import '../../../../ui/screens/profile_get/get_notes.dart';
+import '../../../../ui/screens/profile_get/get_personal_details.dart';
+import '../../../../ui/screens/profile_get/get_skills.dart';
 
 part 'about_me_state.dart';
 
@@ -76,8 +76,11 @@ class AboutMeCubit extends Cubit<AboutMeState> {
 
   int section = 0;
 
+  int first_clicked = 0;
+
   void changeSection(int page) {
     section = page;
+   // first_clicked = 0;
     emit(AboutMeChangeSectionState());
   }
 
@@ -184,7 +187,7 @@ class AboutMeCubit extends Cubit<AboutMeState> {
     });
   }
 
-   getAppliedJobs() {
+  getAppliedJobs() {
     emit(AboutMeGetAppliedJobsLoadingState());
     aboutMeProvider.getAppliedJobs().then((value) {
       emit(AboutMeGetAppliedJobsSuccessState(appliedJobs: value.data!));
@@ -192,6 +195,4 @@ class AboutMeCubit extends Cubit<AboutMeState> {
       emit(AboutMeGetAppliedJobsErrorState(message: error.failure.message));
     });
   }
-
-  
 }

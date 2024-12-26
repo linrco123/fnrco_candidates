@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/data/api_provider/profile_get/about_me_provider.dart';
-import 'package:fnrco_candidates/logic/cubit/profile_get/about_me/about_me_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../../constants/app_colors.dart';
+import '../../../data/api_provider/profile_get/about_me_provider.dart';
+import '../../../logic/cubit/profile_get/about_me/about_me_cubit.dart';
+import '../../widgets/auth/custom_elevated_btn.dart';
+import '../../widgets/return_btn.dart';
 
 class AboutMe extends StatelessWidget {
   const AboutMe({super.key});
@@ -43,8 +43,10 @@ class AboutMe extends StatelessWidget {
                                 width: 150,
                                 child: CustomElevatedButton(
                                     fun: () {
+
                                       cubit.changeSection(
                                           cubit.sections[index].index);
+                                          
                                     },
                                     background: cubit.sections[index].index ==
                                             cubit.section
@@ -54,8 +56,7 @@ class AboutMe extends StatelessWidget {
                                             cubit.section
                                         ? AppColors.white
                                         : AppColors.black,
-                                    text: cubit.sections[index].section
-                                        ),
+                                    text: cubit.sections[index].section),
                               ),
                           separatorBuilder: (context, index) => const SizedBox(
                                 width: 5.0,
@@ -63,7 +64,7 @@ class AboutMe extends StatelessWidget {
                           itemCount: cubit.sections.length),
                     ),
                     const SizedBox(
-                      height: 10.0,
+                      height: 16.0,
                     ),
                     Expanded(child: cubit.getBodyWidget()),
                   ],

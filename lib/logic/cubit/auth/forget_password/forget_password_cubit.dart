@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/forget_password.dart';
+import '../../../../constants/constances.dart';
+import '../../../../core/functions/translate.dart';
+import '../../../../data/api_provider/auth/forget_password.dart';
 
 part 'forget_password_state.dart';
 

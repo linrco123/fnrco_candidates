@@ -24,7 +24,7 @@ final class PollsFailureState extends PollsState {
 class PollsViewLoadingState extends PollsState {}
 
 class PollsViewSuccessState extends PollsState {
-  final List<PQuestion> questions;
+  final List<String> questions;
 
   PollsViewSuccessState({required this.questions});
 }

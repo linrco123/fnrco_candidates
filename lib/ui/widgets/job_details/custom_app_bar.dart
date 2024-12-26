@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/ui/widgets/job_details/back_btn.dart';
+import 'back_btn.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Color btnColor;
@@ -30,20 +30,24 @@ class CustomAppBar extends StatelessWidget {
           arrowColor: arrowColor,
         ),
         const SizedBox(width: 10.0),
-        Text(title,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: titleColor)),
-        const Spacer(),
-        IconButton(
-          onPressed: onTap,
-          icon: Icon(
-          icon,
-            color: arrowColor,
-            size: 25.0,
-          ),
+        Expanded(
+          flex: 2,
+          child: Text(title,
+          textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: titleColor)),
         ),
+        const Spacer(),
+        // IconButton(
+        //   onPressed: onTap,
+        //   icon: Icon(
+        //   icon,
+        //     color: arrowColor,
+        //     size: 25.0,
+        //   ),
+        // ),
       ],
     );
   }

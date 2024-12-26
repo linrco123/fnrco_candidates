@@ -23,6 +23,7 @@ class PollsScreen extends StatelessWidget {
       create: (context) => pollsCubit..getPolls(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.white,
             title: Text(
               translateLang(context, 'polls'),
               style: TextStyle(color: AppColors.primary),
@@ -76,7 +77,7 @@ class PollsScreen extends StatelessWidget {
                       itemCount: pollsCubit.polls.length,
                       itemBuilder: (BuildContext context, int index) => InkWell(
                           onTap: () {
-                            pollsCubit.pollViewID = pollsCubit.polls[index].id!;
+                           // pollsCubit.pollViewID = pollsCubit.polls[index].id!;
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (Context) => BlocProvider.value(
                                       value: pollsCubit

@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_pages_names.dart';
+import '../../../../core/classes/cache_helper.dart';
+import '../../../../core/functions/translate.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 part 'profile_state.dart';

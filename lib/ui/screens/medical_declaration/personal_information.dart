@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/logic/cubit/medical_declare/medical_declare_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_drop_text_field.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/signup/signup_loading_widget.dart';
+import '../../../core/functions/translate.dart';
+import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
+import '../../widgets/auth/custom_drop_text_field.dart';
+import '../../widgets/auth/name_email_phone_form_field.dart';
+import '../../widgets/auth/signup/signup_loading_widget.dart';
 
 class PersonalInformationScreen extends StatelessWidget {
   @override
@@ -46,7 +46,7 @@ class PersonalInformationScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 cubit.countries.isEmpty
-                    ? SignUpLoadingWidget()
+                    ? ItemLoadingWidget()
                     : CustomDropDownSearch(
                         label: translateLang(context, 'select_country'),
                         items: cubit.countries
@@ -59,7 +59,7 @@ class PersonalInformationScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 cubit.genders.isEmpty
-                    ? SignUpLoadingWidget()
+                    ? ItemLoadingWidget()
                     : CustomDropDownSearch(
                         isSearchEnabled: false,
                         label: translateLang(context, 'select_gender'),
@@ -73,7 +73,7 @@ class PersonalInformationScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 cubit.maritalStatus.isEmpty
-                    ? SignUpLoadingWidget()
+                    ? ItemLoadingWidget()
                     : CustomDropDownSearch(
                         // widget: Image.asset(
                         //   AppImages.marital_status,

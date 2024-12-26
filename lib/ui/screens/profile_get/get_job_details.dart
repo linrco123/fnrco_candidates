@@ -19,7 +19,7 @@ class GetJobDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          //backgroundColor: AppColors.white,
+          backgroundColor: AppColors.white,
           title: Text(
             'Applied Job Details',
             style: TextStyle(

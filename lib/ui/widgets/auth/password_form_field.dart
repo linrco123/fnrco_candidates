@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
+import '../../../constants/app_colors.dart';
 
 class PasswordFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -38,6 +38,7 @@ class PasswordFormField extends StatelessWidget {
         obscureText: obscureText,
         validator: (value) => validate(context, value),
         decoration: InputDecoration(
+          isDense: true,
           prefixIcon: Icon(prefixIcon,  size: 30,),
           prefixIconColor: AppColors.grey,
           suffixIcon: IconButton(onPressed: toggleObscureText, icon: visibleIcon),

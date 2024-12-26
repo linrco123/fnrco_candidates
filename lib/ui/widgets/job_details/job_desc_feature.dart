@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
+import '../../../constants/app_images_path.dart';
 
 class CustomCheckedJobFeature extends StatelessWidget {
   final String text;

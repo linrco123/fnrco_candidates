@@ -1,13 +1,13 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/app_urls.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/classes/exceptions.dart';
-import 'package:fnrco_candidates/core/classes/failure.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
+import '../../../constants/app_urls.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../core/classes/exceptions.dart';
+import '../../../core/classes/failure.dart';
+import '../../models/auth/sign_up/countries_model.dart';
+import '../../models/auth/sign_up/gender_model.dart';
+import '../../models/auth/sign_up/marital_status_model.dart';
+import '../../models/auth/sign_up/positions_model.dart';
+import '../../models/auth/sign_up/religion_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class PersonalDetailsProvider {

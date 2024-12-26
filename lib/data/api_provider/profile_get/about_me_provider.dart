@@ -1,20 +1,20 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/app_urls.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/classes/dio_helper.dart';
-import 'package:fnrco_candidates/core/classes/exceptions.dart';
-import 'package:fnrco_candidates/core/classes/failure.dart';
-import 'package:fnrco_candidates/data/models/profile_get/achievements_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/contacts_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/credentials_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/education_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/experiences_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/get_jobs_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/languages_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/notes_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/personal_data_model.dart';
-import 'package:fnrco_candidates/data/models/profile_get/skills_model.dart';
+import '../../../constants/app_urls.dart';
+import '../../../constants/constances.dart';
+import '../../../core/classes/dio_helper.dart';
+import '../../../core/classes/exceptions.dart';
+import '../../../core/classes/failure.dart';
+import '../../models/profile_get/achievements_model.dart';
+import '../../models/profile_get/contacts_model.dart';
+import '../../models/profile_get/credentials_model.dart';
+import '../../models/profile_get/education_model.dart';
+import '../../models/profile_get/experiences_model.dart';
+import '../../models/profile_get/get_jobs_model.dart';
+import '../../models/profile_get/keywords_model.dart';
+import '../../models/profile_get/languages_model.dart';
+import '../../models/profile_get/notes_model.dart';
+import '../../models/profile_get/personal_data_model.dart';
+import '../../models/profile_get/skills_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class AboutMeProvider {

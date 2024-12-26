@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:fnrco_candidates/data/models/management_content/contents_model.dart';
+import '../../../../data/models/management_content/contents_model.dart';
 import 'package:meta/meta.dart';
-import 'package:fnrco_candidates/data/api_provider/management_content/contents.dart';
+import '../../../../data/api_provider/management_content/contents.dart';
 part 'contents_state.dart';
 
 class ContentsCubit extends Cubit<ContentsState> {

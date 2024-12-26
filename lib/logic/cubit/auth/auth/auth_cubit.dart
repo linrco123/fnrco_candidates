@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
+import '../../../../core/classes/cache_helper.dart';
+import '../../../../data/api_provider/auth/login_provider.dart';
 import 'package:meta/meta.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_darwin/local_auth_darwin.dart';

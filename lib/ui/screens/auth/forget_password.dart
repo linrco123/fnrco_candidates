@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/forget_password.dart';
-import 'package:fnrco_candidates/logic/cubit/auth/forget_password/forget_password_cubit.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/logo.dart';
+import '../../../constants/app_pages_names.dart';
+import '../../../constants/constances.dart';
+import '../../../core/functions/show_toast.dart';
+import '../../../data/api_provider/auth/forget_password.dart';
+import '../../../logic/cubit/auth/forget_password/forget_password_cubit.dart';
+import '../../../core/functions/translate.dart';
+import '../../widgets/auth/custom_elevated_btn.dart';
+import '../../widgets/auth/name_email_phone_form_field.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/logo.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../../constants/app_colors.dart';

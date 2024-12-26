@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/welcome/welcome_card.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_pages_names.dart';
+import '../../core/classes/cache_helper.dart';
+import '../widgets/auth/custom_elevated_btn.dart';
+import '../widgets/welcome/welcome_card.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

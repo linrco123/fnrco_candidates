@@ -1,10 +1,10 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/ui/screens/on_boarding/on_boarding2_screen.dart';
-import 'package:fnrco_candidates/ui/screens/welcome.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_images_path.dart';
+import '../../core/classes/cache_helper.dart';
+import 'on_boarding/on_boarding2_screen.dart';
+import 'welcome.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CustomAnimatedSplashScreen extends StatelessWidget {

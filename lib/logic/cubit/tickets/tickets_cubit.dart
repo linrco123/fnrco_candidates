@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -76,84 +75,70 @@ class TicketsCubit extends Cubit<TicketsState> {
     }
   }
 
-  void gfgfgfggff() async {
+  void submitTicket(context) async {
+    emit(SubmitTicketLoadingState());
     try {
-      print('===================file================+${files.length}');
-      int f1 = await files[0].length();
-      int f2 = await files[1].length();
-      print("=================f1===========+$f1");
-      print("=================f2===========+$f2");
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('${AppLinks.baseUrl}${AppLinks.ticket}'));
+
+      Map<String, String> headers = {
+        "content-type": "application/json",
+        "accept": "application/json",
+        "Auth": "bearer ${CacheHelper.userToken}"
+      };
+
+      request.headers.addAll(headers);
+
+      if (formKey.currentState!.validate()) {
+        request.fields.addAll({
+          'ui_widget_id': uIWidgetID.toString(),
+          'erp_ticket_title': subController.text,
+          'erp_ticket_priority': 'high',
+          'erp_ticket_text': txtController.text,
+        });
+
+        for (int i = 0; i < files_remarks.length; i++) {
+          request.fields['files[$i][erp_ticket_remarks]'] = files_remarks[i];
+        }
+
+        for (int i = 0; i < files.length; i++) {
+          bool exist = await File(files[i].path).exists();
+          if (exist) {
+            String filePath = files[i]
+                .path
+                .replaceAll(RegExp(r'^File: '), '')
+                .replaceAll(RegExp(r"^'|'$"), '')
+                .trim();
+
+            request.files.add(await http.MultipartFile.fromPath(
+                'files[$i][erp_ticket_file]', filePath));
+          }
+        }
+
+        for (int i = 0; i < erp_ticket_data.length; i++) {
+          request.fields['erp_ticket_data[$i][erp_ticket_data_type]'] =
+              erp_ticket_data[i]["erp_ticket_data_type"];
+
+          request.fields["erp_ticket_data[$i][erp_ticket_data_name]"] =
+              erp_ticket_data[i]["erp_ticket_data_name"];
+
+          request.fields["erp_ticket_data[$i][erp_ticket_data_value]"] =
+              erp_ticket_data[i]["erp_ticket_data_value"];
+        }
+
+        http.StreamedResponse streamedResponse = await request.send();
+        final response = await http.Response.fromStream(streamedResponse);
+        if (response.statusCode == 200) {
+          emit(SubmitTicketSuccessState());
+        } else {
+          emit(SubmitTicketFailureState(
+              message: translateLang(context, "msg_request_failure")));
+        }
+      }
     } catch (e) {
-      print('====================erooro=================');
-      print(e);
+      emit(SubmitTicketFailureState(
+          message: translateLang(context, e.toString())));
     }
-  }
-
-  void tryyyy() async {
-    print('===================file================+${files.length}');
-    int f1 = await files[0].length();
-    int f2 = await files[1].length();
-    print("=================f1===========+$f1");
-    print("=================f2===========+$f2");
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('https://develop.fnrcoerp.com/api/ticket'));
-
-    request.fields.addAll({
-      'ui_widget_id': '3',
-      'erp_ticket_title': 'Vacation Request',
-      'erp_ticket_priority': 'high',
-      'erp_ticket_text': 'Vacation Request Vacation Request',
-      'files[0][erp_ticket_remarks]': 'Vacation Medical Report',
-      'files[1][erp_ticket_remarks]': 'Vacation Medical Report sec',
-      'erp_ticket_data[0][erp_ticket_data_type]': 'date',
-      'erp_ticket_data[0][erp_ticket_data_name]': 'Vacation start Date',
-      'erp_ticket_data[0][erp_ticket_data_value]': '2024-12-04',
-      'erp_ticket_data[1][erp_ticket_data_type]': 'date',
-      'erp_ticket_data[1][erp_ticket_data_name]': 'Vacation End Date',
-      'erp_ticket_data[1][erp_ticket_data_value]': '2024-12-05'
-    });
-
-    Map<String, String> headers = {
-      "content-type": "application/json",
-      "accept": "application/json",
-      "Auth": "bearer ${CacheHelper.userToken}"
-    };
-    request.headers.addAll(headers);
-
-    request.files.add(await http.MultipartFile.fromPath(
-        'files[0][erp_ticket_file]', files[0].path));
-    request.files.add(await http.MultipartFile.fromPath(
-        'files[1][erp_ticket_file]', files[1].path));
-    http.StreamedResponse response = await request.send();
-    print('===============response==============================');
-    print(response.statusCode);
-////////////////////////////////////////////////////////////////////////////
-
-    // var data = FormData.fromMap({
-    //   'files': files,
-    //   'ui_widget_id': '3',
-    //   'erp_ticket_title': 'Vacation Request',
-    //   'erp_ticket_priority': 'high',
-    //   'erp_ticket_text': 'Vacation Request Vacation Request',
-    //   'files[0][erp_ticket_remarks]': 'Vacation Medical Report',
-    //   'files[1][erp_ticket_remarks]': 'Vacation Medical Report sec',
-    //   'erp_ticket_data[0][erp_ticket_data_type]': 'date',
-    //   'erp_ticket_data[0][erp_ticket_data_name]': 'Vacation start Date',
-    //   'erp_ticket_data[0][erp_ticket_data_value]': '2024-12-04',
-    //   'erp_ticket_data[1][erp_ticket_data_type]': 'date',
-    //   'erp_ticket_data[1][erp_ticket_data_name]': 'Vacation End Date',
-    //   'erp_ticket_data[1][erp_ticket_data_value]': '2024-12-05'
-    // });
-
-    // var dio = Dio();
-    // var response = await dio.request(
-    //   'https://develop.fnrcoerp.com/api/ticket',
-    //   options: Options(
-    //     method: 'POST',
-    //     // headers: headers,
-    //   ),
-    //   data: data,
-    // );
   }
 
   void uploadTicketFile() async {
@@ -171,59 +156,23 @@ class TicketsCubit extends Cubit<TicketsState> {
     emit(TicketDeletionFileState());
   }
 
-  var priorties = List.empty(growable: true);
-  var types = List.empty(growable: true);
-
-  void submitTicket() {
-    if (formKey.currentState!.validate()) {
-      print('=====================tickets===================');
-      emit(SubmitTicketLoadingState());
-      addType();
-      // var data = FormData.fromMap({
-      //   "ui_widget_id": "3",
-      //   "erp_ticket_title": subController.text,
-      //   "erp_ticket_text": txtController.text,
-      //   // "files": files,
-      //   // "erp_ticket_data": erp_ticket_data
-      // });
-      var data = FormData.fromMap({
-        'files': files,
-        'ui_widget_id': '3',
-        'erp_ticket_title': 'Vacation Request',
-        'erp_ticket_priority': 'high',
-        'erp_ticket_text': 'Vacation Request Vacation Request',
-        'files[0][erp_ticket_remarks]': 'Vacation Medical Report',
-        'files[1][erp_ticket_remarks]': 'Vacation Medical Report sec',
-        'erp_ticket_data[0][erp_ticket_data_type]': 'date',
-        'erp_ticket_data[0][erp_ticket_data_name]': 'Vacation start Date',
-        'erp_ticket_data[0][erp_ticket_data_value]': '2024-12-04',
-        'erp_ticket_data[1][erp_ticket_data_type]': 'date',
-        'erp_ticket_data[1][erp_ticket_data_name]': 'Vacation End Date',
-        'erp_ticket_data[1][erp_ticket_data_value]': '2024-12-05'
-      });
-
-      print('=====================tickets===================');
-      print(data);
-
-      ticketProvider.submitTicket(data).then((value) {
-        emit(SubmitTicketSuccessState());
-      }).catchError((error) {
-        emit(SubmitTicketFailureState(message: error.failure.message));
-      });
-
-      emit(SubmitTicketFailureState(message: ''));
-    }
+  int? uIWidgetID = 0;
+  void getUIWidget() {
+    emit(TicketUIWidgetLoadingState());
+    ticketProvider.getUIWidget().then((value) {
+      uIWidgetID = value.data!.supporting!.first.id;
+      emit(TicketUIWidgetSuccessState());
+    }).catchError((error) {
+      emit(TicketUIWidgetFailureState(message: error.message.toString()));
+    });
   }
-
-  // void selectPriority(Object p1) {
-  //   priority = int.parse(p1.toString());
-  // }
 
   void selectType(Object p1) {
     type = int.parse(p1.toString());
   }
 
   var files = List<File>.empty(growable: true);
+  var files_remarks = List<String>.empty(growable: true);
   var erp_ticket_data = List<Map<String, dynamic>>.empty(growable: true);
 
   void addAttachmentAndRemark() async {
@@ -232,16 +181,14 @@ class TicketsCubit extends Cubit<TicketsState> {
         files.add(
           ticket!,
         );
-        print('==============exist=====================');
-        bool exist = await ticket!.exists();
-        print(exist);
-        print(ticket!.path);
+
+        files_remarks.add(remarksController.text);
 
         //empty attachment fields
         Future.delayed(const Duration(seconds: 1)).then((value) {
           ticket = null;
           fileName = '';
-          remarksController.text = '';
+          remarksController.clear();
           emit(emptyAttachmentAndRemarksState());
         });
       }
@@ -249,14 +196,6 @@ class TicketsCubit extends Cubit<TicketsState> {
       print('==============error===============');
       print(e);
     }
-  }
-
-  void printf() {
-    files.forEach((value) {
-      print('===========================');
-      print(value);
-    });
-    // print(files);
   }
 
   void addType() {

@@ -1,3 +1,5 @@
+import 'constances.dart';
+
 class AppLinks {
   // ignore: unused_field
   static const moduleID = '91';
@@ -31,7 +33,8 @@ class AppLinks {
   //------------------------polls------------------------------
     static const String polls = "/poll?module_id=$moduleID";
   static const String pollView = "/poll/view";
-  static const String pollViewAnswer = "/polls/store-answers/";
+  //static const String pollViewAnswer = "/polls/store-answers/";
+  static const String pollViewAnswer = "/poll/store";
   //---------------------------FAQs---------------------------------
     static const String faqs = "/faqs";
   //-------------------------tutorial------------------------------
@@ -51,11 +54,13 @@ class AppLinks {
 
   static String applyJob = '/candidate/apply-job';
   static String appliedJobs = '/candidate/applied-jobs';
- //////////////////////////TODO:tickets/////////////////
+  //////////////////////////TODO:tickets/////////////////
   static String ticket = '/ticket';
+ ////////////////////////////TODO:UI_WIDGETS/////////////////
+  static String ui_widget = '/ui-widget?module_id=$MODULE_ID';
   //////////////////////////TODO:Medical Declaration////////
   
-  static String submit_medical = "/umdf/item";
+  static String submit_medical = "/umdf/medical-declaration-form";
 
   static String medicalQuestions= "/umdf/item";
   

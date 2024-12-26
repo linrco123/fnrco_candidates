@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
+import '../../../constants/app_colors.dart';
 
 class SingleHomeCard extends StatelessWidget {
   final IconData icon;
@@ -20,19 +20,21 @@ class SingleHomeCard extends StatelessWidget {
     return Container(
       height: height,
       //width: 200.0,
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.only(left:10.0 , top: 10.0),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.bottomRight,
+          Positioned(
+            //alignment: Alignment.bottomRight,
+            right: -40,
+            bottom: -40,
             child: Icon(
               icon,
-              color: AppColors.grey,
-              size: 70.0,
+              color: AppColors.grey.withOpacity(0.3),
+              size: 150.0,
             ),
           ),
           Column(

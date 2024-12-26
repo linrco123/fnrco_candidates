@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/logic/cubit/auth/log_in/log_in_cubit.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_socialMedia_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/password_form_field.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/logo.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../core/functions/show_toast.dart';
+import '../../../logic/cubit/auth/log_in/log_in_cubit.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_pages_names.dart';
+import '../../../core/functions/translate.dart';
+import '../../../data/api_provider/auth/login_provider.dart';
+import '../../widgets/auth/custom_elevated_btn.dart';
+import '../../widgets/auth/custom_socialMedia_btn.dart';
+import '../../widgets/auth/name_email_phone_form_field.dart';
+import '../../widgets/auth/password_form_field.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/logo.dart';
 import 'package:toastification/toastification.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -61,6 +61,8 @@ class SignInScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.black),
                                     onPressed: () {
                                       Navigator.of(context)
                                           .pushNamedAndRemoveUntil(
@@ -70,7 +72,7 @@ class SignInScreen extends StatelessWidget {
                                     child: Text(
                                       translateLang(context, "skip"),
                                       style: TextStyle(
-                                          color: AppColors.primary,
+                                          color: AppColors.white,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
                                     )),
@@ -78,7 +80,7 @@ class SignInScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                         const LOGO(),
+                        const LOGO(),
                         SizedBox(height: constraints.maxHeight * 0.04),
                         Text(
                           translateLang(context, 'sign_in'),
@@ -171,11 +173,10 @@ class SignInScreen extends StatelessWidget {
                                     TextSpan(
                                       text: translateLang(
                                           context, "do_not_have_an_account"),
-                                      style:
-                                         Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .copyWith(color: AppColors.grey),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium!
+                                          .copyWith(color: AppColors.grey),
                                       children: [
                                         TextSpan(text: ' '),
                                         TextSpan(

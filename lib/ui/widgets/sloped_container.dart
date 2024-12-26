@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 class SlopedContainerPainter extends CustomPainter {
   @override

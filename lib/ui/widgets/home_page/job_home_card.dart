@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_images_path.dart';
 
 class JobHomeCard extends StatelessWidget {
   final void Function()? onTap;

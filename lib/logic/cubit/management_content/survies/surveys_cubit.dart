@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/data/models/management_content/survey_view_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/survies_model.dart';
-import 'package:meta/meta.dart';
 import 'package:fnrco_candidates/data/api_provider/management_content/surveys.dart';
 part 'surveys_state.dart';
 
@@ -12,13 +11,13 @@ class SurveysCubit extends Cubit<SurveysState> {
   SurveysCubit(
     this.surveysProvider,
   ) : super(SurveysInitial());
-  List<Survey> surveys = [];
 
+ List<Survey> surveys = [];
   void getsurveys() {
     emit(SurveysLoadingState());
     surveysProvider.getSurveys().then((value) {
-      surveys.addAll(value!.surveys!);
-      emit(SurveysSuccessState(surveys: value.surveys!));
+      surveys.add(value!.survey!);
+      emit(SurveysSuccessState(surveys: [value.survey!]));
     }).catchError((error) {
       emit(SurveysFailureState(message: error.failure.message));
     });
@@ -38,12 +37,12 @@ class SurveysCubit extends Cubit<SurveysState> {
   void getSurveyView(int surveyViewindex) {
     emit(SurveysViewLoadingState());
     surveysProvider.getSurveyView(surveyViewindex).then((value) {
-      surveyViewQuestions = value!.surveyViews!.first.questions!;
-      surveyViewID = value.surveyViews!.first.id!;
-      answer = value.surveyViews!.first.questions!.first.options!.first
+      surveyViewQuestions = value!.surveyView!.questions!;
+      surveyViewID = value.surveyView!.id!;
+      answer = value.surveyView!.questions!.first.options!.first
           .surveyQuestionOptText!;
       emit(SurveysViewSuccessState(
-          questions: value.surveyViews!.first.questions!));
+          questions: value.surveyView!.questions!));
     }).catchError((error) {
       emit(SurveysFailureState(message: error.failure.message));
     });
@@ -91,7 +90,7 @@ class SurveysCubit extends Cubit<SurveysState> {
     }
     answerCntroller.clear();
     answer = '';
-    if(question_number < surveyViewQuestions.length){
+    if(question_number < surveyViewQuestions.length-1){
         moveTONext();
     }
    

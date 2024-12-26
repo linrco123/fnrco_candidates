@@ -1,6 +1,6 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/app_urls.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
+import '../../constants/app_urls.dart';
+import 'cache_helper.dart';
 
 class DioHelper {
   static const String applicationJson = "application/json";

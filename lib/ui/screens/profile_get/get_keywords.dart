@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/logic/cubit/profile_get/about_me/about_me_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile_get/keyword_card.dart';
+import '../../../logic/cubit/profile_get/about_me/about_me_cubit.dart';
+import '../../widgets/empty_data_widget.dart';
+import '../../widgets/error_widget.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/profile_get/keyword_card.dart';
 
 class GetKeywordsScreen extends StatefulWidget {
   const GetKeywordsScreen({super.key});
@@ -46,7 +46,7 @@ class _GetPersonalDetailsScreenState extends State<GetKeywordsScreen> {
                     KeyWordCard(keyword: state.keywords[index]),
                 separatorBuilder: (BuildContext context, int index) =>
                     const SizedBox(
-                  height: 10.0,
+                  height: 16.0,
                 ),
               ),
             );}

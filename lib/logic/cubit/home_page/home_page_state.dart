@@ -31,4 +31,13 @@ final class GetJobsFailureState extends HomePageState{
   GetJobsFailureState({required this.message});
 }
 
+class HomePageGetAppliedJobsLoadingState extends HomePageState{}
 
+class HomePageGetAppliedJobsSuccessState extends HomePageState{}
+
+class HomePageGetAppliedJobsFailureState extends HomePageState{
+  final String message;
+
+  HomePageGetAppliedJobsFailureState({required this.message});
+
+}

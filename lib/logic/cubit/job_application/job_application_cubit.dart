@@ -44,8 +44,8 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
 
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_phone");
-   } 
-  // else if (!regExp.hasMatch(value)) {
+    }
+    // else if (!regExp.hasMatch(value)) {
     //   return translateLang(context, "msg_plz_enter_correct_phone");
     // }
     return null;
@@ -88,15 +88,13 @@ class JobApplicationCubit extends Cubit<JobApplicationState> {
   }
 
   void applyJob(int jobID) {
-    if (formKey.currentState!.validate()) {
-      emit(JobApplicationLoadingState());
-      var data = {"erp_mpr_id": MODULE_ID, "erp_mpr_item_id": jobID};
+    emit(JobApplicationLoadingState());
+    var data = {"erp_mpr_id": MODULE_ID, "erp_mpr_item_id": jobID};
 
-      jobApplicationProvider.applyJob(data).then((value) {
-        emit(JobApplicationSuccessState());
-      }).catchError((error) {
-        emit(JobApplicationFailureState(error: error.failure.message));
-      });
-    }
+    jobApplicationProvider.applyJob(data).then((value) {
+      emit(JobApplicationSuccessState());
+    }).catchError((error) {
+      emit(JobApplicationFailureState(error: error.failure.message));
+    });
   }
 }

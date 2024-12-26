@@ -1,27 +1,22 @@
 class PollsModel {
   bool? status;
   String? message;
-  List<Poll>? polls;
+  Poll? poll;
 
-  PollsModel({this.status, this.message, this.polls});
+  PollsModel({this.status, this.message, this.poll});
 
   PollsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
-      polls = <Poll>[];
-      json['data'].forEach((v) {
-        polls!.add(new Poll.fromJson(v));
-      });
-    }
+    poll = json['data'] != null ? new Poll.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.polls != null) {
-      data['data'] = this.polls!.map((v) => v.toJson()).toList();
+    if (this.poll != null) {
+      data['data'] = this.poll!.toJson();
     }
     return data;
   }

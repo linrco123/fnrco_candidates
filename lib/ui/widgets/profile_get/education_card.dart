@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/data/models/profile_get/education_model.dart';
-import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
+import '../../../data/models/profile_get/education_model.dart';
+import 'profile_item.dart';
 
 class EducationCard extends StatelessWidget {
   final GetEducation education;
@@ -14,21 +13,22 @@ class EducationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-                color: AppColors.primary.withOpacity(0.1),
-                blurRadius: 5.0,
-                spreadRadius: 5.0,
+                //color: AppColors.primary.withOpacity(0.5),
+                blurRadius: 2.0,
+                spreadRadius: 0.0,
                 blurStyle: BlurStyle.outer,
                 offset: Offset(0, 1))
           ],
-          color: AppColors.primary.withOpacity(0.1),
+          color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(10.0),
-          border: BorderDirectional(
-              top: BorderSide(color: AppColors.primary, width: 5.0),
-              bottom: BorderSide(color: AppColors.primary, width: 5.0))),
+          // border: BorderDirectional(
+          //     top: BorderSide(color: AppColors.primary, width: 5.0),
+          //     bottom: BorderSide(color: AppColors.primary, width: 5.0))
+          ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,

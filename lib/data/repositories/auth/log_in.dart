@@ -1,4 +1,4 @@
-import 'package:fnrco_candidates/data/web_services/auth/log_in.dart';
+import '../../web_services/auth/log_in.dart';
 
 class LogInRepository {
   LogInWebServices logInWebServices;

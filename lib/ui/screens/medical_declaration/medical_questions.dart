@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/logic/cubit/medical_declare/medical_declare_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/date_picker_widget.dart';
+import '../../../constants/app_colors.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
+import '../../widgets/custom_divider.dart';
+import '../../widgets/profile/custom_text_field.dart';
+import '../../widgets/profile/date_picker_widget.dart';
 
 class MedicalQuestionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<MedicalDeclareCubit>(context);
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
             Expanded(
@@ -30,15 +29,8 @@ class MedicalQuestionsScreen extends StatelessWidget {
         const SizedBox(
           height: 15.0,
         ),
-        // CustomInputField(
-        //     hint: 'Enter your answer',
-        //     linesNum: 5,
-        //     autovalidateMode: true,
-        //     controller: cubit.answerCntroller,
-        //     inputType: TextInputType.text,
-        //     validate: cubit.validateAnswer),
         _getSuitableAnswerForm(
-         context,cubit.mQuestions[cubit.currentQuestion].type!, cubit),
+            context, cubit.mQuestions[cubit.currentQuestion].type!, cubit),
       ]),
     );
   }
@@ -48,7 +40,7 @@ class MedicalQuestionsScreen extends StatelessWidget {
     switch (type) {
       case 'hospital':
         widget = CustomInputField(
-             hint: 'Enter your answer',
+            hint: 'Enter your answer',
             linesNum: 5,
             autovalidateMode: true,
             controller: cubit.answerCntroller,
@@ -57,7 +49,7 @@ class MedicalQuestionsScreen extends StatelessWidget {
         break;
       case 'text':
         widget = CustomInputField(
-          hint: 'Enter your answer',
+            hint: 'Enter your answer',
             linesNum: 5,
             autovalidateMode: true,
             controller: cubit.answerCntroller,
@@ -84,8 +76,8 @@ class MedicalQuestionsScreen extends StatelessWidget {
                 ),
                 value: 'Yes',
                 groupValue: cubit.switchAnswer,
-                  shape: Border.all(color: AppColors.primary),
-                  splashRadius: 10,
+                shape: Border.all(color: AppColors.primary),
+                splashRadius: 10,
                 onChanged: (value) => cubit.changeYesOrNo(value.toString())),
             const SizedBox(
               height: 20,

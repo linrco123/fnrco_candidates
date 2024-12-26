@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/data/models/home/jobs_model.dart';
-import 'package:fnrco_candidates/logic/cubit/home_page/home_page_cubit.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/screens/job_details.dart';
-import 'package:fnrco_candidates/ui/widgets/home_page/home_loading_widgets.dart';
-import 'package:fnrco_candidates/ui/widgets/home_page/job_home_card.dart';
-import 'package:fnrco_candidates/ui/widgets/home_page/search_form_field.dart';
-import 'package:fnrco_candidates/ui/widgets/home_page/single_home_card.dart';
+import '../../../data/models/home/jobs_model.dart';
+import '../../../logic/cubit/home_page/home_page_cubit.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../core/functions/translate.dart';
+import '../job_details.dart';
+import '../../widgets/home_page/home_loading_widgets.dart';
+import '../../widgets/home_page/job_home_card.dart';
+import '../../widgets/home_page/search_form_field.dart';
+import '../../widgets/home_page/single_home_card.dart';
 
 class HomeTapScreen extends StatelessWidget {
   const HomeTapScreen({super.key});
@@ -136,7 +136,7 @@ class HomeTapScreen extends StatelessWidget {
                             Expanded(
                                 child: SingleHomeCard(
                               icon: CupertinoIcons.checkmark_circle,
-                              number: 29,
+                              number: homePageCubit.appliedJobs.length,
                               text: translateLang(context, "jobs_applied"),
                               color: AppColors.primary,
                             )),
@@ -146,9 +146,9 @@ class HomeTapScreen extends StatelessWidget {
                             Expanded(
                                 child: SingleHomeCard(
                               icon: CupertinoIcons.question,
-                              number: 3,
+                              number: 0,
                               text: translateLang(context, "interviews"),
-                              color: AppColors.secondary,
+                              color: Colors.grey.shade700,
                             )),
                           ],
                         ),

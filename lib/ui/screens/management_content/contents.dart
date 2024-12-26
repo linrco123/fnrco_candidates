@@ -20,6 +20,7 @@ class ContentsScreen extends StatelessWidget {
          ContentsCubit(ContentsProvider())..getContents(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'contents'),
             style: TextStyle(color: AppColors.primary),
@@ -35,6 +36,7 @@ class ContentsScreen extends StatelessWidget {
               )),
         ),
         body: Container(
+          color: AppColors.white,
           width: double.infinity,
           height: double.infinity,
           padding: const EdgeInsets.all(15.0),

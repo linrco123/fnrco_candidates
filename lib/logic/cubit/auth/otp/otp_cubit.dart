@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/forget_password.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/otp_provider.dart';
+import '../../../../constants/constances.dart';
+import '../../../../data/api_provider/auth/forget_password.dart';
+import '../../../../data/api_provider/auth/otp_provider.dart';
 
 part 'otp_state.dart';
 

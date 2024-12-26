@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/profile_update/credentials.dart';
-import 'package:fnrco_candidates/logic/cubit/profile_update/credentials/credentials_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/date_picker_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../../constants/app_colors.dart';
+import '../../../core/functions/show_toast.dart';
+import '../../../core/functions/translate.dart';
+import '../../../data/api_provider/profile_update/credentials.dart';
+import '../../../logic/cubit/profile_update/credentials/credentials_cubit.dart';
+import '../../widgets/auth/custom_elevated_btn.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/profile/custom_text_field.dart';
+import '../../widgets/profile/date_picker_widget.dart';
+import '../../widgets/profile/title_text.dart';
+import '../../widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class CredentialsScreen extends StatelessWidget {

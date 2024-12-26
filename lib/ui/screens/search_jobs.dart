@@ -30,6 +30,7 @@ class SearchJobsScreen extends StatelessWidget {
           color: AppColors.primary,
         ),
         centerTitle: true,
+        elevation: 0.0,
       ),
       backgroundColor: AppColors.white,
       body: Padding(
@@ -40,7 +41,7 @@ class SearchJobsScreen extends StatelessWidget {
               )
             : ListView.separated(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 5.0),
                 scrollDirection: Axis.vertical,

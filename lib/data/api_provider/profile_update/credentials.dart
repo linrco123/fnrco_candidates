@@ -1,8 +1,8 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/app_urls.dart';
-import 'package:fnrco_candidates/core/classes/dio_helper.dart';
-import 'package:fnrco_candidates/core/classes/exceptions.dart';
-import 'package:fnrco_candidates/core/classes/failure.dart';
+import '../../../constants/app_urls.dart';
+import '../../../core/classes/dio_helper.dart';
+import '../../../core/classes/exceptions.dart';
+import '../../../core/classes/failure.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 //CredentialsProvider
 class CredentialsProvider {

@@ -19,6 +19,7 @@ class AnnouncementScreen extends StatelessWidget {
       create: (context) => AnnouncementCubit(AnnouncementProvider())..getAnnouncements(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.white,
           title: Text(
            translateLang(context, 'annnouncements'),
             style: TextStyle(color: AppColors.primary),

@@ -1,8 +1,8 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/classes/dio_helper.dart';
-import 'package:fnrco_candidates/data/models/auth/login_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/register_model.dart';
+import '../../constants/constances.dart';
+import 'dio_helper.dart';
+import '../../data/models/auth/login_model.dart';
+import '../../data/models/auth/sign_up/register_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {

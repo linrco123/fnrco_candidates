@@ -126,7 +126,7 @@ Future<bool>  sendMedicalDeclare(Map data) async{
       }
     } on DioError catch (e) {
       logger.e('====================Error==================');
-      logger.e(e);
+      logger.e(e.message);
       return await Future.error(
           Failure(e.response!.statusCode!, e.response!.data['message']));
     }

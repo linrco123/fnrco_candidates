@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
+import '../../../../constants/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-class SignUpLoadingWidget extends StatelessWidget {
-  const SignUpLoadingWidget({super.key});
+class ItemLoadingWidget extends StatelessWidget {
+  const ItemLoadingWidget({super.key});
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(

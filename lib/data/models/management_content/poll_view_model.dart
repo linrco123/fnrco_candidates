@@ -1,33 +1,28 @@
 class PollViewModel {
   bool? status;
   String? message;
-  List<PQuestion>? questions;
+  PollView? data;
 
-  PollViewModel({this.status, this.message, this.questions});
+  PollViewModel({this.status, this.message, this.data});
 
   PollViewModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
-      questions = <PQuestion>[];
-      json['data'].forEach((v) {
-        questions!.add(new PQuestion.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new PollView.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.questions != null) {
-      data['data'] = this.questions!.map((v) => v.toJson()).toList();
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class PQuestion {
+class PollView {
   int? id;
   int? moduleId;
   String? pollBy;
@@ -37,7 +32,7 @@ class PQuestion {
   String? pollTo;
   List<Options>? options;
 
-  PQuestion(
+  PollView(
       {this.id,
       this.moduleId,
       this.pollBy,
@@ -47,7 +42,7 @@ class PQuestion {
       this.pollTo,
       this.options});
 
-  PQuestion.fromJson(Map<String, dynamic> json) {
+  PollView.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     moduleId = json['module_id'];
     pollBy = json['poll_by'];
@@ -103,3 +98,4 @@ class Options {
     return data;
   }
 }
+

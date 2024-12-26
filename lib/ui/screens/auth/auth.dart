@@ -2,15 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/logic/cubit/auth/auth/auth_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/logo.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../constants/app_pages_names.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../core/functions/translate.dart';
+import '../../../logic/cubit/auth/auth/auth_cubit.dart';
+import '../../widgets/auth/custom_elevated_btn.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/logo.dart';
 
 class SigninOrSignupScreen extends StatelessWidget {
   const SigninOrSignupScreen({super.key});
@@ -60,6 +60,8 @@ class SigninOrSignupScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top:15.0,left: 10.0,right: 10.0),
                                 child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.black),
                                     onPressed: () {
                                       Navigator.of(context)
                                           .pushNamedAndRemoveUntil(
@@ -69,9 +71,9 @@ class SigninOrSignupScreen extends StatelessWidget {
                                     child: Text(
                                       translateLang(context, "skip"),
                                       style: TextStyle(
-                                          color: AppColors.primary,
+                                          color: AppColors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20.0),
+                                          fontSize: 16),
                                     )),
                               ),
                             ],

@@ -26,7 +26,6 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
   final nameCntroller = TextEditingController();
   final phoneCntroller = TextEditingController();
   final passportCntroller = TextEditingController();
-  final relationCntroller = TextEditingController();
   final heightCntroller = TextEditingController();
   final weightCntroller = TextEditingController();
 
@@ -50,7 +49,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     DateTime? pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
     date =
-        "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+        "${pickedDate!.year.toString()}-${pickedDate!.month.toString().padLeft(2, '0')}-${pickedDate!.day.toString().padLeft(2, '0')}";
     emit(MedicalChooseDateState());
   }
 
@@ -102,6 +101,13 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
 
   void _storeAnswer(String type) {
     switch (type) {
+      case 'hospital':
+        answers.add({
+          "umdf_item_id": mQuestions[currentQuestion].id,
+          "person_umdf_value": answerCntroller.text,
+        });
+        break;
+
       case 'switch':
         answers.add({
           "umdf_item_id": mQuestions[currentQuestion].id,
@@ -174,10 +180,10 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
           },
         );
       }
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        _clearFamilyFields();
+      });
     }
-    Future.delayed(const Duration(seconds: 1)).then((value) {
-      _clearFamilyFields();
-    });
   }
 
   void sendMedicalDeclare() {

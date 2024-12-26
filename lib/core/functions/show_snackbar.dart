@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
+import '../../constants/app_colors.dart';
 
 showSuccessSnackBar(context, {required String text}) =>
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

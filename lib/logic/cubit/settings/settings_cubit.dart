@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../core/functions/translate.dart';
+import '../../../ui/widgets/custom_divider.dart';
 
 part 'settings_state.dart';
 

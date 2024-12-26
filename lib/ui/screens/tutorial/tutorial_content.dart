@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/tutorial_provider.dart';
-import 'package:fnrco_candidates/data/models/tutorial_model.dart';
-import 'package:fnrco_candidates/logic/cubit/tutorial/tutorial_cubit.dart';
-import 'package:fnrco_candidates/ui/screens/tutorial/tutorial_display.dart';
-import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_images_path.dart';
+import '../../../core/functions/translate.dart';
+import '../../../data/api_provider/tutorial_provider.dart';
+import '../../../data/models/tutorial_model.dart';
+import '../../../logic/cubit/tutorial/tutorial_cubit.dart';
+import 'tutorial_display.dart';
+import '../../widgets/empty_data_widget.dart';
+import '../../widgets/error_widget.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/return_btn.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TutorialsContentScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class TutorialsContentScreen extends StatelessWidget {
       create: (context) => TutorialCubit(TutorialProvider())..getTutorials(),
       child: Scaffold(
         appBar: AppBar(
-            // backgroundColor: AppColors.white,
+            backgroundColor: AppColors.white,
             title: Text(
               translateLang(context, "tut_con"),
               style: TextStyle(color: AppColors.primary),
@@ -33,7 +33,10 @@ class TutorialsContentScreen extends StatelessWidget {
         body: BlocBuilder<TutorialCubit, TutorialState>(
           builder: (context, state) {
             if (state is TutorialLoadingState) {
-              return AnimatedLoadingWidget();
+              return AnimatedLoadingWidget(
+                height: 150.0,
+                width: 150.0,
+              );
             }
             if (state is TutorialFailureState) {
               return FailureWidget(
@@ -81,50 +84,107 @@ class TutorialCard extends StatelessWidget {
                   videoID: videoID,
                 )));
       },
+
       child: Card(
-        ///color: AppColors.white,
-        child: ListTile(
-          shape: RoundedRectangleBorder(),
-          leading: SizedBox(
-            height: 70.0,
-            width: 70.0,
-            child: CachedNetworkImage(
-              progressIndicatorBuilder: (context, url, progress) =>
-                  AnimatedLoadingWidget(
-                height: 70.0,
-                width: 70.0,
+        color: Colors.grey.shade100,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 200.0,
+                width: double.infinity,
+                child: CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, progress) =>
+                      AnimatedLoadingWidget(
+                    height: 70.0,
+                    width: 70.0,
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    AppImages.youtubePNG,
+                    height: 200.0,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  // placeholder: (context, url) => Image.asset(
+                  //   'assets/images/youtube.png',
+                  //   height: 70.0,
+                  //   width: 70.0,
+                  // ),
+                  placeholderFadeInDuration: const Duration(milliseconds: 600),
+                  imageUrl: videoImage,
+                  // height: 70.0,
+                  // width: 70.0,
+                  fit: BoxFit.cover,
+                ),
               ),
-              errorWidget: (context, url, error) => Image.asset(
-                AppImages.youtubePNG,
-                height: 100.0,
-                width: 70.0,
-                fit: BoxFit.cover,
+              const SizedBox(
+                height: 10.0,
               ),
-              // placeholder: (context, url) => Image.asset(
-              //   'assets/images/youtube.png',
-              //   height: 70.0,
-              //   width: 70.0,
-              // ),
-              placeholderFadeInDuration: const Duration(milliseconds: 600),
-              imageUrl: videoImage,
-              height: 70.0,
-              width: 70.0,
-              fit: BoxFit.cover,
-            ),
+              Text(
+                tutorial.tuTitle!,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(color: AppColors.primary, fontSize: 22.0),
+              ),
+              const SizedBox(
+                height: 5.0,
+              ),
+              Text(
+                tutorial.tuDesc!,
+                textAlign: TextAlign.justify,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+            ],
           ),
-          title: Text(
-            tutorial.tuTitle!,
-          ),
-          titleTextStyle: Theme.of(context)
-              .textTheme
-              .headlineLarge!
-              .copyWith(color: AppColors.primary),
-          subtitle: Text(
-            tutorial.tuDesc!,
-          ),
-          subtitleTextStyle: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
+      //   child: Card(
+      //     color: Colors.grey.shade100,
+      //     child: ListTile(
+      //       shape: RoundedRectangleBorder(),
+      //       leading: SizedBox(
+      //         height: 70.0,
+      //         width: 70.0,
+      //         child: CachedNetworkImage(
+      //           progressIndicatorBuilder: (context, url, progress) =>
+      //               AnimatedLoadingWidget(
+      //             height: 70.0,
+      //             width: 70.0,
+      //           ),
+      //           errorWidget: (context, url, error) => Image.asset(
+      //             AppImages.youtubePNG,
+      //             height: 100.0,
+      //             width: 70.0,
+      //             fit: BoxFit.cover,
+      //           ),
+      //           // placeholder: (context, url) => Image.asset(
+      //           //   'assets/images/youtube.png',
+      //           //   height: 70.0,
+      //           //   width: 70.0,
+      //           // ),
+      //           placeholderFadeInDuration: const Duration(milliseconds: 600),
+      //           imageUrl: videoImage,
+      //           height: 70.0,
+      //           width: 70.0,
+      //           fit: BoxFit.cover,
+
+      //         ),
+      //       ),
+      // title: Text(
+      //   tutorial.tuTitle!,
+      // ),
+      // titleTextStyle: Theme.of(context)
+      //     .textTheme
+      //     .headlineLarge!
+      //     .copyWith(color: AppColors.primary),
+      // subtitle: Text(
+      //   tutorial.tuDesc!,
+      // ),
+      // subtitleTextStyle: Theme.of(context).textTheme.headlineMedium,
+      //  ),
+      //  ),
     );
   }
 }

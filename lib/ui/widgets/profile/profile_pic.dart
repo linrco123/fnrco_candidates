@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
+import '../../../constants/app_colors.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({

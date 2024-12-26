@@ -13,23 +13,23 @@ class PollsCubit extends Cubit<PollsState> {
   ) : super(PollsInitial());
 
   List<Poll> polls = [];
+
   void getPolls() {
     emit(PollsLoadingState());
     pollsProvider.getPolls().then((value) {
-      polls.addAll(value.polls!);
-      
-      emit(PollsSuccessState(polls: value.polls!));
+      polls.add(value.poll!);
+      emit(PollsSuccessState(polls: [value.poll!]));
     }).catchError((error) {
       emit(PollsFailureState(message: error.failure.message));
     });
   }
 
-  List<PQuestion> pollViewQuestions = [];
+  List<String> pollViewQuestions = [];
   List<Map<String, dynamic>> answers = [];
   int question_number = 0;
-  int pollViewID = 0;
-
+  PollView? pollView;
   String answer = '';
+
   void chooseAnswer(String answer) {
     this.answer = answer;
     emit(ChooseAnswerState());
@@ -38,36 +38,36 @@ class PollsCubit extends Cubit<PollsState> {
   void getPollView(int pollViewindex) {
     emit(PollsViewLoadingState());
     pollsProvider.getPollsView(pollViewindex).then((value) {
-      pollViewQuestions = value!.questions!;
-      answer = value.questions!.first.options!.first.pollOptText!;
-     // pollViewID = value;
-      emit(PollsViewSuccessState(
-          questions: value.questions!));
+      pollViewQuestions.add(value!.data!.pollText!);
+      answer = value.data!.options!.first.pollOptText!;
+      pollView = value.data!;
+      emit(PollsViewSuccessState(questions: [value.data!.pollText!]));
     }).catchError((error) {
       emit(PollsFailureState(message: error.failure.message));
     });
   }
 
-  void submitPollViewQuestion(int questionID) {
+  void submitPollViewQuestion(String question) {
     if (answer.isNotEmpty) {
       if (question_number < pollViewQuestions.length - 1) {
-      addNewAnswer(questionID);
+        addNewAnswer(question);
+      } else {
+        addNewAnswer(question);
+        // answer = '';
+        sendPollView();
+      }
     } else {
-     addNewAnswer(questionID);
-     // answer = '';
-      sendPollView();
-    }
-    }else{
       emit(PickPollAnswerState());
     }
   }
 
   void sendPollView() {
     emit(SubmitPollViewLoadingState());
-    Map data = {"answers": answers};
+    //Map data = {"answers": answers};
+    Map data = answers.single;
     print('===============polls==================');
     print(data);
-    pollsProvider.sendPollView(pollViewID, data).then((value) {
+    pollsProvider.sendPollView(data).then((value) {
       if (value == true) {
         question_number = 0;
         emit(SubmitPollViewSuccessState());
@@ -77,16 +77,20 @@ class PollsCubit extends Cubit<PollsState> {
     });
   }
 
-  void addNewAnswer(int questionID) {
+  void addNewAnswer(String question) {
     answers.add({
-      "poll_question_id": questionID.toString(),
-      "poll_answer_text": answer
+      "poll_id": pollView!.id,
+      "poll_option_id": pollView!.options!
+          .where((poll) => poll.pollOptText == answer)
+          .toList()
+          .single
+          .id!
     });
+
     answer = '';
-   if(question_number < pollViewQuestions.length-1){
-     moveTONext();
-   }
-   
+    if (question_number < pollViewQuestions.length - 1) {
+      moveTONext();
+    }
   }
 
   void moveTONext() {
@@ -96,14 +100,6 @@ class PollsCubit extends Cubit<PollsState> {
 
   @override
   Future<void> close() {
-    // TODO: implement close
     return super.close();
   }
-
-
-
-
-
-
-
 }

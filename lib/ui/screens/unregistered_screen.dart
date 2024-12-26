@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/home/home_tap_provider.dart';
-import 'package:fnrco_candidates/logic/cubit/unregistered/unregistered_cubit.dart';
-import 'package:fnrco_candidates/ui/screens/search_jobs.dart';
-import 'package:fnrco_candidates/ui/widgets/logo.dart';
-import 'package:fnrco_candidates/ui/widgets/sloped_container.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/home_page/search_form_field.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_pages_names.dart';
+import '../../core/functions/translate.dart';
+import '../../data/api_provider/home/home_tap_provider.dart';
+import '../../logic/cubit/unregistered/unregistered_cubit.dart';
+import 'search_jobs.dart';
+import '../widgets/logo.dart';
+import '../widgets/sloped_container.dart';
+import '../widgets/auth/custom_elevated_btn.dart';
+import '../widgets/home_page/search_form_field.dart';
 
 class UnregisteredScreen extends StatelessWidget {
   const UnregisteredScreen({super.key});

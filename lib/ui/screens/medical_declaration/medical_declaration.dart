@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/medical_declare.dart';
-import 'package:fnrco_candidates/logic/cubit/medical_declare/medical_declare_cubit.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/ui/screens/medical_declaration/family_data.dart';
-import 'package:fnrco_candidates/ui/screens/medical_declaration/medical_questions.dart';
-import 'package:fnrco_candidates/ui/screens/medical_declaration/personal_information.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/myStepper.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../../core/functions/show_toast.dart';
+import '../../../core/functions/translate.dart';
+import '../../../data/api_provider/medical_declare.dart';
+import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
+import '../../../constants/app_colors.dart';
+import 'family_data.dart';
+import 'medical_questions.dart';
+import 'personal_information.dart';
+import '../../widgets/auth/custom_elevated_btn.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/myStepper.dart';
+import '../../widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class MedicalDeclaration extends StatelessWidget {

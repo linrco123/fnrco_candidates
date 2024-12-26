@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/logic/cubit/on_boarding/on_boarding_cubit.dart';
-import 'package:fnrco_candidates/logic/cubit/on_boarding/on_boarding_state.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/localizations/app_localizations.dart';
-import 'package:fnrco_candidates/ui/widgets/onboarding/current_page_indictor.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../../logic/cubit/on_boarding/on_boarding_cubit.dart';
+import '../../../logic/cubit/on_boarding/on_boarding_state.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_pages_names.dart';
+import '../../../core/localizations/app_localizations.dart';
+import '../../widgets/onboarding/current_page_indictor.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

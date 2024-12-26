@@ -113,7 +113,6 @@ class CustomDropDownSearch extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20.0),
           labelText: label,
-          //prefix: Icon(Icons.work_off_rounded,size: 30.0,),
           labelStyle: Theme.of(context).textTheme.labelMedium,
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300),

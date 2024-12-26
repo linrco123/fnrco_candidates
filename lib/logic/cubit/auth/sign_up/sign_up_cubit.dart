@@ -1,16 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/signup_provider.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/positions_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/religion_model.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../constants/constances.dart';
+import '../../../../core/classes/cache_helper.dart';
+import '../../../../core/functions/show_toast.dart';
+import '../../../../core/functions/translate.dart';
+import '../../../../data/api_provider/auth/signup_provider.dart';
+import '../../../../data/models/auth/sign_up/countries_model.dart';
+import '../../../../data/models/auth/sign_up/gender_model.dart';
+import '../../../../data/models/auth/sign_up/marital_status_model.dart';
+import '../../../../data/models/auth/sign_up/positions_model.dart';
+import '../../../../data/models/auth/sign_up/religion_model.dart';
 import 'package:toastification/toastification.dart';
 
 part 'sign_up_state.dart';
@@ -170,7 +170,11 @@ class SignUpCubit extends Cubit<SignUpState> {
           "email": emailController.text,
           "phone": phoneController.text,
           "password": passwordController.text,
-          "religion_id": religionId,
+          "religion_id": religions
+              .where((religion) => religion.religionName == religionId)
+              .toList()
+              .single
+              .id!,
           "position": majorController.text,
           "nationality": countries
               .where((country) => country.countryName == countryId)

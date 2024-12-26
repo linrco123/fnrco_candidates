@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/api_provider/auth/login_provider.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../core/classes/cache_helper.dart';
+import '../../../../core/functions/translate.dart';
+import '../../../../data/api_provider/auth/login_provider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 part 'log_in_state.dart';

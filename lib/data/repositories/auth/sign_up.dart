@@ -1,4 +1,4 @@
-import 'package:fnrco_candidates/data/web_services/auth/sign_up.dart';
+import '../../web_services/auth/sign_up.dart';
 
 class SignUpRepository {
   SignUpWebServices signUpRepository;
