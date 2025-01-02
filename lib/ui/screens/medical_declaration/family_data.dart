@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../widgets/profile/custom_text_field.dart';
+import '../../widgets/profile/title_text.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
 import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
 import '../../widgets/auth/custom_drop_text_field.dart';
 import '../../widgets/auth/custom_elevated_btn.dart';
-import '../../widgets/auth/name_email_phone_form_field.dart';
 import '../../widgets/auth/signup/signup_loading_widget.dart';
 import '../../widgets/profile/date_picker_widget.dart';
 
@@ -19,13 +20,14 @@ class FamilyDataScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
-            NameEmailPhoneFormField(
+            CustomTitle(
+              title: "employee_name",
+            ),
+            CustomInputField(
                 controller: cubit.nameCntroller,
+                validate: cubit.validateName,
                 inputType: TextInputType.name,
-                prefixIcon: CupertinoIcons.person,
-                hint: translateLang(context, "employee_name"),
-                validate: cubit.validateName),
+                hint: translateLang(context, "employee_name")),
             const SizedBox(
               height: 16.0,
             ),
@@ -61,50 +63,63 @@ class FamilyDataScreen extends StatelessWidget {
                 onTap: () {
                   cubit.selectDate(context);
                 },
-                text: cubit.date.isEmpty ? 'Date of Birth' : cubit.date),
+                text: cubit.date.isEmpty ? translateLang(context, "date_birth") : cubit.date),
             const SizedBox(
               height: 16.0,
             ),
-            NameEmailPhoneFormField(
+            CustomTitle(
+              title: "phone_number",
+            ),
+            CustomInputField(
                 controller: cubit.phoneCntroller,
+                validate: cubit.validatePhone,
                 inputType: TextInputType.phone,
-                prefixIcon: CupertinoIcons.phone,
-                hint: translateLang(context, "phone_number"),
-                validate: cubit.validatePhone),
+                hint: translateLang(context, "phone_number")),
             const SizedBox(
               height: 16.0,
             ),
-            NameEmailPhoneFormField(
-                controller: cubit.passportCntroller,
+            CustomTitle(
+              title: "passport_number",
+            ),
+            CustomInputField(
+                controller: cubit.phoneCntroller,
+                validate: cubit.validatePasport,
                 inputType: TextInputType.number,
-                prefixIcon: CupertinoIcons.number,
-                hint: translateLang(context, "passport_number"),
-                validate: cubit.validatePasport),
+                hint: translateLang(context, "passport_number")),
             const SizedBox(
               height: 16.0,
             ),
-        
             Row(
               children: [
                 Expanded(
-                  child: NameEmailPhoneFormField(
-                      controller: cubit.heightCntroller,
-                      inputType: TextInputType.number,
-                      prefixIcon: CupertinoIcons.hifispeaker,
-                      hint: translateLang(context, "height"),
-                      validate: cubit.validateHeight),
-                ),
+                    child: Column(
+                  children: [
+                    CustomTitle(
+                      title: "height",
+                    ),
+                    CustomInputField(
+                        controller: cubit.heightCntroller,
+                        validate: cubit.validateHeight,
+                        inputType: TextInputType.number,
+                        hint: translateLang(context, "height")),
+                  ],
+                )),
                 const SizedBox(
                   width: 10.0,
                 ),
                 Expanded(
-                  child: NameEmailPhoneFormField(
-                      controller: cubit.weightCntroller,
-                      inputType: TextInputType.number,
-                      prefixIcon: CupertinoIcons.hifispeaker,
-                      hint: translateLang(context, "weight"),
-                      validate: cubit.validateWeight),
-                ),
+                    child: Column(
+                  children: [
+                    CustomTitle(
+                      title: "weight",
+                    ),
+                    CustomInputField(
+                        controller: cubit.weightCntroller,
+                        validate: cubit.validateWeight,
+                        inputType: TextInputType.number,
+                        hint: translateLang(context, "weight")),
+                  ],
+                )),
               ],
             ),
             const SizedBox(
@@ -119,7 +134,7 @@ class FamilyDataScreen extends StatelessWidget {
                   background: AppColors.black,
                   text: translateLang(context, "add_new_relative")),
             ),
-             const SizedBox(
+            const SizedBox(
               height: 16.0,
             ),
           ],

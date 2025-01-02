@@ -37,4 +37,12 @@ class AppPagesNames {
   static const String CONTENTS = '/contents';
   static const String TICKETS = '/tickets';
 
+  static const String JOB_CONTRACTS = '/contracts';
+  static const String VISA_APPROVAL = '/visa_ticket';
+  static const String JOINING_DATE = '/joining_date';
+  static const String LOCAL_PROCESS = '/local_process';
+  static const String AIR_TICKET = '/air_ticket';
+
+  static const String MEDICAL_DECLARATION = '/medical_declare';
+
 }

@@ -61,11 +61,11 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
     var result = await Connectivity().checkConnectivity();
     logger.d(result);
 
-    if (result == ConnectivityResult.wifi) {
+    if (result.single == ConnectivityResult.wifi) {
       add(InternetConnectedEvent(internetStatus: InternetStatus.Wifi));
-    } else if (result == ConnectivityResult.mobile) {
+    } else if (result.single == ConnectivityResult.mobile) {
       add(InternetConnectedEvent(internetStatus: InternetStatus.Mobile));
-    } else if (result == ConnectivityResult.none) {
+    } else if (result.single == ConnectivityResult.none) {
       add(InternetNotConnectedEvent());
     }
   }

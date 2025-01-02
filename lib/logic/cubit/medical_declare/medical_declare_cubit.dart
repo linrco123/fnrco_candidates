@@ -49,7 +49,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     DateTime? pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
     date =
-        "${pickedDate!.year.toString()}-${pickedDate!.month.toString().padLeft(2, '0')}-${pickedDate!.day.toString().padLeft(2, '0')}";
+        "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
     emit(MedicalChooseDateState());
   }
 
@@ -101,7 +101,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
 
   void _storeAnswer(String type) {
     switch (type) {
-      case 'hospital':
+      case '18':
         answers.add({
           "umdf_item_id": mQuestions[currentQuestion].id,
           "person_umdf_value": answerCntroller.text,
@@ -126,11 +126,12 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
           "person_umdf_value": date,
         });
         break;
-      default:
+      //default:
     }
   }
 
   var mQuestions = List<MedicalQuestion>.empty(growable: true);
+  
   void getMedicalQuestions() {
     emit(GetMedicalQuestionsLoadingState());
     medicalDeclareProvider.getMedQuestions().then((value) {

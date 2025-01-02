@@ -44,9 +44,9 @@ class JobHomeCard extends StatelessWidget {
                   Text(job,
                       style: Theme.of(context)
                           .textTheme
-                          .titleSmall!
+                          .headlineMedium!
                           .copyWith(fontWeight: FontWeight.bold)),
-                  Text(company, style: Theme.of(context).textTheme.titleSmall),
+                  Text(company, style: Theme.of(context).textTheme.headlineMedium),
                   const Spacer(),
                   Row(
                     children: [
@@ -63,7 +63,7 @@ class JobHomeCard extends StatelessWidget {
                           // overflow: TextOverflow.ellipsis,
                           // maxLines: 1,
                           '\$ ${salary.length < 20 ? salary : salary.substring(0, 20)}',
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold)),
                     ],

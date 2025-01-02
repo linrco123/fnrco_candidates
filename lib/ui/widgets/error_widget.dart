@@ -19,6 +19,7 @@ class FailureWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Row(),
         Text(
           textAlign: TextAlign.center,
           title,

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
+import 'package:fnrco_candidates/constants/app_images_path.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/management_content/polls.dart';
 import 'package:fnrco_candidates/logic/cubit/management_content/polls/polls_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/management_content/poll_card.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import 'package:lottie/lottie.dart';
 
 class PollsScreen extends StatelessWidget {
   final PollsProvider pollsProvider = PollsProvider();
@@ -23,7 +25,7 @@ class PollsScreen extends StatelessWidget {
       create: (context) => pollsCubit..getPolls(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.white,
+            backgroundColor: AppColors.white,
             title: Text(
               translateLang(context, 'polls'),
               style: TextStyle(color: AppColors.primary),
@@ -46,13 +48,23 @@ class PollsScreen extends StatelessWidget {
                 );
               }
               if (state is PollsFailureState) {
-                return Column(
+                // return FailureWidget(
+                //     title: "Some Error ocurrs when getting Polls !!!",
+                //     onTap: () {
+                //       pollsCubit.getPolls();
+                    //});
+              return   Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Some Error ocurrs when getting Polls !!!",
+                    Text("Some Error ocurrs when getting Polls !!!\n try again",
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!
                             .copyWith(color: AppColors.grey)),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Lottie.asset(AppImages.SERVER_FAILURE),
                     const SizedBox(
                       height: 10.0,
                     ),
@@ -77,7 +89,7 @@ class PollsScreen extends StatelessWidget {
                       itemCount: pollsCubit.polls.length,
                       itemBuilder: (BuildContext context, int index) => InkWell(
                           onTap: () {
-                           // pollsCubit.pollViewID = pollsCubit.polls[index].id!;
+                            // pollsCubit.pollViewID = pollsCubit.polls[index].id!;
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (Context) => BlocProvider.value(
                                       value: pollsCubit

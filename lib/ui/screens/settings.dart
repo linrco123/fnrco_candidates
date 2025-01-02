@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      color: AppColors.primary.withOpacity(0.1),
+      color: AppColors.white,
       //padding: const EdgeInsets.all(15.0),
       child: Stack(
         children: [
@@ -47,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
                     //       //////language change
                     //       settingsCubit.showLanguageDialogue(context);
                     //     }),
-                    _divider(),
+                   // _divider(),
 
                     // Account Settings field
                     _addSettingItem(

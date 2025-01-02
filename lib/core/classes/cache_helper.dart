@@ -108,6 +108,20 @@ class CacheHelper {
     return sharedPreferences.getString('user_image');
   }
 
+  static void setPoll(){
+    sharedPreferences.setBool('poll', true);
+  }
+  static bool? getPoll(){
+    return sharedPreferences.getBool('poll');
+  }
+
+   static void setSurvey(){
+    sharedPreferences.setBool('survey', true);
+  }
+  static bool? getSurvey(){
+    return sharedPreferences.getBool('survey');
+  }
+
   static void storeUserData({LoginModel? userLData, RegisterModel? userRData}) {
     if (userLData != null) {
       storeName(userLData.data!.candidateUserUname!.isNotEmpty

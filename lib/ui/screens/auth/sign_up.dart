@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_images_path.dart';
 import '../../../constants/constances.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../logic/cubit/auth/sign_up/sign_up_cubit.dart';

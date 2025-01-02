@@ -16,7 +16,7 @@ class SurveysCubit extends Cubit<SurveysState> {
   void getsurveys() {
     emit(SurveysLoadingState());
     surveysProvider.getSurveys().then((value) {
-      surveys.add(value!.survey!);
+      surveys.add(value.survey!);
       emit(SurveysSuccessState(surveys: [value.survey!]));
     }).catchError((error) {
       emit(SurveysFailureState(message: error.failure.message));
@@ -37,7 +37,7 @@ class SurveysCubit extends Cubit<SurveysState> {
   void getSurveyView(int surveyViewindex) {
     emit(SurveysViewLoadingState());
     surveysProvider.getSurveyView(surveyViewindex).then((value) {
-      surveyViewQuestions = value!.surveyView!.questions!;
+      surveyViewQuestions = value.surveyView!.questions!;
       surveyViewID = value.surveyView!.id!;
       answer = value.surveyView!.questions!.first.options!.first
           .surveyQuestionOptText!;

@@ -2,26 +2,29 @@ import 'package:flutter/material.dart';
 import '../../../constants/app_colors.dart';
 
 class CustomInputField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType inputType;
   final String? hint;
   final int linesNum;
   final String? Function(BuildContext, String?) validate;
   final String? initialValue;
   final bool autovalidateMode;
+  final bool enabled;
   const CustomInputField(
       {super.key,
-      required this.controller,
+      this.controller,
       this.inputType = TextInputType.text,
       this.hint,
       required this.validate,
       this.initialValue,
       this.linesNum = 1,
+      this.enabled = true,
       this.autovalidateMode = false});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       // autovalidateMode:
       //     autovalidateMode ? AutovalidateMode.onUserInteraction : null,
       autofillHints: [

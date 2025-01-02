@@ -24,7 +24,7 @@ final appTheme = ThemeData(
         fontSize: 20.0,
       ),
       titleSmall: TextStyle(
-        fontSize: 14.0,
+        fontSize: 17.0,
         color: AppColors.black,
       ),
       labelLarge: TextStyle(

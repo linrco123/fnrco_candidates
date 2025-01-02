@@ -38,15 +38,6 @@ class MedicalQuestionsScreen extends StatelessWidget {
   Widget _getSuitableAnswerForm(context, String type, dynamic cubit) {
     Widget widget = SizedBox();
     switch (type) {
-      case 'hospital':
-        widget = CustomInputField(
-            hint: 'Enter your answer',
-            linesNum: 5,
-            autovalidateMode: true,
-            controller: cubit.answerCntroller,
-            inputType: TextInputType.text,
-            validate: cubit.validateAnswer);
-        break;
       case 'text':
         widget = CustomInputField(
             hint: 'Enter your answer',
@@ -95,7 +86,13 @@ class MedicalQuestionsScreen extends StatelessWidget {
         );
         break;
       default:
-        SizedBox.shrink();
+        widget = CustomInputField(
+            hint: 'Enter your answer',
+            linesNum: 5,
+            autovalidateMode: true,
+            controller: cubit.answerCntroller,
+            inputType: TextInputType.text,
+            validate: cubit.validateAnswer);
     }
     print('=============widget------------------------');
     print(widget);

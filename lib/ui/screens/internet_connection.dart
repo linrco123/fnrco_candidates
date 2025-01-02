@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
+import '../widgets/auth/custom_elevated_btn.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_images_path.dart';
 import '../../constants/enums.dart';

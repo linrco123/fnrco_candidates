@@ -85,4 +85,9 @@ class AppImages {
   static const priority = "$_svg/priority.svg";
   static const type = "$_svg/types.svg";
   static const faqs = "$_svg/faq.svg";
+  static const visa = "$_svg/visa.svg";
+  static const air_ticket = "$_svg/plane-ticket.svg";
+  static const local_process = "$_svg/local-process.svg";
+  static const contract = "$_svg/contract.svg";
+  static const offer = "$_svg/offer.svg";
 }

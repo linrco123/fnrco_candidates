@@ -21,6 +21,7 @@ class DioHelper {
     Map<String, String> headers = {
       contentType: applicationJson,
       accept: applicationJson,
+      "Accept-Language":"en",
       "Auth": "bearer ${CacheHelper.userToken}"
     };
 

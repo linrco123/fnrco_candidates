@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,7 +13,6 @@ import '../../../core/functions/translate.dart';
 import '../../../core/localizations/app_localizations.dart';
 import '../category_details.dart';
 import 'home_tap.dart';
-import '../profile/profile.dart';
 import '../settings.dart';
 import '../unregistered_screen.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
@@ -59,16 +59,18 @@ class HomePageScreen extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           children: [
                             Material(
-                              color: AppColors.primary.withOpacity(0.5),
+                              color: AppColors.primary,
                               child: InkWell(
                                 onTap: () {
                                   /// Close Navigation drawer before
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfileScreen()),
-                                  );
+                                  // Navigator.pop(context);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => ProfileScreen()),
+                                  // );
+                                  Navigator.of(context)
+                                      .popAndPushNamed(AppPagesNames.PROFILE);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(
@@ -91,270 +93,405 @@ class HomePageScreen extends StatelessWidget {
                                       SizedBox(
                                         height: 12,
                                       ),
-                                      Text(
-                                        //'Muhammed Nady',
-                                        CacheHelper.getName() ??
-                                            translateLang(context, "guest"),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineLarge!
-                                            .copyWith(color: AppColors.white),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              CacheHelper.getName() ??
+                                                  translateLang(
+                                                      context, "guest"),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineLarge!
+                                                  .copyWith(
+                                                      color: AppColors.white),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        CacheHelper.getEmail() ??
-                                            '.....@gmail.com',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(color: AppColors.white),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              CacheHelper.getEmail() ??
+                                                  '.....@gmail.com',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineSmall!
+                                                  .copyWith(
+                                                      color: AppColors.white),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.PROFILE);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.PERSON,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
+                            Container(
+                              color: AppColors.white,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.PROFILE);
+                                      },
+                                      leading: Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: SvgPicture.asset(
+                                          AppImages.PERSON,
+                                          width: 27.0,height: 27.0,
+                                          // ignore: deprecated_member_use
+                                          color: AppColors.black,
+                                        ),
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('profile'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.JOB_OFFER);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.offer,
+                                        width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('job_offer'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.JOB_CONTRACTS);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.contract,
+                                        width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        translateLang(context, "job_contract"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.VISA_APPROVAL);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.visa,
+                                       width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        translateLang(context, "visa_approval"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.HEALTH_CARE);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.HEALTH_CARE,
+                                        // ignore: deprecated_member_use
+                                        width: 27.0,height: 27.0,
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("health_declare"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    //local-process
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.LOCAL_PROCESS);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.local_process,
+                                       width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("local_process"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.JOINING_DATE);
+                                      },
+                                      leading: Icon(CupertinoIcons.calendar,size: 27.0,),
+                                      title: Text(
+                                        translateLang(context, "joining_date"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.AIR_TICKET);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.air_ticket,
+                                        width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        translateLang(context, "air_ticket"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.RESUME);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.RESUME,
+                                        width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("resume"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.NOTIFICATION);
+                                        // Navigator.of(context).push(MaterialPageRoute(
+                                        //   builder: (context) => NotificationsScreen(),
+                                        // ));
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.NOTIFICATIONS,
+                                        width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("job_alert"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    // ListTile(
+                                    //   onTap: () {},
+                                    //   leading: SvgPicture.asset(
+                                    //     AppImages.SAVED,
+                                    //     color: AppColors.primary,
+                                    //   ),
+                                    //   title: Text(
+                                    //     AppLocalizations.of(context)!
+                                    //         .translate("saved_jobs"),
+                                    //     style:
+                                    //         Theme.of(context).textTheme.displayMedium,
+                                    //   ),
+                                    // ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.TICKETS);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.ticket,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                        width: 27.0,height: 27.0,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("tickets"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.SURVIES);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.survey,
+                                       width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("surveys"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.POLLS);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.poll,
+                                        width: 27.0,height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("polls"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.FAQS);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.faqs,
+                                        color: AppColors.black,
+                                        width: 27.0,height: 27.0,
+                                      ),
+                                      title: Text(
+                                        "FAQs",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.TUTORIAL);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.tutorial,
+                                        color: AppColors.black,
+                                        width: 27.0,height: 27.0,
+                                      ),
+                                      title: Text(
+                                        translateLang(context, "tutorials"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.ANNOUNCEMENT);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.announcement,
+                                        color: AppColors.black,
+                                       width: 27.0,height: 27.0,
+                                      ),
+                                      title: Text(
+                                        translateLang(
+                                            context, "annnouncements"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.CONTENTS);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.content,
+                                        color: AppColors.black,
+                                        height: 30.0,
+                                        width: 30.0,
+                                      ),
+                                      title: Text(
+                                        translateLang(context, "contents"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+
+                                    ListTile(
+                                      onTap: () {
+                                        homePageCubit.logout(context);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.LOGOUT,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("logout"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate('profile'),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.JOB_OFFER);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.FILE,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate('job_offer'),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.HEALTH_CARE);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.HEALTH_CARE,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("health_declare"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.RESUME);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.RESUME,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("resume"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context).popAndPushNamed(
-                                    AppPagesNames.NOTIFICATION);
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //   builder: (context) => NotificationsScreen(),
-                                // ));
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.NOTIFICATIONS,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("job_alert"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            // ListTile(
-                            //   onTap: () {},
-                            //   leading: SvgPicture.asset(
-                            //     AppImages.SAVED,
-                            //     color: AppColors.primary,
-                            //   ),
-                            //   title: Text(
-                            //     AppLocalizations.of(context)!
-                            //         .translate("saved_jobs"),
-                            //     style:
-                            //         Theme.of(context).textTheme.displayMedium,
-                            //   ),
-                            // ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.TICKETS);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.ticket,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                                height: 25.0,
-                                width: 25.0,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("tickets"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.SURVIES);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.survey,
-                                height: 25.0,
-                                width: 25.0,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("surveys"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.POLLS);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.poll,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                                height: 25.0,
-                                width: 25.0,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("polls"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.FAQS);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.faqs,
-                                color: AppColors.primary,
-                                height: 30.0,
-                                width: 30.0,
-                              ),
-                              title: Text(
-                                "FAQs",
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.TUTORIAL);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.tutorial,
-                                color: AppColors.primary,
-                                height: 30.0,
-                                width: 30.0,
-                              ),
-                              title: Text(
-                                translateLang(context, "tutorials"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context).popAndPushNamed(
-                                    AppPagesNames.ANNOUNCEMENT);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.announcement,
-                                color: AppColors.primary,
-                                height: 30.0,
-                                width: 30.0,
-                              ),
-                              title: Text(
-                                translateLang(context, "annnouncements"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(AppPagesNames.CONTENTS);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.content,
-                                color: AppColors.primary,
-                                height: 30.0,
-                                width: 30.0,
-                              ),
-                              title: Text(
-                                translateLang(context, "contents"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                homePageCubit.logout(context);
-                              },
-                              leading: SvgPicture.asset(
-                                AppImages.LOGOUT,
-                                // ignore: deprecated_member_use
-                                color: AppColors.primary,
-                              ),
-                              title: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("logout"),
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
-                              ),
-                            ),
+                            )
                           ],
                         ),
                       ),

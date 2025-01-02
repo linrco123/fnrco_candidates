@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/ui/screens/air_ticket/air_ticket_apps.dart';
+import 'ui/screens/air_ticket/air_ticket.dart';
+import 'ui/screens/applications_joining_date/apps_joining_date.dart';
+import 'ui/screens/job_contract/contract_applications.dart';
+import 'ui/screens/job_offer/job_applications.dart';
+import 'ui/screens/local_process.dart';
+import 'ui/screens/visa_approval/visa_approval_apps.dart';
 import 'constants/app_pages_names.dart';
 import 'constants/constances.dart';
 import 'ui/screens/animated_splash.dart';
@@ -8,7 +15,6 @@ import 'ui/screens/auth/forget_password.dart';
 import 'ui/screens/auth/log_in.dart';
 import 'ui/screens/home_page/home_page.dart';
 import 'ui/screens/internet_connection.dart';
-import 'ui/screens/job_offer.dart';
 import 'ui/screens/management_content/announcement.dart';
 import 'ui/screens/management_content/contents.dart';
 import 'ui/screens/management_content/faqs.dart';
@@ -49,8 +55,8 @@ class AppRouter {
             type: PageTransitionType.fade,
             alignment: Alignment.centerLeft,
             duration: const Duration(seconds: 1));
-            case AppPagesNames.WELCOME:
-              // return MaterialPageRoute(
+      case AppPagesNames.WELCOME:
+        // return MaterialPageRoute(
         //   builder: (context) => const WelcomeScreen(),
         // );
         return PageTransition(
@@ -196,9 +202,7 @@ class AppRouter {
         //   ),
         // );
         return PageTransition(
-          child: JobOfferScreen(
-            pdfLink: '',
-          ),
+          child: JobApplicationScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -213,17 +217,6 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-      // case AppPagesNames.JOB_DETAILS:
-      //   // return MaterialPageRoute(
-      //   //   builder: (context) => JobDetailsScreen(),
-      //   // );
-      //   return PageTransition(
-      //     child: JobDetailsScreen(),
-      //     type: PageTransitionType.fade,
-      //     alignment: Alignment.centerLeft,
-      //     duration: const Duration(seconds: 1),
-      //   );
-
       case AppPagesNames.ANIMATED_SPLASH:
         // return MaterialPageRoute(
         //   builder: (context) => CustomAnimatedSplashScreen(),
@@ -243,7 +236,7 @@ class AppRouter {
       //     alignment: Alignment.centerLeft,
       //     duration: const Duration(seconds: 1),
       //   );
-        case AppPagesNames.SURVIES:
+      case AppPagesNames.SURVIES:
         // return MaterialPageRoute(
         //     builder: (context) => SurviesScreen(),
         //     );
@@ -254,7 +247,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
       //JobApplicationScreen
-       case AppPagesNames.SKILLS:
+      case AppPagesNames.SKILLS:
         // return MaterialPageRoute(
         //     builder: (context) => SkillsSCreen(),
         //     );
@@ -264,7 +257,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-        case AppPagesNames.EXPERIENCES:
+      case AppPagesNames.EXPERIENCES:
         // return MaterialPageRoute(
         //     builder: (context) => ExperienceScreen(),
         //     );
@@ -274,7 +267,18 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-         case AppPagesNames.EDUCATION:
+      case AppPagesNames.AIR_TICKET:
+        // return MaterialPageRoute(
+        //     builder: (context) => AirTicketApplicationsScreen(),
+        //     );
+        return PageTransition(
+          child: AirTicketApplicationsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.EDUCATION:
         // return MaterialPageRoute(
         //     builder: (context) => EducationAndQualificationScreen(),
         //     );
@@ -284,7 +288,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-        case AppPagesNames.CONTACT_TYPE:
+      case AppPagesNames.CONTACT_TYPE:
         // return MaterialPageRoute(
         //     builder: (context) => ContactsScreen(),
         //     );
@@ -295,7 +299,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-         case AppPagesNames.CREDENTIALS:
+      case AppPagesNames.CREDENTIALS:
         // return MaterialPageRoute(
         //     builder: (context) => CredentialsScreen(),
         //     );
@@ -306,7 +310,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-         case AppPagesNames.LANGUAGE:
+      case AppPagesNames.LANGUAGE:
         // return MaterialPageRoute(
         //     builder: (context) => CredentialsScreen(),
         //     );
@@ -317,7 +321,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-        case AppPagesNames.ACHIEVEMENTS:
+      case AppPagesNames.ACHIEVEMENTS:
         // return MaterialPageRoute(
         //     builder: (context) => AchievementsSCreen(),
         //     );
@@ -328,7 +332,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-         case AppPagesNames.NOTES:
+      case AppPagesNames.NOTES:
         // return MaterialPageRoute(
         //     builder: (context) => NotesScreen(),
         //     );
@@ -339,7 +343,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-         case AppPagesNames.KEYWORDS:
+      case AppPagesNames.KEYWORDS:
         // return MaterialPageRoute(
         //     builder: (context) => KeyWordsSCreen(),
         //     );
@@ -349,7 +353,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-          case AppPagesNames.NOTIFICATION:
+      case AppPagesNames.NOTIFICATION:
         // return MaterialPageRoute(
         //     builder: (context) => NotificationsScreen(),
         //     );
@@ -360,7 +364,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-         case AppPagesNames.POLLS:
+      case AppPagesNames.POLLS:
         // return MaterialPageRoute(
         //     builder: (context) => PollsScreen(),
         //     );
@@ -370,7 +374,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-          case AppPagesNames.FAQS:
+      case AppPagesNames.FAQS:
         // return MaterialPageRoute(
         //     builder: (context) => FAQsScreen(),
         //     );
@@ -380,7 +384,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-        case AppPagesNames.TUTORIAL:
+      case AppPagesNames.TUTORIAL:
         // return MaterialPageRoute(
         //     builder: (context) => TutorialsContentScreen(),
         //     );
@@ -390,7 +394,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-        case AppPagesNames.ANNOUNCEMENT:
+      case AppPagesNames.ANNOUNCEMENT:
         // return MaterialPageRoute(
         //     builder: (context) => AnnouncementScreen(),
         //     );
@@ -400,7 +404,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-        case AppPagesNames.CONTENTS:
+      case AppPagesNames.CONTENTS:
         // return MaterialPageRoute(
         //     builder: (context) => ContentsScreen(),
         //     );
@@ -411,12 +415,65 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-         case AppPagesNames.TICKETS:
+      case AppPagesNames.TICKETS:
         // return MaterialPageRoute(
         //     builder: (context) => TicketsScreen(),
         //     );
         return PageTransition(
           child: TicketsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+      case AppPagesNames.VISA_APPROVAL:
+        // return MaterialPageRoute(
+        //     builder: (context) => VisaApprovalAppsScreen(),
+        //     );
+        return PageTransition(
+          child: VisaApprovalAppsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+      case AppPagesNames.JOINING_DATE:
+        // return MaterialPageRoute(
+        //     builder: (context) => DateApplicationScreen(),
+        //     );
+        return PageTransition(
+          child: DateApplicationScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.JOB_CONTRACTS:
+        // return MaterialPageRoute(
+        //     builder: (context) => JoiningDateSCreen(),
+        //     );
+        return PageTransition(
+          child: ContractApplicationsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.LOCAL_PROCESS:
+        // return MaterialPageRoute(
+        //     builder: (context) => LocalProcessScreen(),
+        //     );
+        return PageTransition(
+          child: LocalProcessScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.MEDICAL_DECLARATION:
+        // return MaterialPageRoute(
+        //     builder: (context) => MedicalDeclaration(),
+        //     );
+        return PageTransition(
+          child: MedicalDeclaration(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

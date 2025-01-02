@@ -63,6 +63,20 @@ class AppLinks {
   static String submit_medical = "/umdf/medical-declaration-form";
 
   static String medicalQuestions= "/umdf/item";
+
+  ////////////////////TODO:recruitment_process ////////////////
+  ///
+  static String recruitment_process = "/recruitment-process";
+
+   static String application_approval = "/application-approval";
+  ///////////////////////////////////////////////////////
+
+  static String submit_visa_approval="";
+
+  static String joining_date='';
+
+  static String send_air_ticket = '/air-lineTicket/store';
+
   
 
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../constants/app_pages_names.dart';
 import '../../../data/models/home/jobs_model.dart';
 import '../../../logic/cubit/home_page/home_page_cubit.dart';
 import '../../../constants/app_colors.dart';
@@ -58,14 +59,19 @@ class HomeTapScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    CircleAvatar(
-                      radius: 27.0,
-                      backgroundColor: AppColors.white,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(AppPagesNames.PROFILE);
+                      },
                       child: CircleAvatar(
-                          radius: 25.0,
-                          backgroundImage: CacheHelper.getImage() == null
-                              ? AssetImage(AppImages.User)
-                              : FileImage(File(CacheHelper.getImage()!))),
+                        radius: 27.0,
+                        backgroundColor: AppColors.white,
+                        child: CircleAvatar(
+                            radius: 25.0,
+                            backgroundImage: CacheHelper.getImage() == null
+                                ? AssetImage(AppImages.User)
+                                : FileImage(File(CacheHelper.getImage()!))),
+                      ),
                     )
                   ],
                 ),
@@ -342,14 +348,3 @@ class HomeTapScreen extends StatelessWidget {
     );
   }
 }
-
-List<IconData> listIcons = <IconData>[
-  CupertinoIcons.bolt,
-  CupertinoIcons.pen,
-  CupertinoIcons.archivebox,
-  CupertinoIcons.arrow_branch,
-  CupertinoIcons.dot_square,
-  CupertinoIcons.wrench,
-  CupertinoIcons.ticket,
-  CupertinoIcons.table
-];

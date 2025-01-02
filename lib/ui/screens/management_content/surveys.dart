@@ -6,6 +6,7 @@ import 'package:fnrco_candidates/data/api_provider/management_content/surveys.da
 import 'package:fnrco_candidates/logic/cubit/management_content/survies/surveys_cubit.dart';
 import 'package:fnrco_candidates/ui/screens/management_content/survey_view.dart';
 import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/management_content/survey_card.dart';
 
@@ -44,19 +45,19 @@ class SurviesScreen extends StatelessWidget {
               var surveysCubit = BlocProvider.of<SurveysCubit>(context);
               if (state is SurveysLoadingState) {
                 return Center(
-                  child: AnimatedLoadingWidget(height: 150,width: 150,),
+                  child: AnimatedLoadingWidget(
+                    height: 150,
+                    width: 150,
+                  ),
                 );
               }
               if (state is SurveysFailureState) {
-                return Center(
-                  child: Text(
-                    'Some Error occurs !!! try again',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(color: AppColors.grey),
-                  ),
-                );
+                return FailureWidget(
+                    title:
+                        'Some Error ocurrs when getting surveys !!!\n try again',
+                    onTap: () {
+                      surveysCubit.getsurveys();
+                    });
               }
               return surveysCubit.surveys.isEmpty
                   ? EmptyDataWidget(
