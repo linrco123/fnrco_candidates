@@ -37,3 +37,38 @@ class CustomTitle extends StatelessWidget {
     );
   }
 }
+
+
+class CustomOnlyEnTitle extends StatelessWidget {
+  final String title;
+  final double frontP ;
+  const CustomOnlyEnTitle({
+    Key? key,
+    required this.title,
+     this.frontP = 10.0,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+             SizedBox(
+              width: frontP,
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  color: AppColors.black, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10.0,
+        ),
+      ],
+    );
+  }
+}

@@ -52,6 +52,7 @@ class JobOfferCubit extends Cubit<JobOfferState> {
     //   );// Handle Error or show toasts
   }
 
+  File? jobOffer;
   Future<void> convertJobOfferToPdfFile(String url) async {
     emit(GetJobofferLoadingState());
     Completer<File> completer = Completer();
@@ -63,7 +64,9 @@ class JobOfferCubit extends Cubit<JobOfferState> {
       var dir = await getApplicationDocumentsDirectory();
       File file = File("${dir.path}/$filename");
       await file.writeAsBytes(bytes, flush: true);
-      if (await file.exists()) {}
+      if (await file.exists()) {
+        jobOffer = file;
+      }
       emit(GetJobofferSuccessState(file));
       completer.complete(file);
     } catch (e) {
@@ -112,18 +115,23 @@ class JobOfferCubit extends Cubit<JobOfferState> {
   }
 
   void sendJobOfferApproval(int appId, bool value) {
-    emit(JobOfferApprovalLoadingState());
+    if (value) {
+      emit(JobOfferApprovalLoadingState());
+    } else {
+      emit(JobOfferRejectLoadingState());
+    }
 
     Map data = {
-      "candidate_application_id": appId.toString(),
+      "candidate_application_id": appId,
       "candidate_approval": value,
       "candidate_comment": "job offer stage",
-      "stage": job_offer
+      "stage": job_offer.toString()
     };
-    
-    jobOfferProvider
-        .sendJobOfferApproval(data)
-        .then((value) {})
-        .catchError((error) {});
+
+    jobOfferProvider.sendJobOfferApproval(data).then((value) {
+      emit(JobOfferApprovalSuccessState());
+    }).catchError((error) {
+      emit(JobOfferApprovalFailureState(message: error.failure.message));
+    });
   }
 }

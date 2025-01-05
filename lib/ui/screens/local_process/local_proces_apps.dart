@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/api_provider/air_ticket.dart';
-import '../../../data/models/air_ticket_model.dart';
-import '../../../logic/cubit/air_ticket/air_ticket_cubit.dart';
-import 'air_ticket.dart';
+import '../../../data/api_provider/local_process.dart';
+import '../../../data/models/local_process_model.dart';
+import '../../../logic/cubit/local_process/local_process_cubit.dart';
+import 'local_process.dart';
 import '../../widgets/profile_get/profile_item.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
@@ -13,16 +13,16 @@ import '../../widgets/error_widget.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/return_btn.dart';
 
-class AirTicketApplicationsScreen extends StatelessWidget {
-  const AirTicketApplicationsScreen({super.key});
+class LocalProcessApplicationsScreen extends StatelessWidget {
+  const LocalProcessApplicationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AirTicketProvider _airTicketProvider = AirTicketProvider();
-    AirTicketCubit airTicketCubit = AirTicketCubit(_airTicketProvider);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    LocalProcessProvider _LocalProcessProvider = LocalProcessProvider();
+    LocalProcessCubit localProcessCubit =
+        LocalProcessCubit(_LocalProcessProvider);
     return BlocProvider(
-      create: (context) => airTicketCubit..getAirTicketInfo(),
+      create: (context) => localProcessCubit..getLocalProcessData(),
       child: Scaffold(
         appBar: AppBar(
             backgroundColor: AppColors.white,
@@ -38,24 +38,24 @@ class AirTicketApplicationsScreen extends StatelessWidget {
             leading: ReturnButton(
               color: AppColors.primary,
             )),
-        body: BlocConsumer<AirTicketCubit, AirTicketState>(
+        body: BlocConsumer<LocalProcessCubit, LocalProcessState>(
           listener: (context, state) {},
           builder: (context, state) {
-            if (state is GetAirTicketInfoLoadingState) {
+            if (state is GetLocalProcessDataLoadingState) {
               return AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
             }
-            if (state is GetAirTicketInfoFailureState) {
+            if (state is GetLocalProcessDataFailureState) {
               return FailureWidget(
                   title: state.message,
                   onTap: () {
-                    context.read<AirTicketCubit>().getAirTicketInfo();
+                    context.read<LocalProcessCubit>().getLocalProcessData();
                   });
             }
 
-            if (state is GetAirTicketInfoSuccessState) {
+            if (state is GetLocalProcessDataSuccessState) {
               return state.applications.isEmpty
                   ? EmptyDataWidget(
                       message: "No job applications available Yet !!!",
@@ -70,15 +70,22 @@ class AirTicketApplicationsScreen extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => BlocProvider.value(
-                                      value: airTicketCubit,
-                                      child: AirTicketScreen(
-                                        airTicketApplication:
-                                            state.applications[index],
+                                      value: localProcessCubit,
+                                      child: LocalProcessScreen(
+                                        localProcessPipeline:
+                                            state.applications[index].pipeline!,
                                       ),
                                     ),
                                   ));
+                                  context
+                                      .read<LocalProcessCubit>()
+                                      .storeLocalProcessAttachments(
+                                          state.applications[index].pipeline!);
+                                  context
+                                      .read<LocalProcessCubit>()
+                                      .passAppID(state.applications[index].id!);
                                 },
-                                child: AirTicketApplicationCard(
+                                child: LocalProcessApplicationCard(
                                     application: state.applications[index]),
                               ),
                           separatorBuilder: (BuildContext context, int index) =>
@@ -95,9 +102,9 @@ class AirTicketApplicationsScreen extends StatelessWidget {
   }
 }
 
-class AirTicketApplicationCard extends StatelessWidget {
-  final AirTicketApplication application;
-  const AirTicketApplicationCard({
+class LocalProcessApplicationCard extends StatelessWidget {
+  final LocalProcessApp application;
+  const LocalProcessApplicationCard({
     Key? key,
     required this.application,
   }) : super(key: key);

@@ -78,11 +78,12 @@ class JobContractSCreen extends StatelessWidget {
                 ),
               if (state is GetJobContractFailureState)
                 FailureWidget(title: state.message, onTap: () {}),
-              if (state is GetJobContractSuccessState)
+              if (context.read<JobContractCubit>().jobContract != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 45.0),
                   child: PDFView(
-                    filePath: state.contract.path,
+                    filePath:
+                        context.read<JobContractCubit>().jobContract!.path,
                     enableSwipe: true,
                     swipeHorizontal: true,
                     autoSpacing: false,
@@ -132,28 +133,34 @@ class JobContractSCreen extends StatelessWidget {
                       children: [
                         Expanded(
                             child: Center(
-                          child: CustomElevatedButton(
-                              fun: () {
-                                context
-                                    .read<JobContractCubit>()
-                                    .sendJobOfferApproval(applicationId, true);
-                              },
-                              background: AppColors.success,
-                              text: translateLang(context, 'approve')),
+                          child: state is JobContractApprovalLoadingState
+                              ? LoadingWidget()
+                              : CustomElevatedButton(
+                                  fun: () {
+                                    context
+                                        .read<JobContractCubit>()
+                                        .sendJobOfferApproval(
+                                            applicationId, true);
+                                  },
+                                  background: AppColors.success,
+                                  text: translateLang(context, 'approve')),
                         )),
                         const SizedBox(
                           width: 15.0,
                         ),
                         Expanded(
                             child: Center(
-                          child: CustomElevatedButton(
-                              fun: () {
-                                context
-                                    .read<JobContractCubit>()
-                                    .sendJobOfferApproval(applicationId, false);
-                              },
-                              background: AppColors.primary,
-                              text: translateLang(context, 'reject')),
+                          child: state is JobContractRejectLoadingState
+                              ? LoadingWidget()
+                              : CustomElevatedButton(
+                                  fun: () {
+                                    context
+                                        .read<JobContractCubit>()
+                                        .sendJobOfferApproval(
+                                            applicationId, false);
+                                  },
+                                  background: AppColors.primary,
+                                  text: translateLang(context, 'reject')),
                         ))
                       ],
                     ),

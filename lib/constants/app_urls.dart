@@ -21,31 +21,33 @@ class AppLinks {
   static const String genderStatus = "$metaData/221";
   static const String religion = "/religion";
   static const String maritalStatus = "$metaData/120";
-   static const String classification = "$metaData/422";
+  static const String classification = "$metaData/422";
   static const String skills = "$metaData/124";
   static const String years = "$metaData/129";
   static const String contactType = "$metaData/123";
+  static String meta_category = '/meta-category';
   ////////////////////// TODO:Management::Content ////////////////////////////
   //------------------------surveys-------------------------------
   static const String survies = "/surveys?module_id=$moduleID";
   static const String surveyView = "/surveys/view/";
   static const String surveyViewAnswer = "/surveys/store-answers/";
   //------------------------polls------------------------------
-    static const String polls = "/poll?module_id=$moduleID";
+  static const String polls = "/poll?module_id=$moduleID";
   static const String pollView = "/poll/view";
   //static const String pollViewAnswer = "/polls/store-answers/";
   static const String pollViewAnswer = "/poll/store";
   //---------------------------FAQs---------------------------------
-    static const String faqs = "/faqs";
+  static const String faqs = "/faqs";
   //-------------------------tutorial------------------------------
   static const String tutorial = "/tutorial?module_id=$moduleID";
-   // --------------------------------Announcement--------------------------
+  // --------------------------------Announcement--------------------------
   static const String announcement = "/announcement?module_id=$moduleID";
-   // --------------------------------contents--------------------------
+  // --------------------------------contents--------------------------
   static const String contents = "/content?module_id=$moduleID";
-    ////////////////////// TODO:Management::Polls //////////////////
+  ////////////////////// TODO:Management::Polls //////////////////
   static const String profile_update = "/person/update";
-///section//////////?sections=(skillls)
+
+  ///section//////////?sections=(skillls)
   static const String profile_section = "/person/sections";
   //////////////////////////////////TODO:GET_PROFILE.///////////////
   static const String profile_get = "/person/sections";
@@ -56,27 +58,26 @@ class AppLinks {
   static String appliedJobs = '/candidate/applied-jobs';
   //////////////////////////TODO:tickets/////////////////
   static String ticket = '/ticket';
- ////////////////////////////TODO:UI_WIDGETS/////////////////
+  ////////////////////////////TODO:UI_WIDGETS/////////////////
   static String ui_widget = '/ui-widget?module_id=$MODULE_ID';
   //////////////////////////TODO:Medical Declaration////////
-  
+
   static String submit_medical = "/umdf/medical-declaration-form";
 
-  static String medicalQuestions= "/umdf/item";
+  static String medicalQuestions = "/umdf/item";
 
   ////////////////////TODO:recruitment_process ////////////////
   ///
   static String recruitment_process = "/recruitment-process";
 
-   static String application_approval = "/application-approval";
+  static String application_approval = "/application-approval";
   ///////////////////////////////////////////////////////
 
-  static String submit_visa_approval="";
+  static String submit_visa_approval = "";
 
-  static String joining_date='';
+  static String joining_date = '';
 
   static String send_air_ticket = '/air-lineTicket/store';
 
-  
-
+  static String submit_local_process = '/hiring-request-form/upload-files';
 }

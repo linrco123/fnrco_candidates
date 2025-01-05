@@ -5,13 +5,15 @@ class AppImages {
   static const _lottie = "assets/lottie";
 
   ////////////////////TODO:////  lottie.......////////////////////////////////
+  
   static const SUCCESS = '$_lottie/success.json';
   static const EMPTYDATA = '$_lottie/emptydata.json';
   static const SERVER_FAILURE = '$_lottie/serverfailure.json';
   static const OFFLINE_FAILURE = '$_lottie/offlinefailure.json';
   static const LOADING = '$_lottie/loading.json';
   static const DATAEMPTY = '$_lottie/dataEmpty.json';
-  static const CIRCLELOADING = '$_lottie/circle_loading.json';
+  static const CIRCLELOADING = '$_lottie/loading_circle.json';
+  static const CONGRATULATIONS = '$_lottie/congratulations.json';
 
   ////////////////////TODO:////  IMAGES.......////////////////////////////////
   static const LOGO = '$_images/fnrcoerp_logo.png';

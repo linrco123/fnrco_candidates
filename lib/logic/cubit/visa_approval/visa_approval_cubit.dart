@@ -16,14 +16,14 @@ class VisaApprovalCubit extends Cubit<VisaApprovalState> {
   final visaRemark = TextEditingController();
   int candidate_app_id = 0;
 
-  void sendVisaApproval(bool answer) {
-    // if (answer) {
-    //   emit(VisaApprovalLoadingState());
-    // } else if (!answer) {
-    //   emit(VisaRejectionLoadingState());
-    // }
+  void sendVisaApproval(int id,bool answer) {
+    if (answer) {
+      emit(VisaApprovalLoadingState());
+    } else if (!answer) {
+      emit(VisaRejectionLoadingState());
+    }
     Map data = {
-      "candidate_application_id": candidate_app_id,
+      "candidate_application_id": id,
       "candidate_approval": answer,
       "candidate_comment": visaRemark.text,
       "stage": visa_selection.toString(),
@@ -39,6 +39,7 @@ class VisaApprovalCubit extends Cubit<VisaApprovalState> {
     // } else if (visaRemark.text.isEmpty) {}
   }
 String nationality ='';
+
   getVisadata() {
     emit(GetVisaApprovalDataLoadingState());
     visaApprovalProvider.getVisadata().then((value) {

@@ -20,10 +20,6 @@ class JobOfferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [],
-      ),
       appBar: AppBar(
           backgroundColor: AppColors.primary,
           centerTitle: true,
@@ -50,14 +46,12 @@ class JobOfferScreen extends StatelessWidget {
                 arguments: {"app_id": applicationId});
           }
 
-            if (state is JobOfferApprovalFailureState) {
+          if (state is JobOfferApprovalFailureState) {
             showToast(context,
                 title: translateLang(context, 'error'),
-                desc:state.message,
+                desc: state.message,
                 type: ToastificationType.error);
-          
           }
-
         },
         builder: (context, state) {
           return Stack(
@@ -80,11 +74,11 @@ class JobOfferScreen extends StatelessWidget {
                 ),
               if (state is GetJobofferErrorState)
                 FailureWidget(title: state.message, onTap: () {}),
-              if (state is GetJobofferSuccessState)
+              if (context.read<JobOfferCubit>().jobOffer != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 55.0),
                   child: PDFView(
-                    filePath: state.jobOffer.path,
+                    filePath: context.read<JobOfferCubit>().jobOffer!.path,
                     enableSwipe: true,
                     swipeHorizontal: true,
                     autoSpacing: false,
@@ -134,28 +128,34 @@ class JobOfferScreen extends StatelessWidget {
                       children: [
                         Expanded(
                             child: Center(
-                          child: CustomElevatedButton(
-                              fun: () {
-                                context
-                                    .read<JobOfferCubit>()
-                                    .sendJobOfferApproval(applicationId, true);
-                              },
-                              background: AppColors.success,
-                              text: translateLang(context, 'approve')),
+                          child: state is JobOfferApprovalLoadingState
+                              ? LoadingWidget()
+                              : CustomElevatedButton(
+                                  fun: () {
+                                    context
+                                        .read<JobOfferCubit>()
+                                        .sendJobOfferApproval(
+                                            applicationId, true);
+                                  },
+                                  background: AppColors.success,
+                                  text: translateLang(context, 'approve')),
                         )),
                         const SizedBox(
                           width: 15.0,
                         ),
                         Expanded(
                             child: Center(
-                          child: CustomElevatedButton(
-                              fun: () {
-                                context
-                                    .read<JobOfferCubit>()
-                                    .sendJobOfferApproval(applicationId, false);
-                              },
-                              background: AppColors.primary,
-                              text: translateLang(context, 'reject')),
+                          child: state is JobOfferRejectLoadingState
+                              ? LoadingWidget()
+                              : CustomElevatedButton(
+                                  fun: () {
+                                    context
+                                        .read<JobOfferCubit>()
+                                        .sendJobOfferApproval(
+                                            applicationId, false);
+                                  },
+                                  background: AppColors.primary,
+                                  text: translateLang(context, 'reject')),
                         ))
                       ],
                     ),

@@ -1,11 +1,11 @@
 import 'package:dio2/dio2.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../constants/app_urls.dart';
 import '../../constants/constances.dart';
 import '../../core/classes/dio_helper.dart';
 import '../../core/classes/exceptions.dart';
 import '../../core/classes/failure.dart';
 import '../models/job_contract_model.dart';
-import '../models/job_offer_model.dart';
 
 class JobContractProvider {
 
@@ -30,6 +30,9 @@ class JobContractProvider {
     try {
       final response =
           await DioHelper.dio.post(AppLinks.application_approval, data: data);
+     print('=================rsponse==================');
+     logger.e(response.data);
+     
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {

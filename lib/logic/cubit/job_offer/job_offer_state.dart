@@ -68,6 +68,8 @@ class GetJobofferErrorState extends JobOfferState{
 
 class JobOfferApprovalLoadingState extends JobOfferState{}
 
+class JobOfferRejectLoadingState extends JobOfferState{}
+
 class JobOfferApprovalSuccessState extends JobOfferState{}
 
 class JobOfferApprovalFailureState extends JobOfferState{

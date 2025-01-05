@@ -36,7 +36,6 @@ class JobApplicationScreen extends StatelessWidget {
 
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const CompanyInfoScreen()));
-                  
             }
             if (state is JobApplicationFailureState) {
               showToast(context,
@@ -140,7 +139,8 @@ class JobApplicationScreen extends StatelessWidget {
                             ),
                           ),
                           CustomPaint(
-                            painter: DottedBorderPainter(),
+                            painter: DottedBorderPainter(
+                                ),
                             child: OutlinedButton(
                                 style: OutlinedButton.styleFrom(
                                     enableFeedback: true,

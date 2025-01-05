@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/models/air_ticket_model.dart';
-import 'package:fnrco_candidates/data/api_provider/air_ticket.dart';
+import '../../../core/functions/translate.dart';
+import '../../../data/models/air_ticket_model.dart';
+import '../../../data/api_provider/air_ticket.dart';
 import 'package:permission_handler/permission_handler.dart';
 part 'air_ticket_state.dart';
 
@@ -146,6 +146,8 @@ class AirTicketCubit extends Cubit<AirTicketState> {
     emit(AirTicketDeleteAttachmentState());
   }
 
+
+
   Future<void> submitAirTicketInfo(int applicationId) async {
     if (formKey.currentState!.validate()) {
       if (departure_date == null) {
@@ -189,4 +191,5 @@ class AirTicketCubit extends Cubit<AirTicketState> {
       }
     }
   }
+
 }

@@ -17,11 +17,11 @@ class JoiningDateCubit extends Cubit<JoiningDateState> {
   int candidate_app_id = 0;
 
   void sendJoiningDate(int applicationID, bool answer) {
-    // if (answer) {
-    //   emit(JoiningDateApprovalLoadingState());
-    // } else if (!answer) {
-    //   emit(JoiningDateRejectionLoadingState());
-    // }
+    if (answer) {
+      emit(JoiningDateApprovalLoadingState());
+    } else if (!answer) {
+      emit(JoiningDateRejectionLoadingState());
+    }
 
     Map data = {
       "candidate_application_id": applicationID,

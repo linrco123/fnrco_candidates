@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:toastification/toastification.dart';
 
 import 'package:fnrco_candidates/constants/app_colors.dart';
@@ -47,8 +48,8 @@ class JoiningDateSCreen extends StatelessWidget {
                   desc: translateLang(context, "date_join_submit_success"),
                   type: ToastificationType.success);
 
-               Navigator.of(context).pop();
-               Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
             }
             if (state is JoiningDateApprovalErrorState) {
               showToast(context,
@@ -90,7 +91,8 @@ class JoiningDateSCreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.headlineLarge,
                           ),
                           Text(
-                            joiningDateApp.pipeline!.joiningDate!,
+                            joiningDateApp.pipeline!.joiningDate! ??
+                                'Not Determined',
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ],
@@ -98,9 +100,6 @@ class JoiningDateSCreen extends StatelessWidget {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      // CustomTitle(
-                      //   title: "visa_remark",
-                      // ),
                       CustomInputField(
                           controller:
                               context.read<JoiningDateCubit>().joinDateRemark,
@@ -117,28 +116,40 @@ class JoiningDateSCreen extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Center(
-                        child: CustomElevatedButton(
-                            fun: () {
-                              context
-                                  .read<JoiningDateCubit>()
-                                  .sendJoiningDate(joiningDateApp.id!, true);
-                            },
-                            background: AppColors.success,
-                            text: translateLang(context, 'approve')),
+                        child: state is JoiningDateApprovalLoadingState
+                            ? LoadingWidget()
+                            : CustomElevatedButton(
+                                fun: () {
+                                  if (joiningDateApp.pipeline!.joiningDate !=
+                                      null) {
+                                    context
+                                        .read<JoiningDateCubit>()
+                                        .sendJoiningDate(
+                                            joiningDateApp.id!, true);
+                                  }
+                                },
+                                background: AppColors.success,
+                                text: translateLang(context, 'approve')),
                       )),
                       const SizedBox(
                         width: 15.0,
                       ),
                       Expanded(
                           child: Center(
-                        child: CustomElevatedButton(
-                            fun: () {
-                              context
-                                  .read<JoiningDateCubit>()
-                                  .sendJoiningDate(joiningDateApp.id!, false);
-                            },
-                            background: AppColors.primary,
-                            text: translateLang(context, 'reject')),
+                        child: state is JoiningDateRejectionLoadingState
+                            ? LoadingWidget()
+                            : CustomElevatedButton(
+                                fun: () {
+                                  if (joiningDateApp.pipeline!.joiningDate !=
+                                      null) {
+                                    context
+                                        .read<JoiningDateCubit>()
+                                        .sendJoiningDate(
+                                            joiningDateApp.id!, false);
+                                  }
+                                },
+                                background: AppColors.primary,
+                                text: translateLang(context, 'reject')),
                       ))
                     ],
                   ),

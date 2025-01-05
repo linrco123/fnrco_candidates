@@ -1,5 +1,5 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/data/models/air_ticket_model.dart';
+import '../models/air_ticket_model.dart';
 import '../../constants/app_urls.dart';
 import '../../constants/constances.dart';
 import '../../core/classes/dio_helper.dart';
@@ -38,4 +38,6 @@ class AirTicketProvider {
               Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
+
+ 
 }

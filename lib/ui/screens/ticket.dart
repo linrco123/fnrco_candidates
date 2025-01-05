@@ -26,8 +26,8 @@ class TicketsScreen extends StatelessWidget {
           backgroundColor: AppColors.white,
           title: Text(
             translateLang(context, 'tickets'),
-            style:
-                TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: AppColors.primary, fontWeight: FontWeight.bold),
           ),
           leading: ReturnButton(
             color: AppColors.primary,
@@ -60,7 +60,9 @@ class TicketsScreen extends StatelessWidget {
                 color: AppColors.white,
                 child: Column(
                   children: [
-                    const SizedBox(height: 10.0,),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
                     Form(
                       key: cubit.formKey,
                       child: Expanded(
@@ -133,7 +135,9 @@ class TicketsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10.0,),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
                     Expanded(
                         child: Column(
                       children: [
@@ -148,7 +152,8 @@ class TicketsScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               CustomPaint(
-                                painter: DottedBorderPainter(),
+                                painter: DottedBorderPainter(
+                                    ),
                                 child: OutlinedButton(
                                     style: OutlinedButton.styleFrom(
                                         enableFeedback: true,
@@ -237,7 +242,6 @@ class TicketsScreen extends StatelessWidget {
                             child: CustomElevatedButton(
                                 fun: () {
                                   cubit.submitTicket(context);
-
                                 },
                                 background: AppColors.primary,
                                 text: translateLang(context, 'save'))),

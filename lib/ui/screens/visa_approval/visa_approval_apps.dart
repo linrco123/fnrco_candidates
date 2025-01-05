@@ -77,6 +77,8 @@ class VisaApprovalAppsScreen extends StatelessWidget {
                                               state.applications[index]),
                                     ),
                                   ));
+                                  // visaApprovalCubit.candidate_app_id =
+                                  //     state.applications[index].id!;
                                 },
                                 child: VisaApprovalApplicationCard(
                                     application: state.applications[index]),

@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/core/classes/dotted_border.dart';
-import 'package:fnrco_candidates/core/functions/show_toast.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/data/models/air_ticket_model.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/date_picker_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
+import '../../../core/classes/dotted_border.dart';
+import '../../../core/functions/show_toast.dart';
+import '../../../core/functions/translate.dart';
+import '../../../data/models/air_ticket_model.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/profile/custom_text_field.dart';
+import '../../widgets/profile/date_picker_widget.dart';
+import '../../widgets/profile/title_text.dart';
 import 'package:toastification/toastification.dart';
 import '../../../logic/cubit/air_ticket/air_ticket_cubit.dart';
 import '../../widgets/auth/custom_elevated_btn.dart';
@@ -84,6 +84,7 @@ class AirTicketScreen extends StatelessWidget {
             } else {
               pipeLine = airTicketApplication!.pipeline;
             }
+
             return Padding(
               padding:
                   const EdgeInsets.only(bottom: 15.0, left: 15.0, right: 15.0),
@@ -153,7 +154,7 @@ class AirTicketScreen extends StatelessWidget {
                               hint: pipeLine == null
                                   ? translateLang(context, "departure_from")
                                   : pipeLine.contractPdf),
-                            const SizedBox(
+                          const SizedBox(
                             height: 16.0,
                           ),
                           CustomTitle(
@@ -168,7 +169,7 @@ class AirTicketScreen extends StatelessWidget {
                               inputType: TextInputType.name,
                               hint: pipeLine == null
                                   ? translateLang(context, "arrival_at")
-                                  : pipeLine.contractPdf),        
+                                  : pipeLine.contractPdf),
                           const SizedBox(
                             height: 16.0,
                           ),
@@ -237,7 +238,8 @@ class AirTicketScreen extends StatelessWidget {
                             height: 16.0,
                           ),
                           CustomPaint(
-                            painter: DottedBorderPainter(),
+                            painter: DottedBorderPainter(
+                                ),
                             child: OutlinedButton(
                                 style: OutlinedButton.styleFrom(
                                     enableFeedback: true,
@@ -274,7 +276,7 @@ class AirTicketScreen extends StatelessWidget {
                                           )
                                         : InkWell(
                                             onTap: () {
-                                               airTicketCubit.deleteAttachment();
+                                              airTicketCubit.deleteAttachment();
                                             },
                                             child: Icon(
                                               CupertinoIcons.delete_simple,
@@ -290,7 +292,7 @@ class AirTicketScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )), 
+                  )),
                   pipeLine == null
                       ? state is submitAirTicketInfoLoadingState
                           ? AnimatedLoadingWidget()

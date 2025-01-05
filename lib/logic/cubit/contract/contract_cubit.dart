@@ -19,7 +19,7 @@ class JobContractCubit extends Cubit<ContractState> {
   JobContractCubit(
     this.jobContractProvider,
   ) : super(ContractInitial());
-
+  File? jobContract;
   Future<void> convertPdfData(String url) async {
     emit(GetJobContractLoadingState());
     Completer<File> completer = Completer();
@@ -31,7 +31,9 @@ class JobContractCubit extends Cubit<ContractState> {
       var dir = await getApplicationDocumentsDirectory();
       File file = File("${dir.path}/$filename");
       await file.writeAsBytes(bytes, flush: true);
-      if (await file.exists()) {}
+      if (await file.exists()) {
+        jobContract = file;
+      }
       emit(GetJobContractSuccessState(contract: file));
       completer.complete(file);
     } catch (e) {
@@ -59,18 +61,15 @@ class JobContractCubit extends Cubit<ContractState> {
     emit(ContractDownloadPDFLoadingState());
     var fileName = jobOffer.substring(jobOffer.lastIndexOf('/') + 1);
     var urlDir = await getExternalStorageDirectory();
-    Dio()
-        .download(jobOffer, '${urlDir!.path}/${fileName}')
-        .then((value) {
-          emit(ContractDownloadPDFSuccessState());
-        })
-        .catchError((error) {
-            emit(ContractDownloadPDFFailureState());
-        });
+    Dio().download(jobOffer, '${urlDir!.path}/${fileName}').then((value) {
+      emit(ContractDownloadPDFSuccessState());
+    }).catchError((error) {
+      emit(ContractDownloadPDFFailureState());
+    });
     // File file = File(path)
   }
 
-    var ContractApplications = List<ContractApplication>.empty(growable: true);
+  var ContractApplications = List<ContractApplication>.empty(growable: true);
 
   getJobApplications() {
     emit(GetJobContractApplicationsLoadingState());
@@ -78,7 +77,8 @@ class JobContractCubit extends Cubit<ContractState> {
       emit(GetJobContractApplicationsSuccessState(
           applications: value.applications!));
     }).catchError((error) {
-      emit(GetJobContractApplicationsFailureState(message: error.failure.message));
+      emit(GetJobContractApplicationsFailureState(
+          message: error.failure.message));
     });
   }
 
@@ -89,19 +89,13 @@ class JobContractCubit extends Cubit<ContractState> {
       "candidate_application_id": appId.toString(),
       "candidate_approval": value,
       "candidate_comment": "job offer stage",
-      "stage": candidate_contract
+      "stage": candidate_contract.toString()
     };
-    
-    jobContractProvider
-        .sendJobContractApproval(data)
-        .then((value) {})
-        .catchError((error) {});
+
+    jobContractProvider.sendJobContractApproval(data).then((value) {
+      emit(JobContractApprovalSuccessState());
+    }).catchError((error) {
+      emit(JobContractApprovalFailureState(message: error.failure.message));
+    });
   }
-
-
-
-
 }
-
-
-

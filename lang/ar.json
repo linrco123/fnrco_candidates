@@ -355,6 +355,8 @@
   "arrival_date": "تاريخ الوصول",
   "departure_time": "توقيت المغادرة",
   "arrival_at": "توقيت الوصول",
-  "arrival_time":"توقيت الوصول"
+  "arrival_time":"توقيت الوصول",
+  "select_doc_category":"اختر تصنيف الوثيقة",
+     "doc_category":"تصنيف الوثيقة"
 
 }

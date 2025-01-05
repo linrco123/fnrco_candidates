@@ -190,7 +190,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
   void sendMedicalDeclare() {
     emit(SendMedicalDeclareLoadingState());
     var data = {
-      "identity_number": "5656565656",
+     // "identity_number": "5656565656",
       "person_umdf_company_id": 63,
       "person_id": 31533,
       "candidate_app_id": 16406,

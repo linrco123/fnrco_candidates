@@ -365,5 +365,8 @@
     "arrival_date": "Arrival Date",
     "departure_time": "Departure Time",
     "arrival_at": "Arrival At",
-    "arrival_time":"Arrival Time"
+    "arrival_time":"Arrival Time",
+    "select_doc_category":"Select Document Category",
+     "doc_category":"Document Category"
+     
 }

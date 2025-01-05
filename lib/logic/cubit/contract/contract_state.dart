@@ -60,6 +60,9 @@ class GetJobContractApplicationsFailureState extends ContractState{
 
 class JobContractApprovalLoadingState extends ContractState{}
 
+class JobContractRejectLoadingState extends ContractState{}
+
+
 class JobContractApprovalSuccessState extends ContractState{}
 
 class JobContractApprovalFailureState extends ContractState{

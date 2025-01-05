@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/ui/screens/air_ticket/air_ticket_apps.dart';
-import 'ui/screens/air_ticket/air_ticket.dart';
-import 'ui/screens/applications_joining_date/apps_joining_date.dart';
+import 'ui/screens/air_ticket/air_ticket_apps.dart';
+import 'ui/screens/local_process/local_proces_apps.dart';
+import 'ui/screens/joining_date/apps_joining_date.dart';
 import 'ui/screens/job_contract/contract_applications.dart';
 import 'ui/screens/job_offer/job_applications.dart';
-import 'ui/screens/local_process.dart';
 import 'ui/screens/visa_approval/visa_approval_apps.dart';
 import 'constants/app_pages_names.dart';
 import 'constants/constances.dart';
@@ -462,7 +461,7 @@ class AppRouter {
         //     builder: (context) => LocalProcessScreen(),
         //     );
         return PageTransition(
-          child: LocalProcessScreen(),
+          child: LocalProcessApplicationsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

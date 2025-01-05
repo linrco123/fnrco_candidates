@@ -1,7 +1,7 @@
 class LocalProcessModel {
   bool? status;
   String? message;
-  List<LocalProcess>? data;
+  List<LocalProcessApp>? applications;
   int? size;
   int? page;
   int? totalPages;
@@ -11,7 +11,7 @@ class LocalProcessModel {
   LocalProcessModel(
       {this.status,
       this.message,
-      this.data,
+      this.applications,
       this.size,
       this.page,
       this.totalPages,
@@ -22,9 +22,9 @@ class LocalProcessModel {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <LocalProcess>[];
+      applications = <LocalProcessApp>[];
       json['data'].forEach((v) {
-        data!.add(new LocalProcess.fromJson(v));
+        applications!.add(new LocalProcessApp.fromJson(v));
       });
     }
     size = json['size'];
@@ -38,8 +38,8 @@ class LocalProcessModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.applications != null) {
+      data['data'] = this.applications!.map((v) => v.toJson()).toList();
     }
     data['size'] = this.size;
     data['page'] = this.page;
@@ -50,43 +50,86 @@ class LocalProcessModel {
   }
 }
 
-class LocalProcess {
+class LocalProcessApp {
   int? id;
   String? mprNo;
+  String? mprType;
   String? position;
   String? clientName;
   String? candidateNationality;
   String? candidateName;
-  dynamic pipeline;
+  List<LocalProcessPipeLine>? pipeline;
 
-  LocalProcess(
+  LocalProcessApp(
       {this.id,
       this.mprNo,
+      this.mprType,
       this.position,
       this.clientName,
       this.candidateNationality,
       this.candidateName,
       this.pipeline});
 
-  LocalProcess.fromJson(Map<String, dynamic> json) {
+  LocalProcessApp.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     mprNo = json['mpr_no'];
+    mprType = json['mpr_type'];
     position = json['Position'];
     clientName = json['client_name'];
     candidateNationality = json['candidate_nationality'];
     candidateName = json['candidate_name'];
-    pipeline = json['pipeline'];
+    if (json['pipeline'] != null) {
+      pipeline = <LocalProcessPipeLine>[];
+      json['pipeline'].forEach((v) {
+        pipeline!.add(new LocalProcessPipeLine.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['mpr_no'] = this.mprNo;
+    data['mpr_type'] = this.mprType;
     data['Position'] = this.position;
     data['client_name'] = this.clientName;
     data['candidate_nationality'] = this.candidateNationality;
     data['candidate_name'] = this.candidateName;
-    data['pipeline'] = this.pipeline;
+    if (this.pipeline != null) {
+      data['pipeline'] = this.pipeline!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
+
+class LocalProcessPipeLine {
+  int? stepId;
+  String? stepName;
+  String? pathFile;
+
+  LocalProcessPipeLine({this.stepId, this.stepName, this.pathFile});
+
+  LocalProcessPipeLine.fromJson(Map<String, dynamic> json) {
+    stepId = json['step_id'];
+    stepName = json['step_name'];
+    pathFile = json['path_file'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['step_id'] = this.stepId;
+    data['step_name'] = this.stepName;
+    data['path_file'] = this.pathFile;
+    return data;
+  }
+
+  void changeFilePath(String newPath){
+    this.pathFile = newPath;
+  }
+  
+}
+
+
+
+
+
