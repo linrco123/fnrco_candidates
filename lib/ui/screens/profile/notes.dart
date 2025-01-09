@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/app_colors.dart';
@@ -30,6 +31,18 @@ class NotesScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<NotesCubit>(context).addNewNotes();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<NotesCubit, NotesState>(
           listener: (context, state) {
             if (state is SubmitNotesSuccessState) {
@@ -60,7 +73,7 @@ class NotesScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    
+
                     CustomTitle(title: 'note'),
                     CustomInputField(
                       controller: cubit.notCntroller,
@@ -74,21 +87,21 @@ class NotesScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: CustomElevatedButton(
-                          fun: () {
-                            cubit.addNewNotes();
-                          },
-                          background: AppColors.black,
-                          text: translateLang(context, 'add_new_note')),
-                    ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 2,
+                    //   child: CustomElevatedButton(
+                    //       fun: () {
+                    //         cubit.addNewNotes();
+                    //       },
+                    //       background: AppColors.black,
+                    //       text: translateLang(context, 'add_new_note')),
+                    // ),
                     const Spacer(),
                     state is SubmitNotesLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              cubit.submitNotes();
+                              cubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),

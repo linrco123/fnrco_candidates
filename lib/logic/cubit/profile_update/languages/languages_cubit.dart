@@ -57,10 +57,17 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     languageLevel = 1;
     emit(EmptyLanguageFieldsState());
   }
-
-  void submitLanguages() {
-    print('===============languages============');
-    print(submittedLanguages);
+  void submit(){
+    if(submittedLanguages.isEmpty){
+      addNewLanguage();
+      if(submittedLanguages.isNotEmpty){
+        _submitLanguages();
+      }
+    }else{
+      _submitLanguages();
+    }
+  }
+  void _submitLanguages() {
     var data = {"languages": submittedLanguages};
     if (submittedLanguages.isNotEmpty) {
       emit(SubmitLanguagesLoadingState());

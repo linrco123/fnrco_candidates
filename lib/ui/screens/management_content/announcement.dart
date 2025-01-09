@@ -16,12 +16,13 @@ class AnnouncementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AnnouncementCubit(AnnouncementProvider())..getAnnouncements(),
+      create: (context) =>
+          AnnouncementCubit(AnnouncementProvider())..getAnnouncements(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
           title: Text(
-           translateLang(context, 'annnouncements'),
+            translateLang(context, 'annnouncements'),
             style: TextStyle(color: AppColors.primary),
           ),
           centerTitle: true,
@@ -49,23 +50,23 @@ class AnnouncementScreen extends StatelessWidget {
               }
               if (state is AnnouncementFailureState) {
                 return FailureWidget(
-                    title: 'Some Error occured !!! try again',
+                    showImage: true,
+                    title:
+                        'Some Error occured when getting announcements!!!\n try again',
                     onTap: () {
                       cubit.getAnnouncements();
                     });
               }
-              return (state as AnnouncementSuccessState).announcements.isEmpty?
-                   EmptyDataWidget(
+              return (state as AnnouncementSuccessState).announcements.isEmpty
+                  ? EmptyDataWidget(
                       message: "No Announcements available Yet!!!",
                     )
                   : ListView.separated(
                       itemCount: state.announcements.length,
                       itemBuilder: (BuildContext context, int index) => InkWell(
-                          onTap: () {
-                           
-                          },
-                          child:
-                              AnnouncementCard(annnouncement: state.announcements[index])),
+                          onTap: () {},
+                          child: AnnouncementCard(
+                              annnouncement: state.announcements[index])),
                       separatorBuilder: (BuildContext context, int index) =>
                           const SizedBox(
                         height: 10.0,

@@ -141,16 +141,36 @@ class HomePageScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    // ListTile(
+                                    //   onTap: () {
+                                    //     Navigator.of(context)
+                                    //         .push(MaterialPageRoute(
+                                    //       builder: (context) => TestScreen(),
+                                    //     ));
+                                    //   },
+                                    //   leading: Padding(
+                                    //     padding:
+                                    //         const EdgeInsets.only(left: 5.0),
+                                    //     child: Icon(Icons.work_sharp)
+                                    //   ),
+                                    //   title: Text(
+                                    //     'Test',
+                                    //     style: Theme.of(context)
+                                    //         .textTheme
+                                    //         .titleSmall,
+                                    //   ),
+                                    // ),
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
                                             AppPagesNames.PROFILE);
                                       },
                                       leading: Padding(
-                                        padding: const EdgeInsets.only(left: 5.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
                                         child: SvgPicture.asset(
                                           AppImages.PERSON,
-                                          width: 27.0,height: 27.0,
+                                          width: 27.0, height: 27.0,
                                           // ignore: deprecated_member_use
                                           color: AppColors.black,
                                         ),
@@ -166,13 +186,12 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.JOB_OFFER,arguments: {
-                                              'data':"Muhammed"
-                                            });
+                                            AppPagesNames.JOB_OFFER,
+                                            arguments: {'data': "Muhammed"});
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.offer,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -191,7 +210,7 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.contract,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -209,7 +228,7 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.visa,
-                                       width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -228,7 +247,7 @@ class HomePageScreen extends StatelessWidget {
                                       leading: SvgPicture.asset(
                                         AppImages.HEALTH_CARE,
                                         // ignore: deprecated_member_use
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         color: AppColors.black,
                                       ),
                                       title: Text(
@@ -247,7 +266,7 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.local_process,
-                                       width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -264,7 +283,10 @@ class HomePageScreen extends StatelessWidget {
                                         Navigator.of(context).popAndPushNamed(
                                             AppPagesNames.JOINING_DATE);
                                       },
-                                      leading: Icon(CupertinoIcons.calendar,size: 27.0,),
+                                      leading: Icon(
+                                        CupertinoIcons.calendar,
+                                        size: 27.0,
+                                      ),
                                       title: Text(
                                         translateLang(context, "joining_date"),
                                         style: Theme.of(context)
@@ -279,7 +301,7 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.air_ticket,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -297,7 +319,7 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.RESUME,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -319,7 +341,7 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.NOTIFICATIONS,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -353,7 +375,7 @@ class HomePageScreen extends StatelessWidget {
                                         AppImages.ticket,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                       ),
                                       title: Text(
                                         AppLocalizations.of(context)!
@@ -370,7 +392,7 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.survey,
-                                       width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
@@ -389,10 +411,9 @@ class HomePageScreen extends StatelessWidget {
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.poll,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
-                                      
                                       ),
                                       title: Text(
                                         AppLocalizations.of(context)!
@@ -410,7 +431,8 @@ class HomePageScreen extends StatelessWidget {
                                       leading: SvgPicture.asset(
                                         AppImages.faqs,
                                         color: AppColors.black,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0,
+                                        height: 27.0,
                                       ),
                                       title: Text(
                                         "FAQs",
@@ -427,7 +449,8 @@ class HomePageScreen extends StatelessWidget {
                                       leading: SvgPicture.asset(
                                         AppImages.tutorial,
                                         color: AppColors.black,
-                                        width: 27.0,height: 27.0,
+                                        width: 27.0,
+                                        height: 27.0,
                                       ),
                                       title: Text(
                                         translateLang(context, "tutorials"),
@@ -444,7 +467,8 @@ class HomePageScreen extends StatelessWidget {
                                       leading: SvgPicture.asset(
                                         AppImages.announcement,
                                         color: AppColors.black,
-                                       width: 27.0,height: 27.0,
+                                        width: 27.0,
+                                        height: 27.0,
                                       ),
                                       title: Text(
                                         translateLang(

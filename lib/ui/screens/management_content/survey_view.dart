@@ -9,6 +9,7 @@ import 'package:fnrco_candidates/data/api_provider/management_content/surveys.da
 import 'package:fnrco_candidates/logic/cubit/management_content/survies/surveys_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
+import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/management_content/answer_card.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
@@ -74,9 +75,9 @@ class SurveyViewScreen extends StatelessWidget {
                 );
               }
               if (state is SurveysViewFailureState) {
-                return Center(
-                  child: Text('Some Error occurs'),
-                );
+                return EmptyDataWidget(
+                  message: 'No survey View contents Yet !!!',
+                );;
               }
 
               return Stack(

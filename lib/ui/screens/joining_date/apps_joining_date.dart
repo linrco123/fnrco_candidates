@@ -50,6 +50,7 @@ class DateApplicationScreen extends StatelessWidget {
             }
             if (state is GetJoiningDateFailureState) {
               return FailureWidget(
+                showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<JoiningDateCubit>().getJoiningDateInfo();

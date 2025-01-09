@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/keywords.dart';
-import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 part 'key_words_state.dart';
 
@@ -39,9 +38,18 @@ class KeyWordsCubit extends Cubit<KeyWordsState> {
     emit(EmptyKeywordFieldsState());
   }
 
-  void submitKeyWords() {
-    print('===============notes============');
-    logger.d(submittedKeyWords);
+void submit() {
+    if (submittedKeyWords.isEmpty) {
+      addNewKeyword();
+      if (submittedKeyWords.isNotEmpty) {
+        _submitKeyWords();
+      }
+    } else {
+      _submitKeyWords();
+    }
+  }
+  void _submitKeyWords() {
+
     var data = {"keywords": submittedKeyWords};
     if (submittedKeyWords.isNotEmpty) {
       emit(SubmitKeyWordsLoadingState());

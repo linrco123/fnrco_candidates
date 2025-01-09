@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
 import 'ui/screens/internet_connection.dart';
 import 'app_router.dart';
 import 'constants/app_pages_names.dart';

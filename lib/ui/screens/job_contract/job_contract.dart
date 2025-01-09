@@ -45,6 +45,9 @@ class JobContractSCreen extends StatelessWidget {
                 title: translateLang(context, 'success'),
                 desc: 'Job Contract Approval submitted successfully',
                 type: ToastificationType.success);
+
+                Navigator.of(context);
+                Navigator.of(context);
           }
 
           if (state is JobContractApprovalFailureState) {
@@ -74,7 +77,7 @@ class JobContractSCreen extends StatelessWidget {
                   width: 150.0,
                 ),
               if (state is GetJobContractFailureState)
-                FailureWidget(title: state.message, onTap: () {}),
+                FailureWidget(showImage: true, title: state.message, onTap: () {}),
               if (context.read<JobContractCubit>().jobContract != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 45.0),

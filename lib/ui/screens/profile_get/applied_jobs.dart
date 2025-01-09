@@ -31,6 +31,7 @@ class _GetPersonalDetailsScreenState extends State<AppliedJobsScreen> {
         }
         if (state is AboutMeGetAppliedJobsErrorState) {
           return FailureWidget(
+            showImage: false,
               title: translateLang(context, "error_get_appl_jobs"),
               onTap: () {
                 context.read<AboutMeCubit>().getAppliedJobs();

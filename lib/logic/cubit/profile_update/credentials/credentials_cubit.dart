@@ -87,7 +87,17 @@ class CredentialsCubit extends Cubit<CredentialsState> {
     expireDate = null;
     emit(EmptyCredentialsFieldsState());
   }
-  void submitCredentials() {
+  void submit(){
+    if(submittedCredentials.isEmpty){
+      addNewCredentials();
+      if(submittedCredentials.isNotEmpty){
+         _submitCredentials();
+      }
+    }else{
+       _submitCredentials();
+    }
+  }
+  void _submitCredentials() {
     var data = {"credentials": submittedCredentials};
     if (submittedCredentials.isNotEmpty) {
       emit(SubmitCredentialsLoadingState());

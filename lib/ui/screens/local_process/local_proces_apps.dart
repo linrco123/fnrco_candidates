@@ -51,6 +51,7 @@ class LocalProcessApplicationsScreen extends StatelessWidget {
 
             if (state is GetLocalProcessDataFailureState) {
               return FailureWidget(
+                showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<LocalProcessCubit>().getLocalProcessData();

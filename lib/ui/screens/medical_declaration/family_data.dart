@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/profile/custom_text_field.dart';
 import '../../widgets/profile/title_text.dart';
-import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
 import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
 import '../../widgets/auth/custom_drop_text_field.dart';
-import '../../widgets/auth/custom_elevated_btn.dart';
 import '../../widgets/auth/signup/signup_loading_widget.dart';
 import '../../widgets/profile/date_picker_widget.dart';
 
@@ -86,7 +84,7 @@ class FamilyDataScreen extends StatelessWidget {
             CustomInputField(
                 controller: cubit.passportCntroller,
                 validate: cubit.validatePasport,
-                inputType: TextInputType.number,
+                inputType: TextInputType.name,
                 hint: translateLang(context, "passport_number")),
             const SizedBox(
               height: 16.0,
@@ -100,6 +98,15 @@ class FamilyDataScreen extends StatelessWidget {
                       title: "height",
                     ),
                     CustomInputField(
+                      suffix: Container(
+              height: 50,
+              width: 50,
+              padding: EdgeInsets.only(right: 20),
+              alignment: Alignment.center,
+              child: Text(
+                'cm',
+                style: Theme.of(context).textTheme.headlineLarge,
+              )),
                         controller: cubit.heightCntroller,
                         validate: cubit.validateHeight,
                         inputType: TextInputType.number,
@@ -116,10 +123,20 @@ class FamilyDataScreen extends StatelessWidget {
                       title: "weight",
                     ),
                     CustomInputField(
-                        controller: cubit.weightCntroller,
-                        validate: cubit.validateWeight,
-                        inputType: TextInputType.number,
-                        hint: translateLang(context, "weight")),
+                      controller: cubit.weightCntroller,
+                      validate: cubit.validateWeight,
+                      inputType: TextInputType.number,
+                      hint: translateLang(context, "weight"),
+                      suffix: Container(
+                          height: 50,
+                          width: 50,
+                          padding: EdgeInsets.only(right: 20),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'kg',
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          )),
+                    ),
                   ],
                 )),
               ],
@@ -127,15 +144,15 @@ class FamilyDataScreen extends StatelessWidget {
             const SizedBox(
               height: 16.0,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: CustomElevatedButton(
-                  fun: () {
-                    cubit.addNewRelative(context);
-                  },
-                  background: AppColors.black,
-                  text: translateLang(context, "add_new_relative")),
-            ),
+            // SizedBox(
+            //   width: MediaQuery.of(context).size.width / 2,
+            //   child: CustomElevatedButton(
+            //       fun: () {
+            //         cubit.addNewRelative(context);
+            //       },
+            //       background: AppColors.black,
+            //       text: translateLang(context, "add_new_relative")),
+            // ),
             const SizedBox(
               height: 16.0,
             ),

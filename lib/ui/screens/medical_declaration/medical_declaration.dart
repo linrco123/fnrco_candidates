@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/functions/show_toast.dart';
@@ -22,12 +23,12 @@ class MedicalDeclarationScreen extends StatelessWidget {
     // int appId = data["app_id"];
     return BlocConsumer<MedicalDeclareCubit, MedicalDeclareState>(
         listener: (context, state) {
-      if (state is EnterOneFamilyMemberAtLeastState) {
-        showToast(context,
-            title: translateLang(context, 'warning'),
-            desc: 'Please , enter one family member at least',
-            type: ToastificationType.warning);
-      }
+      // if (state is EnterOneFamilyMemberAtLeastState) {
+      //   showToast(context,
+      //       title: translateLang(context, 'warning'),
+      //       desc: 'Please , enter one family member at least',
+      //       type: ToastificationType.warning);
+      // }
       if (state is MedicalSubmitAnswerState) {
         showToast(context,
             title: translateLang(context, 'warning'),
@@ -43,14 +44,11 @@ class MedicalDeclarationScreen extends StatelessWidget {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       }
-       if (state is SendMedicalDeclareFailureState) {
+      if (state is SendMedicalDeclareFailureState) {
         showToast(context,
             title: translateLang(context, 'error'),
             desc: state.message,
             type: ToastificationType.error);
-
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
       }
     }, builder: (context, state) {
       MedicalDeclareCubit medicalDeclareCubit =
@@ -64,6 +62,19 @@ class MedicalDeclarationScreen extends StatelessWidget {
             backgroundColor: AppColors.white,
             leading: ReturnButton(),
           ),
+          floatingActionButton: medicalDeclareCubit.currentStep == 3
+              ? Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.08),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<MedicalDeclareCubit>(context)
+                          .addNewRelative(context);
+                    },
+                    child: Icon(CupertinoIcons.add),
+                  ),
+                )
+              : SizedBox.shrink(),
           body: Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: Column(

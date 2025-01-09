@@ -50,7 +50,11 @@ class SkillsCubit extends Cubit<SkillsState> {
     if (formKey.currentState!.validate()) {
       if (skillLevel != 0) {
         submittedSkills.add({
-          "id": skillLevel,
+          "id": skills
+              .where((skill) => skill.metaDataText == skillLevel)
+              .toList()
+              .single
+              .id,
           "skill_name": skillsCntroller.text,
           "skill_level": skillLevel
         });
@@ -65,11 +69,21 @@ class SkillsCubit extends Cubit<SkillsState> {
     }
   }
 
-  void submitSkills() {
-   
+  void submit() {
+    if (submittedSkills.isEmpty) {
+      addNewSkill();
+      if (submittedSkills.isNotEmpty) {
+        _submitSkills();
+      }
+    } else {
+      _submitSkills();
+    }
+  }
+
+  void _submitSkills() {
     var data = {"skills": submittedSkills};
     if (submittedSkills.isNotEmpty) {
-       emit(SubmitSkillsLoadingState());
+      emit(SubmitSkillsLoadingState());
       skillsProvider.submitSkills(data).then((value) {
         emit(SubmitSkillsSuccessState());
       }).catchError((error) {

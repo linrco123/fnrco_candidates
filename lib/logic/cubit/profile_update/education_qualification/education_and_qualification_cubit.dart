@@ -162,7 +162,20 @@ class EducationAndQualificationCubit
     emit(EmptyEducationAndQualificationFieldsState());
   }
 
-  void SubmitEducationAndQualification() {
+
+  
+  void submit(){
+    if(submittedQualifications.isEmpty){
+      addNewEducationAndQualification();
+      if(submittedQualifications.isNotEmpty){
+        _SubmitEducationAndQualification();
+      }
+
+    }else{
+      _SubmitEducationAndQualification();
+    }
+  }
+  void _SubmitEducationAndQualification() {
     var data = {"educations": submittedQualifications};
     if (submittedQualifications.isNotEmpty) {
       emit(SubmitEducationAndQualificationLoadingState());

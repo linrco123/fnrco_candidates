@@ -73,10 +73,17 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
     contactImportance = 2;
     emit(EmptyContactFieldsState());
   }
-
-  void submitContactsType() {
-    print('=============== submittedContacts ============');
-    print(submittedContacts);
+  void submit(){
+    if(submittedContacts.isEmpty){
+      addNewContact();
+      if(submittedContacts.isNotEmpty){
+        _submitContactsType();
+      }
+    }else{
+      _submitContactsType();
+    }
+  }
+  void _submitContactsType() {
     var data = {"contacts": submittedContacts};
     if (submittedContacts.isNotEmpty) {
       emit(SubmitContactsTypeLoadingState());

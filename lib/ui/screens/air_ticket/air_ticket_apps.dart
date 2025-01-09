@@ -50,6 +50,7 @@ class AirTicketApplicationsScreen extends StatelessWidget {
             }
             if (state is GetAirTicketInfoFailureState) {
               return FailureWidget(
+                showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<AirTicketCubit>().getAirTicketInfo();

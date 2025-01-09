@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,17 @@ class ExperienceScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding:  EdgeInsets.only(bottom:MediaQuery.of(context).size.height*0.06),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<ExperienceCubit>(context).addNewExperience();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<ExperienceCubit, ExperienceState>(
           listener: (context, state) {
             if (state is CheckExperienceEmptyFieldsState) {
@@ -150,15 +162,15 @@ class ExperienceScreen extends StatelessWidget {
                             const SizedBox(
                               height: 15.0,
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: CustomElevatedButton(
-                                  fun: () {
-                                    experiencesCubit.addNewExperience();
-                                  },
-                                  background: AppColors.black,
-                                  text:translateLang(context, "add_n_exper")),
-                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 2,
+                            //   child: CustomElevatedButton(
+                            //       fun: () {
+                            //         experiencesCubit.addNewExperience();
+                            //       },
+                            //       background: AppColors.black,
+                            //       text:translateLang(context, "add_n_exper")),
+                            // ),
                             // const Spacer(),
                             const SizedBox(
                               height: 10.0,
@@ -169,10 +181,10 @@ class ExperienceScreen extends StatelessWidget {
                     ),
                   ),
                   state is SubmitWorkExperienceLoadingState
-                      ? LoadingWidget()
+                      ? AnimatedLoadingWidget()
                       : CustomElevatedButton(
                           fun: () {
-                            experiencesCubit.submitWorkExperience();
+                            experiencesCubit.submit();
                           },
                           background: AppColors.primary,
                           text: translateLang(context, 'submit')),

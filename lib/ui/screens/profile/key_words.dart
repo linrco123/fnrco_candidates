@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/app_colors.dart';
@@ -30,7 +31,19 @@ class KeyWordsSCreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
-        body: BlocConsumer<KeyWordsCubit,KeyWordsState>(
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<KeyWordsCubit>(context).addNewKeyword();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
+        body: BlocConsumer<KeyWordsCubit, KeyWordsState>(
           listener: (context, state) {
             if (state is SubmitKeyWordsSuccessState) {
               showToast(context,
@@ -60,13 +73,13 @@ class KeyWordsSCreen extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                 
+
                     CustomTitle(title: 'keyword'),
                     CustomInputField(
                       controller: cubit.keyWCntroller,
                       validate: cubit.validateKeyWord,
                       linesNum: 10,
-                      hint: translateLang(context,  "enter_keywords"),
+                      hint: translateLang(context, "enter_keywords"),
                     ),
                     const SizedBox(
                       height: 20.0,
@@ -74,21 +87,21 @@ class KeyWordsSCreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: CustomElevatedButton(
-                          fun: () {
-                            cubit.addNewKeyword();
-                          },
-                          background: AppColors.black,
-                          text: translateLang(context, 'add_new_keyw')),
-                    ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 2,
+                    //   child: CustomElevatedButton(
+                    //       fun: () {
+                    //         cubit.addNewKeyword();
+                    //       },
+                    //       background: AppColors.black,
+                    //       text: translateLang(context, 'add_new_keyw')),
+                    // ),
                     const Spacer(),
                     state is SubmitKeyWordsLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              cubit.submitKeyWords();
+                              cubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),

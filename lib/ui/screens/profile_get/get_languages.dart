@@ -30,7 +30,7 @@ class _GetPersonalDetailsScreenState extends State<GetLanguagesScreen> {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetLanguagesErrorState) {
-          return FailureWidget(
+          return FailureWidget(showImage: false,
               title: translateLang(context, "error_get_languages"),
               onTap: () {
                 context.read<AboutMeCubit>().getLanguages();

@@ -111,7 +111,19 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     emit(EmptyExperienceFieldsState());
   }
 
-  void submitWorkExperience() {
+  void submit(){
+    if(submittedExperiences.isEmpty){
+      addNewExperience();
+      if(submittedExperiences.isNotEmpty){
+        _submitWorkExperience();
+      }
+
+    }else{
+      _submitWorkExperience();
+    }
+  }
+
+  void _submitWorkExperience() {
     var data = {"experiences": submittedExperiences};
     if (submittedExperiences.isNotEmpty) {
       emit(SubmitWorkExperienceLoadingState());

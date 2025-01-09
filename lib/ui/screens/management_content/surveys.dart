@@ -53,6 +53,7 @@ class SurviesScreen extends StatelessWidget {
               }
               if (state is SurveysFailureState) {
                 return FailureWidget(
+                  showImage: true,
                     title:
                         'Some Error ocurrs when getting surveys !!!\n try again',
                     onTap: () {

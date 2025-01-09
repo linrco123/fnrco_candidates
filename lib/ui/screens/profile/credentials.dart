@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/app_colors.dart';
@@ -29,6 +30,18 @@ class CredentialsScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<CredentialsCubit>(context).addNewCredentials();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<CredentialsCubit, CredentialsState>(
           listener: (context, state) {
             if (state is CheckCredentialsEmptyFieldsState) {
@@ -128,15 +141,15 @@ class CredentialsScreen extends StatelessWidget {
                               height: 10,
                             ),
 
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: CustomElevatedButton(
-                                  fun: () {
-                                    cubit.addNewCredentials();
-                                  },
-                                  background: AppColors.black,
-                                  text: translateLang(context, "add_new_cred")),
-                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 2,
+                            //   child: CustomElevatedButton(
+                            //       fun: () {
+                            //         cubit.addNewCredentials();
+                            //       },
+                            //       background: AppColors.black,
+                            //       text: translateLang(context, "add_new_cred")),
+                            // ),
                             //const Spacer(),
 
                             const SizedBox(
@@ -147,10 +160,10 @@ class CredentialsScreen extends StatelessWidget {
                       ),
                     ),
                     state is SubmitCredentialsLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              cubit.submitCredentials();
+                              cubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),

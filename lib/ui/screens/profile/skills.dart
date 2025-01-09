@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/app_colors.dart';
@@ -32,6 +33,18 @@ class SkillsSCreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<SkillsCubit>(context).addNewSkill();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<SkillsCubit, SkillsState>(
           listener: (context, state) {
             if (state is CheckSkillLevelState) {
@@ -52,7 +65,7 @@ class SkillsSCreen extends StatelessWidget {
                   title: translateLang(context, 'error'),
                   desc: state.message!,
                   type: ToastificationType.error);
-              Navigator.of(context).pop();
+              //Navigator.of(context).pop();
             }
           },
           builder: (context, state) {
@@ -88,39 +101,25 @@ class SkillsSCreen extends StatelessWidget {
                             onChanged: (skill) =>
                                 skillsCubit.chooseSkill(skill!),
                           ),
-                    // CustomDropTextField(
-                    //     items: skillsCubit.skills
-                    //         .map((skill) => DropdownMenuItem<int>(
-                    //               //alignment: Alignment.center,
-                    //               child: Text('${skill.metaDataText}'),
-                    //               value: skill.id,
-                    //             ))
-                    //         .toList(),
-                    //     text: translateLang(context, 'skill_level'),
-                    //     icon: Icon(
-                    //       CupertinoIcons.waveform_circle,
-                    //       color: AppColors.grey,
-                    //     ),
-                    //     onChanged: (skill) => skillsCubit
-                    //         .chooseSkill(int.parse(skill.toString()))),
+
                     const SizedBox(
                       height: 20.0,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: CustomElevatedButton(
-                          fun: () {
-                            skillsCubit.addNewSkill();
-                          },
-                          background: AppColors.black,
-                          text: translateLang(context, "add_n_skill")),
-                    ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 2,
+                    //   child: CustomElevatedButton(
+                    //       fun: () {
+                    //         skillsCubit.addNewSkill();
+                    //       },
+                    //       background: AppColors.black,
+                    //       text: translateLang(context, "add_n_skill")),
+                    // ),
                     const Spacer(),
                     state is SubmitSkillsLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              skillsCubit.submitSkills();
+                              skillsCubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),

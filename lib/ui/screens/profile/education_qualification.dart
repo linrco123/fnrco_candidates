@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
@@ -36,6 +37,19 @@ class EducationAndQualificationScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<EducationAndQualificationCubit>(context)
+                    .addNewEducationAndQualification();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<EducationAndQualificationCubit,
             EducationAndQualificationState>(
           listener: (context, state) {
@@ -156,13 +170,15 @@ class EducationAndQualificationScreen extends StatelessWidget {
 
                             CustomTitle(title: "pass_year"),
                             CustomDropDownSearch(
-                                selectedItem: translateLang(context, 'select_year'),
-                                items: cubit.years.map((year)=>year.metaDataText!).toList(),
-                                label: translateLang(context, 'select_year'),
-                                onChanged:(value)=> cubit
-                                    .selectYear(value!),
-                                ),
-                          
+                              selectedItem:
+                                  translateLang(context, 'select_year'),
+                              items: cubit.years
+                                  .map((year) => year.metaDataText!)
+                                  .toList(),
+                              label: translateLang(context, 'select_year'),
+                              onChanged: (value) => cubit.selectYear(value!),
+                            ),
+
                             const SizedBox(
                               height: 10.0,
                             ),
@@ -188,36 +204,40 @@ class EducationAndQualificationScreen extends StatelessWidget {
                             ),
 
                             CustomTitle(title: "cert_issue_date"),
-                            CustomDatePicker(onTap:() {
+                            CustomDatePicker(
+                              onTap: () {
                                 cubit.selectIssueDate(context);
-                              } ,text:cubit.certIssueDate ??
-                                          translateLang(
-                                              context, "cert_issue_date"),),
-                          
+                              },
+                              text: cubit.certIssueDate ??
+                                  translateLang(context, "cert_issue_date"),
+                            ),
+
                             const SizedBox(
                               height: 10.0,
                             ),
 
                             CustomTitle(title: "cert_expire_date"),
-                             CustomDatePicker(onTap:() {
-                                 cubit.selectExpiryDate(context);
-                              } ,text:cubit.certExpireDate ??
-                                          translateLang(
-                                              context, "cert_expire_date"),),
-                           
+                            CustomDatePicker(
+                              onTap: () {
+                                cubit.selectExpiryDate(context);
+                              },
+                              text: cubit.certExpireDate ??
+                                  translateLang(context, "cert_expire_date"),
+                            ),
+
                             const SizedBox(
                               height: 10,
                             ),
 
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: CustomElevatedButton(
-                                  fun: () {
-                                    cubit.addNewEducationAndQualification();
-                                  },
-                                  background: AppColors.black,
-                                  text: translateLang(context, "add_new_qual")),
-                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 2,
+                            //   child: CustomElevatedButton(
+                            //       fun: () {
+                            //         cubit.addNewEducationAndQualification();
+                            //       },
+                            //       background: AppColors.black,
+                            //       text: translateLang(context, "add_new_qual")),
+                            // ),
                             //const Spacer(),
 
                             const SizedBox(
@@ -228,10 +248,10 @@ class EducationAndQualificationScreen extends StatelessWidget {
                       ),
                     ),
                     state is SubmitEducationAndQualificationLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              cubit.SubmitEducationAndQualification();
+                              cubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),

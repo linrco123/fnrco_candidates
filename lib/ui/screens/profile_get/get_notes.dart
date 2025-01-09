@@ -30,7 +30,7 @@ class _GetPersonalDetailsScreenState extends State<GetNotesScreen> {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetNotesErrorState) {
-          return FailureWidget(
+          return FailureWidget(showImage: false,
               title:translateLang(context, "error_get_notes"),
               onTap: () {
                 context.read<AboutMeCubit>().getNotes();

@@ -51,7 +51,8 @@ class ContentsScreen extends StatelessWidget {
               }
               if (state is ContentsFailureState) {
                 return FailureWidget(
-                    title: 'Some Error occured !!! try again',
+                  showImage: true,
+                    title: 'Some Error occured when getting contents!!!\n try again',
                     onTap: () {
                       cubit.getContents();
                     });

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/app_colors.dart';
@@ -30,6 +31,17 @@ class AchievementsSCreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding:  EdgeInsets.only(bottom:MediaQuery.of(context).size.height*0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<AchievementsCubit>(context).addNewAchievement();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<AchievementsCubit, AchievementsState>(
           listener: (context, state) {
             if (state is SubmitAchievementsSuccessState) {
@@ -67,21 +79,21 @@ class AchievementsSCreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: CustomElevatedButton(
-                          fun: () {
-                            skillsCubit.addNewAchievement();
-                          },
-                          background: AppColors.black,
-                          text: translateLang(context, 'add_new_ach')),
-                    ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 2,
+                    //   child: CustomElevatedButton(
+                    //       fun: () {
+                    //         skillsCubit.addNewAchievement();
+                    //       },
+                    //       background: AppColors.black,
+                    //       text: translateLang(context, 'add_new_ach')),
+                    // ),
                     const Spacer(),
                     state is SubmitAchievementsLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              skillsCubit.submitAchievements();
+                              skillsCubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),

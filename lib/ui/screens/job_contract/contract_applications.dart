@@ -50,6 +50,7 @@ class ContractApplicationsScreen extends StatelessWidget {
             }
             if (state is GetJobContractApplicationsFailureState) {
               return FailureWidget(
+                showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<JobContractCubit>().getJobApplications();

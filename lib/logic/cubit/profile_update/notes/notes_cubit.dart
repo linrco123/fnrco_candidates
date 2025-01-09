@@ -14,7 +14,6 @@ class NotesCubit extends Cubit<NotesState> {
     this.notesProvider,
   ) : super(NotesInitial());
 
-
   var formKey = GlobalKey<FormState>();
   final TextEditingController notCntroller = TextEditingController();
 
@@ -40,7 +39,18 @@ class NotesCubit extends Cubit<NotesState> {
     emit(EmptyNotesFieldsState());
   }
 
-  void submitNotes() {
+  void submit() {
+    if (submittedNotes.isEmpty) {
+      addNewNotes();
+      if (submittedNotes.isNotEmpty) {
+        _submitNotes();
+      }
+    } else {
+      _submitNotes();
+    }
+  }
+
+  void _submitNotes() {
     print('===============notes============');
     logger.d(submittedNotes);
     var data = {"notes": submittedNotes};
@@ -61,5 +71,3 @@ class NotesCubit extends Cubit<NotesState> {
     return super.close();
   }
 }
-
-

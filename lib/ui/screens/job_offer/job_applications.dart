@@ -58,12 +58,15 @@ class JobApplicationScreen extends StatelessWidget {
             }
             if (state is GetJobOfferApplicationsFailureState) {
               return FailureWidget(
+                showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<JobOfferCubit>().getJobApplications();
                   });
             }
-
+            if(state is GetJobOfferApplicationsSuccessState){
+              
+            }
             return context.read<JobOfferCubit>().jobApplications.isEmpty
                 ? EmptyDataWidget(
                     message: "No job applications available Yet !!!",
@@ -75,19 +78,23 @@ class JobApplicationScreen extends StatelessWidget {
                         itemCount: cubit.jobApplications.length,
                         itemBuilder: (BuildContext context, int index) =>
                             InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BlocProvider.value(
-                                    value: jobOfferCubit
-                                      ..convertJobOfferToPdfFile(cubit
-                                          .jobApplications[index]
-                                          .pipeline!
-                                          .jobOfferPdf!),
-                                    child: JobOfferScreen(
-                                        jobApplication:
-                                            cubit.jobApplications[index]),
-                                  ),
-                                ));
+                              onTap: () async {
+                                 Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BlocProvider.value(
+                                        value: jobOfferCubit
+                                          ..convertJobOfferToPdfFile(cubit
+                                              .jobApplications[index]
+                                              .pipeline!
+                                              .jobOfferPdf!),
+                                        child: JobOfferScreen(
+                                            jobApplication:
+                                                cubit.jobApplications[index]),
+                                      ),
+                                    ));
+
+                               
                               },
                               child: JobApplicationCard(
                                   application: cubit.jobApplications[index]),

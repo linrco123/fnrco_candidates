@@ -23,11 +23,21 @@ class SuccessScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 25.0),
           child: Column(
             children: [
-              Lottie.asset(AppImages.SUCCESS,
+              // Image.asset(AppImages.SUCCESS2,
+              //     width: 250,
+              //     height: 250,
+              //     fit: BoxFit.cover,
+              //    ),
+              Lottie.asset(AppImages.SUCCESS3,
                   width: 250,
                   height: 250,
                   backgroundLoading: true,
                   animate: true),
+              // Lottie.asset(AppImages.SUCCESS,
+              //     width: 250,
+              //     height: 250,
+              //     backgroundLoading: true,
+              //     animate: true),
               const SizedBox(
                 height: 0.0,
               ),

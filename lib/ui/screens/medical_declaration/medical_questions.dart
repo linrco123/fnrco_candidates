@@ -67,7 +67,10 @@ class MedicalQuestionsScreen extends StatelessWidget {
                 ),
                 value: 'Yes',
                 groupValue: cubit.switchAnswer,
-                shape: Border.all(color: AppColors.primary),
+                shape: Border.all(
+                  color: AppColors.primary,
+                  style: BorderStyle.solid,
+                ),
                 splashRadius: 10,
                 onChanged: (value) => cubit.changeYesOrNo(value.toString())),
             const SizedBox(

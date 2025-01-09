@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/app_colors.dart';
@@ -33,6 +34,17 @@ class ContactsScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+         floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding:  EdgeInsets.only(bottom:MediaQuery.of(context).size.height*0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<ContactsTypeCubit>(context).addNewContact();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<ContactsTypeCubit, ContactsTypeState>(
           listener: (context, state) {
             if (state is CheckExperienceEmptyFieldsState) {
@@ -116,7 +128,10 @@ class ContactsScreen extends StatelessWidget {
                       onChanged: (int? value) =>
                           cubit.changeContactImportance(value!),
                       title: Text('Primary',
-                          style: Theme.of(context).textTheme.displayMedium),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(fontWeight: FontWeight.bold)),
                     ),
                     const SizedBox(
                       height: 5.0,
@@ -127,25 +142,28 @@ class ContactsScreen extends StatelessWidget {
                         onChanged: (int? value) =>
                             cubit.changeContactImportance(value!),
                         title: Text('Not Primary',
-                            style: Theme.of(context).textTheme.displayMedium)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(fontWeight: FontWeight.bold))),
                     const SizedBox(
                       height: 15.0,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: CustomElevatedButton(
-                          fun: () {
-                            cubit.addNewContact();
-                          },
-                          background: AppColors.black,
-                          text: translateLang(context, "add_n_contact")),
-                    ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 2,
+                    //   child: CustomElevatedButton(
+                    //       fun: () {
+                    //         cubit.addNewContact();
+                    //       },
+                    //       background: AppColors.black,
+                    //       text: translateLang(context, "add_n_contact")),
+                    // ),
                     const Spacer(),
                     state is SubmitContactsTypeLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              cubit.submitContactsType();
+                              cubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),

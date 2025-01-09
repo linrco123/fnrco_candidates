@@ -11,7 +11,6 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/medical_declare.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
-import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import 'package:toastification/toastification.dart';
 
@@ -83,11 +82,12 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
         }
       }
     } else if (currentStep == 3) {
-      if (dependents.isEmpty) {
-        emit(EnterOneFamilyMemberAtLeastState());
-      } else {
-        sendMedicalDeclare(appID);
-      }
+      _submitAll(context);
+      // if (dependents.isEmpty) {
+      //   emit(EnterOneFamilyMemberAtLeastState());
+      // } else {
+      //   _submitAll(context);
+      // }
     }
   }
 
@@ -107,7 +107,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
       case 'radio':
         answers.add({
           "umdf_item_id": mQuestions[currentQuestion].id,
-          "person_umdf_value": mapYesNoTo10(switchAnswer),
+          "person_umdf_value": mapYesNoTo10(switchAnswer.toLowerCase()),
         });
         break;
       case 'text':
@@ -144,6 +144,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
 
   void getMedicalQuestions() {
     emit(GetMedicalQuestionsLoadingState());
+    mQuestions.clear();
     medicalDeclareProvider.getMedQuestions().then((value) {
       mQuestions.addAll(value.data!);
       emit(GetMedicalQuestionsSuccessState());
@@ -151,7 +152,8 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
       emit(GetMedicalQuestionsFailureState());
     });
   }
-final medicalApplications = List<MedicalDeclarationApp>.empty(growable: true);
+
+  final medicalApplications = List<MedicalDeclarationApp>.empty(growable: true);
   void getMedicalApplications() {
     emit(GetMedicalApplicationsLoadingState());
     medicalDeclareProvider.getMedicalApplications().then((value) {
@@ -166,7 +168,6 @@ final medicalApplications = List<MedicalDeclarationApp>.empty(growable: true);
   var dependents = List<Map<String, dynamic>>.empty(growable: true);
 
   void addNewRelative(context) {
-    logger.e('=-======================================');
     if (genderId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
@@ -210,11 +211,20 @@ final medicalApplications = List<MedicalDeclarationApp>.empty(growable: true);
     }
   }
 
-  void sendMedicalDeclare(int candidate_app_id) {
+  void _submitAll(context) {
+    if (dependents.isEmpty) {
+      addNewRelative(context);
+      if (dependents.isNotEmpty) {
+        _sendMedicalDeclare(10);
+      }
+    } else {
+      _sendMedicalDeclare(10);
+    }
+  }
+
+  void _sendMedicalDeclare(int candidate_app_id) {
     emit(SendMedicalDeclareLoadingState());
     var data = {
-      // "identity_number": "5656565656",
-      //"person_umdf_company_id": 63,
       "person_id": CacheHelper.getID(),
       "candidate_application_hdf_id": candidateApplicationHdfId,
       "items": answers,
@@ -325,23 +335,24 @@ final medicalApplications = List<MedicalDeclarationApp>.empty(growable: true);
     return null;
   }
 
-  var countries = List<Country>.empty(growable: true);
-  void getCountries() {
-    emit(MedicalDeclareettingCountriesLoadingState());
-    countries.clear();
-    medicalDeclareProvider.getCountries().then((value) {
-      for (var country in value.data as List) countries.add(country);
-      emit(MedicalDeclareGettingCountriesSuccessState(countries: countries));
-    }).catchError((error) {
-      emit(MedicalDeclareGettingCountriesFailureState());
-    });
-  }
+  // var countries = List<Country>.empty(growable: true);
+  // void getCountries() {
+  //   emit(MedicalDeclareettingCountriesLoadingState());
+  //   countries.clear();
+  //   medicalDeclareProvider.getCountries().then((value) {
+  //     for (var country in value.data as List) countries.add(country);
+  //     emit(MedicalDeclareGettingCountriesSuccessState(countries: countries));
+  //   }).catchError((error) {
+  //     emit(MedicalDeclareGettingCountriesFailureState());
+  //   });
+  // }
 
   var genders = List<Gender>.empty(growable: true);
   void getGenders() {
     emit(MedicalDeclareGettingGenderLoadingState());
-    genders.clear();
+
     medicalDeclareProvider.getGenders().then((value) {
+      genders.clear();
       for (var gender in value.genders as List) genders.add(gender);
       emit(MedicalDeclareGettingGenderSuccessState());
     }).catchError((error) {
@@ -349,23 +360,24 @@ final medicalApplications = List<MedicalDeclarationApp>.empty(growable: true);
     });
   }
 
-  var maritalStatus = List<MaritalStatus>.empty(growable: true);
-  void getMaritalStatus() {
-    emit(MedicalDeclareGettingMaritalStatusLoadingState());
-    maritalStatus.clear();
-    medicalDeclareProvider.getMaritalStatus().then((value) {
-      for (var marital in value.data as List) maritalStatus.add(marital);
-      emit(MedicalDeclareGettingMaritalStatusSuccessState());
-    }).catchError((error) {
-      emit(MedicalDeclareGettingMaritalStatusFailureState());
-    });
-  }
+  // var maritalStatus = List<MaritalStatus>.empty(growable: true);
+  // void getMaritalStatus() {
+  //   emit(MedicalDeclareGettingMaritalStatusLoadingState());
+  //   maritalStatus.clear();
+  //   medicalDeclareProvider.getMaritalStatus().then((value) {
+  //     for (var marital in value.data as List) maritalStatus.add(marital);
+  //     emit(MedicalDeclareGettingMaritalStatusSuccessState());
+  //   }).catchError((error) {
+  //     emit(MedicalDeclareGettingMaritalStatusFailureState());
+  //   });
+  // }
 
   var classifications = List<Classification>.empty(growable: true);
   getClasifications() {
     emit(MedicalDeclareGettingClassificationsLoadingState());
-    maritalStatus.clear();
+
     medicalDeclareProvider.getClassifications().then((value) {
+      classifications.clear();
       for (var classification in value.classifications as List)
         classifications.add(classification);
       emit(MedicalDeclareGettingClassificationsSuccessState());

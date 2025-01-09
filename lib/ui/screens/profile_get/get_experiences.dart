@@ -30,7 +30,7 @@ class _GetPersonalDetailsScreenState extends State<GetExperiencesScreen> {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetExperiencesErrorState) {
-          return FailureWidget(
+          return FailureWidget(showImage: false,
               title: translateLang(context, "error_get_experience"),
               onTap: () {
                 context.read<AboutMeCubit>().getExperiences();

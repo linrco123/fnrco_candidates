@@ -7,7 +7,6 @@ import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/models/documents_category.dart';
-import 'package:fnrco_candidates/data/models/joining_date_model.dart';
 import 'package:fnrco_candidates/data/models/local_process_model.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';

@@ -30,7 +30,7 @@ class _GetPersonalDetailsScreenState extends State<GetCredentialsScreen> {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetCredentialsErrorState) {
-          return FailureWidget(
+          return FailureWidget(showImage: false,
               title: translateLang(context, "error_get_credentials"),
               onTap: () {
                 context.read<AboutMeCubit>().getCredentials();

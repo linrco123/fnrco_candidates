@@ -28,7 +28,7 @@ class _GetPersonalDetailsScreenState extends State<GetKeywordsScreen> {
         return AnimatedLoadingWidget();
       }
       if (state is AboutMeGetkeywordsErrorState) {
-        return FailureWidget(
+        return FailureWidget(showImage: false,
             title: 'Error ocurred on getting Keywords',
             onTap: () {
               context.read<AboutMeCubit>().getKeywords();

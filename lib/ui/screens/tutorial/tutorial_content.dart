@@ -40,7 +40,8 @@ class TutorialsContentScreen extends StatelessWidget {
             }
             if (state is TutorialFailureState) {
               return FailureWidget(
-                  title: 'Error ocurred on getting tutorials',
+                  showImage: true,
+                  title: 'Error ocurred on getting tutorials !!!\n try again',
                   onTap: () {
                     context.read<TutorialCubit>().getTutorials();
                   });

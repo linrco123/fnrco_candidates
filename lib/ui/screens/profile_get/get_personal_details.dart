@@ -31,7 +31,7 @@ class _GetPersonalDetailsScreenState extends State<GetPersonalDetailsScreen> {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetPersonalDataErrorState) {
-          return FailureWidget(
+          return FailureWidget(showImage: false,
               title: translateLang(context, "error_get_person_data"),
               onTap: () {
                 context.read<AboutMeCubit>().getPersonalData();

@@ -51,6 +51,7 @@ class MedicalDeclarationAppsScreen extends StatelessWidget {
             }
             if (state is GetMedicalApplicationsFailureState) {
               return FailureWidget(
+                showImage: true,
                   title: state.message,
                   onTap: () {
                     context

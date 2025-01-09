@@ -30,7 +30,7 @@ class _GetPersonalDetailsScreenState extends State<GetContactsScreen> {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetContactsErrorState) {
-          return FailureWidget(
+          return FailureWidget(showImage: false,
               title: translateLang(context, "error_get_contacts"),
               onTap: () {
                 context.read<AboutMeCubit>().getContacts();

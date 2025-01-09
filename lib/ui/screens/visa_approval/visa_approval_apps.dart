@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/logic/cubit/joining_date/joining_date_cubit.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
 import '../../../data/api_provider/visa_approval.dart';
@@ -52,6 +51,7 @@ class VisaApprovalAppsScreen extends StatelessWidget {
             }
             if (state is GetVisaApprovalDataFailureState) {
               return FailureWidget(
+                showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<VisaApprovalCubit>().getVisadata();

@@ -43,7 +43,8 @@ class FAQsScreen extends StatelessWidget {
               }
               if (state is FAQsFailureState) {
                 return FailureWidget(
-                    title: "Some Error ocurrs when getting FAQs !!!",
+                  showImage: true,
+                    title: "Some Error ocurrs when getting FAQs !!!\n try again",
                     onTap: () {
                       cubit.getFAQs();
                     });

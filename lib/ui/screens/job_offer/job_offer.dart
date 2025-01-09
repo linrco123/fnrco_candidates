@@ -73,7 +73,9 @@ class JobOfferScreen extends StatelessWidget {
                   width: 150.0,
                 ),
               if (state is GetJobofferErrorState)
-                FailureWidget(title: state.message, onTap: () {}),
+                FailureWidget(
+                  showImage: true,
+                  title: state.message, onTap: () {}),
               if (context.read<JobOfferCubit>().jobOffer != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 55.0),

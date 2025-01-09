@@ -31,7 +31,7 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetAchievementsErrorState) {
-          return FailureWidget(
+          return FailureWidget(showImage: false,
               title: translateLang(context, "error_get_achieves"),
               onTap: () {
                 context.read<AboutMeCubit>().getAchievements();

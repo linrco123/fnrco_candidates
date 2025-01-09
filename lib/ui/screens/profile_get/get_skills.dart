@@ -20,7 +20,7 @@ class _GetPersonalDetailsScreenState extends State<GetSkillsScreen> {
     super.initState();
     context.read<AboutMeCubit>().getSkills();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutMeCubit, AboutMeState>(
@@ -30,6 +30,7 @@ class _GetPersonalDetailsScreenState extends State<GetSkillsScreen> {
         }
         if (state is AboutMeGetSkillsErrorState) {
           return FailureWidget(
+              showImage: false,
               title: translateLang(context, "error_get_skills"),
               onTap: () {
                 context.read<AboutMeCubit>().getSkills();

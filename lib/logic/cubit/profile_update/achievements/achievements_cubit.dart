@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/achievements.dart';
-import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 part 'achievements_state.dart';
 
@@ -37,10 +36,17 @@ class AchievementsCubit extends Cubit<AchievementsState> {
     achvCntroller.clear();
     emit(EmptyAchievementsFieldsState());
   }
-
-  void submitAchievements() {
-    print('===============achievements============');
-    logger.d(submittedAchievements);
+void submit() {
+    if (submittedAchievements.isEmpty) {
+      addNewAchievement();
+      if (submittedAchievements.isNotEmpty) {
+        _submitAchievements();
+      }
+    } else {
+      _submitAchievements();
+    }
+  }
+  void _submitAchievements() {
     var data = {"achievements": submittedAchievements};
     if (submittedAchievements.isNotEmpty) {
       emit(SubmitAchievementsLoadingState());

@@ -5,7 +5,14 @@ import 'app_colors.dart';
 final appTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
     brightness: Brightness.light,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.black,
+      foregroundColor: AppColors.white,
+      enableFeedback: true,
+      extendedPadding:const EdgeInsets.only(bottom: 60.0)
+    ),
     colorScheme: ColorScheme.fromSeed(
+        
         seedColor: AppColors.primary, brightness: Brightness.light),
     textTheme: TextTheme(
       headlineSmall: TextStyle(fontSize: 15.0, color: AppColors.grey),

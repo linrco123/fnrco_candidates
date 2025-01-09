@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants/app_colors.dart';
@@ -29,6 +30,18 @@ class LanguageScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
+        floatingActionButton: Builder(builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.08),
+            child: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<LanguagesCubit>(context).addNewLanguage();
+              },
+              child: Icon(CupertinoIcons.add),
+            ),
+          );
+        }),
         body: BlocConsumer<LanguagesCubit, LanguagesState>(
           listener: (context, state) {
             if (state is SubmitLanguagesSuccessState) {
@@ -55,103 +68,120 @@ class LanguageScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   Expanded(child: SingleChildScrollView(
-                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                       const SizedBox(
-                        height: 15.0,
+                    Expanded(
+                        child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          CustomTitle(title: 'language'),
+                          CustomInputField(
+                            controller: cubit.langCntroller,
+                            validate: cubit.validateLanguage,
+                            hint: translateLang(context, 'language'),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          CustomTitle(title: 'lang_test_by'),
+                          CustomInputField(
+                            controller: cubit.testCntroller,
+                            validate: cubit.validateTestBy,
+                            hint: translateLang(context, "lang_test_by"),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          CustomTitle(title: "lang_level"),
+                          RadioListTile(
+                            value: 1,
+                            groupValue: cubit.languageLevel,
+                            onChanged: (int? value) =>
+                                cubit.changeLanguageLevel(value!),
+                            title: Text('1',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontWeight: FontWeight.w900)),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          RadioListTile(
+                            value: 2,
+                            groupValue: cubit.languageLevel,
+                            onChanged: (int? value) =>
+                                cubit.changeLanguageLevel(value!),
+                            title: Text('2',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontWeight: FontWeight.w900)),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          RadioListTile(
+                            value: 3,
+                            groupValue: cubit.languageLevel,
+                            onChanged: (int? value) =>
+                                cubit.changeLanguageLevel(value!),
+                            title: Text('3',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontWeight: FontWeight.w900)),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          RadioListTile(
+                            value: 4,
+                            groupValue: cubit.languageLevel,
+                            onChanged: (int? value) =>
+                                cubit.changeLanguageLevel(value!),
+                            title: Text('4',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontWeight: FontWeight.w900)),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          RadioListTile(
+                            value: 5,
+                            groupValue: cubit.languageLevel,
+                            onChanged: (int? value) =>
+                                cubit.changeLanguageLevel(value!),
+                            title: Text('5',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontWeight: FontWeight.w900)),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width / 2,
+                          //   child: CustomElevatedButton(
+                          //       fun: () {
+                          //         cubit.addNewLanguage();
+                          //       },
+                          //       background: AppColors.black,
+                          //       text: translateLang(context, 'add_new_lang')),
+                          // ),
+                        ],
                       ),
-                      CustomTitle(title: 'language'),
-                      CustomInputField(
-                        controller: cubit.langCntroller,
-                        validate: cubit.validateLanguage,
-                        hint: translateLang(context, 'language'),
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      CustomTitle(title: 'lang_test_by'),
-                      CustomInputField(
-                        controller: cubit.testCntroller,
-                        validate: cubit.validateTestBy,
-                        hint: translateLang(context, "lang_test_by"),
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      CustomTitle(title: "lang_level"),
-                      RadioListTile(
-                        value: 1,
-                        groupValue: cubit.languageLevel,
-                        onChanged: (int? value) =>
-                            cubit.changeLanguageLevel(value!),
-                        title: Text('1',
-                            style: Theme.of(context).textTheme.displayMedium),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      RadioListTile(
-                        value: 2,
-                        groupValue: cubit.languageLevel,
-                        onChanged: (int? value) =>
-                            cubit.changeLanguageLevel(value!),
-                        title: Text('2',
-                            style: Theme.of(context).textTheme.displayMedium),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      RadioListTile(
-                        value: 3,
-                        groupValue: cubit.languageLevel,
-                        onChanged: (int? value) =>
-                            cubit.changeLanguageLevel(value!),
-                        title: Text('3',
-                            style: Theme.of(context).textTheme.displayMedium),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      RadioListTile(
-                        value: 4,
-                        groupValue: cubit.languageLevel,
-                        onChanged: (int? value) =>
-                            cubit.changeLanguageLevel(value!),
-                        title: Text('4',
-                            style: Theme.of(context).textTheme.displayMedium),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      RadioListTile(
-                        value: 5,
-                        groupValue: cubit.languageLevel,
-                        onChanged: (int? value) =>
-                            cubit.changeLanguageLevel(value!),
-                        title: Text('5',
-                            style: Theme.of(context).textTheme.displayMedium),
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: CustomElevatedButton(
-                            fun: () {
-                              cubit.addNewLanguage();
-                            },
-                            background: AppColors.black,
-                            text: translateLang(context, 'add_new_lang')),
-                      ),
-                     ],),
-                   )),
+                    )),
                     state is SubmitLanguagesLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : CustomElevatedButton(
                             fun: () {
-                              cubit.submitLanguages();
+                              cubit.submit();
                             },
                             background: AppColors.primary,
                             text: translateLang(context, 'submit')),
