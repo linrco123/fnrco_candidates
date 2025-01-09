@@ -45,6 +45,8 @@ class JoiningDateProvider {
         return Future.error(response.statusCode!);
       }
     } on DioError catch (e) {
+       logger.e('===================error===============');
+      logger.e(e.response!.data);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.statusMessage!));

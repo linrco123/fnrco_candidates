@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../../core/functions/translate.dart';
 import '../../../data/models/air_ticket_model.dart';
 import '../../../data/api_provider/air_ticket.dart';
@@ -81,7 +82,8 @@ class AirTicketCubit extends Cubit<AirTicketState> {
     TimeOfDay? pickedTime = await showTimePicker(
         context: context, initialTime: TimeOfDay(hour: 1, minute: 1));
     if (pickedTime != null) {
-      departure_time = pickedTime.format(context);
+      departure_time =
+          pickedTime.hour.toString() + ':' + pickedTime.minute.toString();
     }
     emit(DeparturePickingUpTimeState());
   }
@@ -91,27 +93,31 @@ class AirTicketCubit extends Cubit<AirTicketState> {
     TimeOfDay? pickedTime = await showTimePicker(
         context: context, initialTime: TimeOfDay(hour: 1, minute: 1));
     if (pickedTime != null) {
-      arrival_time = pickedTime.format(context);
+      arrival_time = pickedTime
+          .format(context)
+          .replaceAll('AM', '')
+          .replaceAll('PM', '')
+          .trim();
       emit(ArrivalTimingPickingUpTimeState());
     }
   }
 
-  String? arrival_At;
-  void selectArrivalAt(context) async {
-    TimeOfDay? pickedTime = await showTimePicker(
-        context: context, initialTime: TimeOfDay(hour: 1, minute: 1));
-    if (pickedTime != null) {
-      arrival_At = pickedTime.format(context);
-      emit(ArrivalAtTimingPickingUpTimeState());
-    }
-  }
+  // String? arrival_At;
+  // void selectArrivalAt(context) async {
+  //   TimeOfDay? pickedTime = await showTimePicker(
+  //       context: context, initialTime: TimeOfDay(hour: 1, minute: 1));
+  //   if (pickedTime != null) {
+  //     arrival_At = pickedTime.format(context);
+  //     emit(ArrivalAtTimingPickingUpTimeState());
+  //   }
+  // }
 
   var airApplications = List<AirTicketApplication>.empty(growable: true);
   void getAirTicketInfo() {
     emit(GetAirTicketInfoLoadingState());
     airTicketProvider.getAirApplications().then((value) {
-      airApplications.addAll(value.airApplications!);
-      emit(GetAirTicketInfoSuccessState(applications: value.airApplications!));
+      airApplications.addAll(value.applications!);
+      emit(GetAirTicketInfoSuccessState(applications: value.applications!));
     }).catchError((error) {
       emit(GetAirTicketInfoFailureState(message: error.failure.message));
     });
@@ -146,8 +152,6 @@ class AirTicketCubit extends Cubit<AirTicketState> {
     emit(AirTicketDeleteAttachmentState());
   }
 
-
-
   Future<void> submitAirTicketInfo(int applicationId) async {
     if (formKey.currentState!.validate()) {
       if (departure_date == null) {
@@ -163,6 +167,17 @@ class AirTicketCubit extends Cubit<AirTicketState> {
       } else {
         emit(submitAirTicketInfoLoadingState());
 
+//  candidate_application_id:10
+// airline_ticket_number:2453453
+// airlines:Cairo airlines
+// flight_number:1852
+// departure_from:Cairo
+// departure_date:2025-01-05
+// arrival_date:2025-01-05
+// departure_time:10:00
+// arrival_at:makaa
+// arrival_time:12:00
+
         FormData formData = FormData.fromMap({
           "candidate_application_id": applicationId,
           "airline_ticket_number": int.parse(tckNumCntroller.text.toString()),
@@ -172,7 +187,7 @@ class AirTicketCubit extends Cubit<AirTicketState> {
           "departure_date": departure_date,
           "arrival_date": arrival_date,
           "departure_time": departure_time,
-          "arrival_at": arrival_At,
+          "arrival_at": arrivAtCntroller.text,
           "arrival_time": arrival_time,
         });
 
@@ -180,6 +195,9 @@ class AirTicketCubit extends Cubit<AirTicketState> {
             'airline_ticket_document',
             await MultipartFile.fromFile(attachment!.path,
                 filename: fileName)));
+
+        logger.e(formData.fields);
+        logger.e(formData.files);
 
         airTicketProvider.sendAirTicketInfo(formData).then((value) {
           if (value == true) {
@@ -191,5 +209,4 @@ class AirTicketCubit extends Cubit<AirTicketState> {
       }
     }
   }
-
 }

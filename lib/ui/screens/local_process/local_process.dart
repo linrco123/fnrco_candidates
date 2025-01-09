@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,8 +65,7 @@ class LocalProcessScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            var localProcessCubit = context.read<LocalProcessCubit>();
-
+            var localProcessCubit = BlocProvider.of<LocalProcessCubit>(context);
             return Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
@@ -126,6 +126,8 @@ class LocalProcessScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: Text(
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               localProcessCubit
                                                       .localProcessAttachments[
                                                           index]
@@ -142,7 +144,9 @@ class LocalProcessScreen extends StatelessWidget {
                                                   fontSize: 16.0),
                                             ),
                                           ),
-                                          const Spacer(),
+                                          const SizedBox(
+                                            width: 20.0,
+                                          ),
                                           localProcessCubit
                                                   .localProcessAttachments[
                                                       index]
@@ -174,6 +178,15 @@ class LocalProcessScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 20.0,
                                 ),
+                                // Visibility(
+                                //   visible: localProcessCubit
+                                //         .localProcessAttachments[index].pathFile!.isNotEmpty,
+                                //     child: SizedBox(
+                                //       height: 100,width: double.infinity,
+                                //       child: Image.file(File(localProcessCubit
+                                //           .localProcessAttachments[index]
+                                //           .pathFile!)),
+                                //     ))
                               ],
                             ),
                           ),
@@ -184,16 +197,16 @@ class LocalProcessScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  state is SubmitLocalProcessAttachmentsLoadingState?
-                  AnimatedLoadingWidget():
-                  CustomElevatedButton(
-                      fun: () {
-                        context
-                            .read<LocalProcessCubit>()
-                            .submitAttachments(context);
-                      },
-                      background: AppColors.primary,
-                      text: translateLang(context, 'submit'))
+                  state is SubmitLocalProcessAttachmentsLoadingState
+                      ? AnimatedLoadingWidget()
+                      : CustomElevatedButton(
+                          fun: () {
+                            context
+                                .read<LocalProcessCubit>()
+                                .submitAttachments(context);
+                          },
+                          background: AppColors.primary,
+                          text: translateLang(context, 'submit'))
                 ],
               ),
             );

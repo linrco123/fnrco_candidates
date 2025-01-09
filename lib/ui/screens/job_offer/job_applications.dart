@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../constants/app_images_path.dart';
-import 'package:lottie/lottie.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
 import '../../../data/api_provider/job_offer.dart';
@@ -42,6 +40,7 @@ class JobApplicationScreen extends StatelessWidget {
         body: BlocConsumer<JobOfferCubit, JobOfferState>(
           listener: (context, state) {},
           builder: (context, state) {
+            var cubit = context.read<JobOfferCubit>();
             if (state is GetJobOfferApplicationsLoadingState) {
               return AnimatedLoadingWidget(
                 height: 150.0,
@@ -65,61 +64,38 @@ class JobApplicationScreen extends StatelessWidget {
                   });
             }
 
-            if (state is GetJobOfferApplicationsSuccessState) {
-              return state.applications.isEmpty
-                  ? EmptyDataWidget(
-                      message: "No job applications available Yet !!!",
-                    )
-                  : Stack(
-                      children: [
-                        Positioned(
-                          top: -70.0,left: 0.0,right: 0.0,
-                          child: LottieBuilder.asset(
-                            AppImages.CONGRATULATIONS,
-                           // height: 60.0,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            animate: true,
-                            
-                          ),
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.only(
-                                right: 15.0, left: 15.0, top:100.0),
-                            child: ListView.separated(
-                                itemCount: state.applications.length,
-                                itemBuilder: (BuildContext context,
-                                        int index) =>
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              BlocProvider.value(
-                                            value: jobOfferCubit
-                                              ..convertJobOfferToPdfFile(state
-                                                  .applications[index]
-                                                  .pipeline!
-                                                  .jobOfferPdf!),
-                                            child: JobOfferScreen(
-                                                applicationId: state
-                                                    .applications[index].id!),
-                                          ),
-                                        ));
-                                      },
-                                      child: JobApplicationCard(
-                                          application:
-                                              state.applications[index]),
-                                    ),
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const SizedBox(
-                                          height: 20.0,
-                                        ))),
-                      ],
-                    );
-            }
-            return AnimatedLoadingWidget(height: 150.0, width: 150.0);
+            return context.read<JobOfferCubit>().jobApplications.isEmpty
+                ? EmptyDataWidget(
+                    message: "No job applications available Yet !!!",
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15.0, left: 15.0, top: 15.0),
+                    child: ListView.separated(
+                        itemCount: cubit.jobApplications.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => BlocProvider.value(
+                                    value: jobOfferCubit
+                                      ..convertJobOfferToPdfFile(cubit
+                                          .jobApplications[index]
+                                          .pipeline!
+                                          .jobOfferPdf!),
+                                    child: JobOfferScreen(
+                                        jobApplication:
+                                            cubit.jobApplications[index]),
+                                  ),
+                                ));
+                              },
+                              child: JobApplicationCard(
+                                  application: cubit.jobApplications[index]),
+                            ),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 20.0,
+                            )));
           },
         ),
       ),

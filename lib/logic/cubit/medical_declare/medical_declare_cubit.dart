@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/show_toast.dart';
 import 'package:fnrco_candidates/data/models/management_content/classification_model.dart';
+import 'package:fnrco_candidates/data/models/medical_declaration_app_model.dart';
 import 'package:fnrco_candidates/data/models/medical_questions.dart';
 
 import 'package:fnrco_candidates/core/functions/translate.dart';
@@ -10,6 +12,7 @@ import 'package:fnrco_candidates/data/api_provider/medical_declare.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import 'package:toastification/toastification.dart';
 
 part 'medical_declare_state.dart';
@@ -55,7 +58,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
 
   int currentQuestion = 0;
   final answers = List<Map<String, dynamic>>.empty(growable: true);
-  void submit(context) {
+  void submit(context, int appID) {
     if (currentStep == 1) {
       _incrementStepper();
     } else if (currentStep == 2) {
@@ -83,7 +86,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
       if (dependents.isEmpty) {
         emit(EnterOneFamilyMemberAtLeastState());
       } else {
-        sendMedicalDeclare();
+        sendMedicalDeclare(appID);
       }
     }
   }
@@ -101,17 +104,10 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
 
   void _storeAnswer(String type) {
     switch (type) {
-      case '18':
+      case 'radio':
         answers.add({
           "umdf_item_id": mQuestions[currentQuestion].id,
-          "person_umdf_value": answerCntroller.text,
-        });
-        break;
-
-      case 'switch':
-        answers.add({
-          "umdf_item_id": mQuestions[currentQuestion].id,
-          "person_umdf_value": switchAnswer,
+          "person_umdf_value": mapYesNoTo10(switchAnswer),
         });
         break;
       case 'text':
@@ -126,12 +122,26 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
           "person_umdf_value": date,
         });
         break;
-      //default:
+
+      default:
+        answers.add({
+          "umdf_item_id": mQuestions[currentQuestion].id,
+          "person_umdf_value": answerCntroller.text,
+        });
+      // break;
+    }
+  }
+
+  int mapYesNoTo10(String answer) {
+    if (answer == 'yes') {
+      return 1;
+    } else {
+      return 0;
     }
   }
 
   var mQuestions = List<MedicalQuestion>.empty(growable: true);
-  
+
   void getMedicalQuestions() {
     emit(GetMedicalQuestionsLoadingState());
     medicalDeclareProvider.getMedQuestions().then((value) {
@@ -141,10 +151,22 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
       emit(GetMedicalQuestionsFailureState());
     });
   }
+final medicalApplications = List<MedicalDeclarationApp>.empty(growable: true);
+  void getMedicalApplications() {
+    emit(GetMedicalApplicationsLoadingState());
+    medicalDeclareProvider.getMedicalApplications().then((value) {
+      medicalApplications.addAll(value.applications!);
+      emit(GetMedicalApplicationsSuccessState(
+          applications: value.applications!));
+    }).catchError((error) {
+      emit(GetMedicalApplicationsFailureState(message: error.failure.message));
+    });
+  }
 
   var dependents = List<Map<String, dynamic>>.empty(growable: true);
 
   void addNewRelative(context) {
+    logger.e('=-======================================');
     if (genderId == '') {
       showToast(context,
           title: translateLang(context, 'warning'),
@@ -173,6 +195,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
             "dependent_gender": genderId,
             "dependent_dob": date,
             "dependent_passport": passportCntroller.text,
+            "dependent_boarder_number": null,
             "dependent_phone": phoneCntroller.text,
             "dependent_weight": weightCntroller.text,
             "dependent_weight_unit": "kg",
@@ -187,21 +210,23 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     }
   }
 
-  void sendMedicalDeclare() {
+  void sendMedicalDeclare(int candidate_app_id) {
     emit(SendMedicalDeclareLoadingState());
     var data = {
-     // "identity_number": "5656565656",
-      "person_umdf_company_id": 63,
-      "person_id": 31533,
-      "candidate_app_id": 16406,
+      // "identity_number": "5656565656",
+      //"person_umdf_company_id": 63,
+      "person_id": CacheHelper.getID(),
+      "candidate_application_hdf_id": candidateApplicationHdfId,
       "items": answers,
       "dependent": dependents
     };
+    logger.e('=================medical declaration==================');
+    logger.e(data);
 
     medicalDeclareProvider.sendMedicalDeclare(data).then((data) {
       emit(SendMedicalDeclareSuccessState());
     }).catchError((error) {
-      emit(SendMedicalDeclareFailureState());
+      emit(SendMedicalDeclareFailureState(message: error.failure.message));
     });
   }
 
@@ -212,6 +237,7 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     weightCntroller.clear();
     heightCntroller.clear();
     date = '';
+    emit(MedicalDeclarationClearState());
   }
 
   void _incrementStepper() {
@@ -346,5 +372,10 @@ class MedicalDeclareCubit extends Cubit<MedicalDeclareState> {
     }).catchError((error) {
       emit(MedicalDeclareGettingClassificationsFailureState());
     });
+  }
+
+  int? candidateApplicationHdfId;
+  void storeHDF(int? candidateApplicationHdfId) {
+    this.candidateApplicationHdfId = candidateApplicationHdfId;
   }
 }

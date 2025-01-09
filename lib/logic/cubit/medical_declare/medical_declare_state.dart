@@ -78,7 +78,28 @@ class SendMedicalDeclareLoadingState extends MedicalDeclareState{}
 class SendMedicalDeclareSuccessState extends MedicalDeclareState{}
 
 
-class SendMedicalDeclareFailureState extends MedicalDeclareState{}
+class SendMedicalDeclareFailureState extends MedicalDeclareState{
+  final String message;
+
+  SendMedicalDeclareFailureState({required this.message});
+}
 
 class EnterOneFamilyMemberAtLeastState extends MedicalDeclareState{}
 
+class MedicalDeclarationClearState extends MedicalDeclareState{}
+
+class GetMedicalApplicationsLoadingState extends MedicalDeclareState{}
+
+class GetMedicalApplicationsSuccessState extends MedicalDeclareState{
+  final List<MedicalDeclarationApp> applications;
+
+  GetMedicalApplicationsSuccessState({required this.applications});
+}
+
+
+class GetMedicalApplicationsFailureState extends MedicalDeclareState{
+  final String message;
+
+  GetMedicalApplicationsFailureState({required this.message});
+  
+}

@@ -7,9 +7,10 @@ import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/models/documents_category.dart';
+import 'package:fnrco_candidates/data/models/joining_date_model.dart';
 import 'package:fnrco_candidates/data/models/local_process_model.dart';
 import 'package:meta/meta.dart';
-
+import 'package:path_provider/path_provider.dart';
 import 'package:fnrco_candidates/data/api_provider/local_process.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
@@ -21,10 +22,11 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
   LocalProcessCubit(
     this.localProcessProvider,
   ) : super(LocalProcessInitial());
-
+  final localProcessApplications = List<LocalProcessApp>.empty(growable: true);
   getLocalProcessData() {
     emit(GetLocalProcessDataLoadingState());
     localProcessProvider.getLocalProcess().then((value) {
+      localProcessApplications.addAll(value.applications!);
       emit(GetLocalProcessDataSuccessState(applications: value.applications!));
     }).catchError((error) {
       emit(GetLocalProcessDataFailureState(message: error.failure.message));
@@ -46,14 +48,20 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
     // emit(ChooseDocumentCategoryState());
   }
 
-  var localProcessAttachments =
+  final localProcessAttachments =
       List<LocalProcessPipeLine>.empty(growable: true);
 
   void storeLocalProcessAttachments(List<LocalProcessPipeLine> list) {
     // ignore: unused_local_variable
-    for (LocalProcessPipeLine pipeline in list) {
-      localProcessAttachments.add(pipeline);
-    }
+    //localProcessAttachments.clear();
+    localProcessAttachments.addAll(list);
+    logger.e(
+        ' localProcessAttachments.length======>>>. ${localProcessAttachments.length}');
+    localProcessAttachments.length;
+    // int i = 0;
+    // for (LocalProcessPipeLine pipeline in list) {
+    //   localProcessAttachments.addAll(pipeline);
+    // }
   }
 
   void requestPermission() async {
@@ -70,14 +78,36 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
   void uploadAttachment(int stepId) async {
     await FilePicker.platform.clearTemporaryFiles();
     FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      localProcessAttachments
-          .where((element) => element.stepId! == stepId)
-          .toList()
-          .single
-          .changeFilePath(result.files.single.path!);
+    if (result != null && result.files.single.path != null) {
+      // Open file picker
+
+      File originalFile = File(result.files.single.path!);
+
+      // Get app's document directory
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      String newFilePath = '$appDocPath/${originalFile.path.split('/').last}';
+
+      // Copy the file
+      File newFile = await originalFile.copy(newFilePath);
+
+      // Verify file existence
+      if (await newFile.exists()) {
+        localProcessAttachments
+            .where((element) => element.stepId! == stepId)
+            .toList()
+            .single
+            .changeFilePath(newFile.path);
+      }
 
       emit(LocalProcessUploadAttachmentState());
+    }
+  }
+
+  void printAttachments() {
+    for (int i = 0; i < localProcessAttachments.length; i++) {
+      logger.e('====================$i====================');
+      logger.e(localProcessAttachments[i].pathFile);
     }
   }
 
@@ -137,42 +167,33 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
       }
 
       for (int i = 0; i < localProcessAttachments.length; i++) {
-        logger.e(
-            '============================local process files=====================');
-
-        //bool exist = await File(localProcessAttachments[i].pathFile!).exists();
-        if (true) {
-          logger.e('===========================iiiiiiiiiii===${i+1}===============');
-          logger.d(
-              '============================exist   ${await File(localProcessAttachments[i].pathFile!).exists()}=====================');
-          logger.e(
-              '==============filepath==============${localProcessAttachments[i].pathFile!}=====================');
-
-          String filePath = localProcessAttachments[i]
-              .pathFile!
+        logger.e(localProcessAttachments.length);
+        File file = File(localProcessAttachments[i].pathFile!);
+        logger.e('=======================file===$i===============');
+        logger.e(await file.exists());
+        if (await file.exists()) {
+          var filePath = file.path
               .replaceAll(RegExp(r'^File: '), '')
               .replaceAll(RegExp(r"^'|'$"), '')
               .trim();
-
           request.files.add(
               await http.MultipartFile.fromPath('data[$i][file]', filePath));
         }
       }
 
-      // http.StreamedResponse streamedResponse = await request.send();
-      // final response = await http.Response.fromStream(streamedResponse);
-      // print('=====================local proceess response=============');
-      // logger.e(response.body);
-      // if (response.statusCode == 200) {
-      //   emit(SubmitLocalProcessAttachmentsSuccessState());
-      // } else {
-      //   emit(SubmitLocalProcessAttachmentsFailureState(
-      //       message: translateLang(context, "msg_request_failure")));
-      // }
+      http.StreamedResponse streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      logger.e('===========================response=============');
+      logger.e(response.body);
+      if (response.statusCode == 200) {
+        emit(SubmitLocalProcessAttachmentsSuccessState());
+      } else {
+        emit(SubmitLocalProcessAttachmentsFailureState(
+            message: translateLang(context, "msg_request_failure")));
+      }
     } catch (e) {
-       logger.e(
-              '==============error=====================');
-              logger.e(e.toString());
+      logger.e('==============error=====================');
+      logger.e(e.toString());
 
       emit(SubmitLocalProcessAttachmentsFailureState(
           message: translateLang(context, "msg_request_failure")));

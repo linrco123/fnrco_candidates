@@ -150,38 +150,43 @@ class VisaApprovalScreen extends StatelessWidget {
                     ],
                   ),
                 )),
-                Row(
-                  children: [
-                    Expanded(
-                        child: Center(
-                      child: state is VisaApprovalLoadingState
-                          ? LoadingWidget()
-                          : CustomElevatedButton(
-                              fun: () {
-                                context
-                                    .read<VisaApprovalCubit>()
-                                    .sendVisaApproval(visaApprovalApplication.id!,true);
-                              },
-                              background: AppColors.success,
-                              text: translateLang(context, 'approve')),
-                    )),
-                    const SizedBox(
-                      width: 15.0,
-                    ),
-                    Expanded(
-                        child: Center(
-                      child: state is VisaRejectionLoadingState
-                          ? LoadingWidget()
-                          : CustomElevatedButton(
-                              fun: () {
-                                context
-                                    .read<VisaApprovalCubit>()
-                                    .sendVisaApproval(visaApprovalApplication.id!,false);
-                              },
-                              background: AppColors.primary,
-                              text: translateLang(context, 'reject')),
-                    ))
-                  ],
+                Visibility(
+                  visible: visaApprovalApplication.isAction == 'Not Done',
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Center(
+                        child: state is VisaApprovalLoadingState
+                            ? AnimatedLoadingWidget()
+                            : CustomElevatedButton(
+                                fun: () {
+                                  context
+                                      .read<VisaApprovalCubit>()
+                                      .sendVisaApproval(
+                                          visaApprovalApplication.id!, true);
+                                },
+                                background: AppColors.success,
+                                text: translateLang(context, 'approve')),
+                      )),
+                      const SizedBox(
+                        width: 15.0,
+                      ),
+                      Expanded(
+                          child: Center(
+                        child: state is VisaRejectionLoadingState
+                            ? AnimatedLoadingWidget()
+                            : CustomElevatedButton(
+                                fun: () {
+                                  context
+                                      .read<VisaApprovalCubit>()
+                                      .sendVisaApproval(
+                                          visaApprovalApplication.id!, false);
+                                },
+                                background: AppColors.primary,
+                                text: translateLang(context, 'reject')),
+                      ))
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 16.0,

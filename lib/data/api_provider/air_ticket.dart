@@ -1,4 +1,5 @@
 import 'package:dio2/dio2.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../models/air_ticket_model.dart';
 import '../../constants/app_urls.dart';
 import '../../constants/constances.dart';
@@ -33,6 +34,8 @@ class AirTicketProvider {
         return Future.error(response.statusCode!);
       }
     } on DioError catch (e) {
+       logger.e('===================error===============');
+      logger.e(e.response!.data);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.statusMessage!));

@@ -12,7 +12,6 @@ class AppPagesNames {
   static const String PROFILE = '/profile';
   static const String PROFILE_EDITING = '/profileEditing';
   static const String RESUME = '/resume';
-  static const String HEALTH_CARE = '/healthCare';
   static const String JOB_OFFER = '/jobOffer';
   static const String JOB_DETAILS = '/jobDetails';
   static const String JOB_APPLICATION = '/jobApplication';

@@ -42,7 +42,7 @@ class submitAirTicketInfoSuccesState extends AirTicketState{
 
 }
 class submitAirTicketInfoFailureState extends AirTicketState{
-  final String? message;
+  final String message;
 
   submitAirTicketInfoFailureState({required this.message});
 }

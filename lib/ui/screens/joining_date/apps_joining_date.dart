@@ -41,6 +41,7 @@ class DateApplicationScreen extends StatelessWidget {
         body: BlocConsumer<JoiningDateCubit, JoiningDateState>(
           listener: (context, state) {},
           builder: (context, state) {
+            final cubit = BlocProvider.of<JoiningDateCubit>(context);
             if (state is GetJoiningDateLoadingState) {
               return AnimatedLoadingWidget(
                 height: 150.0,
@@ -55,8 +56,8 @@ class DateApplicationScreen extends StatelessWidget {
                   });
             }
 
-            if (state is GetJoiningDateSuccessState) {
-              return state.applications.isEmpty
+           
+              return cubit.joiningDateApplication.isEmpty
                   ? EmptyDataWidget(
                       message: "No job applications available Yet !!!",
                     )
@@ -64,7 +65,7 @@ class DateApplicationScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           right: 15.0, left: 15.0, top: 25.0),
                       child: ListView.separated(
-                          itemCount: state.applications.length,
+                          itemCount: cubit.joiningDateApplication.length,
                           itemBuilder: (BuildContext context, int index) =>
                               InkWell(
                                 onTap: () {
@@ -73,20 +74,19 @@ class DateApplicationScreen extends StatelessWidget {
                                       value: joiningDateCubit,
                                       child: JoiningDateSCreen(
                                           joiningDateApp:
-                                              state.applications[index]),
+                                              cubit.joiningDateApplication[index]),
                                     ),
                                   ));
                                 },
                                 child: DateApplicationCard(
-                                    application: state.applications[index]),
+                                    application: cubit.joiningDateApplication[index]),
                               ),
                           separatorBuilder: (BuildContext context, int index) =>
                               const SizedBox(
                                 height: 20.0,
                               )),
                     );
-            }
-            return AnimatedLoadingWidget(height: 150.0, width: 150.0);
+
           },
         ),
       ),

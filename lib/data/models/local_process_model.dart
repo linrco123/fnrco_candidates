@@ -112,7 +112,7 @@ class LocalProcessPipeLine {
   LocalProcessPipeLine.fromJson(Map<String, dynamic> json) {
     stepId = json['step_id'];
     stepName = json['step_name'];
-    pathFile = json['path_file'];
+    pathFile = json['file_path'];
   }
 
   Map<String, dynamic> toJson() {
@@ -122,7 +122,9 @@ class LocalProcessPipeLine {
     data['path_file'] = this.pathFile;
     return data;
   }
-
+  // set changePath(String path){
+ 
+  // }
   void changeFilePath(String newPath){
     this.pathFile = newPath;
   }

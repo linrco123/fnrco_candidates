@@ -1,14 +1,14 @@
-class AirTicketModel {
+class MedicalDeclarationAppsModel {
   bool? status;
   String? message;
-  List<AirTicketApplication>? applications;
+  List<MedicalDeclarationApp>? applications;
   int? size;
   int? page;
   int? totalPages;
   int? totalSize;
   int? perPage;
 
-  AirTicketModel(
+  MedicalDeclarationAppsModel(
       {this.status,
       this.message,
       this.applications,
@@ -18,13 +18,13 @@ class AirTicketModel {
       this.totalSize,
       this.perPage});
 
-  AirTicketModel.fromJson(Map<String, dynamic> json) {
+  MedicalDeclarationAppsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      applications = <AirTicketApplication>[];
+      applications = <MedicalDeclarationApp>[];
       json['data'].forEach((v) {
-        applications!.add(new AirTicketApplication.fromJson(v));
+        applications!.add(new MedicalDeclarationApp.fromJson(v));
       });
     }
     size = json['size'];
@@ -50,7 +50,7 @@ class AirTicketModel {
   }
 }
 
-class AirTicketApplication {
+class MedicalDeclarationApp {
   int? id;
   String? mprNo;
   String? mprType;
@@ -58,10 +58,9 @@ class AirTicketApplication {
   String? clientName;
   String? candidateNationality;
   String? candidateName;
-  String? isAction;
-  AirPipeline? pipeline;
+  MedicalPipeline? pipeline;
 
-  AirTicketApplication(
+  MedicalDeclarationApp(
       {this.id,
       this.mprNo,
       this.mprType,
@@ -69,10 +68,9 @@ class AirTicketApplication {
       this.clientName,
       this.candidateNationality,
       this.candidateName,
-      this.isAction,
       this.pipeline});
 
-  AirTicketApplication.fromJson(Map<String, dynamic> json) {
+  MedicalDeclarationApp.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     mprNo = json['mpr_no'];
     mprType = json['mpr_type'];
@@ -80,9 +78,8 @@ class AirTicketApplication {
     clientName = json['client_name'];
     candidateNationality = json['candidate_nationality'];
     candidateName = json['candidate_name'];
-    isAction = json['is_action'];
     pipeline = json['pipeline'] != null
-        ? new AirPipeline.fromJson(json['pipeline'])
+        ? new MedicalPipeline.fromJson(json['pipeline'])
         : null;
   }
 
@@ -95,7 +92,6 @@ class AirTicketApplication {
     data['client_name'] = this.clientName;
     data['candidate_nationality'] = this.candidateNationality;
     data['candidate_name'] = this.candidateName;
-    data['is_action'] = this.isAction;
     if (this.pipeline != null) {
       data['pipeline'] = this.pipeline!.toJson();
     }
@@ -103,63 +99,21 @@ class AirTicketApplication {
   }
 }
 
-class AirPipeline {
-  String? airlineTicketIn;
-  String? airlineTicketNumber;
-  String? airlines;
-  String? flightNumber;
-  String? departureFrom;
-  String? departureDate;
-  String? departureTime;
-  String? arrivalAt;
-  String? arrivalDate;
-  String? arrivalTime;
-  String? airlineTicketStatus;
-  String? remarks;
+class MedicalPipeline {
+  int? candidateApplicationHdfId;
+  String? umdCompanyName;
 
-  AirPipeline(
-      {this.airlineTicketIn,
-      this.airlineTicketNumber,
-      this.airlines,
-      this.flightNumber,
-      this.departureFrom,
-      this.departureDate,
-      this.departureTime,
-      this.arrivalAt,
-      this.arrivalDate,
-      this.arrivalTime,
-      this.airlineTicketStatus,
-      this.remarks});
+  MedicalPipeline({this.candidateApplicationHdfId, this.umdCompanyName});
 
-  AirPipeline.fromJson(Map<String, dynamic> json) {
-    airlineTicketIn = json['airline_ticket_in'];
-    airlineTicketNumber = json['airline_ticket_number'];
-    airlines = json['airlines'];
-    flightNumber = json['flight_number'];
-    departureFrom = json['departure_from'];
-    departureDate = json['departure_date'];
-    departureTime = json['departure_time'];
-    arrivalAt = json['arrival_at'];
-    arrivalDate = json['arrival_date'];
-    arrivalTime = json['arrival_time'];
-    airlineTicketStatus = json['airline_ticket_status'];
-    remarks = json['remarks'];
+  MedicalPipeline.fromJson(Map<String, dynamic> json) {
+    candidateApplicationHdfId = json['candidate_application_hdf_id'];
+    umdCompanyName = json['umd_company_name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['airline_ticket_in'] = this.airlineTicketIn;
-    data['airline_ticket_number'] = this.airlineTicketNumber;
-    data['airlines'] = this.airlines;
-    data['flight_number'] = this.flightNumber;
-    data['departure_from'] = this.departureFrom;
-    data['departure_date'] = this.departureDate;
-    data['departure_time'] = this.departureTime;
-    data['arrival_at'] = this.arrivalAt;
-    data['arrival_date'] = this.arrivalDate;
-    data['arrival_time'] = this.arrivalTime;
-    data['airline_ticket_status'] = this.airlineTicketStatus;
-    data['remarks'] = this.remarks;
+    data['candidate_application_hdf_id'] = this.candidateApplicationHdfId;
+    data['umd_company_name'] = this.umdCompanyName;
     return data;
   }
 }

@@ -13,12 +13,16 @@ class JobOfferProvider {
     try {
       final response = await DioHelper.dio.get(AppLinks.recruitment_process,
           queryParameters: {"stage": job_offer});
+          logger.e('-=============================');
+          logger.e(response.data);
+          
       if (response.statusCode == 200) {
         return JobOfferModel.fromJson(response.data);
       } else {
         return Future.error(response.statusCode!);
       }
     } on DioError catch (e) {
+      logger.e('-=============================');
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.statusMessage!));

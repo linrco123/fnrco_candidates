@@ -84,6 +84,15 @@ class CacheHelper {
   static String? getName() {
     return sharedPreferences.getString('user_name');
   }
+
+   static storeID(int id) async {
+    await sharedPreferences.setInt('user_id', id);
+  }
+
+  static int? getID() {
+    return sharedPreferences.getInt('user_id');
+  }
+
   static storeLang(String name) async {
     await sharedPreferences.setString('lang', name);
   }
@@ -122,6 +131,7 @@ class CacheHelper {
     return sharedPreferences.getBool('survey');
   }
 
+
   static void storeUserData({LoginModel? userLData, RegisterModel? userRData}) {
     if (userLData != null) {
       storeName(userLData.data!.candidateUserUname!.isNotEmpty
@@ -129,12 +139,14 @@ class CacheHelper {
           : 'Guest');
       storeEmail(userLData.data!.email!);
       storeAuthToken(userLData.data!.accessToken!);
+      storeID(userLData.data!.personId!);
     } else if (userRData != null) {
       storeName(userRData.data!.candidateUserUname!.isNotEmpty
           ? userRData.data!.candidateUserUname!
           : 'Guest');
       storeEmail(userRData.data!.email!);
       storeAuthToken(userRData.data!.accessToken!);
+      storeID(userRData.data!.id!);
     }
     DioHelper.updateAuthKey();
   }

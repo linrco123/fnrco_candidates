@@ -37,9 +37,12 @@ class JoiningDateCubit extends Cubit<JoiningDateState> {
     });
   }
 
+  final joiningDateApplication =
+      List<JoiningDateApplication>.empty(growable: true);
   getJoiningDateInfo() {
     emit(GetJoiningDateLoadingState());
     joiningDateProvider.getJoiningDate().then((value) {
+      joiningDateApplication.addAll(value.dateApplications!);
       emit(GetJoiningDateSuccessState(applications: value.dateApplications!));
     }).catchError((error) {
       emit(GetJoiningDateFailureState(error.failure.message));

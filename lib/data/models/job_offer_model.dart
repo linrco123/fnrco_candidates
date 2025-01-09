@@ -57,6 +57,7 @@ class JobApplication {
   String? clientName;
   String? candidateNationality;
   String? candidateName;
+  String? isAction;
   Pipeline? pipeline;
 
   JobApplication(
@@ -75,6 +76,7 @@ class JobApplication {
     clientName = json['client_name'];
     candidateNationality = json['candidate_nationality'];
     candidateName = json['candidate_name'];
+    isAction = json['is_action'];
     pipeline = json['pipeline'] != null
         ? new Pipeline.fromJson(json['pipeline'])
         : null;
@@ -88,6 +90,7 @@ class JobApplication {
     data['client_name'] = this.clientName;
     data['candidate_nationality'] = this.candidateNationality;
     data['candidate_name'] = this.candidateName;
+    data["is_action"] = this.isAction;
     if (this.pipeline != null) {
       data['pipeline'] = this.pipeline!.toJson();
     }

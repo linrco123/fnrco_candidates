@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'ui/screens/internet_connection.dart';
 import 'app_router.dart';
 import 'constants/app_pages_names.dart';
@@ -30,6 +31,8 @@ void main() async {
   
 }
 
+class AppRouteObserver extends RouteObserver<PageRoute>{}
+
 class FnrcoCandidates extends StatefulWidget {
   const FnrcoCandidates({super.key});
 
@@ -40,9 +43,11 @@ class FnrcoCandidates extends StatefulWidget {
 class _FnrcoCandidatesState extends State<FnrcoCandidates> {
   final Connectivity _connectivity = Connectivity();
   final nav_Key = GlobalKey<NavigatorState>();
+  //final  navigatorRoute = RouteObserver<PageRoute>();
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -59,6 +64,7 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
 
         return MaterialApp(
           navigatorKey: nav_Key,
+          navigatorObservers: [AppRouteObserver()],
           theme: appTheme,
           // darkTheme: darkAppTheme,
           // themeMode: settingsCubit.brightnessMode == DARK_MODE

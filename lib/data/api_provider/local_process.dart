@@ -21,14 +21,17 @@ class LocalProcessProvider {
       print('====================Local Proceess==============');
       logger.e(response.data);
       if (response.statusCode == 200) {
-        return LocalProcessModel.fromJson( response.data);
+        return LocalProcessModel.fromJson(response.data);
       } else {
         return Future.error(response.statusCode!);
       }
-    } on DioError catch (e) {
-      throw ApiException(
-          failure:
-              Failure(e.response!.statusCode!, e.response!.statusMessage!));
+    }  catch (e) {
+      logger.e('====================Error==============');
+      logger.e(e);
+      throw Exception();
+      // throw ApiException(
+      //     failure:
+      //         Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
  Future<DocumentsCategoryModel> getDocumentsCategory() async {

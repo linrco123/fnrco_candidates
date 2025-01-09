@@ -56,7 +56,7 @@ class MedicalQuestionsScreen extends StatelessWidget {
             text: cubit.date.isEmpty ? 'Choose Date' : cubit.date);
         break;
 
-      case 'switch':
+      case 'radio':
         widget = Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -94,8 +94,6 @@ class MedicalQuestionsScreen extends StatelessWidget {
             inputType: TextInputType.text,
             validate: cubit.validateAnswer);
     }
-    print('=============widget------------------------');
-    print(widget);
 
     return widget;
   }

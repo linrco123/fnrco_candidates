@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import '../../../constants/app_pages_names.dart';
+import 'package:fnrco_candidates/data/models/job_contract_model.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
 import '../../../logic/cubit/contract/contract_cubit.dart';
@@ -14,8 +14,8 @@ import '../../widgets/loading_widget.dart';
 import '../../widgets/return_btn.dart';
 
 class JobContractSCreen extends StatelessWidget {
-  final int applicationId;
-  JobContractSCreen({super.key, required this.applicationId});
+  final ContractApplication jobApplication;
+  JobContractSCreen({super.key, required this.jobApplication});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +45,6 @@ class JobContractSCreen extends StatelessWidget {
                 title: translateLang(context, 'success'),
                 desc: 'Job Contract Approval submitted successfully',
                 type: ToastificationType.success);
-
-            Navigator.of(context).pushNamed(AppPagesNames.MEDICAL_DECLARATION,
-                arguments: {"app_id": applicationId});
           }
 
           if (state is JobContractApprovalFailureState) {
@@ -127,43 +124,46 @@ class JobContractSCreen extends StatelessWidget {
                   child: Container(
                     height: 70,
                     width: double.infinity,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                            child: Center(
-                          child: state is JobContractApprovalLoadingState
-                              ? LoadingWidget()
-                              : CustomElevatedButton(
-                                  fun: () {
-                                    context
-                                        .read<JobContractCubit>()
-                                        .sendJobOfferApproval(
-                                            applicationId, true);
-                                  },
-                                  background: AppColors.success,
-                                  text: translateLang(context, 'approve')),
-                        )),
-                        const SizedBox(
-                          width: 15.0,
-                        ),
-                        Expanded(
-                            child: Center(
-                          child: state is JobContractRejectLoadingState
-                              ? LoadingWidget()
-                              : CustomElevatedButton(
-                                  fun: () {
-                                    context
-                                        .read<JobContractCubit>()
-                                        .sendJobOfferApproval(
-                                            applicationId, false);
-                                  },
-                                  background: AppColors.primary,
-                                  text: translateLang(context, 'reject')),
-                        ))
-                      ],
-                    ),
+                    child: jobApplication.isAction == "Done"
+                        ? SizedBox.shrink()
+                        : Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                  child: Center(
+                                child: state is JobContractApprovalLoadingState
+                                    ? AnimatedLoadingWidget()
+                                    : CustomElevatedButton(
+                                        fun: () {
+                                          context
+                                              .read<JobContractCubit>()
+                                              .sendJobOfferApproval(
+                                                  jobApplication.id!, true);
+                                        },
+                                        background: AppColors.success,
+                                        text:
+                                            translateLang(context, 'approve')),
+                              )),
+                              const SizedBox(
+                                width: 15.0,
+                              ),
+                              Expanded(
+                                  child: Center(
+                                child: state is JobContractRejectLoadingState
+                                    ? AnimatedLoadingWidget()
+                                    : CustomElevatedButton(
+                                        fun: () {
+                                          context
+                                              .read<JobContractCubit>()
+                                              .sendJobOfferApproval(
+                                                  jobApplication.id!, false);
+                                        },
+                                        background: AppColors.primary,
+                                        text: translateLang(context, 'reject')),
+                              ))
+                            ],
+                          ),
                   ),
                 ),
               )

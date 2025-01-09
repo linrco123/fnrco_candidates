@@ -39,10 +39,11 @@ class VisaApprovalCubit extends Cubit<VisaApprovalState> {
     // } else if (visaRemark.text.isEmpty) {}
   }
 String nationality ='';
-
+final visaApplications = List<VisaApprovalApplication>.empty(growable: true);
   getVisadata() {
     emit(GetVisaApprovalDataLoadingState());
     visaApprovalProvider.getVisadata().then((value) {
+      visaApplications.addAll(value.visaApplications!);
       emit(GetVisaApprovalDataSuccessState(
           applications: value.visaApplications!));
     }).catchError((error) {

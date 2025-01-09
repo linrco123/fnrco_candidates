@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 const String CANDIDATE_PROVIDER = "candidates";
 const int CANDIDATE_CODE = 1;
 const String PAGE_KEYWORD = 'page';
@@ -20,7 +22,10 @@ const String SKILLS = "skills";
 const String KEYWORDS = "keywords";
 const String SECTION = "section";
 
-////////////////////////////////////////////////////////////////////
+//////////////TODO: RouteObserver ////////////////////////////////////////////
+
+final  routeObserver = RouteObserver<PageRoute>();
+
 ////////////////TODO: Recruitment Stages ////////////////////////////
 ///meta-data/341
 ///----------------

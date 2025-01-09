@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fnrco_candidates/ui/screens/medical_declaration/medical_declaration_apps.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../data/api_provider/home/home_tap_provider.dart';
 import '../../../logic/cubit/home_page/home_page_cubit.dart';
@@ -18,7 +19,6 @@ import '../unregistered_screen.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'package:toastification/toastification.dart';
 import '../../../constants/app_colors.dart';
-import '../medical_declaration/medical_declaration.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
@@ -166,7 +166,9 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.JOB_OFFER);
+                                            AppPagesNames.JOB_OFFER,arguments: {
+                                              'data':"Muhammed"
+                                            });
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.offer,
@@ -221,7 +223,7 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.HEALTH_CARE);
+                                            AppPagesNames.MEDICAL_DECLARATION);
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.HEALTH_CARE,
@@ -583,7 +585,7 @@ class HomePageScreen extends StatelessWidget {
       case 1:
         return const CategoryDetailsScreen();
       case 2:
-        return const MedicalDeclaration();
+        return const MedicalDeclarationAppsScreen();
       case 3:
         return const SettingsScreen();
     }

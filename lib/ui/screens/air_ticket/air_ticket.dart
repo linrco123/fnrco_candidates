@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../../core/classes/dotted_border.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
@@ -75,15 +76,32 @@ class AirTicketScreen extends StatelessWidget {
                   desc: 'Please , pick up Air Ticket Attachment',
                   type: ToastificationType.warning);
             }
+
+            if (state is submitAirTicketInfoSuccesState) {
+              showToast(context,
+                  title: translateLang(context, "success"),
+                  desc: 'Air Ticket Info submitted successfully',
+                  type: ToastificationType.success);
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            }
+            if (state is submitAirTicketInfoFailureState) {
+              showToast(context,
+                  title: translateLang(context, "error"),
+                  desc: state.message,
+                  type: ToastificationType.error);
+            }
           },
           builder: (context, state) {
-            final airTicketCubit = BlocProvider.of<AirTicketCubit>(context);
             late AirPipeline? pipeLine;
             if (airTicketApplication == null) {
+              logger.e("airTicketApplication");
               pipeLine = null;
             } else {
+              logger.e("pipeLine");
               pipeLine = airTicketApplication!.pipeline;
             }
+            final airTicketCubit = BlocProvider.of<AirTicketCubit>(context);
 
             return Padding(
               padding:
@@ -109,7 +127,7 @@ class AirTicketScreen extends StatelessWidget {
                               inputType: TextInputType.number,
                               hint: pipeLine == null
                                   ? translateLang(context, "ticket_number")
-                                  : pipeLine.contractPdf),
+                                  : pipeLine.airlineTicketNumber),
                           const SizedBox(
                             height: 16.0,
                           ),
@@ -123,7 +141,7 @@ class AirTicketScreen extends StatelessWidget {
                               inputType: TextInputType.name,
                               hint: pipeLine == null
                                   ? translateLang(context, "air_line")
-                                  : pipeLine.contractPdf),
+                                  : pipeLine.airlines),
                           const SizedBox(
                             height: 16.0,
                           ),
@@ -137,7 +155,7 @@ class AirTicketScreen extends StatelessWidget {
                               inputType: TextInputType.number,
                               hint: pipeLine == null
                                   ? translateLang(context, "flight_number")
-                                  : pipeLine.contractPdf),
+                                  : pipeLine.flightNumber),
                           const SizedBox(
                             height: 16.0,
                           ),
@@ -153,7 +171,7 @@ class AirTicketScreen extends StatelessWidget {
                               inputType: TextInputType.name,
                               hint: pipeLine == null
                                   ? translateLang(context, "departure_from")
-                                  : pipeLine.contractPdf),
+                                  : pipeLine.departureFrom),
                           const SizedBox(
                             height: 16.0,
                           ),
@@ -164,12 +182,12 @@ class AirTicketScreen extends StatelessWidget {
                               enabled: airTicketApplication!.pipeline == null
                                   ? true
                                   : false,
-                              controller: airTicketCubit.dpturefrmCntroller,
+                              controller: airTicketCubit.arrivAtCntroller,
                               validate: airTicketCubit.validatedpturefm,
                               inputType: TextInputType.name,
                               hint: pipeLine == null
                                   ? translateLang(context, "arrival_at")
-                                  : pipeLine.contractPdf),
+                                  : pipeLine.arrivalAt),
                           const SizedBox(
                             height: 16.0,
                           ),
@@ -183,7 +201,7 @@ class AirTicketScreen extends StatelessWidget {
                                 }
                               },
                               text: pipeLine != null
-                                  ? pipeLine.contractPdf!
+                                  ? pipeLine.departureDate!
                                   : airTicketCubit.departure_date ??
                                       'Enter Departure Date'),
                           const SizedBox(
@@ -199,7 +217,7 @@ class AirTicketScreen extends StatelessWidget {
                                 }
                               },
                               text: pipeLine != null
-                                  ? pipeLine.contractPdf!
+                                  ? pipeLine.arrivalDate!
                                   : airTicketCubit.arrival_date ??
                                       'Enter Arrival Date'),
                           const SizedBox(
@@ -215,7 +233,7 @@ class AirTicketScreen extends StatelessWidget {
                                 }
                               },
                               text: pipeLine != null
-                                  ? pipeLine.contractPdf!
+                                  ? pipeLine.departureTime!
                                   : airTicketCubit.departure_time ??
                                       'Enter Departure Time'),
                           const SizedBox(
@@ -231,61 +249,66 @@ class AirTicketScreen extends StatelessWidget {
                                 }
                               },
                               text: pipeLine != null
-                                  ? pipeLine.contractPdf!
+                                  ? pipeLine.arrivalTime!
                                   : airTicketCubit.arrival_time ??
                                       'Enter Arrival Time'),
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomPaint(
-                            painter: DottedBorderPainter(
+                          pipeLine != null
+                              ? SizedBox.shrink()
+                              : CustomPaint(
+                                  painter: DottedBorderPainter(),
+                                  child: OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          enableFeedback: true,
+                                          maximumSize:
+                                              Size(double.infinity, 70),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 30.0, horizontal: 15.0),
+                                          iconColor: AppColors.primary,
+                                          visualDensity: VisualDensity.compact,
+                                          // textStyle:TextStyle(color: AppColors.grey, fontSize: 17.0) ,
+                                          side: BorderSide.none),
+                                      onPressed: () {
+                                        airTicketCubit.uploadAttachment();
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              airTicketCubit.fileName.isEmpty
+                                                  ? translateLang(
+                                                      context, "upload_attach")
+                                                  : airTicketCubit.fileName,
+                                              style: TextStyle(
+                                                  color: AppColors.grey,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          airTicketCubit.fileName.isEmpty
+                                              ? Icon(
+                                                  Icons.upload_file_rounded,
+                                                  color: AppColors.primary,
+                                                  size: 25.0,
+                                                )
+                                              : InkWell(
+                                                  onTap: () {
+                                                    airTicketCubit
+                                                        .deleteAttachment();
+                                                  },
+                                                  child: Icon(
+                                                    CupertinoIcons
+                                                        .delete_simple,
+                                                    color: AppColors.primary,
+                                                    size: 25.0,
+                                                  ))
+                                        ],
+                                      )),
                                 ),
-                            child: OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                    enableFeedback: true,
-                                    maximumSize: Size(double.infinity, 70),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 30.0, horizontal: 15.0),
-                                    iconColor: AppColors.primary,
-                                    visualDensity: VisualDensity.compact,
-                                    // textStyle:TextStyle(color: AppColors.grey, fontSize: 17.0) ,
-                                    side: BorderSide.none),
-                                onPressed: () {
-                                  airTicketCubit.uploadAttachment();
-                                },
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        airTicketCubit.fileName.isEmpty
-                                            ? translateLang(
-                                                context, "upload_attach")
-                                            : airTicketCubit.fileName,
-                                        style: TextStyle(
-                                            color: AppColors.grey,
-                                            fontSize: 16.0),
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    airTicketCubit.fileName.isEmpty
-                                        ? Icon(
-                                            Icons.upload_file_rounded,
-                                            color: AppColors.primary,
-                                            size: 25.0,
-                                          )
-                                        : InkWell(
-                                            onTap: () {
-                                              airTicketCubit.deleteAttachment();
-                                            },
-                                            child: Icon(
-                                              CupertinoIcons.delete_simple,
-                                              color: AppColors.primary,
-                                              size: 25.0,
-                                            ))
-                                  ],
-                                )),
-                          ),
                           const SizedBox(
                             height: 16.0,
                           ),
@@ -303,9 +326,7 @@ class AirTicketScreen extends StatelessWidget {
                               },
                               background: AppColors.primary,
                               text: 'Submit Air Ticket')
-                      : SizedBox(
-                          height: 10.0,
-                        ),
+                      : SizedBox.shrink(),
                 ],
               ),
             );

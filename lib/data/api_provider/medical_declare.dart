@@ -2,12 +2,15 @@
 
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/core/classes/dio_helper.dart';
+import 'package:fnrco_candidates/core/classes/exceptions.dart';
 import 'package:fnrco_candidates/core/classes/failure.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/gender_model.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/marital_status_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/classification_model.dart';
+import 'package:fnrco_candidates/data/models/medical_declaration_app_model.dart';
 import 'package:fnrco_candidates/data/models/medical_questions.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
@@ -25,6 +28,22 @@ class MedicalDeclareProvider {
           //"authorization": "bearer ${CacheHelper.getAuthToken()}"
         });
     dio = Dio(_baseOptions);
+  }
+
+   Future<MedicalDeclarationAppsModel> getMedicalApplications() async {
+    try {
+      final response = await DioHelper.dio.get(AppLinks.recruitment_process,
+          queryParameters: {"stage": hdf});
+      if (response.statusCode == 200) {
+        return MedicalDeclarationAppsModel.fromJson(response.data);
+      } else {
+        return Future.error(response.statusCode!);
+      }
+    } on DioError catch (e) {
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.statusMessage!));
+    }
   }
 
 
@@ -105,9 +124,10 @@ class MedicalDeclareProvider {
       }
     } on DioError catch (e) {
       logger.e('====================Error==================');
-      logger.e(e);
-      return await Future.error(
-          Failure(e.response!.statusCode!, e.response!.data['message']));
+      logger.e(e.response);
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
 
@@ -126,9 +146,10 @@ Future<bool>  sendMedicalDeclare(Map data) async{
       }
     } on DioError catch (e) {
       logger.e('====================Error==================');
-      logger.e(e.message);
-      return await Future.error(
-          Failure(e.response!.statusCode!, e.response!.data['message']));
+      logger.e(e.response);
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/logic/cubit/joining_date/joining_date_cubit.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
 import '../../../data/api_provider/visa_approval.dart';
@@ -42,6 +43,7 @@ class VisaApprovalAppsScreen extends StatelessWidget {
         body: BlocConsumer<VisaApprovalCubit, VisaApprovalState>(
           listener: (context, state) {},
           builder: (context, state) {
+            final cubit = BlocProvider.of<VisaApprovalCubit>(context);
             if (state is GetVisaApprovalDataLoadingState) {
               return AnimatedLoadingWidget(
                 height: 150.0,
@@ -56,40 +58,37 @@ class VisaApprovalAppsScreen extends StatelessWidget {
                   });
             }
 
-            if (state is GetVisaApprovalDataSuccessState) {
-              return state.applications.isEmpty
-                  ? EmptyDataWidget(
-                      message: "No job applications available Yet !!!",
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(
-                          right: 15.0, left: 15.0, top: 25.0),
-                      child: ListView.separated(
-                          itemCount: state.applications.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => BlocProvider.value(
-                                      value: visaApprovalCubit,
-                                      child: VisaApprovalScreen(
-                                          visaApprovalApplication:
-                                              state.applications[index]),
-                                    ),
-                                  ));
-                                  // visaApprovalCubit.candidate_app_id =
-                                  //     state.applications[index].id!;
-                                },
-                                child: VisaApprovalApplicationCard(
-                                    application: state.applications[index]),
-                              ),
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(
-                                height: 20.0,
-                              )),
-                    );
-            }
-            return AnimatedLoadingWidget(height: 150.0, width: 150.0);
+            return cubit.visaApplications.isEmpty
+                ? EmptyDataWidget(
+                    message: "No job applications available Yet !!!",
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15.0, left: 15.0, top: 25.0),
+                    child: ListView.separated(
+                        itemCount: cubit.visaApplications.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => BlocProvider.value(
+                                    value: visaApprovalCubit,
+                                    child: VisaApprovalScreen(
+                                        visaApprovalApplication:
+                                            cubit.visaApplications[index]),
+                                  ),
+                                ));
+                                // visaApprovalCubit.candidate_app_id =
+                                //     state.applications[index].id!;
+                              },
+                              child: VisaApprovalApplicationCard(
+                                  application: cubit.visaApplications[index]),
+                            ),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 20.0,
+                            )),
+                  );
           },
         ),
       ),

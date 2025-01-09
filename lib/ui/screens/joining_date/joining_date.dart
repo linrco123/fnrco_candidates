@@ -112,46 +112,49 @@ class JoiningDateSCreen extends StatelessWidget {
                       ),
                     ],
                   )),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Center(
-                        child: state is JoiningDateApprovalLoadingState
-                            ? LoadingWidget()
-                            : CustomElevatedButton(
-                                fun: () {
-                                  if (joiningDateApp.pipeline!.joiningDate !=
-                                      null) {
-                                    context
-                                        .read<JoiningDateCubit>()
-                                        .sendJoiningDate(
-                                            joiningDateApp.id!, true);
-                                  }
-                                },
-                                background: AppColors.success,
-                                text: translateLang(context, 'approve')),
-                      )),
-                      const SizedBox(
-                        width: 15.0,
-                      ),
-                      Expanded(
-                          child: Center(
-                        child: state is JoiningDateRejectionLoadingState
-                            ? LoadingWidget()
-                            : CustomElevatedButton(
-                                fun: () {
-                                  if (joiningDateApp.pipeline!.joiningDate !=
-                                      null) {
-                                    context
-                                        .read<JoiningDateCubit>()
-                                        .sendJoiningDate(
-                                            joiningDateApp.id!, false);
-                                  }
-                                },
-                                background: AppColors.primary,
-                                text: translateLang(context, 'reject')),
-                      ))
-                    ],
+                  Visibility(
+                    visible: joiningDateApp.isAction != 'Done',
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Center(
+                          child: state is JoiningDateApprovalLoadingState
+                              ? AnimatedLoadingWidget()
+                              : CustomElevatedButton(
+                                  fun: () {
+                                    if (joiningDateApp.pipeline!.joiningDate !=
+                                        null) {
+                                      context
+                                          .read<JoiningDateCubit>()
+                                          .sendJoiningDate(
+                                              joiningDateApp.id!, true);
+                                    }
+                                  },
+                                  background: AppColors.success,
+                                  text: translateLang(context, 'approve')),
+                        )),
+                        const SizedBox(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                            child: Center(
+                          child: state is JoiningDateRejectionLoadingState
+                              ? AnimatedLoadingWidget()
+                              : CustomElevatedButton(
+                                  fun: () {
+                                    if (joiningDateApp.pipeline!.joiningDate !=
+                                        null) {
+                                      context
+                                          .read<JoiningDateCubit>()
+                                          .sendJoiningDate(
+                                              joiningDateApp.id!, false);
+                                    }
+                                  },
+                                  background: AppColors.primary,
+                                  text: translateLang(context, 'reject')),
+                        ))
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 16.0,

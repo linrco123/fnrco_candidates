@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/ui/screens/medical_declaration/medical_declaration_apps.dart';
 import 'ui/screens/air_ticket/air_ticket_apps.dart';
 import 'ui/screens/local_process/local_proces_apps.dart';
 import 'ui/screens/joining_date/apps_joining_date.dart';
@@ -18,7 +19,6 @@ import 'ui/screens/management_content/announcement.dart';
 import 'ui/screens/management_content/contents.dart';
 import 'ui/screens/management_content/faqs.dart';
 import 'ui/screens/management_content/polls.dart';
-import 'ui/screens/medical_declaration/medical_declaration.dart';
 import 'ui/screens/notifications.dart';
 import 'ui/screens/on_boarding/on_boarding2_screen.dart';
 import 'ui/screens/auth/otp.dart';
@@ -184,16 +184,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-      case AppPagesNames.HEALTH_CARE:
-        // return MaterialPageRoute(
-        //   builder: (context) => MedicalDeclaration(),
-        // );
-        return PageTransition(
-          child: MedicalDeclaration(),
-          type: PageTransitionType.fade,
-          alignment: Alignment.centerLeft,
-          duration: const Duration(seconds: 1),
-        );
+
       case AppPagesNames.JOB_OFFER:
         // return MaterialPageRoute(
         //   builder: (context) => JobOfferScreen(
@@ -472,7 +463,7 @@ class AppRouter {
         //     builder: (context) => MedicalDeclaration(),
         //     );
         return PageTransition(
-          child: MedicalDeclaration(),
+          child: MedicalDeclarationAppsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

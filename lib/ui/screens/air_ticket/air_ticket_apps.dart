@@ -41,6 +41,7 @@ class AirTicketApplicationsScreen extends StatelessWidget {
         body: BlocConsumer<AirTicketCubit, AirTicketState>(
           listener: (context, state) {},
           builder: (context, state) {
+            final cubit = BlocProvider.of<AirTicketCubit>(context);
             if (state is GetAirTicketInfoLoadingState) {
               return AnimatedLoadingWidget(
                 height: 150.0,
@@ -55,39 +56,36 @@ class AirTicketApplicationsScreen extends StatelessWidget {
                   });
             }
 
-            if (state is GetAirTicketInfoSuccessState) {
-              return state.applications.isEmpty
-                  ? EmptyDataWidget(
-                      message: "No job applications available Yet !!!",
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(
-                          right: 15.0, left: 15.0, top: 25.0),
-                      child: ListView.separated(
-                          itemCount: state.applications.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => BlocProvider.value(
-                                      value: airTicketCubit,
-                                      child: AirTicketScreen(
-                                        airTicketApplication:
-                                            state.applications[index],
-                                      ),
+            return cubit.airApplications.isEmpty
+                ? EmptyDataWidget(
+                    message: "No job applications available Yet !!!",
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15.0, left: 15.0, top: 25.0),
+                    child: ListView.separated(
+                        itemCount: cubit.airApplications.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => BlocProvider.value(
+                                    value: airTicketCubit,
+                                    child: AirTicketScreen(
+                                      airTicketApplication:
+                                          cubit.airApplications[index],
                                     ),
-                                  ));
-                                },
-                                child: AirTicketApplicationCard(
-                                    application: state.applications[index]),
-                              ),
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(
-                                height: 20.0,
-                              )),
-                    );
-            }
-            return AnimatedLoadingWidget(height: 150.0, width: 150.0);
+                                  ),
+                                ));
+                              },
+                              child: AirTicketApplicationCard(
+                                  application: cubit.airApplications[index]),
+                            ),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 20.0,
+                            )),
+                  );
           },
         ),
       ),

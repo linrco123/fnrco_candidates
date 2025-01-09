@@ -102,11 +102,12 @@ class JobOfferCubit extends Cubit<JobOfferState> {
     // File file = File(path)
   }
 
-  var jobApplications = List.empty(growable: true);
-
+  // var jobApplications = List.empty(growable: true);
+final jobApplications = List<JobApplication>.empty(growable: true);
   getJobApplications() {
     emit(GetJobOfferApplicationsLoadingState());
     jobOfferProvider.getJobApplications().then((value) {
+      jobApplications.addAll(value.applications!);
       emit(GetJobOfferApplicationsSuccessState(
           applications: value.applications!));
     }).catchError((error) {

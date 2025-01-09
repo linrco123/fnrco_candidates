@@ -41,6 +41,7 @@ class ContractApplicationsScreen extends StatelessWidget {
         body: BlocConsumer<JobContractCubit, ContractState>(
           listener: (context, state) {},
           builder: (context, state) {
+            var cubit = context.read<JobContractCubit>();
             if (state is GetJobContractApplicationsLoadingState) {
               return AnimatedLoadingWidget(
                 height: 150.0,
@@ -55,44 +56,40 @@ class ContractApplicationsScreen extends StatelessWidget {
                   });
             }
 
-            if (state is GetJobContractApplicationsSuccessState) {
-              return state.applications.isEmpty
-                  ? EmptyDataWidget(
-                      message: "No job applications available Yet !!!",
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(
-                          right: 15.0, left: 15.0, top: 25.0),
-                      child: ListView.separated(
-                          itemCount: state.applications.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              InkWell(
-                                onTap: () {
-
-
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => BlocProvider.value(
-                                      value: jobContractCubit
-                                        ..convertPdfData(state
-                                            .applications[index]
-                                            .pipeline!
-                                            .contractPdf!),
-                                      child: JobContractSCreen(
-                                          applicationId:
-                                              state.applications[index].id!),
-                                    ),
-                                  ));
-                                },
-                                child: ContractApplicationCard(
-                                    application: state.applications[index]),
-                              ),
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(
-                                height: 20.0,
-                              )),
-                    );
-            }
-            return AnimatedLoadingWidget(height: 150.0, width: 150.0);
+            return cubit.ContractApplications.isEmpty
+                ? EmptyDataWidget(
+                    message: "No job applications available Yet !!!",
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15.0, left: 15.0, top: 25.0),
+                    child: ListView.separated(
+                        itemCount: cubit.ContractApplications.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => BlocProvider.value(
+                                    value: jobContractCubit
+                                      ..convertPdfData(cubit
+                                          .ContractApplications[index]
+                                          .pipeline!
+                                          .contractPdf!),
+                                    child: JobContractSCreen(
+                                        jobApplication:
+                                            cubit.ContractApplications[index]),
+                                  ),
+                                ));
+                              },
+                              child: ContractApplicationCard(
+                                  application:
+                                      cubit.ContractApplications[index]),
+                            ),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 20.0,
+                            )),
+                  );
           },
         ),
       ),

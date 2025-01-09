@@ -74,6 +74,7 @@ class JobContractCubit extends Cubit<ContractState> {
   getJobApplications() {
     emit(GetJobContractApplicationsLoadingState());
     jobContractProvider.getContractApplications().then((value) {
+      ContractApplications.addAll(value.applications!);
       emit(GetJobContractApplicationsSuccessState(
           applications: value.applications!));
     }).catchError((error) {
@@ -83,7 +84,11 @@ class JobContractCubit extends Cubit<ContractState> {
   }
 
   void sendJobOfferApproval(int appId, bool value) {
-    emit(JobContractApprovalLoadingState());
+    if (value) {
+      emit(JobContractApprovalLoadingState());
+    } else {
+      emit(JobContractRejectLoadingState());
+    }
 
     Map data = {
       "candidate_application_id": appId.toString(),

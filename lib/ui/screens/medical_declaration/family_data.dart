@@ -63,7 +63,9 @@ class FamilyDataScreen extends StatelessWidget {
                 onTap: () {
                   cubit.selectDate(context);
                 },
-                text: cubit.date.isEmpty ? translateLang(context, "date_birth") : cubit.date),
+                text: cubit.date.isEmpty
+                    ? translateLang(context, "date_birth")
+                    : cubit.date),
             const SizedBox(
               height: 16.0,
             ),
@@ -82,7 +84,7 @@ class FamilyDataScreen extends StatelessWidget {
               title: "passport_number",
             ),
             CustomInputField(
-                controller: cubit.phoneCntroller,
+                controller: cubit.passportCntroller,
                 validate: cubit.validatePasport,
                 inputType: TextInputType.number,
                 hint: translateLang(context, "passport_number")),
