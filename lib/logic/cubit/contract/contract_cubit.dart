@@ -19,6 +19,8 @@ class JobContractCubit extends Cubit<ContractState> {
   JobContractCubit(
     this.jobContractProvider,
   ) : super(ContractInitial());
+
+  
   File? jobContract;
   Future<void> convertPdfData(String url) async {
     emit(GetJobContractLoadingState());
@@ -41,34 +43,6 @@ class JobContractCubit extends Cubit<ContractState> {
     }
   }
 
-  void uploadJobOffer() async {
-    await FilePicker.platform.clearTemporaryFiles();
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.any);
-    if (result != null) {
-      String fileName = result.files.first.name;
-      File cvFile = File(result.files.first.path!);
-      //emit(JobApplicationUploadResumeState());
-      _postJobOffer({});
-    }
-  }
-
-  void _postJobOffer(Map data) {
-    //TODO: code to upload (post) joboffer to backend
-  }
-
-  void downloadJobOffer(String jobOffer) async {
-    emit(ContractDownloadPDFLoadingState());
-    var fileName = jobOffer.substring(jobOffer.lastIndexOf('/') + 1);
-    var urlDir = await getExternalStorageDirectory();
-    Dio().download(jobOffer, '${urlDir!.path}/${fileName}').then((value) {
-      emit(ContractDownloadPDFSuccessState());
-    }).catchError((error) {
-      emit(ContractDownloadPDFFailureState());
-    });
-    // File file = File(path)
-  }
-
   var ContractApplications = List<ContractApplication>.empty(growable: true);
 
   getJobApplications() {
@@ -83,21 +57,52 @@ class JobContractCubit extends Cubit<ContractState> {
     });
   }
 
-  void sendJobOfferApproval(int appId, bool value) {
+  File? attachment;
+  String fileName = '';
+
+  void uploadRequestFile() async {
+    await FilePicker.platform.clearTemporaryFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      fileName = result.files.single.name;
+      attachment = File(result.files.single.path!);
+      filePicked = true;
+      emit(AttachmentUploadFileState());
+    }
+  }
+
+  void deleteRequestFile() {
+    fileName = '';
+    emit(AttachmentDeletionFileState());
+  }
+
+  bool filePicked = false;
+
+  Future<void> sendJobOfferApproval(int appId, bool value) async {
     if (value) {
       emit(JobContractApprovalLoadingState());
     } else {
       emit(JobContractRejectLoadingState());
     }
 
-    Map data = {
+    // Map data = {
+    //   "candidate_application_id": appId.toString(),
+    //   "candidate_approval": value,
+    //   "candidate_comment": "job offer stage",
+    //   "stage": candidate_contract.toString()
+    // };
+    FormData formData = FormData.fromMap({
       "candidate_application_id": appId.toString(),
-      "candidate_approval": value,
+      "candidate_approval": value ? 1 : 0,
       "candidate_comment": "job offer stage",
       "stage": candidate_contract.toString()
-    };
+    });
+    if (attachment != null) {
+      formData.files.add(MapEntry(
+          'approval_doc', await MultipartFile.fromFile(attachment!.path)));
+    }
 
-    jobContractProvider.sendJobContractApproval(data).then((value) {
+    jobContractProvider.sendJobContractApproval(formData).then((value) {
       emit(JobContractApprovalSuccessState());
     }).catchError((error) {
       emit(JobContractApprovalFailureState(message: error.failure.message));

@@ -12,10 +12,13 @@ class AirTicketProvider {
     try {
       final response = await DioHelper.dio.get(AppLinks.recruitment_process,
           queryParameters: {"stage": air_ticket});
+          logger.e('========================response=============');
+          logger.e(response.data);
       if (response.statusCode == 200) {
         return AirTicketModel.fromJson(response.data);
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       throw ApiException(
@@ -28,19 +31,21 @@ class AirTicketProvider {
     try {
       final response =
           await DioHelper.dio.post(AppLinks.send_air_ticket, data: data);
+      logger.e('=========================response=========');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
-    } on DioError catch (e) {
-       logger.e('===================error===============');
-      logger.e(e.response!.data);
-      throw ApiException(
-          failure:
-              Failure(e.response!.statusCode!, e.response!.statusMessage!));
+    } catch (e) {
+      logger.e('===================error===============');
+      logger.e(e);
+      throw Exception();
+      // throw ApiException(
+      //     failure:
+      //         Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
-
- 
 }

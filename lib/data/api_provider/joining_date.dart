@@ -13,18 +13,14 @@ class JoiningDateProvider {
   Future<JoiningDateModel> getJoiningDate() async {
     try {
       final response = await DioHelper.dio.get(AppLinks.recruitment_process,
-      queryParameters: {
-        'stage':joining_date,
-        "joining_dates":true
-      }
-      
-      );
+          queryParameters: {'stage': joining_date, "joining_dates": true});
       print('==================response==============');
       logger.e(response.data);
       if (response.statusCode == 200) {
-        return JoiningDateModel.fromJson( response.data);
+        return JoiningDateModel.fromJson(response.data);
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       print('==================error==============');
@@ -35,17 +31,18 @@ class JoiningDateProvider {
     }
   }
 
- Future<bool> sendJoiningDate(Map data) async {
+  Future<bool> sendJoiningDate(Map data) async {
     try {
       final response =
           await DioHelper.dio.post(AppLinks.application_approval, data: data);
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return Future.error(response.statusCode!);
+         return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
-       logger.e('===================error===============');
+      logger.e('===================error===============');
       logger.e(e.response!.data);
       throw ApiException(
           failure:

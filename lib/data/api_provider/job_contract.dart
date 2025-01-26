@@ -13,10 +13,12 @@ class JobContractProvider {
     try {
       final response = await DioHelper.dio.get(AppLinks.recruitment_process,
           queryParameters: {"stage": candidate_contract});
+          logger.e(response.data);
       if (response.statusCode == 200) {
         return JobContractModel.fromJson(response.data);
       } else {
-        return Future.error(response.statusCode!);
+         return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       throw ApiException(
@@ -26,7 +28,7 @@ class JobContractProvider {
   }
 
 
-  Future<bool> sendJobContractApproval(Map data) async {
+  Future<bool> sendJobContractApproval(FormData data) async {
     try {
       final response =
           await DioHelper.dio.post(AppLinks.application_approval, data: data);
@@ -36,7 +38,8 @@ class JobContractProvider {
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return Future.error(response.statusCode!);
+         return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       logger.e('===================error===============');

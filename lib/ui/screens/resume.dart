@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import '../../core/functions/translate.dart';
 import '../../logic/cubit/resume/resume_cubit.dart';
 import '../../constants/app_colors.dart';
-import '../../core/localizations/app_localizations.dart';
 import '../widgets/auth/custom_elevated_btn.dart';
 import '../widgets/profile/title_text.dart';
 import '../widgets/return_btn.dart';
@@ -15,9 +15,9 @@ class ResumeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: AppColors.white,
         title: Text(
-          'My Resume',
+          translateLang(context, "my_resume"),
           style: TextStyle(
             color: AppColors.primary,
           ),
@@ -37,18 +37,12 @@ class ResumeScreen extends StatelessWidget {
             ResumeCubit resumeCubit = ResumeCubit.instance(context);
             return SingleChildScrollView(
               child: Container(
-                color: Colors.grey.shade200,
+                color: AppColors.white,
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Container(
-                    //   margin: const EdgeInsets.symmetric(vertical: 15.0),
-                    //   child: Text('Resume Attachment',
-                    //       style: TextStyle(
-                    //           color: AppColors.primary, fontSize: 18.0)),
-                    // ),
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -58,7 +52,7 @@ class ResumeScreen extends StatelessWidget {
                     ),
                     Container(
                       width: double.infinity / 2,
-                      height: 103,
+                      height: resumeCubit.fileName.isEmpty ? 103 : 300,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(10),
@@ -77,35 +71,104 @@ class ResumeScreen extends StatelessWidget {
                                     Icons.attach_file,
                                     color: AppColors.primary,
                                   )
-                                : GestureDetector(
-                                    onTap: () {
-                                      resumeCubit.removeFile();
-                                    },
-                                    child: Icon(
-                                      CupertinoIcons.bin_xmark,
-                                      color: AppColors.primary,
-                                    ),
+                                : Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: double.infinity / 2,
+                                        height: 300,
+                                        child: PDFView(
+                                          filePath: resumeCubit.pdfFile!.path,
+                                          enableSwipe: true,
+                                          swipeHorizontal: true,
+                                          autoSpacing: false,
+                                          pageFling: true,
+                                          pageSnap: true,
+                                          fitEachPage: true,
+                                          defaultPage: 1,
+                                          fitPolicy: FitPolicy.BOTH,
+                                          preventLinkNavigation: false,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 0.0,
+                                        right: 0.0,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.black
+                                          ),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              resumeCubit.removeFile();
+                                            },
+                                            child: Icon(
+                                              Icons.close,
+                                              color: AppColors.white,
+                                              size: 20,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                            const SizedBox(height: 10),
-                            Text(
-                              resumeCubit.fileName.isEmpty
-                                  ? AppLocalizations.of(context)!
-                                      .translate('upload_file')
-                                  : resumeCubit.fileName,
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
+                            if (resumeCubit.fileName.isEmpty)
+                              const SizedBox(height: 10),
+                            resumeCubit.fileName.isEmpty
+                                ? Text(
+                                    translateLang(context, 'upload_file'),
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  )
+                                : SizedBox.shrink()
                           ],
                         ),
                       ),
                     ),
-                    // Container(
-                    //   margin: const EdgeInsets.symmetric(vertical: 15.0),
-                    //   child: Text('Intro & Overview',
-                    //       style: TextStyle(
-                    //           color: AppColors.primary, fontSize: 18.0)),
-                    // ),
+                    // resumeCubit.fileName.isNotEmpty
+                    //     ? SizedBox(
+                    //         width: double.infinity / 2,
+                    //         height: 300,
+                    //         child: PDFView(
+                    //           filePath: resumeCubit.pdfFile!.path,
+                    //           enableSwipe: true,
+                    //           swipeHorizontal: true,
+                    //           autoSpacing: false,
+                    //           pageFling: true,
+                    //           pageSnap: true,
+                    //           fitEachPage: true,
+                    //           defaultPage: 1,
+                    //           fitPolicy: FitPolicy.BOTH,
+                    //           preventLinkNavigation: false,
+                    //           onRender: (p) {
+                    //             // controller.pages = p;
+                    //             // controller.changeIsReady(false);
+                    //           },
+                    //           onError: (error) {
+                    //             // controller.errorMessage = error.toString();
+                    //             // if (kDebugMode) {
+
+                    //             // }
+                    //           },
+                    //           onPageError: (page, error) {
+                    //             // controller.errorMessage = '$page: ${error.toString()}';
+                    //             // if (kDebugMode) {
+
+                    //             // }
+                    //           },
+                    //           onViewCreated: (pdfCtrl) {
+                    //             // controller.cTr.complete(pdfCtrl);
+                    //           },
+                    //           onLinkHandler: (String? uri) {
+                    //             // if (kDebugMode) {
+
+                    //             // }
+                    //           },
+                    //           onPageChanged: (int? page, int? total) {},
+                    //         ),
+                    //       )
+                    //     : SizedBox.shrink(),
+
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -128,12 +191,7 @@ class ResumeScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.0),
                           )),
                     ),
-                    // Container(
-                    //   margin: const EdgeInsets.symmetric(vertical: 15.0),
-                    //   child: Text('Education',
-                    //       style: TextStyle(
-                    //           color: AppColors.primary, fontSize: 18.0)),
-                    // ),
+
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -239,7 +297,10 @@ class ResumeScreen extends StatelessWidget {
                       height: 20.0,
                     ),
 
-                    CustomTitle(title: "skills_expers",frontP: 0.0,),
+                    CustomTitle(
+                      title: "skills_expers",
+                      frontP: 0.0,
+                    ),
                     Row(
                       children: [
                         Expanded(

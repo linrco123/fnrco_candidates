@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'optional_file_screen.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
 import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
@@ -82,12 +83,8 @@ class MedicalDeclarationScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 0),
                   child: MyStepper(
-                    child: const ['1', '2', '3'],
-                    titles: [
-                      "Personal data",
-                      "Declaration",
-                      "Family",
-                    ],
+                    child: const ['1', '2', '3', '4'],
+                    titles: ["Personal", "Declaration", "Family", "File"],
                     width: MediaQuery.of(context).size.width,
                     curStep: medicalDeclareCubit.currentStep,
                     color: AppColors.primary,
@@ -106,7 +103,7 @@ class MedicalDeclarationScreen extends StatelessWidget {
                           medicalDeclareCubit.submit(context, 10);
                         },
                         background: AppColors.primary,
-                        text: medicalDeclareCubit.currentStep != 3
+                        text: medicalDeclareCubit.currentStep != 4
                             ? translateLang(context, 'next')
                             : translateLang(context, 'submit')),
                 const SizedBox(
@@ -128,7 +125,8 @@ class MedicalDeclarationScreen extends StatelessWidget {
 
       case 3:
         return FamilyDataScreen();
-
+      case 4:
+        return OptionalFileScreen();
       default:
         return SizedBox();
     }

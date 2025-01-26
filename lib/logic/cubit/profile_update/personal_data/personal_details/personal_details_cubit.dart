@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../../../../core/classes/cache_helper.dart';
 import '../../../../../core/functions/show_toast.dart';
 import '../../../../../core/functions/translate.dart';
@@ -15,7 +16,7 @@ import '../../../../../data/models/auth/sign_up/positions_model.dart';
 import '../../../../../data/models/auth/sign_up/religion_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:toastification/toastification.dart';
-
+import 'package:path_provider/path_provider.dart';
 part 'personal_details_state.dart';
 
 class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
@@ -40,7 +41,10 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
 
   void selectDateOfBirth(context) async {
     DateTime? birthofDate = await showDatePicker(
-        context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
+        initialEntryMode: DatePickerEntryMode.calendar,
+        context: context,
+        firstDate: DateTime(1950),
+        lastDate: DateTime.now());
     birthDate =
         "${birthofDate!.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
     emit(PersonalDetailsPickingUpDate());
@@ -129,28 +133,54 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   }
 
   File? fileImage;
-  MultipartFile? partFile;
 
   void changeProfileImage() async {
     await FilePicker.platform.clearTemporaryFiles();
     final result = await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null) {
       fileImage = File(result.files.first.path!);
-      await createImageFile(fileImage!.path);
+      //await createImageFile(fileImage!.path);
       CacheHelper.storeUserImage(result.files.first.path!);
       emit(PersonalDetailsSuccessChangeImageState());
     }
   }
 
-  Future<void> createImageFile(String imagePath) async {
+  String fileName = '';
+  File? pdfFile;
+
+  void pickFile() async {
     try {
-      print(
-          '====================================================================================');
-      partFile = await MultipartFile.fromFile(fileImage!.path,
-          filename: fileImage!.path.split('/').last);
+      FilePickerResult? result = await FilePicker.platform
+          .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+      if (result != null) {
+        //PlatformFile file = result.files.first;
+        File file = File(result.files.first.path!);
+        fileName = result.files.first.name;
+        // file.identifier;
+        if (await file.existsSync()) {
+          logger.e('=====================File Exists ===================');
+          logger.e(fileName.isEmpty);
+
+          final Directory dirPAth = await getApplicationDocumentsDirectory();
+          final String newPath =
+              '${dirPAth.path}/${fileName.substring(fileName.lastIndexOf('/') + 1)}';
+
+          file.copy(newPath);
+
+          pdfFile = File(
+              '${dirPAth.path}/${fileName.substring(fileName.lastIndexOf('/') + 1)}');
+        }
+        emit(ResumePickAttachmentFileState());
+      }
     } catch (e) {
-      print('================================ $e');
+      print('exception:::::::::::::::::::::::::::::::::::: $e');
     }
+  }
+
+  void removeFile() {
+    pdfFile = null;
+    fileName = '';
+    emit(ResumePickAttachmentFileState());
   }
 
   Future<void> submitPersonalData(context) async {
@@ -203,13 +233,33 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           "email": emailController.text,
           "references": "references",
           "person_dob": birthDate,
-         // "person_image": partFile,
+          // "person_image": partFile,
           "_method": "PUT"
         });
-        formData.files.add(MapEntry("person_image", partFile!));
+
+        //logger.e(await pdfFile!.exists());
+
+        //Add person image to form data
+        if (await fileImage!.exists()) {
+          formData.files.add(MapEntry(
+              "person_image",
+              await MultipartFile.fromFile(fileImage!.path,
+                  filename: fileImage!.path.split('/').last)));
+        }
+
+        //Add person cv  to form data
+        if (await pdfFile!.exists()) {
+          formData.files.add(MapEntry(
+              "person_original_cv",
+              await MultipartFile.fromFile(pdfFile!.path,
+                  filename: pdfFile!.path.split('/').last)));
+        }
+
         print('===============personal Data =====================');
-        print(formData.fields);
-        print(formData.files.first.value);
+       // print(formData.fields);
+        logger.e(formData.files.first.value.filename);
+         logger.e(formData.files.first.key);
+        logger.e(formData.files[1].value.filename);
         personalDetailsProvider.submitPersonalData(formData).then((value) {
           emit(PersonalDetailsSuccessState());
         }).catchError((error) {

@@ -51,7 +51,7 @@ class WelcomeCard extends StatelessWidget {
                 Text(
                   overflow:TextOverflow.ellipsis,
                   maxLines: 1,
-                  description, style: Theme.of(context).textTheme.titleSmall),
+                  description, style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 15)),
               ],
             ),
           ),

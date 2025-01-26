@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fnrco_candidates/ui/screens/medical_declaration/medical_declaration_apps.dart';
+import '../../../core/functions/exit.dart';
+import '../medical_declaration/medical_declaration_apps.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../data/api_provider/home/home_tap_provider.dart';
 import '../../../logic/cubit/home_page/home_page_cubit.dart';
@@ -186,7 +187,7 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.JOB_OFFER,
+                                            AppPagesNames.JOB_OFFERS,
                                             arguments: {'data': "Muhammed"});
                                       },
                                       leading: SvgPicture.asset(
@@ -224,7 +225,7 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.VISA_APPROVAL);
+                                            AppPagesNames.VISA_APPROVALS);
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.visa,
@@ -262,7 +263,7 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.LOCAL_PROCESS);
+                                            AppPagesNames.LOCAL_PROCESSES);
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.local_process,
@@ -281,7 +282,7 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.JOINING_DATE);
+                                            AppPagesNames.JOINING_DATES);
                                       },
                                       leading: Icon(
                                         CupertinoIcons.calendar,
@@ -297,7 +298,7 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.AIR_TICKET);
+                                            AppPagesNames.AIR_TICKETS);
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.air_ticket,
@@ -315,22 +316,83 @@ class HomePageScreen extends StatelessWidget {
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
-                                            AppPagesNames.RESUME);
+                                            AppPagesNames.REQUEST);
+                                      },
+                                      leading: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
+                                        child: SvgPicture.asset(
+                                          AppImages.request,
+                                          width: 27.0, height: 27.0,
+                                          // ignore: deprecated_member_use
+                                          color: AppColors.black,
+                                        ),
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('request'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.SHARED_DOCUMENTS);
                                       },
                                       leading: SvgPicture.asset(
-                                        AppImages.RESUME,
+                                        AppImages.shared,
                                         width: 27.0, height: 27.0,
                                         // ignore: deprecated_member_use
                                         color: AppColors.black,
                                       ),
                                       title: Text(
                                         AppLocalizations.of(context)!
-                                            .translate("resume"),
+                                            .translate("shared_documents"),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall,
                                       ),
                                     ),
+                                      ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.OVERVIEW);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.overview,
+                                        width: 27.0, height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("overview"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+                                    // ListTile(
+                                    //   onTap: () {
+                                    //     Navigator.of(context).popAndPushNamed(
+                                    //         AppPagesNames.RESUME);
+                                    //   },
+                                    //   leading: SvgPicture.asset(
+                                    //     AppImages.RESUME,
+                                    //     width: 27.0, height: 27.0,
+                                    //     // ignore: deprecated_member_use
+                                    //     color: AppColors.black,
+                                    //   ),
+                                    //   title: Text(
+                                    //     AppLocalizations.of(context)!
+                                    //         .translate("resume"),
+                                    //     style: Theme.of(context)
+                                    //         .textTheme
+                                    //         .titleSmall,
+                                    //   ),
+                                    // ),
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
@@ -521,7 +583,12 @@ class HomePageScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-            body: _buildBody(context, homePageCubit.selectedIndex),
+            body: PopScope(
+                canPop: false,
+                onPopInvokedWithResult: (didPop, result) {
+                  confirmExit(context);
+                },
+                child: _buildBody(context, homePageCubit.selectedIndex)),
             bottomNavigationBar: StylishBottomBar(
               borderRadius: BorderRadius.circular(16.0),
               backgroundColor: AppColors.white,

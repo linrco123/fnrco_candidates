@@ -19,7 +19,8 @@ class AnnouncementProvider {
       if (response.statusCode == 200) {
         return AnnouncementModel.fromJson(response.data);
       }else{
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       logger.e('======================= Error =================');

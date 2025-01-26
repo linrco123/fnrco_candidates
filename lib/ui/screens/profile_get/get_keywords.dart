@@ -36,7 +36,9 @@ class _GetPersonalDetailsScreenState extends State<GetKeywordsScreen> {
       }
  if(state is AboutMeGetkeywordsSuccessState){
       return state.keywords.isEmpty
-          ? EmptyDataWidget()
+          ? EmptyDataWidget(
+            message: "No keywords available Yet !!!",
+          )
           : Container(
               height: double.infinity,
               width: double.infinity,

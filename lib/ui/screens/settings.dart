@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../constants/app_pages_names.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_images_path.dart';
 import '../../core/localizations/app_localizations.dart';
@@ -38,16 +39,16 @@ class SettingsScreen extends StatelessWidget {
                 var settingsCubit = BlocProvider.of<SettingsCubit>(context);
                 return ListView(
                   children: [
-                    // _addSettingItem(
-                    //     context: context,
-                    //     image: AppImages.TRANSLATE,
-                    //     text:
-                    //         AppLocalizations.of(context)!.translate('language'),
-                    //     onTap: () {
-                    //       //////language change
-                    //       settingsCubit.showLanguageDialogue(context);
-                    //     }),
-                   // _divider(),
+                    _addSettingItem(
+                        context: context,
+                        image: AppImages.TRANSLATE,
+                        text:
+                            AppLocalizations.of(context)!.translate('language'),
+                        onTap: () {
+                          //////language change
+                          settingsCubit.showLanguageDialogue(context);
+                        }),
+                    _divider(),
 
                     // Account Settings field
                     _addSettingItem(
@@ -62,7 +63,10 @@ class SettingsScreen extends StatelessWidget {
                         image: AppImages.FILE_FILLED,
                         text: AppLocalizations.of(context)!
                             .translate('terms_conditions'),
-                        onTap: () {}),
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(AppPagesNames.TERMS_CONDITIONS);
+                        }),
 
                     _divider(),
 

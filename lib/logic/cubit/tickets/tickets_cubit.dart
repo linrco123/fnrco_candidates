@@ -140,7 +140,7 @@ class TicketsCubit extends Cubit<TicketsState> {
           message: translateLang(context, e.toString())));
     }
   }
-
+  
   void uploadTicketFile() async {
     await FilePicker.platform.clearTemporaryFiles();
     FilePickerResult? result = await FilePicker.platform.pickFiles();

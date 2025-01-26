@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/data/api_provider/medical_declare.dart';
-import 'package:fnrco_candidates/data/models/medical_declaration_app_model.dart';
-import 'package:fnrco_candidates/logic/cubit/medical_declare/medical_declare_cubit.dart';
-import 'package:fnrco_candidates/ui/screens/medical_declaration/medical_declaration.dart';
+import '../../../data/api_provider/medical_declare.dart';
+import '../../../data/models/medical_declaration_app_model.dart';
+import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
+import 'medical_declaration.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
 import '../../widgets/empty_data_widget.dart';
@@ -51,7 +52,7 @@ class MedicalDeclarationAppsScreen extends StatelessWidget {
             }
             if (state is GetMedicalApplicationsFailureState) {
               return FailureWidget(
-                showImage: true,
+                  showImage: true,
                   title: state.message,
                   onTap: () {
                     context
@@ -72,15 +73,19 @@ class MedicalDeclarationAppsScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BlocProvider.value(
-                                    value: medicalDeclareCubit
-                                      ..getClasifications()
-                                      ..getGenders()
-                                      ..getMedicalQuestions(),
-                                    child: MedicalDeclarationScreen(),
-                                  ),
-                                ));
+                                Navigator.of(context).push(PageTransition(
+                                    child: BlocProvider.value(
+                                      value: medicalDeclareCubit
+                                        ..getClasifications()
+                                        ..getGenders()
+                                        ..getMedicalQuestions(),
+                                      child: MedicalDeclarationScreen(),
+                                    ),
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.centerLeft,
+                                    duration: const Duration(seconds: 1)));
+
+                                
                                 medicalDeclareCubit.storeHDF(cubit
                                     .medicalApplications[index]
                                     .pipeline!

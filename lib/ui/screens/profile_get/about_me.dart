@@ -43,10 +43,9 @@ class AboutMe extends StatelessWidget {
                                 width: 150,
                                 child: CustomElevatedButton(
                                     fun: () {
-
+                                      
                                       cubit.changeSection(
                                           cubit.sections[index].index);
-                                          
                                     },
                                     background: cubit.sections[index].index ==
                                             cubit.section

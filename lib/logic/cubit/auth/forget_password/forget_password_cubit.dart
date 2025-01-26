@@ -33,7 +33,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
         IDENTIFIER_KEYWORD: forgetPasswordController.text
       };
       forgetPasswordProvider.forgetPassword(data).then((value) {
-        emit(ForgetPasswordSuccessState(code: value!));
+        emit(ForgetPasswordSuccessState(code: value));
       }).catchError((error) {
 
         emit(ForgetPasswordFailureState(message: error.failure.message.toString()));

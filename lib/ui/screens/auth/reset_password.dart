@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../../constants/app_pages_names.dart';
 import '../../../constants/constances.dart';
 import '../../../core/functions/show_toast.dart';
@@ -38,7 +39,8 @@ class ChangePasswordScreen extends StatelessWidget {
 
             if (state is ResetPasswordFailureState) {
               showToast(context,
-                  title: translateLang(context, 'error'),
+                  title:
+                      translateLang(context, translateLang(context, 'error')),
                   desc: state.message!,
                   type: ToastificationType.error);
             }
@@ -82,6 +84,8 @@ class ChangePasswordScreen extends StatelessWidget {
                     ? AnimatedLoadingWidget()
                     : CustomElevatedButton(
                         fun: () {
+                          logger.e(
+                              '===============================eeee=====================');
                           cubit.resetPassword(
                               context, routedData['identifier']);
                         },
@@ -121,9 +125,7 @@ class LogoWithTitle extends StatelessWidget {
               ),
               Text(
                 title,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),

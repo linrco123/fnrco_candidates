@@ -27,12 +27,16 @@ class VerificationScreen extends StatelessWidget {
         title: translateLang(context, "verification_code"),
         subText: translateLang(context, "enter_the_code_sent_to"),
         children: [
-          Text(
-            "+1 18577 11111",
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium!
-                .copyWith(color: AppColors.grey),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30),
+            child: Text(
+              "Enter code you have just received onto your mail",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(color: AppColors.grey),
+            ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           // OTP Form
@@ -76,7 +80,7 @@ class OtpForm extends StatelessWidget {
           }
           if (state is OtpFailureState) {
             showToast(context,
-                title: 'error',
+                title: translateLang(context, 'error'),
                 desc: state.message,
                 type: ToastificationType.error);
           }
@@ -99,7 +103,7 @@ class OtpForm extends StatelessWidget {
           }
           if (state is OTPResendVerificationCodeFailureState) {
             showToast(context,
-                title: translateLang(context, 'error'),
+                title: translateLang(context, translateLang(context, 'error')),
                 desc: state.message!,
                 type: ToastificationType.error);
           }

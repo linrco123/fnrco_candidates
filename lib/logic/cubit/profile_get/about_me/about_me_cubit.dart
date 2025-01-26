@@ -18,7 +18,7 @@ import '../../../../ui/screens/profile_get/get_achievements.dart';
 import '../../../../ui/screens/profile_get/get_contacts.dart';
 import '../../../../ui/screens/profile_get/get_credentials.dart';
 import '../../../../ui/screens/profile_get/get_education.dart';
-import '../../../../ui/screens/profile_get/get_experiences.dart';
+import '../../../../ui/screens/profile_get/experience/get_experiences.dart';
 import '../../../../ui/screens/profile_get/get_keywords.dart';
 import '../../../../ui/screens/profile_get/get_languages.dart';
 import '../../../../ui/screens/profile_get/get_notes.dart';

@@ -1,19 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
 import 'package:fnrco_candidates/core/classes/cache_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/models/documents_category.dart';
 import 'package:fnrco_candidates/data/models/local_process_model.dart';
-import 'package:meta/meta.dart';
+import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:fnrco_candidates/data/api_provider/local_process.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 part 'local_process_state.dart';
 
 class LocalProcessCubit extends Cubit<LocalProcessState> {
@@ -52,15 +59,15 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
 
   void storeLocalProcessAttachments(List<LocalProcessPipeLine> list) {
     // ignore: unused_local_variable
-    //localProcessAttachments.clear();
-    localProcessAttachments.addAll(list);
+    localProcessAttachments.clear();
+    // localProcessAttachments.addAll(list);
     logger.e(
         ' localProcessAttachments.length======>>>. ${localProcessAttachments.length}');
     localProcessAttachments.length;
     // int i = 0;
-    // for (LocalProcessPipeLine pipeline in list) {
-    //   localProcessAttachments.addAll(pipeline);
-    // }
+    for (LocalProcessPipeLine pipeline in list) {
+      localProcessAttachments.add(pipeline);
+    }
   }
 
   void requestPermission() async {
@@ -86,7 +93,8 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
       Directory appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
       String newFilePath = '$appDocPath/${originalFile.path.split('/').last}';
-
+      logger.e('===================file path======================');
+      logger.e(newFilePath);
       // Copy the file
       File newFile = await originalFile.copy(newFilePath);
 
@@ -121,15 +129,15 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
     emit(LocalProcessDeleteAttachmentState());
   }
 
-  bool _checkEmptyFile() {
-    return localProcessAttachments
-        .where((pipeLine) => pipeLine.pathFile!.isEmpty)
-        .toList()
-        .isNotEmpty;
-  }
+  // bool _checkEmptyFile() {
+  //   return localProcessAttachments
+  //       .where((pipeLine) => pipeLine.pathFile!.isEmpty)
+  //       .toList()
+  //       .isNotEmpty;
+  // }
 
   void submitAttachments(context) {
-    if (_checkEmptyFile()) {
+    if (_checkNotNewAttachment()) {
       emit(LocalProcessCheckEmptyAttachmentState());
     } else {
       _submit(context);
@@ -161,22 +169,29 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
       });
 
       for (int i = 0; i < localProcessAttachments.length; i++) {
-        request.fields['data[$i][step_id]'] =
-            localProcessAttachments[i].stepId!.toString();
+        if (_checkEmptyOrHttpsElementInAttachments(
+            localProcessAttachments[i].pathFile!)) {
+          request.fields['data[$i][step_id]'] =
+              localProcessAttachments[i].stepId!.toString();
+        }
       }
 
       for (int i = 0; i < localProcessAttachments.length; i++) {
         logger.e(localProcessAttachments.length);
-        File file = File(localProcessAttachments[i].pathFile!);
-        logger.e('=======================file===$i===============');
-        logger.e(await file.exists());
-        if (await file.exists()) {
-          var filePath = file.path
-              .replaceAll(RegExp(r'^File: '), '')
-              .replaceAll(RegExp(r"^'|'$"), '')
-              .trim();
-          request.files.add(
-              await http.MultipartFile.fromPath('data[$i][file]', filePath));
+
+        if (_checkEmptyOrHttpsElementInAttachments(
+            localProcessAttachments[i].pathFile!)) {
+          File file = File(localProcessAttachments[i].pathFile!);
+          logger.e('=======================file===$i===============');
+          logger.e(await file.exists());
+          if (await file.exists()) {
+            var filePath = file.path
+                .replaceAll(RegExp(r'^File: '), '')
+                .replaceAll(RegExp(r"^'|'$"), '')
+                .trim();
+            request.files.add(
+                await http.MultipartFile.fromPath('data[$i][file]', filePath));
+          }
         }
       }
 
@@ -197,5 +212,89 @@ class LocalProcessCubit extends Cubit<LocalProcessState> {
       emit(SubmitLocalProcessAttachmentsFailureState(
           message: translateLang(context, "msg_request_failure")));
     }
+  }
+
+  File? pdfFile;
+  Future<void> convertUrlFileToPdfFile(String url) async {
+    Completer<File> completer = Completer();
+    try {
+      final filename = url.substring(url.lastIndexOf("/") + 1);
+      var request = await HttpClient().getUrl(Uri.parse(url));
+      var response = await request.close();
+      var bytes = await consolidateHttpClientResponseBytes(response);
+      var dir = await getApplicationDocumentsDirectory();
+      File file = File("${dir.path}/$filename");
+      await file.writeAsBytes(bytes, flush: true);
+      if (await file.exists()) {
+        pdfFile = file;
+      }
+      completer.complete(file);
+    } catch (e) {}
+  }
+
+  Widget showDocument(String path, double value) {
+    if (path.contains('.pdf')) {
+      if (path.contains('https')) {
+        return SizedBox(
+            height: 300.0,
+            width: double.infinity,
+            child: SfPdfViewer.network(
+              path,
+            ));
+      } else {
+        return SizedBox(
+            height: 300.0,
+            width: double.infinity,
+            child: PDFView(
+              filePath: path,
+            ));
+      }
+    } else {
+      if (path.contains('https')) {
+        return CachedNetworkImage(
+          // height: 300.0,
+          width: double.infinity,
+          fit: BoxFit.cover,
+          imageUrl: path,
+          progressIndicatorBuilder: (context, url, progress) =>
+              AnimatedLoadingWidget(),
+          errorWidget: (context, url, error) => Icon(
+            Icons.error,
+            color: AppColors.primary,
+            size: 25.0,
+          ),
+        );
+      } else {
+        return Image.file(
+          File(path),
+          // height: 300,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        );
+      }
+    }
+  }
+
+  // void _deleteEmptyAndUploadedFiles() {
+  //   final List<LocalProcessPipeLine> list = localProcessAttachments
+  //       .where((element) =>
+  //           element.pathFile!.isEmpty || element.pathFile!.contains('https'))
+  //       .toList();
+
+  //   for (int i = 0; i < list.length; i++) {
+  //     localProcessAttachments.remove(list[i]);
+  //   }
+  // }
+
+  bool _checkNotNewAttachment() {
+    return localProcessAttachments
+        .where((element) =>
+            _checkEmptyOrHttpsElementInAttachments(element.pathFile!))
+        .toList()
+        .isEmpty;
+  }
+
+  bool _checkEmptyOrHttpsElementInAttachments(String path) {
+    return path.isNotEmpty && !path.contains('https');
   }
 }

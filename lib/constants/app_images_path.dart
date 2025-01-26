@@ -23,7 +23,9 @@ class AppImages {
   static const SPLASH = '$_images/splash.png';
   static const SALARY = '$_images/salary.png';
   static const JOB_OFFER = '$_images/job-offer.png';
-  static const CHECKED = '$_images/check.png';
+  static const BLUE_CHECK = '$_images/check.png';
+  static const GREEN_CHECKED = '$_images/checked.png';
+  static const RED_CHECKED = '$_images/red_checked.png';
   static const COMPANY = '$_images/company.jpg';
   static const User = '$_images/user.png';
   static const graduate1 = '$_images/graduate1.png';
@@ -37,9 +39,9 @@ class AppImages {
   static const religion1 = '$_images/religion1.png';
   static const marital_status = '$_images/couple.png';
 
-  static const fingerPrint = '$_images/fingerprint.png';
+  //static const fingerPrint = '$_images/fingerprint.png';
   static const fingerPrint1 = '$_images/fingerprint1.png';
-  static const fingerPrint2 = '$_images/fingerprint2.png';
+ // static const fingerPrint2 = '$_images/fingerprint2.png';
   static const wifi1 = '$_images/wifi1.png';
   static const wifi3 = '$_images/wifi3.png';
   static const wifi_off = '$_images/wifi-off.png';
@@ -53,6 +55,7 @@ class AppImages {
   static const youtubePNG = '$_images/youtube.png';
   static const arabic = '$_images/ar.png';
   static const english = '$_images/en.jpeg';
+  static const flutter_error = '$_images/flutter_error.png';
 
   //////////////////////////////TODO onBoarding /////////////////////////////
   ///board1.png
@@ -95,4 +98,9 @@ class AppImages {
   static const local_process = "$_svg/local-process.svg";
   static const contract = "$_svg/contract.svg";
   static const offer = "$_svg/offer.svg";
+  static const request = "$_svg/request.svg";
+  static const share = "$_svg/share.svg";
+  static const shared = "$_svg/shared.svg";
+  static const document = "$_svg/document.svg";
+  static const overview = "$_svg/overview.svg";
 }

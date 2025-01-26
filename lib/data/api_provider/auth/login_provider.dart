@@ -4,52 +4,46 @@ import 'dart:async';
 
 import 'package:dio2/dio2.dart';
 import 'package:fnrco_candidates/constants/app_urls.dart';
+import 'package:fnrco_candidates/core/classes/dio_helper.dart';
 import 'package:fnrco_candidates/core/classes/exceptions.dart';
 import 'package:fnrco_candidates/core/classes/failure.dart';
 import 'package:fnrco_candidates/data/models/auth/login_model.dart';
-import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 class LoginProvider {
-  late Dio dio;
+  //late Dio dio;
   LoginProvider() {
-    BaseOptions _baseOptions = BaseOptions(
-        baseUrl: AppLinks.baseUrl,
-        receiveDataWhenStatusError: true,
-        // connectTimeout: 20 * 1000,
-        // receiveTimeout: 20 * 1000,
-        headers: {
-          'Accept': 'application/json',
-          'content-Type': 'application/json',
-          //"authorization": "bearer ${CacheHelper.getAuthToken()}"
-        });
-    dio = Dio(_baseOptions);
+    // BaseOptions _baseOptions = BaseOptions(
+    //     baseUrl: AppLinks.baseUrl,
+    //     receiveDataWhenStatusError: true,
+    //     // connectTimeout: 20 * 1000,
+    //     // receiveTimeout: 20 * 1000,
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'content-Type': 'application/json',
+    //       //"authorization": "bearer ${CacheHelper.getAuthToken()}"
+    //     });
+    // dio = Dio(_baseOptions);
   }
 
-  Future<LoginModel?> logIn(Map data) async {
+  Future<LoginModel> logIn(Map data) async {
     try {
-      final Response response = await dio.post(
+      final Response response = await DioHelper.dio.post(
         AppLinks.logIn,
         data: data,
       );
       if (response.statusCode == 200 && response.data['status'] == true) {
         return LoginModel.fromJson(response.data);
+      } else {
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       print('========================login error ================');
       print(e.response!.data);
-      print('e.error   ======================= ${e.error}');
-      print('e.message  ======================= ${e.message}');
-      print('e.request!.data ======================= ${e.request!.data}');
-      print(
-          'e.response!.statusCode======================= ${e.response!.statusCode}');
-      print('e.response!.data======================= ${e.response!.data}');
-      logger.d(e.response!.data);
-
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
     }
-    return null;
   }
 }
 

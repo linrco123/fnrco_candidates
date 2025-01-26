@@ -40,7 +40,9 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
        
        if(state is AboutMeGetAchievementsSuccessState){
          return state .achievements.isEmpty
-            ? EmptyDataWidget()
+            ? EmptyDataWidget(
+              message: "No achievements available Yet !!!",
+            )
             : Container(
                 height: double.infinity,
                 width: double.infinity,

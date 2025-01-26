@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../data/api_provider/local_process.dart';
 import '../../../data/models/local_process_model.dart';
 import '../../../logic/cubit/local_process/local_process_cubit.dart';
@@ -51,7 +52,7 @@ class LocalProcessApplicationsScreen extends StatelessWidget {
 
             if (state is GetLocalProcessDataFailureState) {
               return FailureWidget(
-                showImage: true,
+                  showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<LocalProcessCubit>().getLocalProcessData();
@@ -70,16 +71,19 @@ class LocalProcessApplicationsScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BlocProvider.value(
-                                    value: localProcessCubit,
-                                    child: LocalProcessScreen(
-                                      localProcessPipeline: cubit
-                                          .localProcessApplications[index]
-                                          .pipeline!,
+                                Navigator.of(context).push(PageTransition(
+                                    child: BlocProvider.value(
+                                      value: localProcessCubit,
+                                      child: LocalProcessScreen(
+                                        localProcessPipeline: cubit
+                                            .localProcessApplications[index]
+                                            .pipeline!,
+                                      ),
                                     ),
-                                  ),
-                                ));
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.centerLeft,
+                                    duration: const Duration(seconds: 1)));
+
                                 context
                                     .read<LocalProcessCubit>()
                                     .storeLocalProcessAttachments(cubit

@@ -1,4 +1,5 @@
 import 'package:dio2/dio2.dart';
+import '../../core/classes/exceptions.dart';
 import '../../constants/app_urls.dart';
 import '../../core/classes/dio_helper.dart';
 import '../../core/classes/failure.dart';
@@ -19,13 +20,15 @@ class TutorialProvider {
       if (response.statusCode == 200) {
         return TutorialsModel.fromJson(response.data);
       } else {
-        return await Future.error(response.statusCode!);
+       return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       logger.e('====================Error==================');
       logger.e(e);
-      return await Future.error(
-          Failure(e.response!.statusCode!, e.response!.data['message']));
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
 

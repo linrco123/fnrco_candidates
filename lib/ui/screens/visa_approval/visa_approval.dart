@@ -72,7 +72,9 @@ class VisaApprovalScreen extends StatelessWidget {
                           validate: (context, s) => s,
                           inputType: TextInputType.name,
                           enabled: false,
-                          hint: visaApprovalApplication.pipeline!.positionName),
+                          hint: visaApprovalApplication.pipeline != null
+                              ? visaApprovalApplication.pipeline!.positionName
+                              : "empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -83,8 +85,9 @@ class VisaApprovalScreen extends StatelessWidget {
                           validate: (context, s) => s,
                           enabled: false,
                           inputType: TextInputType.name,
-                          hint: visaApprovalApplication.pipeline!.country!
-                              .toString()),
+                          hint:visaApprovalApplication.pipeline != null
+                              ? visaApprovalApplication.pipeline!.country!
+                              .toString():"empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -106,8 +109,9 @@ class VisaApprovalScreen extends StatelessWidget {
                           validate: (context, s) => s,
                           inputType: TextInputType.name,
                           enabled: false,
-                          hint: visaApprovalApplication.pipeline!.gender!
-                              .toString()),
+                          hint: visaApprovalApplication.pipeline != null
+                              ? visaApprovalApplication.pipeline!.gender!
+                              .toString():"empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -118,8 +122,9 @@ class VisaApprovalScreen extends StatelessWidget {
                           validate: (context, s) => s,
                           inputType: TextInputType.name,
                           enabled: false,
-                          hint: visaApprovalApplication.pipeline!.visaNo!
-                              .toString()),
+                          hint: visaApprovalApplication.pipeline != null
+                              ? visaApprovalApplication.pipeline!.visaNo!
+                              .toString():"empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -130,8 +135,9 @@ class VisaApprovalScreen extends StatelessWidget {
                           validate: (context, s) => s,
                           inputType: TextInputType.name,
                           enabled: false,
-                          hint: visaApprovalApplication.pipeline!.religion!
-                              .toString()),
+                          hint: visaApprovalApplication.pipeline != null
+                              ? visaApprovalApplication.pipeline!.religion!
+                              .toString():"empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -139,8 +145,9 @@ class VisaApprovalScreen extends StatelessWidget {
                         title: "visa_remark",
                       ),
                       CustomInputField(
-                          controller:
-                              context.read<VisaApprovalCubit>().visaRemark,
+                          controller: context
+                              .read<VisaApprovalCubit>()
+                              .visaRemarkCntroller,
                           validate: (context, s) => s,
                           inputType: TextInputType.text,
                           hint: translateLang(context, "enter_visa_remark")),

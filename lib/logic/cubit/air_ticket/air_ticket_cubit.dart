@@ -62,6 +62,7 @@ class AirTicketCubit extends Cubit<AirTicketState> {
   String? departure_date;
   void selectdptureDate(context) async {
     DateTime? pickedDate = await showDatePicker(
+      initialEntryMode:DatePickerEntryMode.calendarOnly,
         context: context, firstDate: DateTime(2020), lastDate: DateTime.now());
     departure_date =
         "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
@@ -202,6 +203,9 @@ class AirTicketCubit extends Cubit<AirTicketState> {
         airTicketProvider.sendAirTicketInfo(formData).then((value) {
           if (value == true) {
             emit(submitAirTicketInfoSuccesState());
+          } else {
+            emit(submitAirTicketInfoFailureState(
+                message: 'Some error ocurred !!! try again'));
           }
         }).catchError((error) {
           emit(submitAirTicketInfoFailureState(message: error.failure.message));

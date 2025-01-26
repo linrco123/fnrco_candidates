@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/ui/screens/medical_declaration/medical_declaration_apps.dart';
+import 'package:fnrco_candidates/data/models/management_content/poll_percentage_model.dart';
+import 'package:fnrco_candidates/ui/screens/management_content/polls/polls_percentage.dart';
+import 'ui/screens/overview.dart';
+import 'ui/screens/medical_declaration/medical_declaration_apps.dart';
+import 'ui/screens/profile_get/experience/experience_description.dart';
+import 'ui/screens/profile_get/get_job_details.dart';
+import 'ui/screens/request/request.dart';
+import 'ui/screens/shared_documents/apps_documents.dart';
+import 'ui/screens/terms_conditions.dart';
 import 'ui/screens/air_ticket/air_ticket_apps.dart';
 import 'ui/screens/local_process/local_proces_apps.dart';
 import 'ui/screens/joining_date/apps_joining_date.dart';
@@ -18,7 +26,7 @@ import 'ui/screens/internet_connection.dart';
 import 'ui/screens/management_content/announcement.dart';
 import 'ui/screens/management_content/contents.dart';
 import 'ui/screens/management_content/faqs.dart';
-import 'ui/screens/management_content/polls.dart';
+import 'ui/screens/management_content/polls/polls.dart';
 import 'ui/screens/notifications.dart';
 import 'ui/screens/on_boarding/on_boarding2_screen.dart';
 import 'ui/screens/auth/otp.dart';
@@ -185,7 +193,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-      case AppPagesNames.JOB_OFFER:
+      case AppPagesNames.JOB_OFFERS:
         // return MaterialPageRoute(
         //   builder: (context) => JobOfferScreen(
         //     pdfLink: '',
@@ -257,7 +265,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-      case AppPagesNames.AIR_TICKET:
+      case AppPagesNames.AIR_TICKETS:
         // return MaterialPageRoute(
         //     builder: (context) => AirTicketApplicationsScreen(),
         //     );
@@ -415,7 +423,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-      case AppPagesNames.VISA_APPROVAL:
+      case AppPagesNames.VISA_APPROVALS:
         // return MaterialPageRoute(
         //     builder: (context) => VisaApprovalAppsScreen(),
         //     );
@@ -425,7 +433,7 @@ class AppRouter {
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
-      case AppPagesNames.JOINING_DATE:
+      case AppPagesNames.JOINING_DATES:
         // return MaterialPageRoute(
         //     builder: (context) => DateApplicationScreen(),
         //     );
@@ -447,7 +455,7 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
 
-      case AppPagesNames.LOCAL_PROCESS:
+      case AppPagesNames.LOCAL_PROCESSES:
         // return MaterialPageRoute(
         //     builder: (context) => LocalProcessScreen(),
         //     );
@@ -464,6 +472,76 @@ class AppRouter {
         //     );
         return PageTransition(
           child: MedicalDeclarationAppsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.TERMS_CONDITIONS:
+        return PageTransition(
+          child: TermsAndConditionsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.EXPERIENCE_DESC:
+        final String desc = (settings.arguments as Map)['desc'];
+        return PageTransition(
+          child: ExperienceDescriptionScreen(
+            description: desc,
+          ),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.JOB_APPLIED_DETAILS:
+        final details = (settings.arguments as Map)['job_details'];
+        return PageTransition(
+          child: GetJobDetailsScreen(
+            job: details,
+          ),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.REQUEST:
+        return PageTransition(
+          child: RequestScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.SHARED_DOCUMENTS:
+        return PageTransition(
+          child: SharedDocsAppsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.OVERVIEW:
+        return PageTransition(
+          child: OverviewScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
+      case AppPagesNames.percentage:
+        final votePercentage =
+            (settings.arguments! as Map)['percentage'] as VotePercentages;
+        final question = (settings.arguments! as Map)['question'] as String;
+
+        return PageTransition(
+          child: PollsPercentageScreen(
+            question: question,
+            votePercentages: votePercentage,
+          ),
+          // settings: RouteSettings(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

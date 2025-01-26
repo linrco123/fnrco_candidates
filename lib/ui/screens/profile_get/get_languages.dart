@@ -38,7 +38,9 @@ class _GetPersonalDetailsScreenState extends State<GetLanguagesScreen> {
         }
        if(state is AboutMeGetLanguagesSuccessState){
         return state.languages.isEmpty
-            ? EmptyDataWidget()
+            ? EmptyDataWidget(
+              message: "No languages available Yet !!!",
+            )
             : Container(
                 height: double.infinity,
                 width: double.infinity,

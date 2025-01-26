@@ -77,3 +77,9 @@ class JobOfferApprovalFailureState extends JobOfferState{
 
   JobOfferApprovalFailureState({required this.message});
 }
+
+
+ class AttachmentUploadFileState extends JobOfferState{}
+  class AttachmentDeletionFileState extends JobOfferState{}
+
+  class changeUploadFileToApproveState extends JobOfferState{}

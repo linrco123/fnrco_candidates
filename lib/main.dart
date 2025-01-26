@@ -2,6 +2,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'ui/widgets/flutter_error_widget.dart';
+import 'data/api_provider/job_offer.dart';
+import 'logic/cubit/job_offer/job_offer_cubit.dart';
 import 'ui/screens/internet_connection.dart';
 import 'app_router.dart';
 import 'constants/app_pages_names.dart';
@@ -18,19 +21,19 @@ void main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
+  // CacheHelper.storeAuthToken(
+  //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RldmVsb3AuZm5yY29lcnAuY29tL2FwaS9jYW5kaWRhdGUvbG9naW4iLCJpYXQiOjE3MzY5MzUzMDEsImV4cCI6MTczNzE1MTMwMSwibmJmIjoxNzM2OTM1MzAxLCJqdGkiOiJWdGJCNmtUNTlIdXIwUWt3Iiwic3ViIjoiMzEzOTciLCJwcnYiOiJlNDk2YTYxYjEwNjFiZTdiZWY4YzVmODE4NzQ5N2IxZGJjMzE1ZjhjIn0.TPSHDYawXQLbPCpE_c5Z0AcRAipK0TTSJL-_vEwyhPA');
   RedExceptionHandler.handleFlutterError;
   await CacheHelper.init();
   await DioHelper.init();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]).then((value) {
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((value) {
     runApp(const FnrcoCandidates());
   });
-  
 }
 
-class AppRouteObserver extends RouteObserver<PageRoute>{}
+class AppRouteObserver extends RouteObserver<PageRoute> {}
 
 class FnrcoCandidates extends StatefulWidget {
   const FnrcoCandidates({super.key});
@@ -46,7 +49,6 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -57,6 +59,10 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
           lazy: false,
           create: (context) => SettingsCubit(),
         ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => JobOfferCubit(JobOfferProvider()),
+        ),
       ],
       child: Builder(builder: (context) {
         SettingsCubit settingsCubit = context.watch<SettingsCubit>();
@@ -64,6 +70,12 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
         return MaterialApp(
           navigatorKey: nav_Key,
           navigatorObservers: [AppRouteObserver()],
+          builder: (context, child) {
+            ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+              return const CustomFlutterErrorWidget();
+            };
+            return child!;
+          },
           theme: appTheme,
           // darkTheme: darkAppTheme,
           // themeMode: settingsCubit.brightnessMode == DARK_MODE

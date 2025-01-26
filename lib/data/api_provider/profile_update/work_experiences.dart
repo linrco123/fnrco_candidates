@@ -21,8 +21,9 @@ class ExperienceProvider {
         return await Future.error(response.statusCode!);
       }
     } on DioError catch (e) {
-      return await Future.error(
-          Failure(e.response!.statusCode!, e.response!.data['message']));
+       throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
 
@@ -33,13 +34,12 @@ class ExperienceProvider {
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return await Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       logger.e('-==================error===========================');
       logger.e(e);
-      logger.d(e.response!.statusMessage!);
-      logger.d(e.response!.data['message']);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));

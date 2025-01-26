@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +11,11 @@ import 'package:fnrco_candidates/data/models/home/jobs_model.dart';
 import 'package:fnrco_candidates/logic/cubit/job_application/job_application_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
-import 'package:fnrco_candidates/ui/widgets/job_details/custom_app_bar.dart';
 import 'package:fnrco_candidates/ui/widgets/job_details/custom_item_feature.dart';
 import 'package:fnrco_candidates/ui/widgets/job_details/custom_job_header.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
+import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class JobDetailsScreen extends StatelessWidget {
@@ -31,6 +30,20 @@ class JobDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => JobApplicationCubit(JobApplicationProvider()),
       child: Scaffold(
+        appBar: AppBar(
+            backgroundColor: AppColors.white,
+            centerTitle: true,
+            title: Text(
+              translateLang(context, 'job_details'),
+              style: TextStyle(
+                color: AppColors.primary,
+              ),
+            ),
+            elevation: 0.0,
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
+            leading: ReturnButton(
+              color: AppColors.primary,
+            )),
         body: Container(
           color: AppColors.white,
           child: SafeArea(
@@ -60,18 +73,18 @@ class JobDetailsScreen extends StatelessWidget {
                     Expanded(
                       child: ListView(
                         children: [
-                          CustomAppBar(
-                            btnColor: AppColors.grey.withOpacity(0.3),
-                            arrowColor: AppColors.greyDeep,
-                            icon: CupertinoIcons.bookmark,
-                            title: translateLang(context, 'job_details'),
-                            titleColor: AppColors.black,
-                            onTap: () {},
-                            startPadding: 0.0,
-                          ),
-                          CustomDivider(),
+                          // CustomAppBar(
+                          //   btnColor: AppColors.grey.withOpacity(0.3),
+                          //   arrowColor: AppColors.greyDeep,
+                          //   icon: CupertinoIcons.bookmark,
+                          //   title: translateLang(context, 'job_details'),
+                          //   titleColor: AppColors.black,
+                          //   onTap: () {},
+                          //   startPadding: 0.0,
+                          // ),
+                          // CustomDivider(),
                           Card(
-                           color: Colors.grey.shade100,
+                            color: Colors.white,
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: CustomJobHeader(
@@ -90,37 +103,39 @@ class JobDetailsScreen extends StatelessWidget {
                             vPadding: 10.0,
                           ),
                           Card(
-                            color: Colors.grey.shade100,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: CustomItemFeature(
-                                  child: Image.asset(
-                                    AppImages.SALARY,
-                                    height: 30.0,
-                                    width: 30.0,
-                                    color: AppColors.primary,
-                                  ),
-                                  color: AppColors.primary.withOpacity(0.1),
-                                  border: false,
-                                  title: translateLang(context, 'salary'),
-                                  subTitle: job.erpMprItemSalary!),
-                            ),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Card(
-                            color: Colors.grey.shade100,
-                            child: Padding(
-                             padding: const EdgeInsets.all(10.0),
-                              child: CustomItemFeature(
-                                  child: Icon(
-                                    Icons.location_on_outlined,
-                                    size: 30.0,
-                                    color: AppColors.primary.withOpacity(0.6),
-                                  ),
-                                  color: AppColors.primary.withOpacity(0.1),
-                                  border: false,
-                                  title: translateLang(context, 'location'),
-                                  subTitle: job.erpMprItemWorkLocation!),
+                            color: AppColors.white,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CustomItemFeature(
+                                      child: Image.asset(
+                                        AppImages.SALARY,
+                                        height: 30.0,
+                                        width: 30.0,
+                                        color: AppColors.primary,
+                                      ),
+                                      color: AppColors.primary.withOpacity(0.1),
+                                      border: false,
+                                      title: translateLang(context, 'salary'),
+                                      subTitle: job.erpMprItemSalary!),
+                                ),
+                                const SizedBox(height: 10.0),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CustomItemFeature(
+                                      child: Icon(
+                                        Icons.location_on_outlined,
+                                        size: 30.0,
+                                        color:
+                                            AppColors.primary.withOpacity(0.6),
+                                      ),
+                                      color: AppColors.primary.withOpacity(0.1),
+                                      border: false,
+                                      title: translateLang(context, 'location'),
+                                      subTitle: job.erpMprItemWorkLocation!),
+                                ),
+                              ],
                             ),
                           ),
                           CustomDivider(

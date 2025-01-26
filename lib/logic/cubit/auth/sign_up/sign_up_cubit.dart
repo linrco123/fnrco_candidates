@@ -188,7 +188,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         print(data);
         signUpProvider.signUp(data).then((value) {
           CacheHelper.storeUserData(userRData: value);
-          emit(SignUpSuccessState());
+          emit(SignUpSuccessState(code: value.data!.code!));
         }).catchError((error) {
           emit(SignUpErrorState(message: error.failure.message));
         });

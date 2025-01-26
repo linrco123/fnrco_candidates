@@ -39,7 +39,9 @@ class _GetPersonalDetailsScreenState extends State<GetPersonalDetailsScreen> {
         }
         if (state is AboutMeGetPersonalDataSuccessState) {
           return state.pData.isEmpty
-              ? EmptyDataWidget()
+              ? EmptyDataWidget(
+                message: "No personal data available Yet !!!",
+              )
               : Container(
                   height: double.infinity,
                   width: double.infinity,

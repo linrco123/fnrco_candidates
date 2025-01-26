@@ -122,9 +122,7 @@ class LocalProcessPipeLine {
     data['path_file'] = this.pathFile;
     return data;
   }
-  // set changePath(String path){
- 
-  // }
+
   void changeFilePath(String newPath){
     this.pathFile = newPath;
   }

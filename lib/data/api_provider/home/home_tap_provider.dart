@@ -33,7 +33,8 @@ class HomePageProvider {
         return JobsModel.fromJson(response.data);
       } else {
         //show messages or snackbar of failure
-        return await Future.error(response.statusCode!);
+       return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       print('error =================================>>>>>>>>>>>>> $e');

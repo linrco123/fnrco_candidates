@@ -16,7 +16,8 @@ class AchievementsProvider {
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return await Future.error(response.statusCode!);
+       return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       logger.e('-==================error===========================');

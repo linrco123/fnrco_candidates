@@ -4,17 +4,20 @@ import '../../constants/app_colors.dart';
 class ReturnButton extends StatelessWidget {
   final IconData icon;
   final Color color;
+  final void Function()? onPressed;
   ReturnButton(
       {super.key,
       this.icon = Icons.arrow_back_ios_new_outlined,
-      this.color = const Color(0xFFae1f23)});
+      this.color = const Color(0xFFae1f23),
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          Navigator.pop<String>(context,"refresh");
-        },
+        onPressed: onPressed ??
+            () {
+              Navigator.of(context).pop();
+            },
         icon: Icon(
           icon,
           color: color,

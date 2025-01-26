@@ -4,7 +4,7 @@ class AppLinks {
   // ignore: unused_field
   static const moduleID = '91';
   static const String baseUrl = 'https://develop.fnrcoerp.com/api';
-
+  static const String terms_conditions = "https://fnrcoerp.com/gate/terms.html";
   static const String metaData = '/meta-data';
   static const String candidate = '/candidate';
 
@@ -73,11 +73,21 @@ class AppLinks {
   static String application_approval = "/application-approval";
   ///////////////////////////////////////////////////////
 
-  static String submit_visa_approval = "";
-
-  static String joining_date = '';
-
   static String send_air_ticket = '/air-lineTicket/store';
+  static String get_local_process = '/recruitment-process/agency-local-process';
 
   static String submit_local_process = '/hiring-request-form/upload-files';
+
+  static String get_request =
+      '${recruitment_process}/candidate-document-requests';
+
+  static String submit_request =
+      '${recruitment_process}/candidate-document/upload-files';
+
+  static String get_shared_documents =
+      "/agency-local-process/sharedDocument/";
+
+      static String overview =
+      "/overview";
+
 }

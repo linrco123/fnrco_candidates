@@ -6,11 +6,11 @@ import 'package:fnrco_candidates/core/functions/translate.dart';
 
 class CustomTitle extends StatelessWidget {
   final String title;
-  final double frontP ;
+  final double frontP;
   const CustomTitle({
     Key? key,
     required this.title,
-     this.frontP = 10.0,
+    this.frontP = 10.0,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class CustomTitle extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-             SizedBox(
+            SizedBox(
               width: frontP,
             ),
             Text(
@@ -38,14 +38,15 @@ class CustomTitle extends StatelessWidget {
   }
 }
 
-
 class CustomOnlyEnTitle extends StatelessWidget {
   final String title;
-  final double frontP ;
+  final double frontP;
+  final Color? textColor;
   const CustomOnlyEnTitle({
     Key? key,
     required this.title,
-     this.frontP = 10.0,
+    this.frontP = 10.0,
+     this.textColor,
   }) : super(key: key);
 
   @override
@@ -55,13 +56,15 @@ class CustomOnlyEnTitle extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-             SizedBox(
+            SizedBox(
               width: frontP,
             ),
             Text(
               title,
+              //  textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                  color: AppColors.black, fontWeight: FontWeight.bold),
+                  color: textColor ?? AppColors.black,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),

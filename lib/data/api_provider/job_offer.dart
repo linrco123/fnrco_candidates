@@ -8,21 +8,22 @@ import '../../core/classes/failure.dart';
 import '../models/job_offer_model.dart';
 
 class JobOfferProvider {
-
   Future<JobOfferModel> getJobApplications() async {
     try {
       final response = await DioHelper.dio.get(AppLinks.recruitment_process,
           queryParameters: {"stage": job_offer});
-          logger.e('-=============================');
-          logger.e(response.data);
-          
+      logger.e('-===============response==============');
+      logger.e(response.data);
+
       if (response.statusCode == 200) {
         return JobOfferModel.fromJson(response.data);
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
-      logger.e('-=============================');
+      logger.e('-==========================error================');
+      logger.e(e);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.statusMessage!));
@@ -36,29 +37,33 @@ class JobOfferProvider {
       if (response.statusCode == 200) {
         return JobOfferModel.fromJson(response.data);
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+       logger.e('-==========================error================');
+      logger.e(e);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
   }
 
-  Future<bool> sendJobOfferApproval(Map data) async {
+  Future<bool> sendJobOfferApproval(FormData data) async {
     try {
       final response =
           await DioHelper.dio.post(AppLinks.application_approval, data: data);
-          print('=======================response-==============');
-          logger.e(response);
+      print('=======================response-==============');
+      logger.e(response);
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
-       print('=======================error-==============');
-          logger.e(e.response);
+      print('=======================error-==============');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.statusMessage!));

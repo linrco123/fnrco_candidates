@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/translate.dart';
 import '../../../data/api_provider/visa_approval.dart';
@@ -51,7 +52,7 @@ class VisaApprovalAppsScreen extends StatelessWidget {
             }
             if (state is GetVisaApprovalDataFailureState) {
               return FailureWidget(
-                showImage: true,
+                  showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<VisaApprovalCubit>().getVisadata();
@@ -70,14 +71,25 @@ class VisaApprovalAppsScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BlocProvider.value(
-                                    value: visaApprovalCubit,
-                                    child: VisaApprovalScreen(
-                                        visaApprovalApplication:
-                                            cubit.visaApplications[index]),
-                                  ),
-                                ));
+                                Navigator.of(context).push(PageTransition(
+                                    child: BlocProvider.value(
+                                      value: visaApprovalCubit,
+                                      child: VisaApprovalScreen(
+                                          visaApprovalApplication:
+                                              cubit.visaApplications[index]),
+                                    ),
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.centerLeft,
+                                    duration: const Duration(seconds: 1)));
+
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) => BlocProvider.value(
+                                //     value: visaApprovalCubit,
+                                //     child: VisaApprovalScreen(
+                                //         visaApprovalApplication:
+                                //             cubit.visaApplications[index]),
+                                //   ),
+                                // ));
                                 // visaApprovalCubit.candidate_app_id =
                                 //     state.applications[index].id!;
                               },

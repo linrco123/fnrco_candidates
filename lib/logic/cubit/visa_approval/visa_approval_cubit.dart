@@ -13,7 +13,7 @@ class VisaApprovalCubit extends Cubit<VisaApprovalState> {
     this.visaApprovalProvider,
   ) : super(VisaApprovalInitial());
 
-  final visaRemark = TextEditingController();
+  final visaRemarkCntroller = TextEditingController();
   int candidate_app_id = 0;
 
   void sendVisaApproval(int id,bool answer) {
@@ -25,7 +25,7 @@ class VisaApprovalCubit extends Cubit<VisaApprovalState> {
     Map data = {
       "candidate_application_id": id,
       "candidate_approval": answer,
-      "candidate_comment": visaRemark.text,
+      "candidate_comment": visaRemarkCntroller.text,
       "stage": visa_selection.toString(),
     };
     print("=======================================");
@@ -43,6 +43,7 @@ final visaApplications = List<VisaApprovalApplication>.empty(growable: true);
   getVisadata() {
     emit(GetVisaApprovalDataLoadingState());
     visaApprovalProvider.getVisadata().then((value) {
+      visaApplications.clear();
       visaApplications.addAll(value.visaApplications!);
       emit(GetVisaApprovalDataSuccessState(
           applications: value.visaApplications!));

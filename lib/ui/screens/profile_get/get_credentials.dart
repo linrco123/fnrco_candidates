@@ -38,7 +38,9 @@ class _GetPersonalDetailsScreenState extends State<GetCredentialsScreen> {
         }
         if(state is AboutMeGetCredentialsSuccessState){
         return state.credentials.isEmpty
-            ? EmptyDataWidget()
+            ? EmptyDataWidget(
+              message: "No credentials available Yet !!!",
+            )
             : Container(
                 height: double.infinity,
                 width: double.infinity,

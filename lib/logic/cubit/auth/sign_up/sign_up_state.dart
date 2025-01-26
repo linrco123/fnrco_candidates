@@ -8,7 +8,11 @@ final class SignUpInitialState extends SignUpState {}
 //TODO:Signup Process
 class SignUpLoadingState extends SignUpState {}
 
-class SignUpSuccessState extends SignUpState {}
+class SignUpSuccessState extends SignUpState {
+  final int code;
+
+  SignUpSuccessState({required this.code});
+}
 
 class SignUpErrorState extends SignUpState {
   final String message;

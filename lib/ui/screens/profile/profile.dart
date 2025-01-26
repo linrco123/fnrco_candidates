@@ -19,7 +19,6 @@ import '../profile_get/about_me.dart';
 import '../../widgets/custom_divider.dart';
 import '../../widgets/profile/profile_pic.dart';
 import '../../widgets/return_btn.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -31,14 +30,15 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.primary,
         appBar: AppBar(
-          backgroundColor: AppColors.primary,
-          title: Text(
-            translateLang(context, 'profile'),
-            style: TextStyle(color: AppColors.white),
-          ),
-          centerTitle: true,
-          leading: ReturnButton(color: AppColors.white,)
-        ),
+            backgroundColor: AppColors.primary,
+            title: Text(
+              translateLang(context, 'profile'),
+              style: TextStyle(color: AppColors.white),
+            ),
+            centerTitle: true,
+            leading: ReturnButton(
+              color: AppColors.white,
+            )),
         body: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
             // TODO: implement listener
@@ -63,15 +63,31 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    CircularPercentIndicator(
-                      radius: 40.0,
-                      lineWidth: 7.0,
-                      percent: 0.5,
-                      center: new Text(
-                        "50%",
-                        style: TextStyle(color: AppColors.white),
-                      ),
-                      progressColor: AppColors.success,
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(
+                          height: 70.0,
+                          width: 70.0,
+                          child: CircularProgressIndicator(
+                            semanticsLabel: 'ddddd',
+                            semanticsValue: 'sssss',
+                            strokeAlign: BorderSide.strokeAlignCenter,
+                            strokeCap: StrokeCap.round,
+                            value: 50.0 / 100,
+                            color: AppColors.success,
+                            backgroundColor: Colors.grey.shade100,
+                            strokeWidth: 8.0,
+                          ),
+                        ),
+                        Text(
+                          '50%',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(color: AppColors.black),
+                        )
+                      ],
                     ),
                     CustomDivider(),
                     const SizedBox(
@@ -96,14 +112,13 @@ class ProfileScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                              _addSettingItem(
+                            _addSettingItem(
                                 context: context,
                                 icon: Icons.data_exploration_sharp,
                                 text: 'About Me',
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          AboutMe()));
+                                      builder: (context) => AboutMe()));
                                 }),
                             _divider(),
                             _addSettingItem(
@@ -132,11 +147,10 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.logo_dev,
                                 text: 'Education',
                                 onTap: () {
-                                      // Navigator.of(context).pushNamed(AppPagesNames.EDUCATION);
+                                  // Navigator.of(context).pushNamed(AppPagesNames.EDUCATION);
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           EducationAndQualificationScreen()));
-
                                 }),
                             _divider(),
 
@@ -146,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.bookmark,
                                 text: 'Credentials',
                                 onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => CredentialsScreen(),
                                   ));
                                   // Navigator.of(context)
@@ -158,12 +172,11 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.phone_in_talk,
                                 text: 'Contacts',
                                 onTap: () {
-                                   Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ContactsScreen(),
                                   ));
                                   // Navigator.of(context)
                                   //     .pushNamed(AppPagesNames.CONTACT_TYPE);
-
                                 }),
                             _divider(),
                             _addSettingItem(
@@ -184,7 +197,7 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.language,
                                 text: 'Language',
                                 onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => LanguageScreen(),
                                   ));
                                   // Navigator.of(context)
@@ -196,7 +209,7 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.note,
                                 text: 'Notes',
                                 onTap: () {
-                                   Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => NotesScreen(),
                                   ));
                                   // Navigator.of(context)
@@ -208,19 +221,19 @@ class ProfileScreen extends StatelessWidget {
                                 icon: Icons.work,
                                 text: 'Achievements',
                                 onTap: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => AchievementsSCreen(),
                                   ));
                                   // Navigator.of(context)
                                   //     .pushNamed(AppPagesNames.ACHIEVEMENTS);
                                 }),
                             _divider(),
-                             _addSettingItem(
+                            _addSettingItem(
                                 context: context,
                                 icon: Icons.work,
                                 text: 'KeyWords',
                                 onTap: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
+                                  Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => KeyWordsSCreen(),
                                   ));
                                   // Navigator.of(context)

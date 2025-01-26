@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/data/models/management_content/survey_view_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/survies_model.dart';
 import 'package:fnrco_candidates/data/api_provider/management_content/surveys.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 part 'surveys_state.dart';
 
 class SurveysCubit extends Cubit<SurveysState> {
@@ -65,6 +66,7 @@ class SurveysCubit extends Cubit<SurveysState> {
   void sendSurveyView() {
     emit(SubmitSurveyViewLoadingState());
     Map data = {"answers": answers};
+    logger.e(data);
     surveysProvider.sendSurveyView(surveyViewID, data).then((value) {
       if (value == true) {
         question_number = 0;

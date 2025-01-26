@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:fnrco_candidates/data/models/job_offer_model.dart';
+import '../../../core/classes/dotted_border.dart';
+import '../../../data/models/job_offer_model.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
 import '../../widgets/auth/custom_elevated_btn.dart';
@@ -20,6 +22,16 @@ class JobOfferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: jobApplication.isAction!.toLowerCase() == 'not done'? Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.08),
+        child: FloatingActionButton(
+          onPressed: () {
+            _showSheet(context.read<JobOfferCubit>(), context);
+          },
+          child: Icon(Icons.upload),
+        ),
+      ):null,
       appBar: AppBar(
           backgroundColor: AppColors.primary,
           centerTitle: true,
@@ -52,8 +64,12 @@ class JobOfferScreen extends StatelessWidget {
                 desc: state.message,
                 type: ToastificationType.error);
           }
+          if (state is AttachmentUploadFileState) {
+            Navigator.of(context).pop();
+          }
         },
         builder: (context, state) {
+          final cubit = context.read<JobOfferCubit>();
           return Stack(
             children: [
               Container(
@@ -74,8 +90,7 @@ class JobOfferScreen extends StatelessWidget {
                 ),
               if (state is GetJobofferErrorState)
                 FailureWidget(
-                  showImage: true,
-                  title: state.message, onTap: () {}),
+                    showImage: true, title: state.message, onTap: () {}),
               if (context.read<JobOfferCubit>().jobOffer != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 55.0),
@@ -172,5 +187,134 @@ class JobOfferScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  _showSheet(JobOfferCubit cubit, context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.white,
+      constraints: BoxConstraints(maxHeight: 300),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+      builder: (context) {
+        return BlocProvider.value(
+          value: cubit,
+          child: BlocBuilder<JobOfferCubit, JobOfferState>(
+            builder: (context, state) {
+              cubit.filePicked = true;
+              return Stack(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 5,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.black,
+                                      borderRadius: BorderRadius.circular(16)),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'Upload File',
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            CustomPaint(
+                              painter: DottedBorderPainter(),
+                              child: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                      enableFeedback: true,
+                                      maximumSize: Size(double.infinity, 70),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 30.0, horizontal: 15.0),
+                                      iconColor: AppColors.primary,
+                                      visualDensity: VisualDensity.compact,
+                                      // textStyle:TextStyle(color: AppColors.grey, fontSize: 17.0) ,
+                                      side: BorderSide.none),
+                                  onPressed: () {
+                                    cubit.uploadRequestFile();
+                                  },
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          cubit.fileName.isEmpty
+                                              ? translateLang(
+                                                  context, "upload_attach")
+                                              : cubit.fileName,
+                                          style: TextStyle(
+                                              color: AppColors.grey,
+                                              fontSize: 16.0),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      cubit.fileName.isEmpty
+                                          ? Icon(
+                                              Icons.upload_file_rounded,
+                                              color: AppColors.primary,
+                                              size: 25.0,
+                                            )
+                                          : InkWell(
+                                              onTap: () {
+                                                cubit.deleteRequestFile();
+                                              },
+                                              child: Icon(
+                                                CupertinoIcons.delete_simple,
+                                                color: AppColors.primary,
+                                                size: 25.0,
+                                              ))
+                                    ],
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 15.0,
+                    right: 15.0,
+                    child: Container(
+                      padding: const EdgeInsets.all(1.0),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: AppColors.black),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: AppColors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
+        );
+      },
+    ).whenComplete(() {
+      cubit.changeUploadFileToApprove();
+    });
   }
 }

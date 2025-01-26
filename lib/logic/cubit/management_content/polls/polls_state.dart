@@ -5,8 +5,6 @@ sealed class PollsState {}
 
 final class PollsInitial extends PollsState {}
 
-
-
 final class PollsLoadingState extends PollsState {}
 
 final class PollsSuccessState extends PollsState {
@@ -33,16 +31,26 @@ class PollsViewFailureState extends PollsState {
   final String message;
 
   PollsViewFailureState({required this.message});
-} 
-
-
-class MoveToNextQuestionsState extends PollsState{}
-class ChooseAnswerState extends PollsState{
 }
 
-class SubmitPollViewLoadingState extends PollsState{}
-class SubmitPollViewSuccessState extends PollsState{}
-class SubmitPollViewFailureState extends PollsState{}
+class MoveToNextQuestionsState extends PollsState {}
 
+class ChooseAnswerState extends PollsState {}
 
-class PickPollAnswerState extends PollsState{}
+class SubmitPollViewLoadingState extends PollsState {}
+
+class SubmitPollViewSuccessState extends PollsState {
+  final VotePercentages votePercentages;
+  final String question;
+
+  SubmitPollViewSuccessState(
+      {required this.question, required this.votePercentages});
+}
+
+class SubmitPollViewFailureState extends PollsState {
+  final String message;
+
+  SubmitPollViewFailureState({required this.message});
+}
+
+class PickPollAnswerState extends PollsState {}

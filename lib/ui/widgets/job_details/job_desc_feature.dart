@@ -11,7 +11,7 @@ class CustomCheckedJobFeature extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: Row(
         children: [
-          Image.asset(AppImages.CHECKED, height: 15.0, width: 15.0),
+          Image.asset(AppImages.BLUE_CHECK, height: 15.0, width: 15.0),
           const SizedBox(
             width: 10.0,
           ),

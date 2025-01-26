@@ -43,14 +43,14 @@ class SignUpScreen extends StatelessWidget {
                         context.read<SignUpCubit>().emailController.text,
                     PAGE_KEYWORD: SIGNUP_PAGE
                   });
-                  // showDialog(
-                  //     context: context,
-                  //     builder: (context) => AlertDialog(
-                  //           content: Text(
-                  //             'code: ${state.code}',
-                  //             style: Theme.of(context).textTheme.headlineLarge,
-                  //           ),
-                  //         ));
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            content: Text(
+                              'code: ${state.code}',
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                          ));
                 }
                 if (state is SignUpErrorState) {
                   showToast(context,

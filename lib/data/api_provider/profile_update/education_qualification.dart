@@ -18,11 +18,13 @@ class EducationAndQualificationProvider {
       if (response.statusCode == 200) {
         return YearsModel.fromJson(response.data);
       } else {
-        return await Future.error(response.statusCode!);
+       return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
-      return await Future.error(
-          Failure(e.response!.statusCode!, e.response!.data['message']));
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
 
@@ -33,7 +35,8 @@ class EducationAndQualificationProvider {
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return await Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       logger.d(e.response!.statusMessage!);

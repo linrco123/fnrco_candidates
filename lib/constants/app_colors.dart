@@ -20,7 +20,7 @@ class AppColors {
   static Color accent = const Color(0xFFF2F2F2);
 
   static Color error = const Color(0xFFCE0C3D);
-  static Color success = const Color(0xFF2ECC71);
+  static Color success = const Color(0xFF50C878);
   static Color warning = const Color(0xFFFFAE0C);
   static Color sadad = const Color(0xFFED7624);
 

@@ -23,11 +23,11 @@ class NotesCubit extends Cubit<NotesState> {
     }
     return null;
   }
-
+  
   List<Map<String, dynamic>> submittedNotes = [];
   void addNewNotes() {
     if (formKey.currentState!.validate()) {
-      submittedNotes.add({"achievement_text": notCntroller.text});
+      submittedNotes.add({"person_note_text": notCntroller.text});
       Future.delayed(const Duration(seconds: 1)).then((value) {
         clearFields();
       });

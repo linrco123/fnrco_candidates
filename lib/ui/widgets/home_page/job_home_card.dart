@@ -41,11 +41,17 @@ class JobHomeCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(job,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(fontWeight: FontWeight.bold)),
+                  Row(
+                    children: [
+                      Text(job,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                   Text(company, style: Theme.of(context).textTheme.headlineMedium),
                   const Spacer(),
                   Row(

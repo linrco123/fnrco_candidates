@@ -1,4 +1,5 @@
 import 'package:dio2/dio2.dart';
+import '../../../core/classes/dio_helper.dart';
 import '../../../constants/app_urls.dart';
 import '../../../core/classes/exceptions.dart';
 import '../../../core/classes/failure.dart';
@@ -20,19 +21,24 @@ class ResetPasswordprovider {
     dio = Dio(_baseOptions);
   }
 
-  Future<bool?> resetPassword(data) async {
+  Future<bool> resetPassword(data) async {
     try {
-      final response = await dio.post(AppLinks.forgetPassword, data: data);
-
-      logger.d(response.data);
+      final response =
+          await DioHelper.dio.post(AppLinks.resetPassword, data: data);
+      logger.e('=======================response-==================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return response.data['status'];
+      } else {
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('==================++Error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
     }
-    return null;
   }
 }

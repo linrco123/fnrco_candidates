@@ -12,6 +12,7 @@ import '../../widgets/error_widget.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/profile_get/profile_item.dart';
 import '../../widgets/return_btn.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DateApplicationScreen extends StatelessWidget {
   const DateApplicationScreen({super.key});
@@ -50,44 +51,45 @@ class DateApplicationScreen extends StatelessWidget {
             }
             if (state is GetJoiningDateFailureState) {
               return FailureWidget(
-                showImage: true,
+                  showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<JoiningDateCubit>().getJoiningDateInfo();
                   });
             }
 
-           
-              return cubit.joiningDateApplication.isEmpty
-                  ? EmptyDataWidget(
-                      message: "No job applications available Yet !!!",
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(
-                          right: 15.0, left: 15.0, top: 25.0),
-                      child: ListView.separated(
-                          itemCount: cubit.joiningDateApplication.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => BlocProvider.value(
+            return cubit.joiningDateApplication.isEmpty
+                ? EmptyDataWidget(
+                    message: "No job applications available Yet !!!",
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(
+                        right: 15.0, left: 15.0, top: 25.0),
+                    child: ListView.separated(
+                        itemCount: cubit.joiningDateApplication.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(PageTransition(
+                                    child: BlocProvider.value(
                                       value: joiningDateCubit,
                                       child: JoiningDateSCreen(
-                                          joiningDateApp:
-                                              cubit.joiningDateApplication[index]),
+                                          joiningDateApp: cubit
+                                              .joiningDateApplication[index]),
                                     ),
-                                  ));
-                                },
-                                child: DateApplicationCard(
-                                    application: cubit.joiningDateApplication[index]),
-                              ),
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(
-                                height: 20.0,
-                              )),
-                    );
-
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.centerLeft,
+                                    duration: const Duration(seconds: 1)));
+                              },
+                              child: DateApplicationCard(
+                                  application:
+                                      cubit.joiningDateApplication[index]),
+                            ),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 20.0,
+                            )),
+                  );
           },
         ),
       ),

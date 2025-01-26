@@ -3,6 +3,7 @@ import '../../constants/app_colors.dart';
 
 showSuccessSnackBar(context, {required String text}) =>
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
       behavior: SnackBarBehavior.floating,
       elevation: 5.0,
       content: Text(
@@ -17,6 +18,7 @@ showSuccessSnackBar(context, {required String text}) =>
 
 showErrorSnackBar(context, {required String text}) =>
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
       behavior: SnackBarBehavior.floating,
       elevation: 5.0,
       content: Text(
@@ -29,7 +31,8 @@ showErrorSnackBar(context, {required String text}) =>
       backgroundColor: AppColors.danger,
     ));
 
-showGeneralSnackBar(context, {required Widget widget,   Color color = Colors.black}) =>
+showGeneralSnackBar(context,
+        {required Widget widget, Color color = Colors.black}) =>
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
       elevation: 5.0,

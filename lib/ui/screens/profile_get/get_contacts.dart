@@ -39,7 +39,9 @@ class _GetPersonalDetailsScreenState extends State<GetContactsScreen> {
       
      if(state is AboutMeGetContactsSuccessState){ 
         return state.contacts.isEmpty
-            ? EmptyDataWidget()
+            ? EmptyDataWidget(
+              message: "No contacts available Yet !!!",
+            )
             : Container(
                 height: double.infinity,
                 width: double.infinity,

@@ -38,7 +38,9 @@ class _GetPersonalDetailsScreenState extends State<GetEducationScreen> {
         }
         if(state is AboutMeGetEducationsSuccessState){
         return state.educations.isEmpty
-            ? EmptyDataWidget()
+            ? EmptyDataWidget(
+              message: "No education available Yet !!!",
+            )
             : Container(
                 height: double.infinity,
                 width: double.infinity,

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
 import 'package:fnrco_candidates/logic/cubit/management_content/polls/polls_cubit.dart';
 import 'package:fnrco_candidates/ui/widgets/custom_divider.dart';
 import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
@@ -52,12 +53,21 @@ class PollsViewScreen extends StatelessWidget {
                     desc: "Please , choose an expressible answer",
                     type: ToastificationType.warning);
               }
+
               if (state is SubmitPollViewSuccessState) {
-                Navigator.of(context).pop();
                 showToast(context,
                     title: translateLang(context, 'success'),
                     desc: translateLang(context, "msg_poll_success"),
                     type: ToastificationType.success);
+
+                Navigator.of(context).pushNamed(
+                  AppPagesNames.percentage,
+                  arguments: {
+                    'percentage':state.votePercentages,
+                    'question':state.question
+                  }
+                );
+                
               }
               if (state is SubmitPollViewFailureState) {
                 showToast(context,
@@ -103,7 +113,6 @@ class PollsViewScreen extends StatelessWidget {
                         pollCubit.pollView!.options!.length,
                         (int index) => InkWell(
                             onTap: () {
-                              
                               pollCubit.chooseAnswer(pollCubit
                                   .pollView!.options![index].pollOptText!);
                             },
@@ -116,8 +125,7 @@ class PollsViewScreen extends StatelessWidget {
                       CustomElevatedButton(
                         fun: () {
                           pollCubit.submitPollViewQuestion(pollCubit
-                              .pollViewQuestions[pollCubit.question_number]
-                              );
+                              .pollViewQuestions[pollCubit.question_number]);
                         },
                         background: AppColors.primary,
                         text: translateLang(

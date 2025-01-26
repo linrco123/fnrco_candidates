@@ -1,16 +1,48 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import '../../constants/app_pages_names.dart';
+import '../widgets/auth/custom_elevated_btn.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_images_path.dart';
-import '../../constants/app_pages_names.dart';
 import '../../constants/constances.dart';
 import '../../core/functions/translate.dart';
-import '../widgets/auth/custom_elevated_btn.dart';
 import 'package:lottie/lottie.dart';
 
-class SuccessScreen extends StatelessWidget {
+class SuccessScreen extends StatefulWidget {
   final String screenType;
 
   const SuccessScreen({required this.screenType, super.key});
+
+  @override
+  State<SuccessScreen> createState() => _SuccessScreenState();
+}
+
+class _SuccessScreenState extends State<SuccessScreen> {
+  int congratTime = 10;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    calculateCongratTime();
+  }
+
+  void calculateCongratTime() {
+   final timer =  Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      logger.e('=====================timer.periodic================');
+      congratTime--;
+      if (congratTime == 0) {
+        timer.cancel();
+        if (widget.screenType == FORGET_PAGE) {
+          Navigator.of(context).pushReplacementNamed(AppPagesNames.AUTH);
+        } else {
+          Navigator.of(context).pushReplacementNamed(AppPagesNames.HOMEPAGE);
+        }
+      }
+    });
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +86,7 @@ class SuccessScreen extends StatelessWidget {
               Text(
                 translateLang(
                     context,
-                    screenType == FORGET_PAGE
+                    widget.screenType == FORGET_PAGE
                         ? "msg_reset_password"
                         : "account_created_success"),
                 style: Theme.of(context)
@@ -63,7 +95,7 @@ class SuccessScreen extends StatelessWidget {
                     .copyWith(color: AppColors.grey),
               ),
               const Spacer(),
-              screenType == FORGET_PAGE
+              widget.screenType == FORGET_PAGE
                   ? CustomElevatedButton(
                       fun: () {
                         Navigator.of(context)

@@ -1,5 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
+import 'package:fnrco_candidates/core/classes/cache_helper.dart';
+import 'package:fnrco_candidates/data/models/management_content/poll_percentage_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/poll_view_model.dart';
 import 'package:fnrco_candidates/data/models/management_content/polls_model.dart';
 import 'package:meta/meta.dart';
@@ -38,7 +42,7 @@ class PollsCubit extends Cubit<PollsState> {
   void getPollView(int pollViewindex) {
     emit(PollsViewLoadingState());
     pollsProvider.getPollsView(pollViewindex).then((value) {
-      pollViewQuestions.add(value!.data!.pollText!);
+      pollViewQuestions.add(value.data!.pollText!);
       answer = value.data!.options!.first.pollOptText!;
       pollView = value.data!;
       emit(PollsViewSuccessState(questions: [value.data!.pollText!]));
@@ -68,12 +72,18 @@ class PollsCubit extends Cubit<PollsState> {
     print('===============polls==================');
     print(data);
     pollsProvider.sendPollView(data).then((value) {
-      if (value == true) {
+      if (value.success!.contains('Thank you for your vote!')) {
         question_number = 0;
-        emit(SubmitPollViewSuccessState());
+        CacheHelper.setPollID(pollView!.id!);
+        String parsedData = jsonEncode(value.votePercentages!.toJson());
+        CacheHelper.setPollData(parsedData);
+        CacheHelper.setPollQuestion(value.poll!.text!);
+        emit(SubmitPollViewSuccessState(
+            question: value.poll!.text!,
+            votePercentages: value.votePercentages!));
       }
     }).catchError((error) {
-      emit(SubmitPollViewFailureState());
+      emit(SubmitPollViewFailureState(message: error.failure.message));
     });
   }
 

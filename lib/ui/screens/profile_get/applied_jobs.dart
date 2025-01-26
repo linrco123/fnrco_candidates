@@ -40,7 +40,9 @@ class _GetPersonalDetailsScreenState extends State<AppliedJobsScreen> {
 
         if (state is AboutMeGetAppliedJobsSuccessState) {
           return state.appliedJobs.isEmpty
-              ? EmptyDataWidget()
+              ? EmptyDataWidget(
+                message: "No jobs applied available Yet !!!",
+              )
               : Container(
                   height: double.infinity,
                   width: double.infinity,

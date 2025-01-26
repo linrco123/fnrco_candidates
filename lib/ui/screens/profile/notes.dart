@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,9 +85,10 @@ class NotesScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
+                    // TextButton(
+                    //   style: ButtonStyle(shape:WidgetStateProperty.all<OutlinedBorder>(ContinuousRectangleBorder()) ),
+                      
+                    //   onPressed: () {}, child: Text('text')),
                     // SizedBox(
                     //   width: MediaQuery.of(context).size.width / 2,
                     //   child: CustomElevatedButton(

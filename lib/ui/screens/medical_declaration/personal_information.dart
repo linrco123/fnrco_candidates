@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/core/classes/cache_helper.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
+import '../../../core/classes/cache_helper.dart';
+import '../../widgets/profile/custom_text_field.dart';
+import '../../widgets/profile/title_text.dart';
 import '../../../logic/cubit/medical_declare/medical_declare_cubit.dart';
 
 class PersonalInformationScreen extends StatelessWidget {

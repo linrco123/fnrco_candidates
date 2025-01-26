@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_images_path.dart';
 import '../../../core/classes/cache_helper.dart';
@@ -80,6 +81,98 @@ class PersonalDetailsScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+                              CustomTitle(
+                                title: "resume_attch",
+                                frontP: 10.0,
+                              ),
+                              Container(
+                                width: double.infinity / 2,
+                                height: personalDetailsCubit.fileName.isEmpty
+                                    ? 103
+                                    : 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade100,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    personalDetailsCubit.pickFile();
+                                  },
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      personalDetailsCubit.fileName.isEmpty
+                                          ? Icon(
+                                              Icons.attach_file,
+                                              color: AppColors.primary,
+                                            )
+                                          : Stack(
+                                              children: [
+                                                SizedBox(
+                                                  width: double.infinity / 2,
+                                                  height: 300,
+                                                  child: PDFView(
+                                                    filePath:
+                                                        personalDetailsCubit
+                                                            .pdfFile!.path,
+                                                    enableSwipe: true,
+                                                    swipeHorizontal: true,
+                                                    autoSpacing: false,
+                                                    pageFling: true,
+                                                    pageSnap: true,
+                                                    fitEachPage: true,
+                                                    defaultPage: 1,
+                                                    fitPolicy: FitPolicy.BOTH,
+                                                    preventLinkNavigation:
+                                                        false,
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  top: 0.0,
+                                                  right: 0.0,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: AppColors.black),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        personalDetailsCubit
+                                                            .removeFile();
+                                                      },
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        color: AppColors.white,
+                                                        size: 20,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                      if (personalDetailsCubit.fileName.isEmpty)
+                                        const SizedBox(height: 10),
+                                      personalDetailsCubit.fileName.isEmpty
+                                          ? Text(
+                                              translateLang(
+                                                  context, 'upload_file'),
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                              ),
+                                            )
+                                          : SizedBox.shrink()
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
                               CustomTitle(
                                 title: "first_name",
                               ),
@@ -157,42 +250,6 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     personalDetailsCubit
-                              //         .selectDateOfBirth(context);
-                              //   },
-                              //   child: Container(
-                              //     padding: const EdgeInsets.symmetric(
-                              //         horizontal: 20.0, vertical: 25.0),
-                              //     width: double.infinity,
-                              //     // height: 50.0,
-                              //     decoration: BoxDecoration(
-                              //         border: Border.all(
-                              //             color: Colors.grey.shade300),
-                              //         color: AppColors.white,
-                              //         borderRadius:
-                              //             BorderRadius.circular(16.0)),
-                              //     child: Row(
-                              //       children: [
-                              //         Text(
-                              //           personalDetailsCubit.birthDate ??
-                              //               translateLang(
-                              //                   context, 'date_birth'),
-                              //           style: Theme.of(context)
-                              //               .textTheme
-                              //               .labelMedium,
-                              //         ),
-                              //         const Spacer(),
-                              //         Icon(
-                              //           CupertinoIcons.calendar,
-                              //           size: 25.0,
-                              //           color: AppColors.primary,
-                              //         )
-                              //       ],
-                              //     ),
-                              //   ),
-                              // ),
                               CustomDatePicker(
                                   onTap: () {
                                     personalDetailsCubit
@@ -203,6 +260,19 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
+                              // SfDateRangePicker(
+                              //   onSelectionChanged:(dateRangePickerSelectionChangedArgs) {
+                                  
+                              //   },
+                              //   selectionMode:
+                              //       DateRangePickerSelectionMode.range,
+                              //   initialSelectedRange: PickerDateRange(
+                              //       DateTime.now()
+                              //           .subtract(const Duration(days: 4)),
+                              //       DateTime.now()
+                              //           .add(const Duration(days: 3))),
+
+                              // ),
                               personalDetailsCubit.countries.isEmpty
                                   ? ItemLoadingWidget()
                                   : CustomDropDownSearch(
@@ -217,7 +287,6 @@ class PersonalDetailsScreen extends StatelessWidget {
                                       onChanged: (value) => personalDetailsCubit
                                           .selectCountry(value!),
                                     ),
-
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -235,7 +304,6 @@ class PersonalDetailsScreen extends StatelessWidget {
                                       onChanged: (value) => personalDetailsCubit
                                           .selectGender(value!),
                                     ),
-
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -253,7 +321,6 @@ class PersonalDetailsScreen extends StatelessWidget {
                                       onChanged: (value) => personalDetailsCubit
                                           .selectReligion(value!),
                                     ),
-
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -271,13 +338,16 @@ class PersonalDetailsScreen extends StatelessWidget {
                                       onChanged: (value) => personalDetailsCubit
                                           .selectMaritalStatus(value!),
                                     ),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
                     state is PersonalDetailsLoadingState
-                        ? LoadingWidget()
+                        ? AnimatedLoadingWidget()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: CustomElevatedButton(

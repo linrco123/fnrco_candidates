@@ -70,36 +70,36 @@ class MedicalDeclareGettingClassificationsSuccessState
 class MedicalDeclareGettingClassificationsFailureState
     extends MedicalDeclareState {}
 
-class MedicalDeclareChoosingRelationState extends MedicalDeclareState{}
+class MedicalDeclareChoosingRelationState extends MedicalDeclareState {}
 
-class SendMedicalDeclareLoadingState extends MedicalDeclareState{}
+class SendMedicalDeclareLoadingState extends MedicalDeclareState {}
 
+class SendMedicalDeclareSuccessState extends MedicalDeclareState {}
 
-class SendMedicalDeclareSuccessState extends MedicalDeclareState{}
-
-
-class SendMedicalDeclareFailureState extends MedicalDeclareState{
+class SendMedicalDeclareFailureState extends MedicalDeclareState {
   final String message;
 
   SendMedicalDeclareFailureState({required this.message});
 }
 
-class EnterOneFamilyMemberAtLeastState extends MedicalDeclareState{}
+class EnterOneFamilyMemberAtLeastState extends MedicalDeclareState {}
 
-class MedicalDeclarationClearState extends MedicalDeclareState{}
+class MedicalDeclarationClearState extends MedicalDeclareState {}
 
-class GetMedicalApplicationsLoadingState extends MedicalDeclareState{}
+class GetMedicalApplicationsLoadingState extends MedicalDeclareState {}
 
-class GetMedicalApplicationsSuccessState extends MedicalDeclareState{
+class GetMedicalApplicationsSuccessState extends MedicalDeclareState {
   final List<MedicalDeclarationApp> applications;
 
   GetMedicalApplicationsSuccessState({required this.applications});
 }
 
-
-class GetMedicalApplicationsFailureState extends MedicalDeclareState{
+class GetMedicalApplicationsFailureState extends MedicalDeclareState {
   final String message;
 
   GetMedicalApplicationsFailureState({required this.message});
-  
 }
+
+class AttachmentUploadFileState extends MedicalDeclareState {}
+
+class AttachmentDeletionFileState extends MedicalDeclareState {}

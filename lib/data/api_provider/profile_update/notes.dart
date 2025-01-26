@@ -13,16 +13,17 @@ class NotesProvider {
     try {
       final Response response =
           await DioHelper.dio.put(AppLinks.profile_update, data: data);
+          logger.e('-==================response===========================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {
-        return await Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       logger.e('-==================error===========================');
       logger.e(e);
-      logger.d(e.response!.statusMessage!);
-      logger.d(e.response!.data['message']);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));

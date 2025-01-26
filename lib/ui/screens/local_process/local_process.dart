@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,12 +14,39 @@ import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
-class LocalProcessScreen extends StatelessWidget {
+class LocalProcessScreen extends StatefulWidget {
   final List<LocalProcessPipeLine> localProcessPipeline;
   const LocalProcessScreen({
     Key? key,
     required this.localProcessPipeline,
   }) : super(key: key);
+
+  @override
+  State<LocalProcessScreen> createState() => _LocalProcessScreenState();
+}
+
+class _LocalProcessScreenState extends State<LocalProcessScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize the AnimationController
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    );
+
+    // Define the Tween
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.bounceInOut,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +71,7 @@ class LocalProcessScreen extends StatelessWidget {
             if (state is LocalProcessCheckEmptyAttachmentState) {
               showToast(context,
                   title: translateLang(context, 'warning'),
-                  desc: 'Please , Pick up all required attachments',
+                  desc: 'Please , Choose at least one attachment',
                   type: ToastificationType.warning);
             }
             if (state is SubmitLocalProcessAttachmentsSuccessState) {
@@ -77,7 +103,7 @@ class LocalProcessScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ...List.generate(
-                            localProcessPipeline.length,
+                            widget.localProcessPipeline.length,
                             (index) => Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -96,7 +122,8 @@ class LocalProcessScreen extends StatelessWidget {
                                       ),
                                     ),
                                     CustomOnlyEnTitle(
-                                        title: localProcessPipeline[index]
+                                        title: widget
+                                            .localProcessPipeline[index]
                                             .stepName!),
                                   ],
                                 ),
@@ -157,36 +184,128 @@ class LocalProcessScreen extends StatelessWidget {
                                                   color: AppColors.primary,
                                                   size: 25.0,
                                                 )
-                                              : InkWell(
-                                                  onTap: () {
-                                                    localProcessCubit
-                                                        .deleteAttachment(
-                                                            localProcessCubit
-                                                                .localProcessAttachments[
-                                                                    index]
-                                                                .stepId!);
-                                                  },
-                                                  child: Icon(
-                                                    CupertinoIcons
-                                                        .delete_simple,
-                                                    color: AppColors.primary,
-                                                    size: 25.0,
-                                                  ))
+                                              : Row(
+                                                  children: [
+                                                    InkWell(
+                                                        onTap: () {
+                                                          localProcessCubit
+                                                              .deleteAttachment(
+                                                                  localProcessCubit
+                                                                      .localProcessAttachments[
+                                                                          index]
+                                                                      .stepId!);
+                                                        },
+                                                        child: Icon(
+                                                          CupertinoIcons
+                                                              .delete_simple,
+                                                          color:
+                                                              AppColors.primary,
+                                                          size: 25.0,
+                                                        )),
+                                                    const SizedBox(
+                                                      width: 10.0,
+                                                    ),
+                                                    InkWell(
+                                                        onTap: () {
+                                                          // showGeneralDialog(
+                                                          //   // barrierDismissible:
+                                                          //   //     true,
+                                                          //   transitionDuration:
+                                                          //       const Duration(
+                                                          //           seconds: 4),
+                                                          //   context: context,
+                                                          //   pageBuilder: (context,
+                                                          //           animation,
+                                                          //           secondaryAnimation) =>
+                                                          //       Container(),
+                                                          //   transitionBuilder: (context,
+                                                          //           animation,
+                                                          //           secondaryAnimation,
+                                                          //           child) =>
+                                                          //       ScaleTransition(
+                                                          //     scale: _animation,
+                                                          //     child:
+                                                          //         AlertDialog(
+                                                          //       content:
+                                                          //           Container(
+                                                          //         clipBehavior:
+                                                          //             Clip.antiAlias,
+                                                          //         decoration: BoxDecoration(
+                                                          //             borderRadius:
+                                                          //                 BorderRadius.circular(
+                                                          //                     30.0)),
+                                                          //         margin: const EdgeInsets
+                                                          //             .symmetric(
+                                                          //             horizontal:
+                                                          //                 20.0),
+                                                          //         child: localProcessCubit.showDocument(
+                                                          //             localProcessCubit
+                                                          //                 .localProcessAttachments[
+                                                          //                     index]
+                                                          //                 .pathFile!,
+                                                          //             _controller
+                                                          //                 .value),
+                                                          //       ),
+                                                          //     ),
+                                                          //   ),
+                                                          // );
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    Center(
+                                                              // height: 250.0,
+                                                              child: Container(
+                                                                //constraints: BoxConstraints(maxHeight: 250),
+                                                                // height: 300,
+                                                                clipBehavior: Clip
+                                                                    .antiAlias,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            16.0)),
+                                                                margin: const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        20.0),
+                                                                child: localProcessCubit.showDocument(
+                                                                    localProcessCubit
+                                                                        .localProcessAttachments[
+                                                                            index]
+                                                                        .pathFile!,
+                                                                    _controller
+                                                                        .value),
+                                                              ),
+                                                            ),
+                                                          );
+                                                          // // Start the animation
+                                                          // _controller.forward();
+                                                        },
+                                                        child: Icon(
+                                                          Icons
+                                                              .preview_outlined,
+                                                          color:
+                                                              AppColors.primary,
+                                                          size: 25.0,
+                                                        )),
+                                                  ],
+                                                )
                                         ],
                                       )),
                                 ),
+
                                 const SizedBox(
                                   height: 20.0,
                                 ),
                                 // Visibility(
-                                //   visible: localProcessCubit
-                                //         .localProcessAttachments[index].pathFile!.isNotEmpty,
-                                //     child: SizedBox(
-                                //       height: 100,width: double.infinity,
-                                //       child: Image.file(File(localProcessCubit
-                                //           .localProcessAttachments[index]
-                                //           .pathFile!)),
-                                //     ))
+                                //     visible: localProcessCubit
+                                //         .localProcessAttachments[index]
+                                //         .pathFile!
+                                //         .isNotEmpty,
+                                //     child: localProcessCubit.showDocument(
+                                //         localProcessCubit
+                                //             .localProcessAttachments[index]
+                                //             .pathFile!))
                               ],
                             ),
                           ),

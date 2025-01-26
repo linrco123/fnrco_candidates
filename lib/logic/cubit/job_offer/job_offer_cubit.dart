@@ -5,11 +5,17 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/classes/dotted_border.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/job_offer.dart';
 import 'package:fnrco_candidates/data/models/job_offer_model.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 part 'job_offer_state.dart';
 
@@ -74,36 +80,29 @@ class JobOfferCubit extends Cubit<JobOfferState> {
     }
   }
 
-  void uploadJobOffer() async {
+  File? attachment;
+  String fileName = '';
+
+  void uploadRequestFile() async {
     await FilePicker.platform.clearTemporaryFiles();
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.any);
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      String fileName = result.files.first.name;
-      File cvFile = File(result.files.first.path!);
-      //emit(JobApplicationUploadResumeState());
-      _postJobOffer({});
+      fileName = result.files.single.name;
+      attachment = File(result.files.single.path!);
+      filePicked = true;
+      emit(AttachmentUploadFileState());
     }
   }
 
-  void _postJobOffer(Map data) {
-    //TODO: code to upload (post) joboffer to backend
+  void deleteRequestFile() {
+    fileName = '';
+    emit(AttachmentDeletionFileState());
   }
 
-  void downloadJobOffer(String jobOffer) async {
-    emit(JobOfferDownloadPDFLoadingState());
-    var fileName = jobOffer.substring(jobOffer.lastIndexOf('/') + 1);
-    var urlDir = await getTemporaryDirectory();
-    Dio().download(jobOffer, '${urlDir.path}/${fileName}').then((value) {
-      emit(JobOfferDownloadPDFSuccessState());
-    }).catchError((error) {
-      emit(JobOfferDownloadPDFFailureState());
-    });
-    // File file = File(path)
-  }
-
+  bool filePicked = false;
   // var jobApplications = List.empty(growable: true);
-final jobApplications = List<JobApplication>.empty(growable: true);
+  final jobApplications = List<JobApplication>.empty(growable: true);
+
   getJobApplications() {
     emit(GetJobOfferApplicationsLoadingState());
     jobOfferProvider.getJobApplications().then((value) {
@@ -115,24 +114,115 @@ final jobApplications = List<JobApplication>.empty(growable: true);
     });
   }
 
-  void sendJobOfferApproval(int appId, bool value) {
+  Future<void> sendJobOfferApproval(int appId, bool value) async {
     if (value) {
       emit(JobOfferApprovalLoadingState());
     } else {
       emit(JobOfferRejectLoadingState());
     }
-
-    Map data = {
+    FormData formData = FormData.fromMap({
       "candidate_application_id": appId,
-      "candidate_approval": value,
+      "candidate_approval": value ? 1 : 0,
       "candidate_comment": "job offer stage",
       "stage": job_offer.toString()
-    };
+    });
+    // Map data = {
+    //   "candidate_application_id": appId,
+    //   "candidate_approval": value,
+    //   "candidate_comment": "job offer stage",
+    //   "stage": job_offer.toString()
+    // };
+    if (attachment != null) {
+      logger.e('=============== attachment!.exists()==============');
+      logger.e(await attachment!.exists());
+      formData.files.add(MapEntry(
+          'approval_doc', await MultipartFile.fromFile(attachment!.path)));
+    }
 
-    jobOfferProvider.sendJobOfferApproval(data).then((value) {
+    jobOfferProvider.sendJobOfferApproval(formData).then((value) {
       emit(JobOfferApprovalSuccessState());
     }).catchError((error) {
       emit(JobOfferApprovalFailureState(message: error.failure.message));
     });
+  }
+
+  void changeUploadFileToApprove() {
+    emit(changeUploadFileToApproveState());
+  }
+//////////////////////???????/////////////
+  void showBottomSheet(context) {
+    showCupertinoModalPopup(
+      context: context,
+      // isDismissible: true,
+      // isScrollControlled: true,
+      // constraints: BoxConstraints(maxHeight: 300),
+      builder: (context) => Container(
+        color: AppColors.primary,
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 5,
+                  width: 60,
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                CustomPaint(
+                  painter: DottedBorderPainter(),
+                  child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          enableFeedback: true,
+                          maximumSize: Size(double.infinity, 70),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 30.0, horizontal: 15.0),
+                          iconColor: AppColors.primary,
+                          visualDensity: VisualDensity.compact,
+                          // textStyle:TextStyle(color: AppColors.grey, fontSize: 17.0) ,
+                          side: BorderSide.none),
+                      onPressed: () {
+                        uploadRequestFile();
+                      },
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              fileName.isEmpty
+                                  ? translateLang(context, "upload_attach")
+                                  : fileName,
+                              style: TextStyle(
+                                  color: AppColors.grey, fontSize: 16.0),
+                            ),
+                          ),
+                          const Spacer(),
+                          fileName.isEmpty
+                              ? Icon(
+                                  Icons.upload_file_rounded,
+                                  color: AppColors.primary,
+                                  size: 25.0,
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    deleteRequestFile();
+                                  },
+                                  child: Icon(
+                                    CupertinoIcons.delete_simple,
+                                    color: AppColors.primary,
+                                    size: 25.0,
+                                  ))
+                        ],
+                      )),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

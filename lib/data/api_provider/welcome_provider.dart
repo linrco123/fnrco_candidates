@@ -16,7 +16,8 @@ class WelcomeProvider {
       if (response.statusCode == 200) {
         return PollsModel.fromJson(response.data);
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       print('==================dio error=======================');
@@ -33,7 +34,8 @@ class WelcomeProvider {
       if (response.statusCode == 200) {
         return SurveysModel.fromJson(response.data);
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       throw ApiException(

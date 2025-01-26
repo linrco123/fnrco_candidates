@@ -38,7 +38,9 @@ class _GetPersonalDetailsScreenState extends State<GetSkillsScreen> {
         }
         if (state is AboutMeGetSkillsSuccessState) {
           return state.skills.isEmpty
-              ? EmptyDataWidget()
+              ? EmptyDataWidget(
+                message: "No skills available Yet !!!",
+              )
               : Container(
                   height: double.infinity,
                   width: double.infinity,

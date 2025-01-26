@@ -38,10 +38,13 @@ class VisaApprovalProvider {
         'stage':visa_selection
       }
       );
+      logger.e('==========================response==============');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return VisaApprovalModel.fromJson( response.data);
       } else {
-        return Future.error(response.statusCode!);
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
       throw ApiException(

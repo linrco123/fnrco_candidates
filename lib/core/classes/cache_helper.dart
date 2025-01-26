@@ -124,13 +124,33 @@ class CacheHelper {
     return sharedPreferences.getBool('poll');
   }
 
+  static void setPollID(int pollID){
+    sharedPreferences.setInt('poll_id', pollID);
+  }
+  static int? getPollID(){
+    return sharedPreferences.getInt('poll_id');
+  }
+
+  static void setPollData(String pollData){
+    sharedPreferences.setString('poll_data', pollData);
+  }
+  static String? getPollData(){
+    return sharedPreferences.getString('poll_data');
+  }
+  static void setPollQuestion(String pollText) {
+      sharedPreferences.setString('poll_question', pollText);
+  }
+  static String? getPollQuestion() {
+        return sharedPreferences.getString('poll_question');
+
+  }
    static void setSurvey(){
     sharedPreferences.setBool('survey', true);
   }
   static bool? getSurvey(){
     return sharedPreferences.getBool('survey');
   }
-
+  
 
   static void storeUserData({LoginModel? userLData, RegisterModel? userRData}) {
     if (userLData != null) {
@@ -150,4 +170,8 @@ class CacheHelper {
     }
     DioHelper.updateAuthKey();
   }
+
+  
+
+  
 }

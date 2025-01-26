@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../data/api_provider/air_ticket.dart';
 import '../../../data/models/air_ticket_model.dart';
 import '../../../logic/cubit/air_ticket/air_ticket_cubit.dart';
@@ -50,7 +51,7 @@ class AirTicketApplicationsScreen extends StatelessWidget {
             }
             if (state is GetAirTicketInfoFailureState) {
               return FailureWidget(
-                showImage: true,
+                  showImage: true,
                   title: state.message,
                   onTap: () {
                     context.read<AirTicketCubit>().getAirTicketInfo();
@@ -69,15 +70,27 @@ class AirTicketApplicationsScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BlocProvider.value(
-                                    value: airTicketCubit,
-                                    child: AirTicketScreen(
-                                      airTicketApplication:
-                                          cubit.airApplications[index],
+                                Navigator.of(context).push(PageTransition(
+                                    child: BlocProvider.value(
+                                      value: airTicketCubit,
+                                      child: AirTicketScreen(
+                                        airTicketApplication:
+                                            cubit.airApplications[index],
+                                      ),
                                     ),
-                                  ),
-                                ));
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.centerLeft,
+                                    duration: const Duration(seconds: 1)));
+
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) => BlocProvider.value(
+                                //     value: airTicketCubit,
+                                //     child: AirTicketScreen(
+                                //       airTicketApplication:
+                                //           cubit.airApplications[index],
+                                //     ),
+                                //   ),
+                                // ));
                               },
                               child: AirTicketApplicationCard(
                                   application: cubit.airApplications[index]),
