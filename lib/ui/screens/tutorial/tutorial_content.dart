@@ -95,28 +95,35 @@ class TutorialCard extends StatelessWidget {
               SizedBox(
                 height: 200.0,
                 width: double.infinity,
-                child: CachedNetworkImage(
-                  progressIndicatorBuilder: (context, url, progress) =>
-                      AnimatedLoadingWidget(
-                    height: 70.0,
-                    width: 70.0,
+                child: Container(
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    AppImages.youtubePNG,
-                    height: 200.0,
-                    width: double.infinity,
+                  child: CachedNetworkImage(
+                    progressIndicatorBuilder: (context, url, progress) =>
+                        AnimatedLoadingWidget(
+                      height: 70.0,
+                      width: 70.0,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      AppImages.youtubePNG,
+                      height: 200.0,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    // placeholder: (context, url) => Image.asset(
+                    //   'assets/images/youtube.png',
+                    //   height: 70.0,
+                    //   width: 70.0,
+                    // ),
+                    placeholderFadeInDuration:
+                        const Duration(milliseconds: 600),
+                    imageUrl: videoImage,
+                    // height: 70.0,
+                    // width: 70.0,
                     fit: BoxFit.cover,
                   ),
-                  // placeholder: (context, url) => Image.asset(
-                  //   'assets/images/youtube.png',
-                  //   height: 70.0,
-                  //   width: 70.0,
-                  // ),
-                  placeholderFadeInDuration: const Duration(milliseconds: 600),
-                  imageUrl: videoImage,
-                  // height: 70.0,
-                  // width: 70.0,
-                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(

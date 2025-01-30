@@ -2,33 +2,33 @@
 part of 'education_and_qualification_cubit.dart';
 
 @immutable
-sealed class EducationAndQualificationState {}
+sealed   class  EducationAndQualificationState {}
 
-final class EducationAndQualificationInitial extends EducationAndQualificationState {}
+final   class  EducationAndQualificationInitial extends EducationAndQualificationState {}
 
-class EducationAndQualificationPickingUpCertIssueDate extends EducationAndQualificationState{}
-
-
-class EducationAndQualificationPickingUpCertExpireDate extends EducationAndQualificationState{}
+final class  EducationAndQualificationPickingUpCertIssueDate extends EducationAndQualificationState{}
 
 
+final class  EducationAndQualificationPickingUpCertExpireDate extends EducationAndQualificationState{}
 
-class EducationAndQualificationChoosingYearsState extends EducationAndQualificationState{}
 
-class EducationGettingYearsLoadingState extends EducationAndQualificationState{}
-class EducationGettingYearsSuccessState extends EducationAndQualificationState{
+
+final class  EducationAndQualificationChoosingYearsState extends EducationAndQualificationState{}
+
+final class  EducationGettingYearsLoadingState extends EducationAndQualificationState{}
+final class  EducationGettingYearsSuccessState extends EducationAndQualificationState{
   final List<Year> years;
 
   EducationGettingYearsSuccessState({required this.years});
 }
-class EducationGettingYearsFailureState extends EducationAndQualificationState{
+final class  EducationGettingYearsFailureState extends EducationAndQualificationState{
   final String message;
 
   EducationGettingYearsFailureState({required this.message});
 }
 
-class ExperiencesGettingYearsLoadingState extends EducationAndQualificationState{}
-class ExperiencesGettingYearsSuccessState extends EducationAndQualificationState {
+final class  ExperiencesGettingYearsLoadingState extends EducationAndQualificationState{}
+final class  ExperiencesGettingYearsSuccessState extends EducationAndQualificationState {
   final List<Year> years;
   ExperiencesGettingYearsSuccessState({
     required this.years,
@@ -36,26 +36,26 @@ class ExperiencesGettingYearsSuccessState extends EducationAndQualificationState
  }
 
  
- class  ExperiencesGettingYearsErrorState extends EducationAndQualificationState{
+ final class   ExperiencesGettingYearsErrorState extends EducationAndQualificationState{
   final String message;
 
   ExperiencesGettingYearsErrorState({required this.message});
  }
 
 
- class CheckEducationAndQualificationEmptyFieldsState extends EducationAndQualificationState{}
+ final class  CheckEducationAndQualificationEmptyFieldsState extends EducationAndQualificationState{}
 
 
- class EmptyEducationAndQualificationFieldsState extends EducationAndQualificationState{
+ final class  EmptyEducationAndQualificationFieldsState extends EducationAndQualificationState{
 
 
  }
 
 
- class SubmitEducationAndQualificationLoadingState extends EducationAndQualificationState{}
+ final class  SubmitEducationAndQualificationLoadingState extends EducationAndQualificationState{}
 
-  class SubmitEducationAndQualificationSuccessState extends EducationAndQualificationState{}
-   class SubmitEducationAndQualificationFailureState extends EducationAndQualificationState{
+  final class  SubmitEducationAndQualificationSuccessState extends EducationAndQualificationState{}
+   final class  SubmitEducationAndQualificationFailureState extends EducationAndQualificationState{
     final String message;
 
   SubmitEducationAndQualificationFailureState({required this.message});

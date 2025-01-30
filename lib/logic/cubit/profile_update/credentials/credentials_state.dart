@@ -1,22 +1,22 @@
 part of 'credentials_cubit.dart';
 
 @immutable
-sealed class CredentialsState {}
+sealed   class  CredentialsState {}
 
-final class CredentialsInitial extends CredentialsState {}
-
-
-class CredentialsPickingUpIssueDate extends CredentialsState{}
-class CredentialsPickingUpExpireDate extends CredentialsState{}
-class CheckCredentialsEmptyFieldsState extends CredentialsState{}
-
-class EmptyCredentialsFieldsState extends CredentialsState{}
+final   class  CredentialsInitial extends CredentialsState {}
 
 
-class SubmitCredentialsLoadingState extends CredentialsState{}
+final class  CredentialsPickingUpIssueDate extends CredentialsState{}
+final class  CredentialsPickingUpExpireDate extends CredentialsState{}
+final class  CheckCredentialsEmptyFieldsState extends CredentialsState{}
 
-class SubmitCredentialsSuccessState extends CredentialsState{}
-class SubmitCredentialsFailureState extends CredentialsState{
+final class  EmptyCredentialsFieldsState extends CredentialsState{}
+
+
+final class  SubmitCredentialsLoadingState extends CredentialsState{}
+
+final class  SubmitCredentialsSuccessState extends CredentialsState{}
+final class  SubmitCredentialsFailureState extends CredentialsState{
   final String message;
 
   SubmitCredentialsFailureState({required this.message});

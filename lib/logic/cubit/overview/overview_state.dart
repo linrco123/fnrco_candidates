@@ -21,3 +21,20 @@ class GetOverviewDataFailureState extends OverviewState{
 
   GetOverviewDataFailureState({required this.message});
 }
+
+
+final class  GetJobApplicationsLoadingState extends OverviewState{}
+
+final class  GetJobApplicationsSuccessState extends OverviewState{
+  final List<JobApplication>  applications;
+
+  GetJobApplicationsSuccessState({required this.applications});
+
+  // GetJobOfferApplicationsSuccessState(this.applications);
+}
+
+final class  GetJobApplicationsFailureState extends OverviewState{
+    final String message;
+
+  GetJobApplicationsFailureState({required this.message});
+}

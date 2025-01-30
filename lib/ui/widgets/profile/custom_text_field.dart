@@ -20,7 +20,8 @@ class CustomInputField extends StatelessWidget {
       this.initialValue,
       this.linesNum = 1,
       this.enabled = true,
-      this.autovalidateMode = false,this.suffix});
+      this.autovalidateMode = false,
+      this.suffix});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class CustomInputField extends StatelessWidget {
       autofillHints: [
         AutofillHints.username,
       ],
+      
       maxLines: linesNum,
       initialValue: initialValue,
       style: Theme.of(context).textTheme.labelMedium,

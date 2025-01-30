@@ -88,6 +88,6 @@ class AppLinks {
       "/agency-local-process/sharedDocument/";
 
       static String overview =
-      "/overview";
+      "${recruitment_process}/view-app-details";
 
 }

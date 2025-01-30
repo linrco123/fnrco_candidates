@@ -1,17 +1,17 @@
 part of 'personal_details_cubit.dart';
 
 @immutable
-sealed class PersonalDetailsState {}
+sealed   class  PersonalDetailsState {}
 
-final class PersonalDetailsInitial extends PersonalDetailsState {}
+final   class  PersonalDetailsInitial extends PersonalDetailsState {}
 
 
 //TODO:PersonalDetails Process
-class PersonalDetailsLoadingState extends PersonalDetailsState {}
+final class  PersonalDetailsLoadingState extends PersonalDetailsState {}
 
-class PersonalDetailsSuccessState extends PersonalDetailsState {}
+final class  PersonalDetailsSuccessState extends PersonalDetailsState {}
 
-class PersonalDetailsErrorState extends PersonalDetailsState {
+final class  PersonalDetailsErrorState extends PersonalDetailsState {
   final String message;
 
   PersonalDetailsErrorState({required this.message});
@@ -19,89 +19,89 @@ class PersonalDetailsErrorState extends PersonalDetailsState {
 
 
 //TODO:PersonalDetailsChoosing(Country - postion - gender - religion)State
-class PersonalDetailsChoosingCountryState extends PersonalDetailsState {}
+final class  PersonalDetailsChoosingCountryState extends PersonalDetailsState {}
 
-class PersonalDetailsChoosingGenderState extends PersonalDetailsState {}
+final class  PersonalDetailsChoosingGenderState extends PersonalDetailsState {}
 
-class PersonalDetailsChoosingReligionState extends PersonalDetailsState {}
+final class  PersonalDetailsChoosingReligionState extends PersonalDetailsState {}
 
-class PersonalDetailsChoosingMaritalStatusState extends PersonalDetailsState {}
+final class  PersonalDetailsChoosingMaritalStatusState extends PersonalDetailsState {}
 
 //TODO:getCountries
-class PersonalDetailsGettingCountriesLoadingState extends PersonalDetailsState {}
+final class  PersonalDetailsGettingCountriesLoadingState extends PersonalDetailsState {}
 
-class PersonalDetailsGettingCountriesSuccessState extends PersonalDetailsState {
+final class  PersonalDetailsGettingCountriesSuccessState extends PersonalDetailsState {
   final List<Country> countries;
 
   PersonalDetailsGettingCountriesSuccessState({required this.countries});
 }
 
-class PersonalDetailsGettingCountriesFailureState extends PersonalDetailsState {
+final class  PersonalDetailsGettingCountriesFailureState extends PersonalDetailsState {
   final String? message;
 
   PersonalDetailsGettingCountriesFailureState({this.message});
 }
 
-class PersonalDetailsGettingPositionsLoadingState extends PersonalDetailsState {}
+final class  PersonalDetailsGettingPositionsLoadingState extends PersonalDetailsState {}
 
-class PersonalDetailsGettingPositionsSuccessState extends PersonalDetailsState {
+final class  PersonalDetailsGettingPositionsSuccessState extends PersonalDetailsState {
   final List<Position> countries;
 
   PersonalDetailsGettingPositionsSuccessState({required this.countries});
 }
 
-class PersonalDetailsGettingPositionsFailureState extends PersonalDetailsState {
+final class  PersonalDetailsGettingPositionsFailureState extends PersonalDetailsState {
   final String? message;
 
   PersonalDetailsGettingPositionsFailureState({this.message});
 }
 
-class PersonalDetailsGettingReligionLoadingState extends PersonalDetailsState {}
+final class  PersonalDetailsGettingReligionLoadingState extends PersonalDetailsState {}
 
-class PersonalDetailsGettingReligionsSuccessState extends PersonalDetailsState {
+final class  PersonalDetailsGettingReligionsSuccessState extends PersonalDetailsState {
   // final List<Position> countries;
 
   // PersonalDetailsGettingReligionSuccessState({required this.countries});
 }
 
-class PersonalDetailsGettingReligionFailureState extends PersonalDetailsState {
+final class  PersonalDetailsGettingReligionFailureState extends PersonalDetailsState {
   // final String? message;
 
   // PersonalDetailsGettingPositionsFailureState({this.message});
 }
 
-class PersonalDetailsGettingGenderLoadingState extends PersonalDetailsState {}
+final class  PersonalDetailsGettingGenderLoadingState extends PersonalDetailsState {}
 
-class PersonalDetailsGettingGenderSuccessState extends PersonalDetailsState {
+final class  PersonalDetailsGettingGenderSuccessState extends PersonalDetailsState {
   // final List<Position> countries;
 
   // PersonalDetailsGettingPositionsSuccessState({required this.countries});
 }
 
-class PersonalDetailsGettingGenderFailureState extends PersonalDetailsState {
+final class  PersonalDetailsGettingGenderFailureState extends PersonalDetailsState {
   // final String? message;
 
   // PersonalDetailsGettingPositionsFailureState({this.message});
 }
 
-class PersonalDetailsGettingMaritalStatusLoadingState extends PersonalDetailsState {}
+final class  PersonalDetailsGettingMaritalStatusLoadingState extends PersonalDetailsState {}
 
-class PersonalDetailsGettingMaritalStatusSuccessState extends PersonalDetailsState {
+final class  PersonalDetailsGettingMaritalStatusSuccessState extends PersonalDetailsState {
   // final List<Position> countries;
 
   // PersonalDetailsGettingPositionsSuccessState({required this.countries});
 }
 
-class PersonalDetailsGettingMaritalStatusFailureState extends PersonalDetailsState {
+final class  PersonalDetailsGettingMaritalStatusFailureState extends PersonalDetailsState {
   // final String? message;
 
   // PersonalDetailsGettingPositionsFailureState({this.message});
 }
 
 
-class PersonalDetailsPickingUpDate extends PersonalDetailsState{}
+final class  PersonalDetailsPickingUpDate extends PersonalDetailsState{}
 
-class PersonalDetailsSuccessChangeImageState extends PersonalDetailsState{}
+final class  PersonalDetailsSuccessChangeImageState extends PersonalDetailsState{}
 
 
-class ResumePickAttachmentFileState extends PersonalDetailsState{}
+final class  ResumePickAttachmentFileState extends PersonalDetailsState{}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 import '../../../core/classes/dotted_border.dart';
 import '../../../data/models/job_offer_model.dart';
 import '../../../core/functions/show_toast.dart';
@@ -22,16 +23,18 @@ class JobOfferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: jobApplication.isAction!.toLowerCase() == 'not done'? Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.08),
-        child: FloatingActionButton(
-          onPressed: () {
-            _showSheet(context.read<JobOfferCubit>(), context);
-          },
-          child: Icon(Icons.upload),
-        ),
-      ):null,
+      floatingActionButton: jobApplication.isAction!.toLowerCase() == 'not done'
+          ? Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.08),
+              child: FloatingActionButton(
+                onPressed: () {
+                  _showSheet(context.read<JobOfferCubit>(), context);
+                },
+                child: Icon(Icons.upload),
+              ),
+            )
+          : null,
       appBar: AppBar(
           backgroundColor: AppColors.primary,
           centerTitle: true,
@@ -131,57 +134,102 @@ class JobOfferScreen extends StatelessWidget {
                     onPageChanged: (int? page, int? total) {},
                   ),
                 ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 20.0),
-                  child: Container(
-                    height: 70,
-                    width: double.infinity,
-                    child: jobApplication.isAction == "Done"
-                        ? SizedBox.shrink()
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.end,
+              jobApplication.approvals!.candidate!.isApproved == null
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20.0),
+                        child: Container(
+                          height: 70,
+                          width: double.infinity,
+                          child: jobApplication.isAction == "Done"
+                              ? SizedBox.shrink()
+                              : Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                        child: Center(
+                                      child:
+                                          state is JobOfferApprovalLoadingState
+                                              ? AnimatedLoadingWidget()
+                                              : CustomElevatedButton(
+                                                  fun: () {
+                                                    context
+                                                        .read<JobOfferCubit>()
+                                                        .sendJobOfferApproval(
+                                                            jobApplication.id!,
+                                                            true);
+                                                  },
+                                                  background: AppColors.success,
+                                                  text: translateLang(
+                                                      context, 'approve')),
+                                    )),
+                                    const SizedBox(
+                                      width: 15.0,
+                                    ),
+                                    Expanded(
+                                        child: Center(
+                                      child: state is JobOfferRejectLoadingState
+                                          ? AnimatedLoadingWidget()
+                                          : CustomElevatedButton(
+                                              fun: () {
+                                                context
+                                                    .read<JobOfferCubit>()
+                                                    .sendJobOfferApproval(
+                                                        jobApplication.id!,
+                                                        false);
+                                              },
+                                              background: AppColors.primary,
+                                              text: translateLang(
+                                                  context, 'reject')),
+                                    ))
+                                  ],
+                                ),
+                        ),
+                      ),
+                    )
+                  : Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 200.0,
+                        width: double.infinity,
+                      //  margin: const EdgeInsets.only(bottom: 20.0),
+                        decoration: BoxDecoration(
+                           
+                            color: AppColors.blurRed,
+                            borderRadius: BorderRadiusDirectional.only(
+                                topStart: Radius.circular(16),
+                                topEnd: Radius.circular(16))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                  child: Center(
-                                child: state is JobOfferApprovalLoadingState
-                                    ? AnimatedLoadingWidget()
-                                    : CustomElevatedButton(
-                                        fun: () {
-                                          context
-                                              .read<JobOfferCubit>()
-                                              .sendJobOfferApproval(
-                                                  jobApplication.id!, true);
-                                        },
-                                        background: AppColors.success,
-                                        text:
-                                            translateLang(context, 'approve')),
-                              )),
-                              const SizedBox(
-                                width: 15.0,
-                              ),
-                              Expanded(
-                                  child: Center(
-                                child: state is JobOfferRejectLoadingState
-                                    ? AnimatedLoadingWidget()
-                                    : CustomElevatedButton(
-                                        fun: () {
-                                          context
-                                              .read<JobOfferCubit>()
-                                              .sendJobOfferApproval(
-                                                  jobApplication.id!, false);
-                                        },
-                                        background: AppColors.primary,
-                                        text: translateLang(context, 'reject')),
-                              ))
+                              ProfileItem(
+                                  kkey: "status",
+                                  value: jobApplication.approvals!.candidate!
+                                              .isApproved! ==
+                                          '1'
+                                      ? translateLang(context, 'approved')
+                                      : translateLang(context, 'rejected')),
+                              ProfileItem(
+                                  kkey: "approve_in",
+                                  value: jobApplication
+                                      .approvals!.candidate!.candidateApprovedIn
+                                      .toString()),
+                              ProfileItem(
+                                  kkey: "remark",
+                                  value: jobApplication
+                                      .approvals!.candidate!.remarks
+                                      .toString()),
                             ],
                           ),
-                  ),
-                ),
-              )
+                        ),
+                      ),
+                    )
             ],
           );
         },

@@ -1,23 +1,23 @@
 part of 'about_me_cubit.dart';
 
 @immutable
-sealed class AboutMeState {}
+sealed   class  AboutMeState {}
 
-final class AboutMeInitial extends AboutMeState {}
-
-final class AboutMeChangeSectionState extends AboutMeState {}
+final   class  AboutMeInitial extends AboutMeState {}
+ 
+final   class  AboutMeChangeSectionState extends AboutMeState {}
 
 //////////////TODO:PersonalData.//////////////////////
 
-class AboutMeGetPersonalDataLoadingState extends AboutMeState {}
+final class  AboutMeGetPersonalDataLoadingState extends AboutMeState {}
 
-class AboutMeGetPersonalDataSuccessState extends AboutMeState {
+final class  AboutMeGetPersonalDataSuccessState extends AboutMeState {
   final List<GetPData> pData;
 
   AboutMeGetPersonalDataSuccessState({required this.pData});
 }
 
-class AboutMeGetPersonalDataErrorState extends AboutMeState {
+final class  AboutMeGetPersonalDataErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetPersonalDataErrorState({required this.message});
@@ -25,75 +25,75 @@ class AboutMeGetPersonalDataErrorState extends AboutMeState {
 
 //////////////TODO:Achievements.//////////////////////
 
-class AboutMeGetAchievementsLoadingState extends AboutMeState {}
+final class  AboutMeGetAchievementsLoadingState extends AboutMeState {}
 
-class AboutMeGetAchievementsSuccessState extends AboutMeState {
+final class  AboutMeGetAchievementsSuccessState extends AboutMeState {
   final List<GetAchievement> achievements;
 
   AboutMeGetAchievementsSuccessState({required this.achievements});
 }
 
-class AboutMeGetAchievementsErrorState extends AboutMeState {
+final class  AboutMeGetAchievementsErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetAchievementsErrorState({required this.message});
 }
 
 //////////////TODO:Experiences.//////////////////////
-class AboutMeGetExperiencesLoadingState extends AboutMeState {}
+final class  AboutMeGetExperiencesLoadingState extends AboutMeState {}
 
-class AboutMeGetExperiencesSuccessState extends AboutMeState {
+final class  AboutMeGetExperiencesSuccessState extends AboutMeState {
   final List<GetExperience> experiences;
 
   AboutMeGetExperiencesSuccessState({required this.experiences});
 }
 
-class AboutMeGetExperiencesErrorState extends AboutMeState {
+final class  AboutMeGetExperiencesErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetExperiencesErrorState({required this.message});
 }
 
 //////////////TODO:Contacts.//////////////////////
-class AboutMeGetContactsLoadingState extends AboutMeState {}
+final class  AboutMeGetContactsLoadingState extends AboutMeState {}
 
-class AboutMeGetContactsSuccessState extends AboutMeState {
+final class  AboutMeGetContactsSuccessState extends AboutMeState {
   final List<GetContact> contacts;
 
   AboutMeGetContactsSuccessState({required this.contacts});
 }
 
-class AboutMeGetContactsErrorState extends AboutMeState {
+final class  AboutMeGetContactsErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetContactsErrorState({required this.message});
 }
 
 //////////////TODO:Credentials.//////////////////////
-class AboutMeGetCredentialsLoadingState extends AboutMeState {}
+final class  AboutMeGetCredentialsLoadingState extends AboutMeState {}
 
-class AboutMeGetCredentialsSuccessState extends AboutMeState {
+final class  AboutMeGetCredentialsSuccessState extends AboutMeState {
   final List<GetCredential> credentials;
 
   AboutMeGetCredentialsSuccessState({required this.credentials});
 }
 
-class AboutMeGetCredentialsErrorState extends AboutMeState {
+final class  AboutMeGetCredentialsErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetCredentialsErrorState({required this.message});
 }
 
 //////////////TODO:educations.//////////////////////
-class AboutMeGetEducationsLoadingState extends AboutMeState {}
+final class  AboutMeGetEducationsLoadingState extends AboutMeState {}
 
-class AboutMeGetEducationsSuccessState extends AboutMeState {
+final class  AboutMeGetEducationsSuccessState extends AboutMeState {
   final List<GetEducation> educations;
 
   AboutMeGetEducationsSuccessState({required this.educations});
 }
 
-class AboutMeGetEducationsErrorState extends AboutMeState {
+final class  AboutMeGetEducationsErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetEducationsErrorState({required this.message});
@@ -101,45 +101,45 @@ class AboutMeGetEducationsErrorState extends AboutMeState {
 
 //////////////TODO:keywords.//////////////////////
 
-class AboutMeGetkeywordsLoadingState extends AboutMeState {}
+final class  AboutMeGetkeywordsLoadingState extends AboutMeState {}
 
-class AboutMeGetkeywordsSuccessState extends AboutMeState {
+final class  AboutMeGetkeywordsSuccessState extends AboutMeState {
   final List<GetKeyword> keywords;
 
   AboutMeGetkeywordsSuccessState({required this.keywords});
 }
 
-class AboutMeGetkeywordsErrorState extends AboutMeState {
+final class  AboutMeGetkeywordsErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetkeywordsErrorState({required this.message});
 }
 
 //////////////TODO:Languages.//////////////////////
-class AboutMeGetLanguagesLoadingState extends AboutMeState {}
+final class  AboutMeGetLanguagesLoadingState extends AboutMeState {}
 
-class AboutMeGetLanguagesSuccessState extends AboutMeState {
+final class  AboutMeGetLanguagesSuccessState extends AboutMeState {
   final List<GetLanguage> languages;
 
   AboutMeGetLanguagesSuccessState({required this.languages});
 }
 
-class AboutMeGetLanguagesErrorState extends AboutMeState {
+final class  AboutMeGetLanguagesErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetLanguagesErrorState({required this.message});
 }
 
 //////////////TODO:Notes.//////////////////////
-class AboutMeGetNotesLoadingState extends AboutMeState {}
+final class  AboutMeGetNotesLoadingState extends AboutMeState {}
 
-class AboutMeGetNotesSuccessState extends AboutMeState {
+final class  AboutMeGetNotesSuccessState extends AboutMeState {
   final List<GetNote> notes;
 
   AboutMeGetNotesSuccessState({required this.notes});
 }
 
-class AboutMeGetNotesErrorState extends AboutMeState {
+final class  AboutMeGetNotesErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetNotesErrorState({required this.message});
@@ -147,15 +147,15 @@ class AboutMeGetNotesErrorState extends AboutMeState {
 
 //////////////TODO:Skills.//////////////////////
 
-class AboutMeGetSkillsLoadingState extends AboutMeState {}
+final class  AboutMeGetSkillsLoadingState extends AboutMeState {}
 
-class AboutMeGetSkillsSuccessState extends AboutMeState {
+final class  AboutMeGetSkillsSuccessState extends AboutMeState {
   final List<GetSkill> skills;
 
   AboutMeGetSkillsSuccessState({required this.skills});
 }
 
-class AboutMeGetSkillsErrorState extends AboutMeState {
+final class  AboutMeGetSkillsErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetSkillsErrorState({required this.message});
@@ -165,15 +165,15 @@ class AboutMeGetSkillsErrorState extends AboutMeState {
 //////////////TODO:AppliedJobs.//////////////////////
 
 
-class AboutMeGetAppliedJobsLoadingState extends AboutMeState {}
+final class  AboutMeGetAppliedJobsLoadingState extends AboutMeState {}
 
-class AboutMeGetAppliedJobsSuccessState extends AboutMeState {
+final class  AboutMeGetAppliedJobsSuccessState extends AboutMeState {
   final List<GetJob> appliedJobs;
 
   AboutMeGetAppliedJobsSuccessState({required this.appliedJobs});
 }
 
-class AboutMeGetAppliedJobsErrorState extends AboutMeState {
+final class  AboutMeGetAppliedJobsErrorState extends AboutMeState {
   final String message;
 
   AboutMeGetAppliedJobsErrorState({required this.message});

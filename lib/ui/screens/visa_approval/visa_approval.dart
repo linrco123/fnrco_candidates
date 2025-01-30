@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 import 'package:toastification/toastification.dart';
 
 import 'package:fnrco_candidates/constants/app_colors.dart';
@@ -85,9 +86,10 @@ class VisaApprovalScreen extends StatelessWidget {
                           validate: (context, s) => s,
                           enabled: false,
                           inputType: TextInputType.name,
-                          hint:visaApprovalApplication.pipeline != null
+                          hint: visaApprovalApplication.pipeline != null
                               ? visaApprovalApplication.pipeline!.country!
-                              .toString():"empty data"),
+                                  .toString()
+                              : "empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -111,7 +113,8 @@ class VisaApprovalScreen extends StatelessWidget {
                           enabled: false,
                           hint: visaApprovalApplication.pipeline != null
                               ? visaApprovalApplication.pipeline!.gender!
-                              .toString():"empty data"),
+                                  .toString()
+                              : "empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -123,8 +126,9 @@ class VisaApprovalScreen extends StatelessWidget {
                           inputType: TextInputType.name,
                           enabled: false,
                           hint: visaApprovalApplication.pipeline != null
-                              ? visaApprovalApplication.pipeline!.visaNo!
-                              .toString():"empty data"),
+                              ? visaApprovalApplication.pipeline!.positionName
+                                  .toString()
+                              : "empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -137,7 +141,8 @@ class VisaApprovalScreen extends StatelessWidget {
                           enabled: false,
                           hint: visaApprovalApplication.pipeline != null
                               ? visaApprovalApplication.pipeline!.religion!
-                              .toString():"empty data"),
+                                  .toString()
+                              : "empty data"),
                       const SizedBox(
                         height: 16.0,
                       ),
@@ -157,6 +162,7 @@ class VisaApprovalScreen extends StatelessWidget {
                     ],
                   ),
                 )),
+                visaApprovalApplication.approvals!.candidate!.isApproved == null?
                 Visibility(
                   visible: visaApprovalApplication.isAction == 'Not Done',
                   child: Row(
@@ -194,7 +200,45 @@ class VisaApprovalScreen extends StatelessWidget {
                       ))
                     ],
                   ),
-                ),
+                )
+                : Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 200.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: AppColors.blurRed,
+                            borderRadius: BorderRadiusDirectional.only(
+                                topStart: Radius.circular(16),
+                                topEnd: Radius.circular(16))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ProfileItem(
+                                  kkey: "status",
+                                  value: visaApprovalApplication.approvals!.candidate!
+                                              .isApproved! ==
+                                          '1'
+                                      ? translateLang(context, 'approved')
+                                      : translateLang(context, 'rejected')),
+                              ProfileItem(
+                                  kkey: "approve_in",
+                                  value: visaApprovalApplication
+                                      .approvals!.candidate!.candidateApprovedIn
+                                      .toString()),
+                              ProfileItem(
+                                  kkey: "remark",
+                                  value: visaApprovalApplication
+                                      .approvals!.candidate!.remarks
+                                      .toString()),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                 const SizedBox(
                   height: 16.0,
                 ),

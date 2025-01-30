@@ -1,14 +1,14 @@
 part of 'air_ticket_cubit.dart';
 
 @immutable
-sealed class AirTicketState {}
+sealed  class  AirTicketState {}
 
-final class AirTicketInitial extends AirTicketState {}
+ final class  AirTicketInitial extends AirTicketState {}
 
-class GetAirTicketInfoLoadingState extends AirTicketState{}
+ final class  GetAirTicketInfoLoadingState extends AirTicketState{}
 
 
-class GetAirTicketInfoSuccessState extends AirTicketState{
+ final class  GetAirTicketInfoSuccessState extends AirTicketState{
   final List<AirTicketApplication> applications;
 
   GetAirTicketInfoSuccessState({required this.applications});
@@ -16,41 +16,41 @@ class GetAirTicketInfoSuccessState extends AirTicketState{
 
 
 
-class GetAirTicketInfoFailureState extends AirTicketState{
+final class  GetAirTicketInfoFailureState extends AirTicketState{
   final String message;
 
   GetAirTicketInfoFailureState({required this.message});
 }
 
 
-class DeparturePickingUpDateState extends AirTicketState{}
-class ArrivalPickingUpDateState extends AirTicketState{}
-class DeparturePickingUpTimeState extends AirTicketState{}
-class ArrivalTimingPickingUpTimeState extends AirTicketState{}
-class ArrivalAtTimingPickingUpTimeState extends AirTicketState{}
+final class   DeparturePickingUpDateState extends AirTicketState{}
+final class  ArrivalPickingUpDateState extends AirTicketState{}
+final class  DeparturePickingUpTimeState extends AirTicketState{}
+final class  ArrivalTimingPickingUpTimeState extends AirTicketState{}
+final class  ArrivalAtTimingPickingUpTimeState extends AirTicketState{}
 
 
-class PickUpDepartureDateState extends AirTicketState{}
-class PickUpArrivalDateState extends AirTicketState{}
-class PickUpArrivalTimeState extends AirTicketState{}
-class PickUpDepartureTimeState extends AirTicketState{}
-class PickUpArrivalAtState extends AirTicketState{}
+final class  PickUpDepartureDateState extends AirTicketState{}
+final class  PickUpArrivalDateState extends AirTicketState{}
+final class  PickUpArrivalTimeState extends AirTicketState{}
+final class  PickUpDepartureTimeState extends AirTicketState{}
+final class  PickUpArrivalAtState extends AirTicketState{}
 
 
-class submitAirTicketInfoLoadingState extends AirTicketState{}
-class submitAirTicketInfoSuccesState extends AirTicketState{
+final class  submitAirTicketInfoLoadingState extends AirTicketState{}
+final class  submitAirTicketInfoSuccesState extends AirTicketState{
 
 }
-class submitAirTicketInfoFailureState extends AirTicketState{
+final class  submitAirTicketInfoFailureState extends AirTicketState{
   final String message;
 
   submitAirTicketInfoFailureState({required this.message});
 }
 
 
-class AirTicketUploadAttachmentState extends AirTicketState{}
-class AirTicketDeleteAttachmentState extends AirTicketState{}
+final class  AirTicketUploadAttachmentState extends AirTicketState{}
+final class  AirTicketDeleteAttachmentState extends AirTicketState{}
 
 
-class PickUpTicketUpAttachmentState extends AirTicketState{}
+final class  PickUpTicketUpAttachmentState extends AirTicketState{}
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/data/models/management_content/poll_percentage_model.dart';
-import 'package:fnrco_candidates/ui/screens/management_content/polls/polls_percentage.dart';
-import 'ui/screens/overview.dart';
+import 'data/models/management_content/poll_percentage_model.dart';
+import 'ui/screens/management_content/polls/polls_percentage.dart';
+import 'ui/screens/overview/overview_apps.dart';
 import 'ui/screens/medical_declaration/medical_declaration_apps.dart';
 import 'ui/screens/profile_get/experience/experience_description.dart';
 import 'ui/screens/profile_get/get_job_details.dart';
@@ -525,7 +525,7 @@ class AppRouter {
 
       case AppPagesNames.OVERVIEW:
         return PageTransition(
-          child: OverviewScreen(),
+          child: OverviewAppsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

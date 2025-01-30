@@ -1,46 +1,46 @@
 part of 'surveys_cubit.dart';
 
 @immutable
-sealed class SurveysState {}
+sealed   class  SurveysState {}
 
-final class SurveysInitial extends SurveysState {}
+  final class  SurveysInitial extends SurveysState {}
 
-final class SurveysLoadingState extends SurveysState {}
+  final class  SurveysLoadingState extends SurveysState {}
 
-final class SurveysSuccessState extends SurveysState {
+  final class  SurveysSuccessState extends SurveysState {
   final List<Survey> surveys;
 
   SurveysSuccessState({required this.surveys});
 }
 
-final class SurveysFailureState extends SurveysState {
+  final class  SurveysFailureState extends SurveysState {
   final String message;
 
   SurveysFailureState({required this.message});
 }
 
-class SurveysViewLoadingState extends SurveysState {}
+final class  SurveysViewLoadingState extends SurveysState {}
 
-class SurveysViewSuccessState extends SurveysState {
+final class  SurveysViewSuccessState extends SurveysState {
   final List<SQuestions> questions;
 
   SurveysViewSuccessState({required this.questions});
 }
 
-class SurveysViewFailureState extends SurveysState {
+final class  SurveysViewFailureState extends SurveysState {
   final String message;
 
   SurveysViewFailureState({required this.message});
 } 
 
 
-class MoveToNextQuestionsState extends SurveysState{}
-class ChooseAnswerState extends SurveysState{
+final class  MoveToNextQuestionsState extends SurveysState{}
+final class  ChooseAnswerState extends SurveysState{
 }
 
-class SubmitSurveyViewLoadingState extends SurveysState{}
-class SubmitSurveyViewSuccessState extends SurveysState{}
-class SubmitSurveyViewFailureState extends SurveysState{}
+final class  SubmitSurveyViewLoadingState extends SurveysState{}
+final class  SubmitSurveyViewSuccessState extends SurveysState{}
+final class  SubmitSurveyViewFailureState extends SurveysState{}
 
 
-class PickSurveyAnswerState extends SurveysState{}
+final class  PickSurveyAnswerState extends SurveysState{}

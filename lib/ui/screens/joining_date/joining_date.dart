@@ -14,6 +14,8 @@ import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
 import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
 
+import '../../widgets/profile_get/profile_item.dart';
+
 class JoiningDateSCreen extends StatelessWidget {
   final JoiningDateApplication joiningDateApp;
   const JoiningDateSCreen({
@@ -100,62 +102,116 @@ class JoiningDateSCreen extends StatelessWidget {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      CustomInputField(
-                          controller:
-                              context.read<JoiningDateCubit>().joinDateRemark,
-                          validate: (context, s) => s,
-                          inputType: TextInputType.text,
-                          hint:
-                              translateLang(context, "enter_joiningD_remark")),
+                      joiningDateApp.isAction == 'Done'
+                          ? SizedBox.shrink()
+                          : CustomInputField(
+                              enabled: joiningDateApp.isAction == 'Done'
+                                  ? false
+                                  : true,
+                              controller: context
+                                  .read<JoiningDateCubit>()
+                                  .joinDateRemark,
+                              validate: (context, s) => s,
+                              inputType: TextInputType.text,
+                              hint: translateLang(
+                                  context, "enter_joiningD_remark")),
                       const SizedBox(
                         height: 16.0,
                       ),
                     ],
                   )),
-                  Visibility(
-                    visible: joiningDateApp.isAction != 'Done',
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Center(
-                          child: state is JoiningDateApprovalLoadingState
-                              ? AnimatedLoadingWidget()
-                              : CustomElevatedButton(
-                                  fun: () {
-                                    if (joiningDateApp.pipeline!.joiningDate !=
-                                        null) {
-                                      context
-                                          .read<JoiningDateCubit>()
-                                          .sendJoiningDate(
-                                              joiningDateApp.id!, true);
-                                    }
-                                  },
-                                  background: AppColors.success,
-                                  text: translateLang(context, 'approve')),
-                        )),
-                        const SizedBox(
-                          width: 15.0,
+                  joiningDateApp.approvals!.candidate!.isApproved == null
+                      ? Visibility(
+                          visible: joiningDateApp.isAction != 'Done',
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Center(
+                                child: state is JoiningDateApprovalLoadingState
+                                    ? AnimatedLoadingWidget()
+                                    : CustomElevatedButton(
+                                        fun: () {
+                                          if (joiningDateApp
+                                                  .pipeline!.joiningDate !=
+                                              null) {
+                                            context
+                                                .read<JoiningDateCubit>()
+                                                .sendJoiningDate(
+                                                    joiningDateApp.id!, true);
+                                          }
+                                        },
+                                        background: AppColors.success,
+                                        text:
+                                            translateLang(context, 'approve')),
+                              )),
+                              const SizedBox(
+                                width: 15.0,
+                              ),
+                              Expanded(
+                                  child: Center(
+                                child: state is JoiningDateRejectionLoadingState
+                                    ? AnimatedLoadingWidget()
+                                    : CustomElevatedButton(
+                                        fun: () {
+                                          if (joiningDateApp
+                                                  .pipeline!.joiningDate !=
+                                              null) {
+                                            context
+                                                .read<JoiningDateCubit>()
+                                                .sendJoiningDate(
+                                                    joiningDateApp.id!, false);
+                                          }
+                                        },
+                                        background: AppColors.primary,
+                                        text: translateLang(context, 'reject')),
+                              ))
+                            ],
+                          ),
+                        )
+                      : Align(
+                          alignment: Alignment.bottomCenter,
+                          child: FractionallySizedBox(
+                            child: Container(
+                              height: 200.0,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: AppColors.blurRed,
+                                  borderRadius: BorderRadiusDirectional.only(
+                                    topStart: Radius.circular(16),
+                                    topEnd: Radius.circular(16),
+                                    bottomEnd: Radius.circular(16),
+                                    bottomStart: Radius.circular(16),
+                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ProfileItem(
+                                        kkey: "status",
+                                        value: joiningDateApp.approvals!
+                                                    .candidate!.isApproved! ==
+                                                '1'
+                                            ? translateLang(context, 'approved')
+                                            : translateLang(
+                                                context, 'rejected')),
+                                    ProfileItem(
+                                        kkey: "approve_in",
+                                        value: joiningDateApp.approvals!
+                                            .candidate!.candidateApprovedIn
+                                            .toString()),
+                                    ProfileItem(
+                                        kkey: "remark",
+                                        value: joiningDateApp
+                                            .approvals!.candidate!.remarks
+                                            .toString()),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                        Expanded(
-                            child: Center(
-                          child: state is JoiningDateRejectionLoadingState
-                              ? AnimatedLoadingWidget()
-                              : CustomElevatedButton(
-                                  fun: () {
-                                    if (joiningDateApp.pipeline!.joiningDate !=
-                                        null) {
-                                      context
-                                          .read<JoiningDateCubit>()
-                                          .sendJoiningDate(
-                                              joiningDateApp.id!, false);
-                                    }
-                                  },
-                                  background: AppColors.primary,
-                                  text: translateLang(context, 'reject')),
-                        ))
-                      ],
-                    ),
-                  ),
                   const SizedBox(
                     height: 16.0,
                   ),

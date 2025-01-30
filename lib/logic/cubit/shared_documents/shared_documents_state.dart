@@ -1,21 +1,21 @@
 part of 'shared_documents_cubit.dart';
 
 @immutable
-sealed class SharedDocumentsState {}
+sealed   class  SharedDocumentsState {}
 
-final class SharedDocumentsInitial extends SharedDocumentsState {}
+final   class  SharedDocumentsInitial extends SharedDocumentsState {}
 
 
 
-// class SharedDocumentsGetAppsLoadingState extends SharedDocumentsState {}
+// final class  SharedDocumentsGetAppsLoadingState extends SharedDocumentsState {}
 
-// class SharedDocumentsGetAppsSuccessState extends SharedDocumentsState {
+// final class  SharedDocumentsGetAppsSuccessState extends SharedDocumentsState {
 //   final List<SharedDocsApplication> applications;
 
 //   SharedDocumentsGetAppsSuccessState({required this.applications});
 // }
 
-// class SharedDocumentsGetAppsfailureState extends SharedDocumentsState {
+// final class  SharedDocumentsGetAppsfailureState extends SharedDocumentsState {
 //   final String message;
 
 //   SharedDocumentsGetAppsfailureState({required this.message});
@@ -23,15 +23,15 @@ final class SharedDocumentsInitial extends SharedDocumentsState {}
 
 
 
-class SharedDocumentsGetDetailsLoadingState extends SharedDocumentsState {}
+final class  SharedDocumentsGetDetailsLoadingState extends SharedDocumentsState {}
 
-class SharedDocumentsGetDetailsSuccessState extends SharedDocumentsState {
+final class  SharedDocumentsGetDetailsSuccessState extends SharedDocumentsState {
   final List<SharedDocument> sharedDocuments;
 
   SharedDocumentsGetDetailsSuccessState({required this.sharedDocuments});
 }
 
-class SharedDocumentsGetDetailsfailureState extends SharedDocumentsState {
+final class  SharedDocumentsGetDetailsfailureState extends SharedDocumentsState {
   final String message;
 
   SharedDocumentsGetDetailsfailureState({required this.message});
@@ -40,9 +40,9 @@ class SharedDocumentsGetDetailsfailureState extends SharedDocumentsState {
 
 
 
-class GetJobApplicationsLoadingState extends SharedDocumentsState{}
+final class  GetJobApplicationsLoadingState extends SharedDocumentsState{}
 
-class GetJobApplicationsSuccessState extends SharedDocumentsState{
+final class  GetJobApplicationsSuccessState extends SharedDocumentsState{
   final List<JobApplication>  applications;
 
   GetJobApplicationsSuccessState({required this.applications});
@@ -50,20 +50,20 @@ class GetJobApplicationsSuccessState extends SharedDocumentsState{
   // GetJobOfferApplicationsSuccessState(this.applications);
 }
 
-class GetJobApplicationsFailureState extends SharedDocumentsState{
+final class  GetJobApplicationsFailureState extends SharedDocumentsState{
     final String message;
 
   GetJobApplicationsFailureState({required this.message});
 }
 
-class ChooseDocumentState extends SharedDocumentsState{}
+final class  ChooseDocumentState extends SharedDocumentsState{}
 
 
-class SharedDocumentDownloadLoadingState extends SharedDocumentsState{}
+final class  SharedDocumentDownloadLoadingState extends SharedDocumentsState{}
 
-class SharedDocumentDownloadSuccessState extends SharedDocumentsState{}
+final class  SharedDocumentDownloadSuccessState extends SharedDocumentsState{}
 
-class SharedDocumentDownloadFailureState extends SharedDocumentsState{
+final class  SharedDocumentDownloadFailureState extends SharedDocumentsState{
   final String message;
 
   SharedDocumentDownloadFailureState({required this.message});

@@ -1,19 +1,19 @@
 part of 'tutorial_cubit.dart';
 
 @immutable
-sealed class TutorialState {}
+sealed   class  TutorialState {}
 
-final class TutorialInitial extends TutorialState {}
+final   class  TutorialInitial extends TutorialState {}
 
-class TutorialLoadingState extends TutorialState {}
+final class  TutorialLoadingState extends TutorialState {}
 
-class TutorialSuccessState extends TutorialState {
+final class  TutorialSuccessState extends TutorialState {
   final List<Tutorial> tutorials;
 
   TutorialSuccessState({required this.tutorials});
 }
 
-class TutorialFailureState extends TutorialState {
+final class  TutorialFailureState extends TutorialState {
   final String message;
 
   TutorialFailureState({required this.message});

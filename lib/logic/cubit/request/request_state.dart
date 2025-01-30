@@ -1,65 +1,65 @@
 part of 'request_cubit.dart';
 
 @immutable
-sealed class RequestState {}
+sealed   class  RequestState {}
 
-final class RequestInitial extends RequestState {}
+final   class  RequestInitial extends RequestState {}
 
-class GetRequestDataLoadingState extends RequestState {}
+final class  GetRequestDataLoadingState extends RequestState {}
 
-class GetRequestDataSuccessState extends RequestState {
+final class  GetRequestDataSuccessState extends RequestState {
   final List<RequestData> requests;
 
   GetRequestDataSuccessState({required this.requests});
 }
 
-class GetRequestDataFailureState extends RequestState {
+final class  GetRequestDataFailureState extends RequestState {
   final String message;
 
   GetRequestDataFailureState({required this.message});
 }
 
-class AttachmentDeletionFileState extends RequestState {}
+final class  AttachmentDeletionFileState extends RequestState {}
 
-class AttachmentUploadFileState extends RequestState {}
+final class  AttachmentUploadFileState extends RequestState {}
 
-class RequestFileDownloadLoadingState extends RequestState {}
+final class  RequestFileDownloadLoadingState extends RequestState {}
 
-class RequestFileDownloadSuccessState extends RequestState {}
+final class  RequestFileDownloadSuccessState extends RequestState {}
 
-class RequestFileDownloadFailureState extends RequestState {
+final class  RequestFileDownloadFailureState extends RequestState {
   final String message;
 
   RequestFileDownloadFailureState({required this.message});
 }
 
-class RequestSubmitLoadingState extends RequestState {}
+final class  RequestSubmitLoadingState extends RequestState {}
 
-class RequestSubmitSuccessState extends RequestState {}
+final class  RequestSubmitSuccessState extends RequestState {}
 
-class RequestSubmitfailureState extends RequestState {
+final class  RequestSubmitfailureState extends RequestState {
   final String messsage;
 
   RequestSubmitfailureState({required this.messsage});
 }
 
-class RequestChooseFileState extends RequestState {}
+final class  RequestChooseFileState extends RequestState {}
 
-class RequestApprovalLoadingState extends RequestState {}
+final class  RequestApprovalLoadingState extends RequestState {}
 
-class RequestApprovalSuccessState extends RequestState {}
+final class  RequestApprovalSuccessState extends RequestState {}
 
-class RequestApprovalFailureState extends RequestState {
+final class  RequestApprovalFailureState extends RequestState {
   final String message;
 
   RequestApprovalFailureState({required this.message});
 }
 
-class RequestRejectionLoadingState extends RequestState {}
+final class  RequestRejectionLoadingState extends RequestState {}
 
-// class RequestRejectionSuccessState extends RequestState {}
+// final class  RequestRejectionSuccessState extends RequestState {}
 
-// class RequestRejectionFailureState extends RequestState {
+// final class  RequestRejectionFailureState extends RequestState {
 //   final String message;
 
 //   RequestRejectionFailureState({required this.message});

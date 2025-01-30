@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/data/models/job_offer_model.dart';
+import 'package:fnrco_candidates/ui/screens/overview/overview_display.dart';
+import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../data/api_provider/local_process.dart';
-import '../../../data/models/local_process_model.dart';
-import '../../../logic/cubit/local_process/local_process_cubit.dart';
-import 'local_process.dart';
-import '../../widgets/profile_get/profile_item.dart';
-import '../../../constants/app_colors.dart';
-import '../../../core/functions/translate.dart';
-import '../../widgets/empty_data_widget.dart';
-import '../../widgets/error_widget.dart';
-import '../../widgets/loading_widget.dart';
+import '../../../data/api_provider/overview_provider.dart';
+import '../../../logic/cubit/overview/overview_cubit.dart';
 import '../../widgets/return_btn.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../core/functions/translate.dart';
 
-class LocalProcessApplicationsScreen extends StatelessWidget {
-  const LocalProcessApplicationsScreen({super.key});
+class OverviewAppsScreen extends StatelessWidget {
+  const OverviewAppsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    LocalProcessProvider _LocalProcessProvider = LocalProcessProvider();
-    LocalProcessCubit localProcessCubit =
-        LocalProcessCubit(_LocalProcessProvider);
+    OverviewProvider _overviewProvider = OverviewProvider();
+    OverviewCubit overviewCubit = OverviewCubit(_overviewProvider);
     return BlocProvider(
-      create: (context) => localProcessCubit..getLocalProcessData(),
+      create: (context) => overviewCubit..getJobApplications(),
       child: Scaffold(
         appBar: AppBar(
             backgroundColor: AppColors.white,
             centerTitle: true,
             title: Text(
-              translateLang(context, 'applications'),
+              translateLang(context, 'overview_apps'),
               style: TextStyle(
                 color: AppColors.primary,
               ),
@@ -39,63 +38,54 @@ class LocalProcessApplicationsScreen extends StatelessWidget {
             leading: ReturnButton(
               color: AppColors.primary,
             )),
-        body: BlocConsumer<LocalProcessCubit, LocalProcessState>(
+        body: BlocConsumer<OverviewCubit, OverviewState>(
           listener: (context, state) {},
           builder: (context, state) {
-            final cubit = BlocProvider.of<LocalProcessCubit>(context);
-            if (state is GetLocalProcessDataLoadingState) {
+            // final cubit = BlocProvider.of<SharedDocumentsCubit>(context);
+            if (state is GetJobApplicationsLoadingState) {
               return AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
             }
 
-            if (state is GetLocalProcessDataFailureState) {
+            if (state is GetJobApplicationsFailureState) {
               return FailureWidget(
                   showImage: true,
                   title: state.message,
                   onTap: () {
-                    context.read<LocalProcessCubit>().getLocalProcessData();
+                    context.read<OverviewCubit>().getJobApplications();
                   });
             }
 
-            return cubit.localProcessApplications.isEmpty
+            return overviewCubit.jobApplications.isEmpty
                 ? EmptyDataWidget(
-                    message: "No job applications available Yet !!!",
+                    message: "No applications available Yet !!!",
                   )
                 : Padding(
                     padding: const EdgeInsets.only(
                         right: 15.0, left: 15.0, top: 25.0),
                     child: ListView.separated(
-                        itemCount: cubit.localProcessApplications.length,
+                        itemCount: overviewCubit.jobApplications.length,
                         itemBuilder: (BuildContext context, int index) =>
                             InkWell(
                               onTap: () {
-                                
                                 Navigator.of(context).push(PageTransition(
                                     child: BlocProvider.value(
-                                      value: localProcessCubit,
-                                      child: LocalProcessScreen(
-                                        localProcessPipeline: cubit
-                                            .localProcessApplications[index]
-                                            .pipeline!,
-                                      ),
+                                      value: overviewCubit
+                                        ..getOverViewData(overviewCubit
+                                            .jobApplications[index].id!),
+                                      child: OverviewDetailsScreen(
+                                          appId: overviewCubit
+                                              .jobApplications[index].id!),
                                     ),
                                     type: PageTransitionType.fade,
                                     alignment: Alignment.centerLeft,
                                     duration: const Duration(seconds: 1)));
-
-                                context
-                                    .read<LocalProcessCubit>()
-                                    .storeLocalProcessAttachments(cubit
-                                        .localProcessApplications[index]
-                                        .pipeline!);
-                                context.read<LocalProcessCubit>().passAppID(
-                                    cubit.localProcessApplications[index].id!);
                               },
-                              child: LocalProcessApplicationCard(
+                              child: SharedDocsAppCard(
                                   application:
-                                      cubit.localProcessApplications[index]),
+                                      overviewCubit.jobApplications[index]),
                             ),
                         separatorBuilder: (BuildContext context, int index) =>
                             const SizedBox(
@@ -109,9 +99,9 @@ class LocalProcessApplicationsScreen extends StatelessWidget {
   }
 }
 
-class LocalProcessApplicationCard extends StatelessWidget {
-  final LocalProcessApp application;
-  const LocalProcessApplicationCard({
+class SharedDocsAppCard extends StatelessWidget {
+  final JobApplication application;
+  const SharedDocsAppCard({
     Key? key,
     required this.application,
   }) : super(key: key);
@@ -137,6 +127,7 @@ class LocalProcessApplicationCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          ProfileItem(kkey: "mpr_type", value: application.mprType!),
           ProfileItem(
               kkey: "candidate_name",
               value: application.candidateName.toString()),

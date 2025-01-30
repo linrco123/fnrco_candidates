@@ -61,45 +61,45 @@ final class ChangerYesOrNoState extends MedicalDeclareState {}
 
 final class MedicalChooseDateState extends MedicalDeclareState {}
 
-class MedicalDeclareGettingClassificationsLoadingState
+final class MedicalDeclareGettingClassificationsLoadingState
     extends MedicalDeclareState {}
 
-class MedicalDeclareGettingClassificationsSuccessState
+final class MedicalDeclareGettingClassificationsSuccessState
     extends MedicalDeclareState {}
 
-class MedicalDeclareGettingClassificationsFailureState
+final class MedicalDeclareGettingClassificationsFailureState
     extends MedicalDeclareState {}
 
-class MedicalDeclareChoosingRelationState extends MedicalDeclareState {}
+final class MedicalDeclareChoosingRelationState extends MedicalDeclareState {}
 
-class SendMedicalDeclareLoadingState extends MedicalDeclareState {}
+final class SendMedicalDeclareLoadingState extends MedicalDeclareState {}
 
-class SendMedicalDeclareSuccessState extends MedicalDeclareState {}
+final class SendMedicalDeclareSuccessState extends MedicalDeclareState {}
 
-class SendMedicalDeclareFailureState extends MedicalDeclareState {
+final class SendMedicalDeclareFailureState extends MedicalDeclareState {
   final String message;
 
   SendMedicalDeclareFailureState({required this.message});
 }
 
-class EnterOneFamilyMemberAtLeastState extends MedicalDeclareState {}
+final class EnterOneFamilyMemberAtLeastState extends MedicalDeclareState {}
 
-class MedicalDeclarationClearState extends MedicalDeclareState {}
+final class MedicalDeclarationClearState extends MedicalDeclareState {}
 
-class GetMedicalApplicationsLoadingState extends MedicalDeclareState {}
+final class GetMedicalApplicationsLoadingState extends MedicalDeclareState {}
 
-class GetMedicalApplicationsSuccessState extends MedicalDeclareState {
+final class GetMedicalApplicationsSuccessState extends MedicalDeclareState {
   final List<MedicalDeclarationApp> applications;
 
   GetMedicalApplicationsSuccessState({required this.applications});
 }
 
-class GetMedicalApplicationsFailureState extends MedicalDeclareState {
+final class GetMedicalApplicationsFailureState extends MedicalDeclareState {
   final String message;
 
   GetMedicalApplicationsFailureState({required this.message});
 }
 
-class AttachmentUploadFileState extends MedicalDeclareState {}
+final class AttachmentUploadFileState extends MedicalDeclareState {}
 
-class AttachmentDeletionFileState extends MedicalDeclareState {}
+final class AttachmentDeletionFileState extends MedicalDeclareState {}
