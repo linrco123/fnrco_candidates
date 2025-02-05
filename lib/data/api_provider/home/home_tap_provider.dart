@@ -1,4 +1,5 @@
 import 'package:dio2/dio2.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../../constants/app_urls.dart';
 import '../../../core/classes/dio_helper.dart';
 import '../../../core/classes/exceptions.dart';
@@ -26,8 +27,8 @@ class HomePageProvider {
       final Response response = await DioHelper.dio.get(AppLinks.jobs);
       print(
           '=============================response================================');
-      print(response.data.runtimeType);
       print(response.data);
+
       if (response.statusCode == 200) {
         //show messages or snackbar of success
         return JobsModel.fromJson(response.data);
@@ -37,7 +38,10 @@ class HomePageProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
-      print('error =================================>>>>>>>>>>>>> $e');
+
+      logger.e('error =================================>>>>>>>>>>>>> $e');
+       logger.e(e.response);
+       logger.e(e.message);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));

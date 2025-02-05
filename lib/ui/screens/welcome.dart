@@ -13,9 +13,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WelcomeCubit(WelcomeProvider())
-        ..getPolls()
-        ..getsurveys(),
+      create: (context) => WelcomeCubit(WelcomeProvider()),
       child: Scaffold(
         body: SafeArea(
             child: Container(
@@ -92,10 +90,8 @@ class WelcomeScreen extends StatelessWidget {
               Builder(builder: (context) {
                 return CustomElevatedButton(
                     fun: () async {
-                      print('=======================welcome================');
-                      print(context.read<WelcomeCubit>().polls.length);
-                      print(context.read<WelcomeCubit>().surveys.length);
-                      context.read<WelcomeCubit>().moveToNextPage(context);
+
+                      context.read<WelcomeCubit>().handleTransition(context);
                      // context.read<WelcomeCubit>().getPolls();
                     },
                     background: AppColors.primary,
