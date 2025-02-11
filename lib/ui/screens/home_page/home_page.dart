@@ -3,8 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fnrco_candidates/logic/cubit/notifications/notifications_cubit.dart';
+import 'package:fnrco_candidates/ui/widgets/auth/custom_elevated_btn.dart';
 import '../../../core/functions/exit.dart';
-import '../medical_declaration/medical_declaration_apps.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../data/api_provider/home/home_tap_provider.dart';
 import '../../../logic/cubit/home_page/home_page_cubit.dart';
@@ -45,6 +46,9 @@ class HomePageScreen extends StatelessWidget {
                 title: translateLang(context, 'error'),
                 desc: translateLang(context, "msg_request_failure"),
                 type: ToastificationType.success);
+          }
+          if (state is PopupMenuButtonChoosingAboutState) {
+            Navigator.of(context).pushNamed(AppPagesNames.PROFILE);
           }
         },
         builder: (context, state) {
@@ -97,18 +101,23 @@ class HomePageScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              textAlign: TextAlign.center,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              CacheHelper.getName() ??
-                                                  translateLang(
-                                                      context, "guest"),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineLarge!
-                                                  .copyWith(
-                                                      color: AppColors.white),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 30),
+                                              child: Text(
+                                                textAlign: TextAlign.center,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                CacheHelper.getName() ??
+                                                    translateLang(
+                                                        context, "guest"),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineLarge!
+                                                    .copyWith(
+                                                        color: AppColors.white),
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -355,7 +364,28 @@ class HomePageScreen extends StatelessWidget {
                                             .titleSmall,
                                       ),
                                     ),
-                                      ListTile(
+
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context).popAndPushNamed(
+                                            AppPagesNames.required_documents);
+                                      },
+                                      leading: SvgPicture.asset(
+                                        AppImages.required,
+                                        width: 27.0, height: 27.0,
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.black,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate("required_documents"),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
+
+                                    ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
                                             AppPagesNames.OVERVIEW);
@@ -561,7 +591,7 @@ class HomePageScreen extends StatelessWidget {
 
                                     ListTile(
                                       onTap: () {
-                                        homePageCubit.logout(context);
+                                        homePageCubit.logout();
                                       },
                                       leading: SvgPicture.asset(
                                         AppImages.LOGOUT,
@@ -611,6 +641,7 @@ class HomePageScreen extends StatelessWidget {
   }
 
   _buildAppBar(context, int index) {
+    var notificationsCubit = BlocProvider.of<NotificationsCubit>(context);
     switch (index) {
       case 0:
         return AppBar(
@@ -633,6 +664,29 @@ class HomePageScreen extends StatelessWidget {
                       color: AppColors.white,
                     )),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                 Navigator.of(context).pushNamed(AppPagesNames.NOTIFICATION);
+
+                },
+                icon: Badge(
+                  backgroundColor: Colors.black,
+                  label: Text(
+                    notificationsCubit.countAllStagesUnDoneItems().toString(),
+                    style: TextStyle(
+                        color: AppColors.white, fontWeight: FontWeight.w700),
+                  ),
+                  child: Icon(
+                    Icons.notifications_outlined,
+                    color: AppColors.white,
+                    size: 30.0,
+                  ),
+                )),
+            SizedBox(
+              width: 10.0,
+            )
+          ],
         );
       case 1:
         return AppBar(
@@ -676,9 +730,29 @@ class HomePageScreen extends StatelessWidget {
       case 1:
         return const CategoryDetailsScreen();
       case 2:
-        return const MedicalDeclarationAppsScreen();
+        return const CustomMedicalScreen();
       case 3:
         return const SettingsScreen();
     }
+  }
+}
+
+class CustomMedicalScreen extends StatelessWidget {
+  const CustomMedicalScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width / 2,
+        child: CustomElevatedButton(
+            fun: () {
+              Navigator.of(context)
+                  .pushNamed(AppPagesNames.MEDICAL_DECLARATION);
+            },
+            background: AppColors.black,
+            text: 'Move To Medical'),
+      ),
+    );
   }
 }

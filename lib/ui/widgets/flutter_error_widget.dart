@@ -7,8 +7,9 @@ class CustomFlutterErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
             image: AssetImage(AppImages.flutter_error),
@@ -16,7 +17,7 @@ class CustomFlutterErrorWidget extends StatelessWidget {
           ),
           SizedBox(height: 20.0),
           Text(
-            translateLang(context,"error_occurred_later"),
+            translateLang(context, "error_occurred_later"),
             style: TextStyle(fontSize: 14.0),
           ),
         ],

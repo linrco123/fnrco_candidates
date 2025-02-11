@@ -48,6 +48,7 @@
     "create_an_account": "Create an account",
     "already_have_an_account": "Already have an account?",
     "no_notifications": "No Notification",
+    "notifications":"Notifications",
     "msg_plz_enter_full_name": "Full name can't be empty",
     "msg_plz_enter_first_name": "First name can't be empty",
     "msg_plz_enter_second_name": "Second name can't be empty",
@@ -242,6 +243,7 @@
     "msg_notes_add_success": "Notes added successfully",
     "msg_keyw_add_success": "Keywords added successfully",
     "work_experience": "Work Experience",
+    "msg_creds_add_success":"Credentials added successfully",
     "msg_experience_add_success": "Work Experience added successfully",
     "msg_contacts_add_success": "Contacts added successfully",
     "education_qualification": "Education and Qualification",
@@ -418,5 +420,6 @@
     "mpr_type": "MBR Type",
     "overview_apps":"Overview Applications",
     "approved":"Approved",
-    "rejected":"Rejected"
+    "rejected":"Rejected",
+    "required_documents":"Required Documents"
 }

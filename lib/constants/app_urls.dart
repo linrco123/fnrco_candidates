@@ -75,7 +75,7 @@ class AppLinks {
 
   static String send_air_ticket = '/air-lineTicket/store';
   static String get_local_process = '/recruitment-process/agency-local-process';
-
+  static String required_document = "${recruitment_process}/candidate-document-required";
   static String submit_local_process = '/hiring-request-form/upload-files';
 
   static String get_request =

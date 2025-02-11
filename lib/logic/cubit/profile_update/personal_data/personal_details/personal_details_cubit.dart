@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/data/models/profile_get/personal_data_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../../../../core/classes/cache_helper.dart';
 import '../../../../../core/functions/show_toast.dart';
@@ -32,11 +33,11 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   final countryResidenceController = TextEditingController();
   final emailController = TextEditingController();
 
-  String countryId = '';
+  String countryId = 'Country';
   int Id = 0;
-  String genderId = '';
-  String religionId = '';
-  String maritalStatusId = '';
+  String genderId = 'Gender';
+  String religionId = 'Religion';
+  String maritalStatusId = 'Marital Status';
   String? birthDate;
 
   void selectDateOfBirth(context) async {
@@ -119,8 +120,6 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     return null;
   }
 
-  void getUserData() {}
-
   void requestPermissionforImage() async {
     final PermissionStatus result = await Permission.storage.request();
     if (result == PermissionStatus.granted) {
@@ -184,22 +183,22 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   }
 
   Future<void> submitPersonalData(context) async {
-    if (countryId == '') {
+    if (countryId == 'Country') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_nationality"),
           type: ToastificationType.warning);
-    } else if (genderId == '') {
+    } else if (genderId == 'Gender') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_gender"),
           type: ToastificationType.warning);
-    } else if (religionId == '') {
+    } else if (religionId == 'Religion') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_religion"),
           type: ToastificationType.warning);
-    } else if (maritalStatusId == '') {
+    } else if (maritalStatusId == 'Marital Status') {
       showToast(context,
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_marital"),
@@ -256,9 +255,9 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
         }
 
         print('===============personal Data =====================');
-       // print(formData.fields);
+        // print(formData.fields);
         logger.e(formData.files.first.value.filename);
-         logger.e(formData.files.first.key);
+        logger.e(formData.files.first.key);
         logger.e(formData.files[1].value.filename);
         personalDetailsProvider.submitPersonalData(formData).then((value) {
           emit(PersonalDetailsSuccessState());
@@ -267,6 +266,29 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
         });
       }
     }
+  }
+
+  getPersonalData() {
+    emit(GetPersonalDataLoadingState());
+    personalDetailsProvider.getPersonalData().then((value) {
+      fillPersonalData(value.personalData!.first);
+      emit(GetPersonalDataSuccessState());
+    }).catchError((error) {
+      emit(GetPersonalDataErrorState());
+    });
+  }
+
+  void fillPersonalData(GetPData data) {
+    firstNameController.text = data.personFirstName!;
+    secondNameController.text = data.personSecondName!;
+    lastNameController.text = data.personThirdName!;
+    surNameController.text = data.personSurName!;
+    emailController.text = data.email!.email!;
+    countryResidenceController.text = data.personCountryResidence!;
+    birthDate = data.personDob!;
+    countryId = data.personCountryResidence!;
+    genderId = data.personGender!;
+    maritalStatusId = data.personMartialStatus!;
   }
 
   var countries = List<Country>.empty(growable: true);

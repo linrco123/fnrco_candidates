@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
+import 'package:fnrco_candidates/ui/widgets/job_ffer/approval_card.dart';
 import '../../../core/classes/dotted_border.dart';
 import '../../../data/models/job_contract_model.dart';
 import '../../../core/functions/show_toast.dart';
@@ -144,7 +144,7 @@ class JobContractSCreen extends StatelessWidget {
                     onPageChanged: (int? page, int? total) {},
                   ),
                 ),
-              jobApplication.approvals!.candidate!.isApproved == null
+              jobApplication.isAction!.toLowerCase() == "not done"
                   ? Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
@@ -166,15 +166,11 @@ class JobContractSCreen extends StatelessWidget {
                                           ? AnimatedLoadingWidget()
                                           : CustomElevatedButton(
                                               fun: () {
-                                                if (!cubit.filePicked) {
-                                                  _showSheet(cubit, context);
-                                                } else {
-                                                  context
-                                                      .read<JobContractCubit>()
-                                                      .sendJobOfferApproval(
-                                                          jobApplication.id!,
-                                                          true);
-                                                }
+                                                context
+                                                    .read<JobContractCubit>()
+                                                    .sendJobOfferApproval(
+                                                        jobApplication.id!,
+                                                        true);
                                               },
                                               background: AppColors.success,
                                               text: translateLang(
@@ -207,42 +203,15 @@ class JobContractSCreen extends StatelessWidget {
                     )
                   : Align(
                       alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: AppColors.blurRed,
-                            borderRadius: BorderRadiusDirectional.only(
-                                topStart: Radius.circular(16),
-                                topEnd: Radius.circular(16))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ProfileItem(
-                                  kkey: "status",
-                                  value: jobApplication.approvals!.candidate!
-                                              .isApproved! ==
-                                          '1'
-                                      ? translateLang(context, 'approved')
-                                      : translateLang(context, 'rejected')),
-                              ProfileItem(
-                                  kkey: "approve_in",
-                                  value: jobApplication
-                                      .approvals!.candidate!.candidateApprovedIn
-                                      .toString()),
-                              ProfileItem(
-                                  kkey: "remark",
-                                  value: jobApplication
-                                      .approvals!.candidate!.remarks
-                                      .toString()),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
+                      child: ApprovalCard(
+                        isApproved:
+                            jobApplication.approvals!.candidate!.isApproved!,
+                        approvedIn: jobApplication
+                            .approvals!.candidate!.candidateApprovedIn
+                            .toString(),
+                        remark: jobApplication.approvals!.candidate!.remarks
+                            .toString(),
+                      ))
             ],
           );
         },

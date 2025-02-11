@@ -1,13 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/classes/dio_helper.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
-
 import 'package:fnrco_candidates/data/api_provider/request.dart';
 import 'package:fnrco_candidates/data/models/request_model.dart';
 import 'package:path_provider/path_provider.dart';
@@ -57,6 +55,7 @@ class RequestCubit extends Cubit<RequestState> {
 
   bool isFileDownloaded = false;
   final requests = List<RequestData>.empty(growable: true);
+
   void getRequestData() {
     emit(GetRequestDataLoadingState());
     requests.clear();
@@ -104,6 +103,7 @@ class RequestCubit extends Cubit<RequestState> {
         'documentation_request_id': request.requestId,
         'file_name': descCntroller.text
       });
+
       if (attachment != null) {
         if (await attachment!.exists()) {
           formData.files.add(

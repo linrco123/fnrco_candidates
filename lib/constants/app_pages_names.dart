@@ -64,6 +64,7 @@ class AppPagesNames {
   
   static const String OVERVIEW = '/overview';
   static const String percentage = '/percentage';
+  static const String required_documents= '/required_documents';
 
 
 }

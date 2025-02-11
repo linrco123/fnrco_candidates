@@ -128,3 +128,7 @@ const int document_verification = 223;
 // }
 
 const int screening = 221;
+
+
+
+enum Menu { itemOne, itemTwo, itemThree }

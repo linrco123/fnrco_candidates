@@ -105,3 +105,13 @@ final class  PersonalDetailsSuccessChangeImageState extends PersonalDetailsState
 
 
 final class  ResumePickAttachmentFileState extends PersonalDetailsState{}
+
+
+final class GetPersonalDataLoadingState extends PersonalDetailsState{}
+
+
+final class GetPersonalDataSuccessState extends PersonalDetailsState{}
+
+
+final class GetPersonalDataErrorState extends PersonalDetailsState{}
+

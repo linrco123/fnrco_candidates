@@ -2,5 +2,6 @@
     "cmake.sourceDirectory": "D:/fnrco_candidates/linux/flutter",
     "cSpell.words": [
         "Toastification"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "disabled"
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
+import 'package:fnrco_candidates/ui/widgets/job_ffer/approval_card.dart';
 import '../../../core/classes/dotted_border.dart';
 import '../../../data/models/job_offer_model.dart';
 import '../../../core/functions/show_toast.dart';
@@ -112,10 +112,20 @@ class JobOfferScreen extends StatelessWidget {
                       // controller.changeIsReady(false);
                     },
                     onError: (error) {
-                      // controller.errorMessage = error.toString();
-                      // if (kDebugMode) {
-
-                      // }
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                contentPadding: const EdgeInsets.all(30),
+                                backgroundColor: AppColors.black,
+                                content: Text(
+                                  textAlign: TextAlign.center,
+                                  ' Error while loading Job Offer !!!',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge!
+                                      .copyWith(color: AppColors.white),
+                                ),
+                              ));
                     },
                     onPageError: (page, error) {
                       // controller.errorMessage = '$page: ${error.toString()}';
@@ -134,7 +144,7 @@ class JobOfferScreen extends StatelessWidget {
                     onPageChanged: (int? page, int? total) {},
                   ),
                 ),
-              jobApplication.approvals!.candidate!.isApproved == null
+              jobApplication.isAction!.toLowerCase() == "not done"
                   ? Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
@@ -192,44 +202,15 @@ class JobOfferScreen extends StatelessWidget {
                     )
                   : Align(
                       alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 200.0,
-                        width: double.infinity,
-                      //  margin: const EdgeInsets.only(bottom: 20.0),
-                        decoration: BoxDecoration(
-                           
-                            color: AppColors.blurRed,
-                            borderRadius: BorderRadiusDirectional.only(
-                                topStart: Radius.circular(16),
-                                topEnd: Radius.circular(16))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ProfileItem(
-                                  kkey: "status",
-                                  value: jobApplication.approvals!.candidate!
-                                              .isApproved! ==
-                                          '1'
-                                      ? translateLang(context, 'approved')
-                                      : translateLang(context, 'rejected')),
-                              ProfileItem(
-                                  kkey: "approve_in",
-                                  value: jobApplication
-                                      .approvals!.candidate!.candidateApprovedIn
-                                      .toString()),
-                              ProfileItem(
-                                  kkey: "remark",
-                                  value: jobApplication
-                                      .approvals!.candidate!.remarks
-                                      .toString()),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
+                      child: ApprovalCard(
+                        isApproved:
+                            jobApplication.approvals!.candidate!.isApproved!,
+                        approvedIn: jobApplication
+                            .approvals!.candidate!.candidateApprovedIn
+                            .toString(),
+                        remark: jobApplication.approvals!.candidate!.remarks
+                            .toString(),
+                      ))
             ],
           );
         },

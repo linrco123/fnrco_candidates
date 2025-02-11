@@ -31,3 +31,4 @@ enum DataSource {
 }
 
 
+enum ScreenCode{Offer , Contract , Visa , joinDate }

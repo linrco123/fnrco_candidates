@@ -123,6 +123,8 @@
   "msg_plz_enter_flg_number": "رقم الرحلة لا يمكن أن يكون فارغا",
   "msg_plz_enter_depat_frm": " المغادرة من لا يمكن أن يكون فارغا",
   "msg_plz_enter_arrival_at": " الوصول إلى لا يمكن أن يكون فارغا",
+  "no_notifications": "لا يوجد تنبيهات",
+  "notifications":"التنبيهات",
   "profile": "بياناتى الشخصية",
   "job_offer": "عرض عمل",
   "medical_declare": "الإفصاح الطبى",
@@ -232,6 +234,7 @@
   "msg_notes_add_success": "تم إضافة الملاحظات بنجاح",
   "msg_keyw_add_success": "تم إضافة الكلمات الاساسية بنجاح",
   "work_experience": "خبرة العمل",
+  "msg_creds_add_success": "Credentials added successfully",
   "msg_experience_add_success": "تم إضافة خبرات العمل بنجاح",
   "msg_contacts_add_success": "تم إضافة طرق الإتصال بنجاح",
   "education_qualification": "التعليم والمؤهلات",
@@ -338,7 +341,7 @@
   "embasy_location": "موقع السفارة",
   "visa_Profession": "مهنة الفيزا",
   "approve": "موافقة",
-  "approve_in":"تمت الموافقة في ",
+  "approve_in": "تمت الموافقة في ",
   "reject": "رفض",
   "visa_remark": "ملاحظة الفيزا ",
   "enter_visa_remark": "ادخل ملاحظة الفيزا ",
@@ -405,5 +408,6 @@
   "mpr_type": "MBR نوع",
   "overview_apps": "Overview Applications",
   "approved": "موافق عليه",
-  "rejected": "مرفوض"
+  "rejected": "مرفوض",
+  "required_documents": "الوثائق المطلوبة"
 }

@@ -38,7 +38,7 @@ class AppImages {
 
   static const religion1 = '$_images/religion1.png';
   static const marital_status = '$_images/couple.png';
-
+  static const circle_checked = '$_images/circle_checked.png';
   //static const fingerPrint = '$_images/fingerprint.png';
   static const fingerPrint1 = '$_images/fingerprint1.png';
  // static const fingerPrint2 = '$_images/fingerprint2.png';
@@ -103,4 +103,5 @@ class AppImages {
   static const shared = "$_svg/shared.svg";
   static const document = "$_svg/document.svg";
   static const overview = "$_svg/overview.svg";
+  static const required = "$_svg/requirement.svg";
 }

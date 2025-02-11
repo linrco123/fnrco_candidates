@@ -41,24 +41,32 @@ class AboutMe extends StatelessWidget {
                           physics: BouncingScrollPhysics(),
                           itemBuilder: (context, index) => SizedBox(
                                 width: 150,
-                                child: CustomElevatedButton(
-                                    fun: () {
-                                      
-                                      cubit.changeSection(
-                                          cubit.sections[index].index);
-                                    },
-                                    background: cubit.sections[index].index ==
-                                            cubit.section
-                                        ? AppColors.black
-                                        : AppColors.primary,
-                                    foreground: cubit.sections[index].index ==
-                                            cubit.section
-                                        ? AppColors.white
-                                        : AppColors.black,
-                                    text: cubit.sections[index].section),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                      border: Border.fromBorderSide(BorderSide(
+                                          width: 1.0, color: cubit.sections[index].index ==
+                                              cubit.section
+                                          ? AppColors.white
+                                          : AppColors.black,))),
+                                  child: CustomElevatedButton(
+                                      fun: () {
+                                        cubit.changeSection(
+                                            cubit.sections[index].index);
+                                      },
+                                      background: cubit.sections[index].index ==
+                                              cubit.section
+                                          ? AppColors.primary
+                                          : AppColors.white,
+                                      foreground: cubit.sections[index].index ==
+                                              cubit.section
+                                          ? AppColors.white
+                                          : AppColors.black,
+                                      text: cubit.sections[index].section),
+                                ),
                               ),
                           separatorBuilder: (context, index) => const SizedBox(
-                                width: 5.0,
+                                width: 10.0,
                               ),
                           itemCount: cubit.sections.length),
                     ),

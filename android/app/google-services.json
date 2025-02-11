@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "997388103100",
+    "project_id": "fnrco-candidates-f3ab1",
+    "storage_bucket": "fnrco-candidates-f3ab1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997388103100:android:92171b1ccb016dcc0d4fb9",
+        "android_client_info": {
+          "package_name": "com.fnrco.candidatesapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpT0L0DUQbER8bw-uGIOSO8ya8c2J0wqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

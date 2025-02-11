@@ -11,7 +11,8 @@ class GetAchievementsScreen extends StatefulWidget {
   const GetAchievementsScreen({super.key});
 
   @override
-  State<GetAchievementsScreen> createState() => _GetPersonalDetailsScreenState();
+  State<GetAchievementsScreen> createState() =>
+      _GetPersonalDetailsScreenState();
 }
 
 class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
@@ -24,40 +25,44 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<AboutMeCubit, AboutMeState>(
+      buildWhen: (previous, current) =>
+          current is AboutMeGetAchievementsLoadingState ||
+          current is AboutMeGetAchievementsSuccessState ||
+          current is AboutMeGetAchievementsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetAchievementsLoadingState) {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetAchievementsErrorState) {
-          return FailureWidget(showImage: false,
+          return FailureWidget(
+              showImage: false,
               title: translateLang(context, "error_get_achieves"),
               onTap: () {
                 context.read<AboutMeCubit>().getAchievements();
               });
         }
-       
-       if(state is AboutMeGetAchievementsSuccessState){
-         return state .achievements.isEmpty
-            ? EmptyDataWidget(
-              message: "No achievements available Yet !!!",
-            )
-            : Container(
-                height: double.infinity,
-                width: double.infinity,
-                child: ListView.separated(
-                  itemCount: state.achievements.length,
-                  itemBuilder: (context, index) =>
-                      AchievementCard(achievement: state.achievements[index]),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 16.0,
+
+        if (state is AboutMeGetAchievementsSuccessState) {
+          return state.achievements.isEmpty
+              ? EmptyDataWidget(
+                  message: "No achievements available Yet !!!",
+                )
+              : Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: ListView.separated(
+                    itemCount: state.achievements.length,
+                    itemBuilder: (context, index) =>
+                        AchievementCard(achievement: state.achievements[index]),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 16.0,
+                    ),
                   ),
-                ),
-              );
-       }
-       return SizedBox.shrink();
+                );
+        }
+        return SizedBox.shrink();
       },
     );
   }

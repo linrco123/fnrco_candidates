@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/data/models/home/jobs_model.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
 
@@ -68,6 +69,19 @@ class HomePageCubit extends Cubit<HomePageState> {
     const SizedBox(),
     const SettingsScreen()
   ];
+  void choosePopUpMenuItem(Menu item) {
+    //transition to about profile
+    if (item == Menu.itemOne) {
+      emit(PopupMenuButtonChoosingAboutState());
+      //transition to settings profile
+    } else if (item == Menu.itemTwo) {
+      changeState(3);
+
+      //transition to Sign out profile
+    } else if (item == Menu.itemThree) {
+      logout();
+    }
+  }
 
   void changeState(int index) {
     selectedIndex = index;
@@ -120,7 +134,7 @@ class HomePageCubit extends Cubit<HomePageState> {
         DateTime.now().microsecond);
   }
 
-  void logout(context) {
+  void logout() {
     emit(LogoutLoadingState());
     CacheHelper.removeAll().then((value) {
       emit(LogoutSuccessState());
@@ -143,10 +157,11 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   var appliedJobs = List<GetJob>.empty(growable: true);
   getAppliedJobs() {
-   // emit(HomePageGetAppliedJobsLoadingState());
+    // emit(HomePageGetAppliedJobsLoadingState());
     homePageProvider.getAppliedJobs().then((value) {
       appliedJobs.addAll(value.data!);
-    ///  emit(HomePageGetAppliedJobsSuccessState());
+
+      ///  emit(HomePageGetAppliedJobsSuccessState());
     }).catchError((error) {
       // emit(HomePageGetAppliedJobsFailureState(
       //     message: error.message.toString()));

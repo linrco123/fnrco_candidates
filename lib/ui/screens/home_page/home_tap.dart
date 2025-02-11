@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../constants/app_pages_names.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import '../../../data/models/home/jobs_model.dart';
 import '../../../logic/cubit/home_page/home_page_cubit.dart';
 import '../../../constants/app_colors.dart';
@@ -59,10 +59,60 @@ class HomeTapScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(AppPagesNames.PROFILE);
-                      },
+                    PopupMenuButton<Menu>(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(16.0),
+                      enableFeedback: true,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0)),
+                      onSelected:
+                          context.read<HomePageCubit>().choosePopUpMenuItem,
+                      offset: Offset(0, 45),
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<Menu>>[
+                        PopupMenuItem<Menu>(
+                          value: Menu.itemOne,
+                          child: Text(
+                             'About',
+                            // // style: Theme.of(context)
+                            // //     .textTheme
+                            // //     .displayMedium!
+                            // //     .copyWith(fontWeight: FontWeight.w900),
+                            style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        PopupMenuItem<Menu>(
+                          value: Menu.itemTwo,
+                          child: Text(
+                            'Settings',
+                            // style: Theme.of(context)
+                            //     .textTheme
+                            //     .displayMedium!
+                            //     .copyWith(fontWeight: FontWeight.w900),
+                            style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        PopupMenuItem<Menu>(
+                          value: Menu.itemThree,
+                          child: Text(
+                            'Sign Out',
+                            // style: Theme.of(context)
+                            //     .textTheme
+                            //     .displayMedium!
+                            //     .copyWith(fontWeight: FontWeight.w900),
+                            style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                       child: CircleAvatar(
                         radius: 27.0,
                         backgroundColor: AppColors.white,

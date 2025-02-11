@@ -1,10 +1,14 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/data/api_provider/notifications.dart';
+import 'package:fnrco_candidates/firebase_options.dart';
+import 'package:fnrco_candidates/logic/cubit/notifications/notifications_cubit.dart';
+import 'package:fnrco_candidates/logic/cubit/notifications/notifications_service.dart';
+import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import 'ui/widgets/flutter_error_widget.dart';
-import 'data/api_provider/job_offer.dart';
-import 'logic/cubit/job_offer/job_offer_cubit.dart';
 import 'ui/screens/internet_connection.dart';
 import 'app_router.dart';
 import 'constants/app_pages_names.dart';
@@ -18,11 +22,12 @@ import 'logic/cubit/settings/settings_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  // CacheHelper.storeAuthToken(
-  //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RldmVsb3AuZm5yY29lcnAuY29tL2FwaS9jYW5kaWRhdGUvbG9naW4iLCJpYXQiOjE3MzY5MzUzMDEsImV4cCI6MTczNzE1MTMwMSwibmJmIjoxNzM2OTM1MzAxLCJqdGkiOiJWdGJCNmtUNTlIdXIwUWt3Iiwic3ViIjoiMzEzOTciLCJwcnYiOiJlNDk2YTYxYjEwNjFiZTdiZWY4YzVmODE4NzQ5N2IxZGJjMzE1ZjhjIn0.TPSHDYawXQLbPCpE_c5Z0AcRAipK0TTSJL-_vEwyhPA');
+  await Firebase.initializeApp(
+    name: 'Fnrco_Candidates',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+reverseText();
+  await NotificationService.instance.initialize();
   RedExceptionHandler.handleFlutterError;
   await CacheHelper.init();
   await DioHelper.init();
@@ -59,9 +64,17 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
           lazy: false,
           create: (context) => SettingsCubit(),
         ),
+        // BlocProvider(
+        //   lazy: false,
+        //   create: (context) => JobOfferCubit(JobOfferProvider()),
+        // ),
         BlocProvider(
           lazy: false,
-          create: (context) => JobOfferCubit(JobOfferProvider()),
+          create: (context) => NotificationsCubit(NotificationsProvider())
+            ..getContractApplications()
+            ..getJobApplications()
+            ..getVisadata()
+            ..getJoiningDateInfo(),
         ),
       ],
       child: Builder(builder: (context) {
@@ -103,4 +116,17 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
     super.dispose();
     //_connectivity.call();
   }
+}
+
+void reverseText() {
+  String text = 'Hello';
+  String reversedText = '';
+  for (int i = text.length-1; i >= 0; i--) {
+    reversedText+= text[i];
+  }
+  String resultBuitlIn = text.split('').reversed.toList().join();
+
+  logger.e('resultBuitlIn Text :::::::::    $resultBuitlIn');
+
+  logger.e('Reversed Text :::::::::    $reversedText');
 }

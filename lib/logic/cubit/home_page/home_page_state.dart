@@ -41,3 +41,7 @@ final class HomePageGetAppliedJobsFailureState extends HomePageState{
   HomePageGetAppliedJobsFailureState({required this.message});
 
 }
+
+
+
+class PopupMenuButtonChoosingAboutState extends HomePageState{}

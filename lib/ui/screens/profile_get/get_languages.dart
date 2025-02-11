@@ -25,6 +25,10 @@ class _GetPersonalDetailsScreenState extends State<GetLanguagesScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutMeCubit, AboutMeState>(
+       buildWhen: (previous, current) =>
+          current is AboutMeGetLanguagesLoadingState ||
+          current is AboutMeGetLanguagesSuccessState ||
+          current is AboutMeGetLanguagesErrorState,
       builder: (context, state) {
         if (state is AboutMeGetLanguagesLoadingState) {
           return AnimatedLoadingWidget();

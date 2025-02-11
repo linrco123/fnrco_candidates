@@ -25,13 +25,17 @@ class _GetPersonalDetailsScreenState extends State<AppliedJobsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutMeCubit, AboutMeState>(
+      buildWhen: (previous, current) =>
+          current is AboutMeGetAppliedJobsLoadingState ||
+          current is AboutMeGetAppliedJobsSuccessState ||
+          current is AboutMeGetAppliedJobsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetAppliedJobsLoadingState) {
           return AnimatedLoadingWidget();
         }
         if (state is AboutMeGetAppliedJobsErrorState) {
           return FailureWidget(
-            showImage: false,
+              showImage: false,
               title: translateLang(context, "error_get_appl_jobs"),
               onTap: () {
                 context.read<AboutMeCubit>().getAppliedJobs();
@@ -41,14 +45,15 @@ class _GetPersonalDetailsScreenState extends State<AppliedJobsScreen> {
         if (state is AboutMeGetAppliedJobsSuccessState) {
           return state.appliedJobs.isEmpty
               ? EmptyDataWidget(
-                message: "No jobs applied available Yet !!!",
-              )
+                  message: "No jobs applied available Yet !!!",
+                )
               : Container(
                   height: double.infinity,
                   width: double.infinity,
                   child: ListView.separated(
                     itemCount: state.appliedJobs.length,
-                    itemBuilder: (context, index) => AppliedJobCard(appliedJob:state.appliedJobs[index]),
+                    itemBuilder: (context, index) =>
+                        AppliedJobCard(appliedJob: state.appliedJobs[index]),
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(
                       height: 16.0,

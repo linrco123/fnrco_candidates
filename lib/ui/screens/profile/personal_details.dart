@@ -30,7 +30,8 @@ class PersonalDetailsScreen extends StatelessWidget {
         ..getCountries()
         ..getGenders()
         ..getReligions()
-        ..getMaritalStatus(),
+        ..getMaritalStatus()
+        ..getPersonalData(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -262,7 +263,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                               ),
                               // SfDateRangePicker(
                               //   onSelectionChanged:(dateRangePickerSelectionChangedArgs) {
-                                  
+
                               //   },
                               //   selectionMode:
                               //       DateRangePickerSelectionMode.range,
@@ -283,7 +284,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                               (country) => country.countryName!)
                                           .toList(),
                                       selectedItem:
-                                          translateLang(context, 'country'),
+                                          personalDetailsCubit.countryId,
                                       onChanged: (value) => personalDetailsCubit
                                           .selectCountry(value!),
                                     ),
@@ -300,7 +301,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                           .map((gender) => gender.metaDataText!)
                                           .toList(),
                                       selectedItem:
-                                          translateLang(context, 'gender'),
+                                           personalDetailsCubit.genderId,
                                       onChanged: (value) => personalDetailsCubit
                                           .selectGender(value!),
                                     ),
@@ -317,7 +318,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                               religion.religionName!)
                                           .toList(),
                                       selectedItem:
-                                          translateLang(context, 'religion'),
+                                           personalDetailsCubit.religionId,
                                       onChanged: (value) => personalDetailsCubit
                                           .selectReligion(value!),
                                     ),
@@ -333,8 +334,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                           .map((marital) =>
                                               marital.metaDataText!)
                                           .toList(),
-                                      selectedItem: translateLang(
-                                          context, 'marital_status'),
+                                      selectedItem: personalDetailsCubit.maritalStatusId,
                                       onChanged: (value) => personalDetailsCubit
                                           .selectMaritalStatus(value!),
                                     ),

@@ -25,6 +25,10 @@ class _GetPersonalDetailsScreenState extends State<GetContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutMeCubit, AboutMeState>(
+      buildWhen: (previous, current) =>
+          current is AboutMeGetContactsLoadingState ||
+          current is AboutMeGetContactsSuccessState ||
+          current is AboutMeGetContactsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetContactsLoadingState) {
           return AnimatedLoadingWidget();

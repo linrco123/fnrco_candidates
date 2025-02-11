@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/app_pages_names.dart';
+import 'package:fnrco_candidates/core/functions/translate.dart';
+import 'package:fnrco_candidates/logic/cubit/notifications/notifications_cubit.dart';
+import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
+import 'package:fnrco_candidates/ui/widgets/notification_card.dart';
 import '../../constants/app_colors.dart';
 import '../widgets/return_btn.dart';
 
@@ -11,12 +17,12 @@ class NotificationsScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.primary,
           title: Text(
-            'notifications',
+            translateLang(context, "notifications"),
             style: TextStyle(color: AppColors.white),
-            
           ),
-          leading: ReturnButton(color: AppColors.white,),
-          
+          leading: ReturnButton(
+            color: AppColors.white,
+          ),
           centerTitle: true,
         ),
         body: Stack(children: [
@@ -35,69 +41,55 @@ class NotificationsScreen extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 5,
-              itemBuilder: (context, i) {
-                return Container(
-                  height: 100,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5,
-                        offset: Offset(0, 1),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 5,
-                    horizontal: 5,
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text(
-                                " notification.title!",
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              "notification.message!",
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+          BlocConsumer<NotificationsCubit, NotificationsState>(
+            listener: (context, state) {
+              if (state is JobOfferTransitionState) {
+                Navigator.of(context)
+                    .pushReplacementNamed(AppPagesNames.JOB_OFFER);
+              }
+
+              if (state is JobContractTransitionState) {
+                Navigator.of(context)
+                    .pushReplacementNamed(AppPagesNames.JOB_CONTRACT);
+              }
+
+              if (state is VisaApprovalTransitionState) {
+                Navigator.of(context)
+                    .pushReplacementNamed(AppPagesNames.VISA_APPROVAL);
+              }
+
+              if (state is JoiningDateTransitionState) {
+                Navigator.of(context)
+                    .pushReplacementNamed(AppPagesNames.JOINING_DATE);
+              }
+            },
+            builder: (context, state) {
+              var notificationsCubit =
+                  BlocProvider.of<NotificationsCubit>(context);
+              if (notificationsCubit.notifications.isEmpty) {
+                return EmptyDataWidget(
+                  message: translateLang(context, "no_notifications"),
                 );
-              },
-            ),
+              }
+              return Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: notificationsCubit.notifications.length,
+                  itemBuilder: (context, i) {
+                    final nModel = notificationsCubit.notifications[i];
+                    return NotificationCard(
+                      title: nModel.title,
+                      body: nModel.body,
+                      onTap: () {
+                        notificationsCubit
+                            .moveToClickedScreen(nModel.screenCode);
+                      },
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ]));
   }

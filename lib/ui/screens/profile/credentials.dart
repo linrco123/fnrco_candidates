@@ -54,7 +54,7 @@ class CredentialsScreen extends StatelessWidget {
             if (state is SubmitCredentialsSuccessState) {
               showToast(context,
                   title: translateLang(context, 'success'),
-                  desc: translateLang(context, "msg_experience_add_success"),
+                  desc: translateLang(context,"msg_creds_add_success"),
                   type: ToastificationType.success);
               Navigator.of(context).pop();
             }
