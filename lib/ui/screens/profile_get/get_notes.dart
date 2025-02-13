@@ -31,19 +31,20 @@ class _GetPersonalDetailsScreenState extends State<GetNotesScreen> {
           current is AboutMeGetNotesErrorState,
       builder: (context, state) {
         if (state is AboutMeGetNotesLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetNotesErrorState) {
           return FailureWidget(
               showImage: false,
-              title: translateLang(context, "error_get_notes"),
+                                          title:
+                  '${translateLang(context, "error_get_notes")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getNotes();
               });
         }
         if (state is AboutMeGetNotesSuccessState) {
           return state.notes.isEmpty
-              ? EmptyDataWidget(
+              ? const EmptyDataWidget(
                 message: "No notes available Yet !!!",
               )
               : Container(
@@ -60,7 +61,7 @@ class _GetPersonalDetailsScreenState extends State<GetNotesScreen> {
                   ),
                 );
         }
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }

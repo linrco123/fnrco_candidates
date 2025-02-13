@@ -22,9 +22,9 @@ class JobHomeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        child: Container(  
+        child: Container(
           height: 95.0,
-          //width: 100.0,
+          width: double.infinity,
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
@@ -38,43 +38,54 @@ class JobHomeCard extends StatelessWidget {
                 width: 60.0,
               ),
               const SizedBox(width: 10.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(job,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                  Text(company, style: Theme.of(context).textTheme.headlineMedium),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Image.asset(
-                        AppImages.SALARY,
-                        height: 30.0,
-                        width: 30.0,
-                        color: AppColors.primary,
-                      ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                      Text(
-                          // overflow: TextOverflow.ellipsis,
-                          // maxLines: 1,
-                          '\$ ${salary.length < 20 ? salary : salary.substring(0, 20)}',
-                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(job,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(fontWeight: FontWeight.bold)),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        )
+                      ],
+                    ),
+                    Text(company,
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Image.asset(
+                          AppImages.SALARY,
+                          height: 30.0,
+                          width: 30.0,
+                          color: AppColors.primary,
+                        ),
+                        const SizedBox(
+                          width: 5.0,
+                        ),
+                        Text(
+                            // overflow: TextOverflow.ellipsis,
+                            // maxLines: 1,
+                            '\$ ${salary.length < 20 ? salary : salary.substring(0, 20)}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

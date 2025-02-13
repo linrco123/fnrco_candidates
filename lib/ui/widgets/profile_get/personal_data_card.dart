@@ -17,7 +17,7 @@ class PersonalDataCard extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
                 //color: AppColors.primary.withOpacity(0.5),
                 blurRadius: 2.0,
                 spreadRadius: 0.0,
@@ -47,7 +47,7 @@ class PersonalDataCard extends StatelessWidget {
           ProfileItem(
               kkey:  "sur_name" , value: pData.personSurName!.toString()),
           ProfileItem(
-              kkey: "residence", value: pData.personCountryResidence!.toString()),
+              kkey: "residence", value: pData.personCountryResidence??''),
           ProfileItem(
               kkey:  "email" , value: pData.email!.email!.toString()),
           ProfileItem(

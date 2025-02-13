@@ -30,21 +30,23 @@ class _GetPersonalDetailsScreenState extends State<GetSkillsScreen> {
           current is AboutMeGetSkillsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetSkillsLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetSkillsErrorState) {
           return FailureWidget(
               showImage: false,
-              title: translateLang(context, "error_get_skills"),
+              title:
+                  '${translateLang(context, "error_get_skills")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getSkills();
               });
         }
+        
         if (state is AboutMeGetSkillsSuccessState) {
           return state.skills.isEmpty
-              ? EmptyDataWidget(
-                message: "No skills available Yet !!!",
-              )
+              ? const EmptyDataWidget(
+                  message: "No skills available Yet !!!",
+                )
               : Container(
                   height: double.infinity,
                   width: double.infinity,
@@ -59,7 +61,7 @@ class _GetPersonalDetailsScreenState extends State<GetSkillsScreen> {
                   ),
                 );
         }
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }

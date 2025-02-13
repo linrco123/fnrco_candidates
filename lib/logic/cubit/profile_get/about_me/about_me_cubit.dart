@@ -47,31 +47,31 @@ class AboutMeCubit extends Cubit<AboutMeState> {
   Widget getBodyWidget() {
     switch (section) {
       case 0:
-        return GetPersonalDetailsScreen();
+        return const GetPersonalDetailsScreen();
       case 1:
-        return GetContactsScreen();
+        return const GetContactsScreen();
       case 2:
-        return GetAchievementsScreen();
+        return const GetAchievementsScreen();
       case 3:
-        return GetNotesScreen();
+        return const GetNotesScreen();
       case 4:
-        return GetExperiencesScreen();
+        return const GetExperiencesScreen();
       case 5:
-        return GetEducationScreen();
+        return const GetEducationScreen();
       case 6:
-        return GetCredentialsScreen();
+        return const GetCredentialsScreen();
       case 7:
-        return GetLanguagesScreen();
+        return const GetLanguagesScreen();
       case 8:
-        return GetSkillsScreen();
+        return const GetSkillsScreen();
       case 9:
-        return GetKeywordsScreen();
+        return const GetKeywordsScreen();
       case 10:
-        return AppliedJobsScreen();
+        return const AppliedJobsScreen();
       // default:
       // SizedBox();
     }
-    return SizedBox();
+    return const SizedBox();
   }
 
   int section = 0;

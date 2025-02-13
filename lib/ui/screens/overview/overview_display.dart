@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_colors.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/logic/cubit/overview/overview_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/custom_text_field.dart';
-import 'package:fnrco_candidates/ui/widgets/profile/title_text.dart';
-import 'package:fnrco_candidates/ui/widgets/return_btn.dart';
+import '../../../constants/app_colors.dart';
+import '../../../core/functions/translate.dart';
+import '../../../logic/cubit/overview/overview_cubit.dart';
+import '../../widgets/error_widget.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/profile/custom_text_field.dart';
+import '../../widgets/profile/title_text.dart';
+import '../../widgets/return_btn.dart';
 
 class OverviewDetailsScreen extends StatelessWidget {
   final int appId;

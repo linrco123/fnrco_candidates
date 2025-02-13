@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/app_pages_names.dart';
-import 'package:fnrco_candidates/core/functions/translate.dart';
-import 'package:fnrco_candidates/logic/cubit/notifications/notifications_cubit.dart';
-import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
-import 'package:fnrco_candidates/ui/widgets/notification_card.dart';
+import '../../constants/app_pages_names.dart';
+import '../../core/functions/translate.dart';
+import '../../logic/cubit/notifications/notifications_cubit.dart';
+import '../widgets/empty_data_widget.dart';
+import '../widgets/notification_card.dart';
 import '../../constants/app_colors.dart';
 import '../widgets/return_btn.dart';
 

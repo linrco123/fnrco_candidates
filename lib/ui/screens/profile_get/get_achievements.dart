@@ -32,12 +32,12 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
           current is AboutMeGetAchievementsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetAchievementsLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetAchievementsErrorState) {
           return FailureWidget(
               showImage: false,
-              title: translateLang(context, "error_get_achieves"),
+               title: '${translateLang(context, "error_get_achieves")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getAchievements();
               });
@@ -45,7 +45,7 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
 
         if (state is AboutMeGetAchievementsSuccessState) {
           return state.achievements.isEmpty
-              ? EmptyDataWidget(
+              ? const EmptyDataWidget(
                   message: "No achievements available Yet !!!",
                 )
               : Container(
@@ -62,7 +62,7 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
                   ),
                 );
         }
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }

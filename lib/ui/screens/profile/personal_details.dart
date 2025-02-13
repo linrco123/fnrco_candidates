@@ -85,7 +85,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "resume_attch",
                                 frontP: 10.0,
                               ),
@@ -166,7 +166,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                                 fontSize: 14,
                                               ),
                                             )
-                                          : SizedBox.shrink()
+                                          : const SizedBox.shrink()
                                     ],
                                   ),
                                 ),
@@ -174,7 +174,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "first_name",
                               ),
                               CustomInputField(
@@ -187,7 +187,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "second_name",
                               ),
                               CustomInputField(
@@ -200,7 +200,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "last_name",
                               ),
                               CustomInputField(
@@ -213,7 +213,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "sur_name",
                               ),
                               CustomInputField(
@@ -226,7 +226,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "email",
                               ),
                               CustomInputField(
@@ -238,16 +238,23 @@ class PersonalDetailsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
-                                title: "residence",
-                              ),
-                              CustomInputField(
-                                  controller: personalDetailsCubit
-                                      .countryResidenceController,
-                                  validate:
-                                      personalDetailsCubit.validateResidence,
-                                  inputType: TextInputType.name,
-                                  hint: translateLang(context, "residence")),
+                              // const CustomTitle(
+                              //   title: "residence",
+                              // ),
+                              personalDetailsCubit.countries.isEmpty
+                                  ? const ItemLoadingWidget()
+                                  : CustomDropDownSearch(
+                                      label: translateLang(
+                                          context, 'select_residence'),
+                                      items: personalDetailsCubit.countries
+                                          .map(
+                                              (country) => country.countryName!)
+                                          .toList(),
+                                      selectedItem:
+                                          personalDetailsCubit.residence,
+                                      onChanged: (value) => personalDetailsCubit
+                                          .selectResidence(value!),
+                                    ),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -275,7 +282,7 @@ class PersonalDetailsScreen extends StatelessWidget {
 
                               // ),
                               personalDetailsCubit.countries.isEmpty
-                                  ? ItemLoadingWidget()
+                                  ? const ItemLoadingWidget()
                                   : CustomDropDownSearch(
                                       label: translateLang(
                                           context, 'select_country'),
@@ -292,7 +299,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                 height: 16.0,
                               ),
                               personalDetailsCubit.genders.isEmpty
-                                  ? ItemLoadingWidget()
+                                  ? const ItemLoadingWidget()
                                   : CustomDropDownSearch(
                                       isSearchEnabled: false,
                                       label: translateLang(
@@ -301,7 +308,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                           .map((gender) => gender.metaDataText!)
                                           .toList(),
                                       selectedItem:
-                                           personalDetailsCubit.genderId,
+                                          personalDetailsCubit.genderId,
                                       onChanged: (value) => personalDetailsCubit
                                           .selectGender(value!),
                                     ),
@@ -309,7 +316,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                 height: 16.0,
                               ),
                               personalDetailsCubit.religions.isEmpty
-                                  ? ItemLoadingWidget()
+                                  ? const ItemLoadingWidget()
                                   : CustomDropDownSearch(
                                       label: translateLang(
                                           context, 'select_religion'),
@@ -318,7 +325,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                               religion.religionName!)
                                           .toList(),
                                       selectedItem:
-                                           personalDetailsCubit.religionId,
+                                          personalDetailsCubit.religionId,
                                       onChanged: (value) => personalDetailsCubit
                                           .selectReligion(value!),
                                     ),
@@ -326,7 +333,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                 height: 16.0,
                               ),
                               personalDetailsCubit.maritalStatus.isEmpty
-                                  ? ItemLoadingWidget()
+                                  ? const ItemLoadingWidget()
                                   : CustomDropDownSearch(
                                       label: translateLang(
                                           context, 'select_marital_status'),
@@ -334,7 +341,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                                           .map((marital) =>
                                               marital.metaDataText!)
                                           .toList(),
-                                      selectedItem: personalDetailsCubit.maritalStatusId,
+                                      selectedItem:
+                                          personalDetailsCubit.maritalStatusId,
                                       onChanged: (value) => personalDetailsCubit
                                           .selectMaritalStatus(value!),
                                     ),
@@ -347,7 +355,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     state is PersonalDetailsLoadingState
-                        ? AnimatedLoadingWidget()
+                        ? const AnimatedLoadingWidget()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: CustomElevatedButton(

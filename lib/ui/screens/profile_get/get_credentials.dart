@@ -25,41 +25,43 @@ class _GetPersonalDetailsScreenState extends State<GetCredentialsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutMeCubit, AboutMeState>(
-       buildWhen: (previous, current) =>
+      buildWhen: (previous, current) =>
           current is AboutMeGetCredentialsLoadingState ||
           current is AboutMeGetCredentialsSuccessState ||
           current is AboutMeGetCredentialsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetCredentialsLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetCredentialsErrorState) {
-          return FailureWidget(showImage: false,
-              title: translateLang(context, "error_get_credentials"),
+          return FailureWidget(
+              showImage: false,
+              title:
+                  '${translateLang(context, "error_get_credentials")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getCredentials();
               });
         }
-        if(state is AboutMeGetCredentialsSuccessState){
-        return state.credentials.isEmpty
-            ? EmptyDataWidget(
-              message: "No credentials available Yet !!!",
-            )
-            : Container(
-                height: double.infinity,
-                width: double.infinity,
-                child: ListView.separated(
-                  itemCount: state.credentials.length,
-                  itemBuilder: (context, index) =>
-                      CredentialCard(credential: state.credentials[index]),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 16.0,
+        if (state is AboutMeGetCredentialsSuccessState) {
+          return state.credentials.isEmpty
+              ? const EmptyDataWidget(
+                  message: "No credentials available Yet !!!",
+                )
+              : Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: ListView.separated(
+                    itemCount: state.credentials.length,
+                    itemBuilder: (context, index) =>
+                        CredentialCard(credential: state.credentials[index]),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 16.0,
+                    ),
                   ),
-                ),
-              );
+                );
         }
-              return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }

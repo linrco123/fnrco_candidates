@@ -16,7 +16,7 @@ class AchievementCard extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
                 //color: AppColors.primary.withOpacity(0.1),
                 blurRadius: 0.0,
                 spreadRadius: 0.0,

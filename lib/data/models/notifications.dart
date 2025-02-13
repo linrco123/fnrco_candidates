@@ -1,4 +1,4 @@
-import 'package:fnrco_candidates/constants/enums.dart';
+import '../../constants/enums.dart';
 
 class NotificationModel {
   final String title;

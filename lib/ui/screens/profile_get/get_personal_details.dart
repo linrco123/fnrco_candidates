@@ -26,26 +26,28 @@ class _GetPersonalDetailsScreenState extends State<GetPersonalDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutMeCubit, AboutMeState>(
-       buildWhen: (previous, current) =>
+      buildWhen: (previous, current) =>
           current is AboutMeGetPersonalDataLoadingState ||
           current is AboutMeGetPersonalDataSuccessState ||
           current is AboutMeGetPersonalDataErrorState,
       builder: (context, state) {
         if (state is AboutMeGetPersonalDataLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetPersonalDataErrorState) {
-          return FailureWidget(showImage: false,
-              title: translateLang(context, "error_get_person_data"),
+          return FailureWidget(
+              showImage: false,
+              title:
+                  '${translateLang(context, "error_get_person_data")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getPersonalData();
               });
         }
         if (state is AboutMeGetPersonalDataSuccessState) {
           return state.pData.isEmpty
-              ? EmptyDataWidget(
-                message: "No personal data available Yet !!!",
-              )
+              ? const EmptyDataWidget(
+                  message: "No personal data available Yet !!!",
+                )
               : Container(
                   height: double.infinity,
                   width: double.infinity,
@@ -59,7 +61,7 @@ class _GetPersonalDetailsScreenState extends State<GetPersonalDetailsScreen> {
                     ),
                   ));
         }
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }

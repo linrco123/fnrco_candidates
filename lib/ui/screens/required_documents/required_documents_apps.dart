@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/data/api_provider/required_documents.dart';
-import 'package:fnrco_candidates/data/models/job_offer_model.dart';
-import 'package:fnrco_candidates/logic/cubit/required_documents/required_documents_cubit.dart';
-import 'package:fnrco_candidates/logic/cubit/required_documents/required_documents_state.dart';
-import 'package:fnrco_candidates/ui/screens/required_documents/required_documents.dart';
+import '../../../data/api_provider/required_documents.dart';
+import '../../../data/models/job_offer_model.dart';
+import '../../../logic/cubit/required_documents/required_documents_cubit.dart';
+import '../../../logic/cubit/required_documents/required_documents_state.dart';
+import 'required_documents.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../widgets/profile_get/profile_item.dart';
 import '../../../constants/app_colors.dart';

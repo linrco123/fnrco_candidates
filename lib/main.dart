@@ -3,10 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/data/api_provider/notifications.dart';
-import 'package:fnrco_candidates/firebase_options.dart';
-import 'package:fnrco_candidates/logic/cubit/notifications/notifications_cubit.dart';
-import 'package:fnrco_candidates/logic/cubit/notifications/notifications_service.dart';
+import 'data/api_provider/notifications.dart';
+import 'firebase_options.dart';
+import 'logic/cubit/notifications/notifications_cubit.dart';
+import 'logic/cubit/notifications/notifications_service.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import 'ui/widgets/flutter_error_widget.dart';
 import 'ui/screens/internet_connection.dart';
@@ -26,7 +26,6 @@ void main() async {
     name: 'Fnrco_Candidates',
     options: DefaultFirebaseOptions.currentPlatform,
   );
-reverseText();
   await NotificationService.instance.initialize();
   RedExceptionHandler.handleFlutterError;
   await CacheHelper.init();

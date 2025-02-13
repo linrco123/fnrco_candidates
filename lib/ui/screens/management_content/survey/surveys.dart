@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fnrco_candidates/constants/app_colors.dart';
 import 'package:fnrco_candidates/data/api_provider/management_content/surveys.dart';
 import 'package:fnrco_candidates/logic/cubit/management_content/survies/surveys_cubit.dart';
-import 'package:fnrco_candidates/ui/screens/management_content/survey_view.dart';
+import 'package:fnrco_candidates/ui/screens/management_content/survey/survey_view.dart';
 import 'package:fnrco_candidates/ui/widgets/empty_data_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/error_widget.dart';
 import 'package:fnrco_candidates/ui/widgets/loading_widget.dart';

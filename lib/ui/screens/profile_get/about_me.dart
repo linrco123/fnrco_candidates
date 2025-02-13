@@ -38,7 +38,7 @@ class AboutMe extends StatelessWidget {
                       height: 60.0,
                       child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) => SizedBox(
                                 width: 150,
                                 child: Container(

@@ -44,7 +44,7 @@ class LocalProcessApplicationsScreen extends StatelessWidget {
           builder: (context, state) {
             final cubit = BlocProvider.of<LocalProcessCubit>(context);
             if (state is GetLocalProcessDataLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
@@ -60,7 +60,7 @@ class LocalProcessApplicationsScreen extends StatelessWidget {
             }
 
             return cubit.localProcessApplications.isEmpty
-                ? EmptyDataWidget(
+                ? const EmptyDataWidget(
                     message: "No job applications available Yet !!!",
                   )
                 : Padding(

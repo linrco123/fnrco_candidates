@@ -31,35 +31,37 @@ class _GetPersonalDetailsScreenState extends State<GetEducationScreen> {
           current is AboutMeGetEducationsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetEducationsLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetEducationsErrorState) {
-          return FailureWidget(showImage: false,
-              title: translateLang(context, "error_get_educations"),
+          return FailureWidget(
+              showImage: false,
+              title:
+                  '${translateLang(context, "error_get_educations")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getEducation();
               });
         }
-        if(state is AboutMeGetEducationsSuccessState){
-        return state.educations.isEmpty
-            ? EmptyDataWidget(
-              message: "No education available Yet !!!",
-            )
-            : Container(
-                height: double.infinity,
-                width: double.infinity,
-                child: ListView.separated(
-                  itemCount: state.educations.length,
-                  itemBuilder: (context, index) =>
-                      EducationCard(education: state.educations[index]),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 16.0,
+        if (state is AboutMeGetEducationsSuccessState) {
+          return state.educations.isEmpty
+              ? const EmptyDataWidget(
+                  message: "No education available Yet !!!",
+                )
+              : Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: ListView.separated(
+                    itemCount: state.educations.length,
+                    itemBuilder: (context, index) =>
+                        EducationCard(education: state.educations[index]),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 16.0,
+                    ),
                   ),
-                ),
-              );
+                );
         }
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       },
     );
   }

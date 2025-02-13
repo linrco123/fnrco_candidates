@@ -14,11 +14,7 @@ class AchievementsCubit extends Cubit<AchievementsState> {
 
   var formKey = GlobalKey<FormState>();
   final TextEditingController achvCntroller = TextEditingController();
- String name = 'Ahmed Ibrahim';
-  changeName(){
-      name = name.startsWith('A')? 'muhammed Ibrahim':"Ahmed Ibrahim";
-     emit(EmptyAchievementsFieldsState());
-  }
+
   String? validateAch(context, String? value) {
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_ach");

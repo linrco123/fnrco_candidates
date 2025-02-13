@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/data/models/profile_get/personal_data_model.dart';
+import '../../../../../data/models/profile_get/personal_data_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../../../../core/classes/cache_helper.dart';
 import '../../../../../core/functions/show_toast.dart';
@@ -30,10 +30,10 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   final secondNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final surNameController = TextEditingController();
-  final countryResidenceController = TextEditingController();
   final emailController = TextEditingController();
 
   String countryId = 'Country';
+  String residence = 'Residence';
   int Id = 0;
   String genderId = 'Gender';
   String religionId = 'Religion';
@@ -53,6 +53,12 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
 
   void selectCountry(String value) {
     countryId = value;
+
+    emit(PersonalDetailsChoosingCountryState());
+  }
+
+  void selectResidence(String value) {
+    residence = value;
 
     emit(PersonalDetailsChoosingCountryState());
   }
@@ -188,6 +194,11 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           title: translateLang(context, 'warning'),
           desc: translateLang(context, "choose_nationality"),
           type: ToastificationType.warning);
+    } else if (countryId == 'Residence') {
+      showToast(context,
+          title: translateLang(context, 'warning'),
+          desc: translateLang(context, "choose_residence"),
+          type: ToastificationType.warning);
     } else if (genderId == 'Gender') {
       showToast(context,
           title: translateLang(context, 'warning'),
@@ -224,7 +235,11 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
           "person_third_name": lastNameController.text,
           "person_gender": genderId,
           "person_martial_status": maritalStatusId,
-          "person_country_residence": countryResidenceController.text,
+          "person_country_residence": countries
+              .where((country) => country.countryName == residence)
+              .toList()
+              .first
+              .id,
           "person_height": "150",
           "person_height_unit": "meter",
           "person_weight": "100",
@@ -284,8 +299,13 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     lastNameController.text = data.personThirdName!;
     surNameController.text = data.personSurName!;
     emailController.text = data.email!.email!;
-    countryResidenceController.text = data.personCountryResidence!;
+    logger.e('===================+getPersonalData===========================');
+    logger
+        .e('==+data.personCountryResidence!===${data.personCountryResidence}');
+    residence = data.personCountryResidence ?? '';
     birthDate = data.personDob!;
+    logger.e(data.personDob!);
+    logger.e(birthDate);
     countryId = data.personCountryResidence!;
     genderId = data.personGender!;
     maritalStatusId = data.personMartialStatus!;
@@ -352,5 +372,17 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     }).catchError((error) {
       emit(PersonalDetailsGettingMaritalStatusFailureState());
     });
+  }
+
+  @override
+  Future<void> close() {
+    firstNameController.dispose();
+    firstNameController.dispose();
+    secondNameController.dispose();
+    lastNameController.dispose();
+    surNameController.dispose();
+    emailController.dispose();
+    // TODO: implement close
+    return super.close();
   }
 }

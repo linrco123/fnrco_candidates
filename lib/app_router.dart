@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fnrco_candidates/ui/screens/required_documents/required_documents_apps.dart';
+import 'ui/screens/required_documents/required_documents_apps.dart';
 import 'data/models/management_content/poll_percentage_model.dart';
 import 'ui/screens/management_content/polls/polls_percentage.dart';
 import 'ui/screens/overview/overview_apps.dart';
@@ -45,7 +45,7 @@ import 'ui/screens/profile/skills.dart';
 import 'ui/screens/profile/work_experience.dart';
 import 'ui/screens/resume.dart';
 import 'ui/screens/success.dart';
-import 'ui/screens/management_content/surveys.dart';
+import 'ui/screens/management_content/survey/surveys.dart';
 import 'ui/screens/ticket.dart';
 import 'ui/screens/tutorial/tutorial_content.dart';
 import 'ui/screens/welcome.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:fnrco_candidates/ui/widgets/job_ffer/approval_card.dart';
+import '../../widgets/job_ffer/approval_card.dart';
 import '../../../core/classes/dotted_border.dart';
 import '../../../data/models/job_contract_model.dart';
 import '../../../core/functions/show_toast.dart';

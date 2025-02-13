@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
+import '../../../constants/constances.dart';
 import '../../../data/models/home/jobs_model.dart';
 import '../../../logic/cubit/home_page/home_page_cubit.dart';
 import '../../../constants/app_colors.dart';

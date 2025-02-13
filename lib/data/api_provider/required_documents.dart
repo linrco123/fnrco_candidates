@@ -1,7 +1,7 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/data/models/job_offer_model.dart';
-import 'package:fnrco_candidates/data/models/required_documents.dart';
+import '../../constants/constances.dart';
+import '../models/job_offer_model.dart';
+import '../models/required_documents.dart';
 import '../models/documents_category.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 import '../../constants/app_urls.dart';

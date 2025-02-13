@@ -1,6 +1,6 @@
 import 'package:dio2/dio2.dart';
-import 'package:fnrco_candidates/constants/constances.dart';
-import 'package:fnrco_candidates/data/models/job_offer_model.dart';
+import '../../constants/constances.dart';
+import '../models/job_offer_model.dart';
 import '../models/overview_model.dart';
 import '../../constants/app_urls.dart';
 import '../../core/classes/dio_helper.dart';

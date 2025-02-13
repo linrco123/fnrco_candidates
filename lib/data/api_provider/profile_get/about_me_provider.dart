@@ -88,7 +88,7 @@ class AboutMeProvider {
       if (response.statusCode == 200) {
         return AchievementsModel.fromJson(response.data);
       } else {
-         return await Future.error(
+        return await Future.error(
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
@@ -122,7 +122,7 @@ class AboutMeProvider {
       if (response.statusCode == 200) {
         return LanguagesModel.fromJson(response.data);
       } else {
-         return await Future.error(
+        return await Future.error(
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
@@ -140,7 +140,7 @@ class AboutMeProvider {
       if (response.statusCode == 200) {
         return ExperiencesModel.fromJson(response.data);
       } else {
-         return await Future.error(
+        return await Future.error(
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
@@ -174,7 +174,7 @@ class AboutMeProvider {
       if (response.statusCode == 200) {
         return GetSkillsModel.fromJson(response.data);
       } else {
-         return await Future.error(
+        return await Future.error(
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
@@ -188,6 +188,8 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: KEYWORDS});
+      logger.e('=====================Response=================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return KeyWordsModel.fromJson(response.data);
       } else {
@@ -195,6 +197,10 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('=====================Error=================');
+      logger.e(e.error);
+      logger.e(e.response!.statusCode);
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -207,7 +213,7 @@ class AboutMeProvider {
       if (response.statusCode == 200) {
         return GetJobsModel.fromJson(response.data);
       } else {
-         return await Future.error(
+        return await Future.error(
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {

@@ -133,7 +133,7 @@ class _LocalProcessScreenState extends State<LocalProcessScreen>
                                       style: OutlinedButton.styleFrom(
                                           enableFeedback: true,
                                           maximumSize:
-                                              Size(double.infinity, 70),
+                                            const  Size(double.infinity, 70),
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 28.0, horizontal: 15.0),
                                           iconColor: AppColors.primary,

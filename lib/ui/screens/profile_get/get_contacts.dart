@@ -31,36 +31,38 @@ class _GetPersonalDetailsScreenState extends State<GetContactsScreen> {
           current is AboutMeGetContactsErrorState,
       builder: (context, state) {
         if (state is AboutMeGetContactsLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetContactsErrorState) {
-          return FailureWidget(showImage: false,
-              title: translateLang(context, "error_get_contacts"),
+          return FailureWidget(
+              showImage: false,
+              title:
+                  '${translateLang(context, "error_get_contacts")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getContacts();
               });
         }
-      
-     if(state is AboutMeGetContactsSuccessState){ 
-        return state.contacts.isEmpty
-            ? EmptyDataWidget(
-              message: "No contacts available Yet !!!",
-            )
-            : Container(
-                height: double.infinity,
-                width: double.infinity,
-                child: ListView.separated(
-                  itemCount: state.contacts.length,
-                  itemBuilder: (context, index) =>
-                      ContactCard(contact: state.contacts[index]),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 16.0,
+
+        if (state is AboutMeGetContactsSuccessState) {
+          return state.contacts.isEmpty
+              ? const EmptyDataWidget(
+                  message: "No contacts available Yet !!!",
+                )
+              : Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: ListView.separated(
+                    itemCount: state.contacts.length,
+                    itemBuilder: (context, index) =>
+                        ContactCard(contact: state.contacts[index]),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 16.0,
+                    ),
                   ),
-                ),
-              );
-     }
-       return SizedBox.shrink();
+                );
+        }
+        return const SizedBox.shrink();
       },
     );
   }

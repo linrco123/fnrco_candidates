@@ -25,41 +25,43 @@ class _GetPersonalDetailsScreenState extends State<GetLanguagesScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutMeCubit, AboutMeState>(
-       buildWhen: (previous, current) =>
+      buildWhen: (previous, current) =>
           current is AboutMeGetLanguagesLoadingState ||
           current is AboutMeGetLanguagesSuccessState ||
           current is AboutMeGetLanguagesErrorState,
       builder: (context, state) {
         if (state is AboutMeGetLanguagesLoadingState) {
-          return AnimatedLoadingWidget();
+          return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetLanguagesErrorState) {
-          return FailureWidget(showImage: false,
-              title: translateLang(context, "error_get_languages"),
+          return FailureWidget(
+              showImage: false,
+              title:
+                  '${translateLang(context, "error_get_languages")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getLanguages();
               });
         }
-       if(state is AboutMeGetLanguagesSuccessState){
-        return state.languages.isEmpty
-            ? EmptyDataWidget(
-              message: "No languages available Yet !!!",
-            )
-            : Container(
-                height: double.infinity,
-                width: double.infinity,
-                child: ListView.separated(
-                  itemCount: state.languages.length,
-                  itemBuilder: (context, index) =>
-                      LanguageCard(language: state.languages[index]),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 16.0,
+        if (state is AboutMeGetLanguagesSuccessState) {
+          return state.languages.isEmpty
+              ? const EmptyDataWidget(
+                  message: "No languages available Yet !!!",
+                )
+              : Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: ListView.separated(
+                    itemCount: state.languages.length,
+                    itemBuilder: (context, index) =>
+                        LanguageCard(language: state.languages[index]),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 16.0,
+                    ),
                   ),
-                ),
-              );
-       }
-       return SizedBox.shrink();
+                );
+        }
+        return const SizedBox.shrink();
       },
     );
   }
