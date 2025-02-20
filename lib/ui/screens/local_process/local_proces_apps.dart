@@ -128,7 +128,7 @@ class LocalProcessApplicationCard extends StatelessWidget {
               blurRadius: 5.0,
               spreadRadius: 5.0,
               blurStyle: BlurStyle.outer,
-              offset: Offset(0, 1))
+              offset: const Offset(0, 1))
         ],
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),

@@ -45,7 +45,7 @@ class SharedDocumentsScreen extends StatelessWidget {
           builder: (context, state) {
             final cubit = BlocProvider.of<SharedDocumentsCubit>(context);
             if (state is SharedDocumentsGetDetailsLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
@@ -61,7 +61,7 @@ class SharedDocumentsScreen extends StatelessWidget {
             }
 
             return cubit.sharedAppDocs.isEmpty
-                ? EmptyDataWidget(
+                ? const EmptyDataWidget(
                     message: 'No Documents available Yet !!!!',
                   )
                 : Container(
@@ -73,7 +73,7 @@ class SharedDocumentsScreen extends StatelessWidget {
                         Expanded(
                             child: GridView.builder(
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   // mainAxisExtent: 5,
                                   childAspectRatio: 0.87,
@@ -95,7 +95,7 @@ class SharedDocumentsScreen extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Spacer(),
+                            const Spacer(),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     foregroundColor: AppColors.white,

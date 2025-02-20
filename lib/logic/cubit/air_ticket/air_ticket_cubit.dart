@@ -81,7 +81,7 @@ class AirTicketCubit extends Cubit<AirTicketState> {
   String? departure_time;
   void selectdptureTime(context) async {
     TimeOfDay? pickedTime = await showTimePicker(
-        context: context, initialTime: TimeOfDay(hour: 1, minute: 1));
+        context: context, initialTime: const TimeOfDay(hour: 1, minute: 1));
     if (pickedTime != null) {
       departure_time =
           pickedTime.hour.toString() + ':' + pickedTime.minute.toString();
@@ -92,7 +92,7 @@ class AirTicketCubit extends Cubit<AirTicketState> {
   String? arrival_time;
   void selectArrivaltime(context) async {
     TimeOfDay? pickedTime = await showTimePicker(
-        context: context, initialTime: TimeOfDay(hour: 1, minute: 1));
+        context: context, initialTime: const TimeOfDay(hour: 1, minute: 1));
     if (pickedTime != null) {
       arrival_time = pickedTime
           .format(context)

@@ -138,7 +138,7 @@ class SignInScreen extends StatelessWidget {
                                 height: 16.0,
                               ),
                               state is LogInLoadingState
-                                  ? AnimatedLoadingWidget()
+                                  ? const AnimatedLoadingWidget()
                                   : CustomElevatedButton(
                                       fun: () {
                                         //Focus to close Keyboard
@@ -178,7 +178,7 @@ class SignInScreen extends StatelessWidget {
                                           .labelMedium!
                                           .copyWith(color: AppColors.grey),
                                       children: [
-                                        TextSpan(text: ' '),
+                                        const TextSpan(text: ' '),
                                         TextSpan(
                                           text:
                                               translateLang(context, "sign_up"),

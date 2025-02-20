@@ -93,7 +93,7 @@ class _RequiredDocumentsScreenState extends State<RequiredDocumentsScreen>
           builder: (context, state) {
             var cubit = BlocProvider.of<RequiredDocumentsCubit>(context);
             if (state is GetRequiredDocumentsDataLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150,
                 width: 150,
               );
@@ -149,7 +149,7 @@ class _RequiredDocumentsScreenState extends State<RequiredDocumentsScreen>
                                       style: OutlinedButton.styleFrom(
                                           enableFeedback: true,
                                           maximumSize:
-                                              Size(double.infinity, 70),
+                                              const Size(double.infinity, 70),
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 28.0, horizontal: 15.0),
                                           iconColor: AppColors.primary,
@@ -289,7 +289,7 @@ class _RequiredDocumentsScreenState extends State<RequiredDocumentsScreen>
                     height: 10.0,
                   ),
                   state is SubmitRequiredDocumentsAttachmentsLoadingState
-                      ? AnimatedLoadingWidget()
+                      ? const AnimatedLoadingWidget()
                       : CustomElevatedButton(
                           fun: () {
                             context

@@ -44,7 +44,7 @@ class ContentsScreen extends StatelessWidget {
             builder: (context, state) {
               var cubit = BlocProvider.of<ContentsCubit>(context);
               if (state is ContentsLoadingState) {
-                return AnimatedLoadingWidget(
+                return const AnimatedLoadingWidget(
                   height: 150,
                   width: 150,
                 );
@@ -58,7 +58,7 @@ class ContentsScreen extends StatelessWidget {
                     });
               }
               return (state as ContentsSuccessState).contents.isEmpty
-                  ? EmptyDataWidget(
+                  ? const EmptyDataWidget(
                       message: "No Contents available Yet!!!",
                     )
                   : ListView.separated(

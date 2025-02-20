@@ -36,7 +36,7 @@ class SlopedContainer extends StatelessWidget {
       size: Size(double.infinity, height), // Full width and specified height
       painter: SlopedContainerPainter(),
       child: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           alignment: Alignment.topCenter,
           child: widget),
     );
@@ -77,7 +77,7 @@ class TriangleContainer extends StatelessWidget {
       size: Size(double.infinity, height), // Full width and specified height
       painter: TrianglePainter(),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         alignment: Alignment.center,
         child: widget,
       ),
@@ -124,7 +124,7 @@ class WavyContainer extends StatelessWidget {
       size: Size(double.infinity, height), // Full width and specified height
       painter: WavyContainerPainter(),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         alignment: Alignment.topCenter,
         child: widget
       ),

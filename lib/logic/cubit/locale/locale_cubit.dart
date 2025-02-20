@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 part 'locale_state.dart';
 
 class LocaleCubit extends Cubit<LocaleState> {
-  LocaleCubit() : super(ChangeLocaleState(locale: Locale('en')));
+  LocaleCubit() : super(ChangeLocaleState(locale: const Locale('en')));
 
-  toArabic() => emit(ChangeLocaleState(locale: Locale('ar')));
-  toEnglish() => emit(ChangeLocaleState(locale: Locale('en')));
+  toArabic() => emit(ChangeLocaleState(locale: const Locale('ar')));
+  toEnglish() => emit(ChangeLocaleState(locale: const Locale('en')));
   void setLocale(){
 
   }

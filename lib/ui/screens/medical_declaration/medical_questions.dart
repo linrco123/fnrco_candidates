@@ -25,7 +25,7 @@ class MedicalQuestionsScreen extends StatelessWidget {
             ),
           ],
         ),
-        CustomDivider(),
+        const CustomDivider(),
         const SizedBox(
           height: 15.0,
         ),
@@ -36,7 +36,7 @@ class MedicalQuestionsScreen extends StatelessWidget {
   }
 
   Widget _getSuitableAnswerForm(context, String type, dynamic cubit) {
-    Widget widget = SizedBox();
+    Widget widget = const SizedBox();
     switch (type) {
       case 'text':
         widget = CustomInputField(

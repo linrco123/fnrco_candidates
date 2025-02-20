@@ -43,7 +43,7 @@ class AnnouncementScreen extends StatelessWidget {
             builder: (context, state) {
               var cubit = BlocProvider.of<AnnouncementCubit>(context);
               if (state is AnnouncementLoadingState) {
-                return AnimatedLoadingWidget(
+                return const AnimatedLoadingWidget(
                   height: 150,
                   width: 150,
                 );
@@ -58,7 +58,7 @@ class AnnouncementScreen extends StatelessWidget {
                     });
               }
               return (state as AnnouncementSuccessState).announcements.isEmpty
-                  ? EmptyDataWidget(
+                  ? const EmptyDataWidget(
                       message: "No Announcements available Yet!!!",
                     )
                   : ListView.separated(

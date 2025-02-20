@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/credentials.dart';
+import 'package:fnrco_candidates/data/models/profile_get/credentials_model.dart';
 
 part 'credentials_state.dart';
 
@@ -18,7 +19,19 @@ class CredentialsCubit extends Cubit<CredentialsState> {
   final numbCntroller = TextEditingController();
   String? issueDate;
   String? expireDate;
+  dynamic id = '';
 
+  fillFields(GetCredential? credential) {
+    if (credential != null) {
+      id = credential.id!;
+      catCntroller.text = credential.personCredCat!;
+      nameCntroller.text = credential.personCredName!;
+      numbCntroller.text = credential.personCredNumber!;
+      issueDate = credential.personCredIssuedIn;
+      expireDate = credential.personCredExpIn;
+      emit(CredentialsPickingUpIssueDate());
+    }
+  }
 
   String? validateCategory(context, String? value) {
     if (value!.isEmpty) {
@@ -41,14 +54,13 @@ class CredentialsCubit extends Cubit<CredentialsState> {
     return null;
   }
 
-
   void selectIssueDate(context) async {
     DateTime? pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(1950), lastDate: DateTime.now());
     issueDate =
         "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
     emit(CredentialsPickingUpIssueDate());
-    }
+  }
 
   void selectExpiryDate(context) async {
     DateTime? pickedDate = await showDatePicker(
@@ -56,19 +68,19 @@ class CredentialsCubit extends Cubit<CredentialsState> {
     expireDate =
         "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
     emit(CredentialsPickingUpExpireDate());
-    }
+  }
 
   List<Map<String, dynamic>> submittedCredentials = [];
   void addNewCredentials() {
     if (formKey.currentState!.validate()) {
       if (issueDate != null && expireDate != null) {
         submittedCredentials.add({
-           "person_cred_cat":catCntroller.text,
-            "person_cred_name":nameCntroller.text,
-            "person_cred_number":numbCntroller.text,
-            "person_cred_issued_in":issueDate,
-            "person_cred_exp_in":expireDate
-    
+          "id": id,
+          "person_cred_cat": catCntroller.text,
+          "person_cred_name": nameCntroller.text,
+          "person_cred_number": numbCntroller.text,
+          "person_cred_issued_in": issueDate,
+          "person_cred_exp_in": expireDate
         });
         Future.delayed(const Duration(seconds: 1)).then((value) {
           clearFields();
@@ -87,27 +99,26 @@ class CredentialsCubit extends Cubit<CredentialsState> {
     expireDate = null;
     emit(EmptyCredentialsFieldsState());
   }
-  void submit(){
-    if(submittedCredentials.isEmpty){
+
+  void submit() {
+    if (submittedCredentials.isEmpty) {
       addNewCredentials();
-      if(submittedCredentials.isNotEmpty){
-         _submitCredentials();
+      if (submittedCredentials.isNotEmpty) {
+        _submitCredentials();
       }
-    }else{
-       _submitCredentials();
+    } else {
+      _submitCredentials();
     }
   }
+
   void _submitCredentials() {
     var data = {"credentials": submittedCredentials};
     if (submittedCredentials.isNotEmpty) {
       emit(SubmitCredentialsLoadingState());
-      credentialsProvider
-          .submitCredentials(data)
-          .then((value) {
+      credentialsProvider.submitCredentials(data).then((value) {
         emit(SubmitCredentialsSuccessState());
       }).catchError((error) {
-        emit(SubmitCredentialsFailureState(
-            message: error.failure.message));
+        emit(SubmitCredentialsFailureState(message: error.failure.message));
       });
     }
   }
@@ -122,5 +133,3 @@ class CredentialsCubit extends Cubit<CredentialsState> {
     return super.close();
   }
 }
-
-

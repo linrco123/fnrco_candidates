@@ -53,7 +53,7 @@ class JobHomeCard extends StatelessWidget {
                                   .headlineMedium!
                                   .copyWith(fontWeight: FontWeight.bold)),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 50,
                         )
                       ],

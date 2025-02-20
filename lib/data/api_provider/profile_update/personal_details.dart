@@ -16,11 +16,13 @@ class PersonalDetailsProvider {
   PersonalDetailsProvider() {
 
   }
+    
     Future<PersonalDataModel> getPersonalData() async {
     try {
       final Response response = await DioHelper.dio.get(
         AppLinks.profile_get,
       );
+      logger.e('===========================response==================');
       logger.e(response.data);
       if (response.statusCode == 200) {
         return PersonalDataModel.fromJson(response.data);
@@ -44,6 +46,9 @@ class PersonalDetailsProvider {
       final Response response = await DioHelper.dio.post(
         AppLinks.profile_update,
         data: data,
+        queryParameters: {
+          "_method": "PUT"
+        }
       );
       logger.d(
           '====================submitPersonalData============================');

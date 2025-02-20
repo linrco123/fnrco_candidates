@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/education_qualification.dart';
 import 'package:fnrco_candidates/data/models/profile/years_model.dart';
+import 'package:fnrco_candidates/data/models/profile_get/education_model.dart';
 part 'education_and_qualification_state.dart';
 
 class EducationAndQualificationCubit
@@ -19,10 +20,11 @@ class EducationAndQualificationCubit
   final eduYrsCntroller = TextEditingController();
   final instituteCntroller = TextEditingController();
   final certCntroller = TextEditingController();
-  String yearsId = '';
+  String yearsId = 'Select Year';
   int yearsNumber = 1;
   String? certIssueDate;
   String? certExpireDate;
+  dynamic id = '';
   ///////////////////////////////////////////////////////////
   final yearsNumCntroller = TextEditingController()..text = '1';
 
@@ -100,7 +102,7 @@ class EducationAndQualificationCubit
     certIssueDate =
         "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
     emit(EducationAndQualificationPickingUpCertIssueDate());
-    }
+  }
 
   void selectExpiryDate(context) async {
     DateTime? pickedDate = await showDatePicker(
@@ -108,7 +110,7 @@ class EducationAndQualificationCubit
     certExpireDate =
         "${pickedDate!.year.toString()}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
     emit(EducationAndQualificationPickingUpCertExpireDate());
-    }
+  }
 
   void selectYear(String value) {
     yearsId = value;
@@ -131,8 +133,11 @@ class EducationAndQualificationCubit
   List<Map<String, dynamic>> submittedQualifications = [];
   void addNewEducationAndQualification() {
     if (formKey.currentState!.validate()) {
-      if (yearsId != 0 && certIssueDate != null && certExpireDate != null) {
+      if (yearsId != 'Select Year' &&
+          certIssueDate != null &&
+          certExpireDate != null) {
         submittedQualifications.add({
+          "id": id,
           "edu_degree": degreeCntroller.text,
           "edu_years": yearsNumber.toString(),
           "edu_field_of_study": spcCntroller.text,
@@ -156,25 +161,23 @@ class EducationAndQualificationCubit
     spcCntroller.clear();
     instituteCntroller.clear();
     certCntroller.clear();
-    yearsId = '';
+    yearsId = 'Select Year';
     certExpireDate = null;
     certIssueDate = null;
     emit(EmptyEducationAndQualificationFieldsState());
   }
 
-
-  
-  void submit(){
-    if(submittedQualifications.isEmpty){
+  void submit() {
+    if (submittedQualifications.isEmpty) {
       addNewEducationAndQualification();
-      if(submittedQualifications.isNotEmpty){
+      if (submittedQualifications.isNotEmpty) {
         _SubmitEducationAndQualification();
       }
-
-    }else{
+    } else {
       _SubmitEducationAndQualification();
     }
   }
+
   void _SubmitEducationAndQualification() {
     var data = {"educations": submittedQualifications};
     if (submittedQualifications.isNotEmpty) {
@@ -200,5 +203,22 @@ class EducationAndQualificationCubit
     certCntroller.dispose();
 
     return super.close();
+  }
+
+  fillFields(GetEducation? education) {
+    if (education != null) {
+      id = education.id;
+      degreeCntroller.text = education.eduDegree!;
+      spcCntroller.text = education.eduFieldOfStudy!;
+      yearsId = education.eduGraduationYear!;
+      yearsNumCntroller.text = education.eduYears!;
+      yearsNumber = int.parse(education.eduYears!);
+      instituteCntroller.text = education.eduInstitutionName!;
+      certCntroller.text = education.eduCertificationName!;
+      certIssueDate = education.eduCertificationIssuesIn!;
+      certExpireDate = education.eduCertificationExpiryIn!;
+
+      emit(EducationAndQualificationChoosingYearsState());
+    }
   }
 }

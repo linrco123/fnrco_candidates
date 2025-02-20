@@ -23,7 +23,7 @@ class ApprovalCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
           color: AppColors.blurRed,
-          borderRadius: BorderRadiusDirectional.only(
+          borderRadius: const BorderRadiusDirectional.only(
               topStart: Radius.circular(16), 
               topEnd: Radius.circular(16))),
       child: Padding(

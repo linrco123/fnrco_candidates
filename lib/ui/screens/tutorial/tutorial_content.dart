@@ -33,7 +33,7 @@ class TutorialsContentScreen extends StatelessWidget {
         body: BlocBuilder<TutorialCubit, TutorialState>(
           builder: (context, state) {
             if (state is TutorialLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
@@ -48,7 +48,7 @@ class TutorialsContentScreen extends StatelessWidget {
             }
 
             return (state as TutorialSuccessState).tutorials.isEmpty
-                ? EmptyDataWidget()
+                ? const EmptyDataWidget()
                 : Container(
                     height: double.infinity,
                     width: double.infinity,
@@ -102,7 +102,7 @@ class TutorialCard extends StatelessWidget {
                   ),
                   child: CachedNetworkImage(
                     progressIndicatorBuilder: (context, url, progress) =>
-                        AnimatedLoadingWidget(
+                        const AnimatedLoadingWidget(
                       height: 70.0,
                       width: 70.0,
                     ),

@@ -105,7 +105,7 @@ class CompanyInfoScreen extends StatelessWidget {
               children: [
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 15.0),
-                    child: CompanyInfoHeader(
+                    child: const CompanyInfoHeader(
                         company: 'HighSpeed Studios',
                         location: 'United Kingdom , London',
                         rateIcon: Icons.star,

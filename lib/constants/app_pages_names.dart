@@ -18,6 +18,7 @@ class AppPagesNames {
   static const String SUCCESS = '/success';
   static const String ANIMATED_SPLASH = '/animatedSpalsh';
   static const String SURVIES = '/survies';
+  static const String PERSONALDETAILSSCREEN = '/personalDetails';
   static const String SKILLS = '/skills';
   static const String EXPERIENCES = '/experience';
   static const String EDUCATION = '/education';
@@ -26,7 +27,7 @@ class AppPagesNames {
   static const String LANGUAGE = '/language';
   static const String ACHIEVEMENTS = '/achievements';
   static const String NOTES = '/notes';
-  static const String KEYWORDS = '/keyword';
+  static const String REFERENCES = '/references';
   static const String NOTIFICATION = '/notification';
   static const String POLLS = '/polls';
   static const String FAQS = '/faqs';
@@ -61,10 +62,8 @@ class AppPagesNames {
   static const String REQUEST = '/request';
 
   static const String SHARED_DOCUMENTS = '/shared_documents';
-  
+
   static const String OVERVIEW = '/overview';
   static const String percentage = '/percentage';
-  static const String required_documents= '/required_documents';
-
-
+  static const String required_documents = '/required_documents';
 }

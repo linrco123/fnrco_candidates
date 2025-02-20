@@ -74,7 +74,7 @@ class ForgotPassword extends StatelessWidget {
                             hint: translateLang(context, "email"),
                             validate: forgetPasswordCubit.validateEmail))),
                 state is ForgetPasswordLoadingState
-                    ? AnimatedLoadingWidget()
+                    ? const AnimatedLoadingWidget()
                     : CustomElevatedButton(
                         fun: () {
                           forgetPasswordCubit.verifyEmail(context);

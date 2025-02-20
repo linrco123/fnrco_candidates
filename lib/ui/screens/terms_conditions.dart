@@ -62,7 +62,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                     color: AppColors.primary,
                     backgroundColor: AppColors.black,
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
             Expanded(child: WebViewWidget(controller: _webViewController!)),
             const SizedBox(
               height: 20.0,

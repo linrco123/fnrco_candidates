@@ -142,7 +142,7 @@ class RequestReplyScreen extends StatelessWidget {
                             const SizedBox(
                               height: 16.0,
                             ),
-                            CustomTitle(
+                            const CustomTitle(
                               title: "title",
                             ),
                             CustomInputField(
@@ -154,7 +154,7 @@ class RequestReplyScreen extends StatelessWidget {
                             const SizedBox(
                               height: 16.0,
                             ),
-                            CustomTitle(
+                            const CustomTitle(
                               title: "remark",
                             ),
                             CustomInputField(
@@ -184,7 +184,7 @@ class RequestReplyScreen extends StatelessWidget {
                                           fontSize: 20.0),
                                     ),
                                   ),
-                                  Expanded(
+                                  const Expanded(
                                     child: CustomTitle(
                                       title: "upload_attach",
                                     ),
@@ -197,7 +197,7 @@ class RequestReplyScreen extends StatelessWidget {
                                 child: OutlinedButton(
                                     style: OutlinedButton.styleFrom(
                                         enableFeedback: true,
-                                        maximumSize: Size(double.infinity, 70),
+                                        maximumSize: const Size(double.infinity, 70),
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 30.0, horizontal: 15.0),
                                         iconColor: AppColors.primary,
@@ -301,7 +301,7 @@ class RequestReplyScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: request.requestType == "Upload File"
                             ? state is RequestSubmitLoadingState
-                                ? AnimatedLoadingWidget()
+                                ? const AnimatedLoadingWidget()
                                 : CustomElevatedButton(
                                     fun: () {
                                       context
@@ -317,7 +317,7 @@ class RequestReplyScreen extends StatelessWidget {
                                   Expanded(
                                       child: Center(
                                     child: state is RequestApprovalLoadingState
-                                        ? AnimatedLoadingWidget()
+                                        ? const AnimatedLoadingWidget()
                                         : CustomElevatedButton(
                                             fun: () {
                                               context
@@ -335,7 +335,7 @@ class RequestReplyScreen extends StatelessWidget {
                                   Expanded(
                                       child: Center(
                                     child: state is RequestRejectionLoadingState
-                                        ? AnimatedLoadingWidget()
+                                        ? const AnimatedLoadingWidget()
                                         : CustomElevatedButton(
                                             fun: () {
                                               context

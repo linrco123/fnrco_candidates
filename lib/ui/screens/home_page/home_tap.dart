@@ -67,7 +67,7 @@ class HomeTapScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16.0)),
                       onSelected:
                           context.read<HomePageCubit>().choosePopUpMenuItem,
-                      offset: Offset(0, 45),
+                      offset: const Offset(0, 45),
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuEntry<Menu>>[
                         PopupMenuItem<Menu>(
@@ -119,7 +119,7 @@ class HomeTapScreen extends StatelessWidget {
                         child: CircleAvatar(
                             radius: 25.0,
                             backgroundImage: CacheHelper.getImage() == null
-                                ? AssetImage(AppImages.User)
+                                ? const AssetImage(AppImages.User)
                                 : FileImage(File(CacheHelper.getImage()!))),
                       ),
                     )
@@ -154,10 +154,10 @@ class HomeTapScreen extends StatelessWidget {
                         horizontal: 10.0, vertical: 10.0),
                     child: Column(
                       children: [
-                        Row(
+                        const Row(
                           children: [
                             Expanded(child: LoadingSingleHomeCard()),
-                            const SizedBox(
+                            SizedBox(
                               width: 10.0,
                             ),
                             Expanded(child: LoadingSingleHomeCard())
@@ -169,8 +169,8 @@ class HomeTapScreen extends StatelessWidget {
                         Expanded(
                             child: ListView.separated(
                           itemCount: 10,
-                          itemBuilder: (context, index) => LoadingJobCardHome(),
-                          separatorBuilder: (context, index) => SizedBox(
+                          itemBuilder: (context, index) => const LoadingJobCardHome(),
+                          separatorBuilder: (context, index) => const SizedBox(
                             height: 10.0,
                           ),
                         ))

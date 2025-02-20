@@ -26,7 +26,7 @@ class AirTicketScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return Scaffold(
-        floatingActionButton: Column(
+        floatingActionButton: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [],
         ),
@@ -117,7 +117,7 @@ class AirTicketScreen extends StatelessWidget {
                       key: airTicketCubit.formKey,
                       child: Column(
                         children: [
-                          CustomTitle(
+                          const CustomTitle(
                             title: "ticket_number",
                           ),
                           CustomInputField(
@@ -131,7 +131,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "air_line",
                           ),
                           CustomInputField(
@@ -145,7 +145,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "flight_number",
                           ),
                           CustomInputField(
@@ -159,7 +159,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "departure_from",
                           ),
                           CustomInputField(
@@ -175,7 +175,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "arrival_at",
                           ),
                           CustomInputField(
@@ -191,7 +191,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "departure_date",
                           ),
                           CustomDatePicker(
@@ -207,7 +207,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "arrival_date",
                           ),
                           CustomDatePicker(
@@ -223,7 +223,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "departure_time",
                           ),
                           CustomTimePicker(
@@ -239,7 +239,7 @@ class AirTicketScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16.0,
                           ),
-                          CustomTitle(
+                          const CustomTitle(
                             title: "arrival_time",
                           ),
                           CustomTimePicker(
@@ -256,14 +256,14 @@ class AirTicketScreen extends StatelessWidget {
                             height: 16.0,
                           ),
                           pipeLine != null
-                              ? SizedBox.shrink()
+                              ? const SizedBox.shrink()
                               : CustomPaint(
                                   painter: DottedBorderPainter(),
                                   child: OutlinedButton(
                                       style: OutlinedButton.styleFrom(
                                           enableFeedback: true,
                                           maximumSize:
-                                              Size(double.infinity, 70),
+                                              const Size(double.infinity, 70),
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 30.0, horizontal: 15.0),
                                           iconColor: AppColors.primary,
@@ -318,7 +318,7 @@ class AirTicketScreen extends StatelessWidget {
                   )),
                   pipeLine == null
                       ? state is submitAirTicketInfoLoadingState
-                          ? AnimatedLoadingWidget()
+                          ? const AnimatedLoadingWidget()
                           : CustomElevatedButton(
                               fun: () {
                                 airTicketCubit.submitAirTicketInfo(
@@ -326,7 +326,7 @@ class AirTicketScreen extends StatelessWidget {
                               },
                               background: AppColors.primary,
                               text: 'Submit Air Ticket')
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ],
               ),
             );

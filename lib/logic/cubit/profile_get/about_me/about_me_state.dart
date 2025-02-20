@@ -99,20 +99,20 @@ final class  AboutMeGetEducationsErrorState extends AboutMeState {
   AboutMeGetEducationsErrorState({required this.message});
 }
 
-//////////////TODO:keywords.//////////////////////
+//////////////TODO:References.//////////////////////
 
-final class  AboutMeGetkeywordsLoadingState extends AboutMeState {}
+final class  AboutMeGetReferencesLoadingState extends AboutMeState {}
 
-final class  AboutMeGetkeywordsSuccessState extends AboutMeState {
-  final List<GetKeyword> keywords;
+final class  AboutMeGetReferencesSuccessState extends AboutMeState {
+  final List<GetReference> references;
 
-  AboutMeGetkeywordsSuccessState({required this.keywords});
+  AboutMeGetReferencesSuccessState({required this.references});
 }
 
-final class  AboutMeGetkeywordsErrorState extends AboutMeState {
+final class  AboutMeGetReferencesErrorState extends AboutMeState {
   final String message;
 
-  AboutMeGetkeywordsErrorState({required this.message});
+  AboutMeGetReferencesErrorState({required this.message});
 }
 
 //////////////TODO:Languages.//////////////////////

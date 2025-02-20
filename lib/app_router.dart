@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/ui/screens/profile_add_new/personal_details.dart';
 import 'ui/screens/required_documents/required_documents_apps.dart';
 import 'data/models/management_content/poll_percentage_model.dart';
 import 'ui/screens/management_content/polls/polls_percentage.dart';
 import 'ui/screens/overview/overview_apps.dart';
 import 'ui/screens/medical_declaration/medical_declaration_apps.dart';
-import 'ui/screens/profile_get/experience/experience_description.dart';
-import 'ui/screens/profile_get/get_job_details.dart';
+import 'ui/screens/profile_get_update/experience/experience_description.dart';
+import 'ui/screens/profile_get_update/get_job_details.dart';
 import 'ui/screens/request/request.dart';
 import 'ui/screens/shared_documents/apps_documents.dart';
 import 'ui/screens/terms_conditions.dart';
@@ -32,17 +33,17 @@ import 'ui/screens/notifications.dart';
 import 'ui/screens/on_boarding/on_boarding2_screen.dart';
 import 'ui/screens/auth/otp.dart';
 import 'ui/screens/auth/sign_up.dart';
-import 'ui/screens/profile/achievements.dart';
-import 'ui/screens/profile/contacts.dart';
-import 'ui/screens/profile/credentials.dart';
-import 'ui/screens/profile/education_qualification.dart';
-import 'ui/screens/profile/key_words.dart';
-import 'ui/screens/profile/language.dart';
-import 'ui/screens/profile/notes.dart';
-import 'ui/screens/profile/profile.dart';
-import 'ui/screens/profile/profile_editing.dart';
-import 'ui/screens/profile/skills.dart';
-import 'ui/screens/profile/work_experience.dart';
+import 'ui/screens/profile_add_new/achievements.dart';
+import 'ui/screens/profile_add_new/contacts.dart';
+import 'ui/screens/profile_add_new/credentials.dart';
+import 'ui/screens/profile_add_new/education_qualification.dart';
+import 'ui/screens/profile_add_new/references.dart';
+import 'ui/screens/profile_add_new/language.dart';
+import 'ui/screens/profile_add_new/notes.dart';
+import 'ui/screens/profile_add_new/profile.dart';
+import 'ui/screens/profile_add_new/profile_editing.dart';
+import 'ui/screens/profile_add_new/skills.dart';
+import 'ui/screens/profile_add_new/work_experience.dart';
 import 'ui/screens/resume.dart';
 import 'ui/screens/success.dart';
 import 'ui/screens/management_content/survey/surveys.dart';
@@ -144,7 +145,7 @@ class AppRouter {
         //   builder: (context) => const HomePageScreen(),
         // );
         return PageTransition(
-          child: HomePageScreen(),
+          child: const HomePageScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -154,7 +155,7 @@ class AppRouter {
         //   builder: (context) => const ProfileScreen(),
         // );
         return PageTransition(
-          child: ProfileScreen(),
+          child: const ProfileScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -164,7 +165,7 @@ class AppRouter {
         //   builder: (context) => const EditProfileScreen(),
         // );
         return PageTransition(
-          child: EditProfileScreen(),
+          child: const EditProfileScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -174,7 +175,7 @@ class AppRouter {
         //   builder: (context) => ResumeScreen(),
         // );
         return PageTransition(
-          child: ResumeScreen(),
+          child: const ResumeScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -201,7 +202,7 @@ class AppRouter {
         //   ),
         // );
         return PageTransition(
-          child: JobApplicationScreen(),
+          child: const JobApplicationScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -211,7 +212,7 @@ class AppRouter {
         //     builder: (context) => InternetConnectionScreen(),
         //   );
         return PageTransition(
-          child: InternetConnectionScreen(),
+          child: const InternetConnectionScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -246,12 +247,26 @@ class AppRouter {
           duration: const Duration(seconds: 1),
         );
       //JobApplicationScreen
+
+       case AppPagesNames.PERSONALDETAILSSCREEN:
+        // return MaterialPageRoute(
+        //     builder: (context) => ExperienceScreen(),
+        //     );
+        return PageTransition(
+          child: const PersonalDetailsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.centerLeft,
+          duration: const Duration(seconds: 1),
+        );
+
       case AppPagesNames.SKILLS:
         // return MaterialPageRoute(
         //     builder: (context) => SkillsSCreen(),
         //     );
+        settings.arguments == null;
         return PageTransition(
-          child: SkillsSCreen(),
+          child: const SkillsSCreen(),
+          
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -261,7 +276,7 @@ class AppRouter {
         //     builder: (context) => ExperienceScreen(),
         //     );
         return PageTransition(
-          child: ExperienceScreen(),
+          child: const ExperienceScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -271,18 +286,16 @@ class AppRouter {
         //     builder: (context) => AirTicketApplicationsScreen(),
         //     );
         return PageTransition(
-          child: AirTicketApplicationsScreen(),
+          child: const AirTicketApplicationsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
 
       case AppPagesNames.EDUCATION:
-        // return MaterialPageRoute(
-        //     builder: (context) => EducationAndQualificationScreen(),
-        //     );
+
         return PageTransition(
-          child: EducationAndQualificationScreen(),
+          child: const EducationAndQualificationScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -292,7 +305,7 @@ class AppRouter {
         //     builder: (context) => ContactsScreen(),
         //     );
         return PageTransition(
-          child: ContactsScreen(),
+          child: const ContactsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -303,7 +316,7 @@ class AppRouter {
         //     builder: (context) => CredentialsScreen(),
         //     );
         return PageTransition(
-          child: CredentialsScreen(),
+          child: const CredentialsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -314,7 +327,7 @@ class AppRouter {
         //     builder: (context) => CredentialsScreen(),
         //     );
         return PageTransition(
-          child: LanguageScreen(),
+          child: const LanguageScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -325,7 +338,7 @@ class AppRouter {
         //     builder: (context) => AchievementsSCreen(),
         //     );
         return PageTransition(
-          child: AchievementsSCreen(),
+          child: const AchievementsSCreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -336,18 +349,19 @@ class AppRouter {
         //     builder: (context) => NotesScreen(),
         //     );
         return PageTransition(
-          child: NotesScreen(),
+          child: const NotesScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
         );
 
-      case AppPagesNames.KEYWORDS:
+      case AppPagesNames.REFERENCES:
         // return MaterialPageRoute(
         //     builder: (context) => KeyWordsSCreen(),
         //     );
         return PageTransition(
-          child: KeyWordsSCreen(),
+          // ignore: prefer_const_constructors
+          child: ReferencesSCreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -357,7 +371,7 @@ class AppRouter {
         //     builder: (context) => NotificationsScreen(),
         //     );
         return PageTransition(
-          child: NotificationsScreen(),
+          child: const NotificationsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -388,7 +402,7 @@ class AppRouter {
         //     builder: (context) => TutorialsContentScreen(),
         //     );
         return PageTransition(
-          child: TutorialsContentScreen(),
+          child: const TutorialsContentScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -419,7 +433,7 @@ class AppRouter {
         //     builder: (context) => TicketsScreen(),
         //     );
         return PageTransition(
-          child: TicketsScreen(),
+          child: const TicketsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -429,7 +443,7 @@ class AppRouter {
         //     builder: (context) => VisaApprovalAppsScreen(),
         //     );
         return PageTransition(
-          child: VisaApprovalAppsScreen(),
+          child: const VisaApprovalAppsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -439,7 +453,7 @@ class AppRouter {
         //     builder: (context) => DateApplicationScreen(),
         //     );
         return PageTransition(
-          child: DateApplicationScreen(),
+          child: const DateApplicationScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -450,7 +464,7 @@ class AppRouter {
         //     builder: (context) => JoiningDateSCreen(),
         //     );
         return PageTransition(
-          child: ContractApplicationsScreen(),
+          child: const ContractApplicationsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -461,7 +475,7 @@ class AppRouter {
         //     builder: (context) => LocalProcessScreen(),
         //     );
         return PageTransition(
-          child: LocalProcessApplicationsScreen(),
+          child: const LocalProcessApplicationsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -472,7 +486,7 @@ class AppRouter {
         //     builder: (context) => MedicalDeclaration(),
         //     );
         return PageTransition(
-          child: MedicalDeclarationAppsScreen(),
+          child: const MedicalDeclarationAppsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -480,7 +494,7 @@ class AppRouter {
 
       case AppPagesNames.TERMS_CONDITIONS:
         return PageTransition(
-          child: TermsAndConditionsScreen(),
+          child: const TermsAndConditionsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -510,7 +524,7 @@ class AppRouter {
 
       case AppPagesNames.REQUEST:
         return PageTransition(
-          child: RequestScreen(),
+          child: const RequestScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -518,7 +532,7 @@ class AppRouter {
 
       case AppPagesNames.SHARED_DOCUMENTS:
         return PageTransition(
-          child: SharedDocsAppsScreen(),
+          child: const SharedDocsAppsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -526,7 +540,7 @@ class AppRouter {
 
       case AppPagesNames.OVERVIEW:
         return PageTransition(
-          child: OverviewAppsScreen(),
+          child: const OverviewAppsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),
@@ -534,7 +548,7 @@ class AppRouter {
 
          case AppPagesNames.required_documents:
         return PageTransition(
-          child: RequiredDocumentsApplicationsScreen(),
+          child: const RequiredDocumentsApplicationsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.centerLeft,
           duration: const Duration(seconds: 1),

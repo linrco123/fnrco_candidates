@@ -31,7 +31,7 @@ class JobOfferScreen extends StatelessWidget {
                 onPressed: () {
                   _showSheet(context.read<JobOfferCubit>(), context);
                 },
-                child: Icon(Icons.upload),
+                child: const Icon(Icons.upload),
               ),
             )
           : null,
@@ -87,7 +87,7 @@ class JobOfferScreen extends StatelessWidget {
                 ),
               ),
               if (state is GetJobofferLoadingState)
-                AnimatedLoadingWidget(
+                const AnimatedLoadingWidget(
                   height: 150.0,
                   width: 150.0,
                 ),
@@ -154,7 +154,7 @@ class JobOfferScreen extends StatelessWidget {
                           height: 70,
                           width: double.infinity,
                           child: jobApplication.isAction == "Done"
-                              ? SizedBox.shrink()
+                              ? const SizedBox.shrink()
                               : Row(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -163,7 +163,7 @@ class JobOfferScreen extends StatelessWidget {
                                         child: Center(
                                       child:
                                           state is JobOfferApprovalLoadingState
-                                              ? AnimatedLoadingWidget()
+                                              ? const AnimatedLoadingWidget()
                                               : CustomElevatedButton(
                                                   fun: () {
                                                     context
@@ -182,7 +182,7 @@ class JobOfferScreen extends StatelessWidget {
                                     Expanded(
                                         child: Center(
                                       child: state is JobOfferRejectLoadingState
-                                          ? AnimatedLoadingWidget()
+                                          ? const AnimatedLoadingWidget()
                                           : CustomElevatedButton(
                                               fun: () {
                                                 context
@@ -222,8 +222,8 @@ class JobOfferScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: AppColors.white,
-      constraints: BoxConstraints(maxHeight: 300),
-      shape: RoundedRectangleBorder(
+      constraints: const BoxConstraints(maxHeight: 300),
+      shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       builder: (context) {
@@ -268,7 +268,7 @@ class JobOfferScreen extends StatelessWidget {
                               child: OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                       enableFeedback: true,
-                                      maximumSize: Size(double.infinity, 70),
+                                      maximumSize: const Size(double.infinity, 70),
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 30.0, horizontal: 15.0),
                                       iconColor: AppColors.primary,

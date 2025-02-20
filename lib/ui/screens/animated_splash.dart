@@ -47,7 +47,7 @@ class _CustomAnimatedSplashScreenState extends State<CustomAnimatedSplashScreen>
   Widget nextScreen() {
     return CacheHelper.getOnBoarding() == null
         ? const OnboardingScreen()
-        : WelcomeScreen();
+        : const WelcomeScreen();
   }
 
   void checkInternet(){

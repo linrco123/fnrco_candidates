@@ -85,7 +85,7 @@ class PollsPercentageScreen extends StatelessWidget {
                 ),
               ],
             ),
-            CustomDivider(hPadding: 10.0,vPadding: 10.0,),
+            const CustomDivider(hPadding: 10.0,vPadding: 10.0,),
               const SizedBox(
               height: 10.0,
             ),

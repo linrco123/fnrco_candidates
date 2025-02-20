@@ -317,7 +317,7 @@ class _LocalProcessScreenState extends State<LocalProcessScreen>
                     height: 10.0,
                   ),
                   state is SubmitLocalProcessAttachmentsLoadingState
-                      ? AnimatedLoadingWidget()
+                      ? const AnimatedLoadingWidget()
                       : CustomElevatedButton(
                           fun: () {
                             context

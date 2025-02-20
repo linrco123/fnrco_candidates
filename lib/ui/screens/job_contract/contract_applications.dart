@@ -44,7 +44,7 @@ class ContractApplicationsScreen extends StatelessWidget {
           builder: (context, state) {
             var cubit = context.read<JobContractCubit>();
             if (state is GetJobContractApplicationsLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
@@ -59,7 +59,7 @@ class ContractApplicationsScreen extends StatelessWidget {
             }
 
             return cubit.ContractApplications.isEmpty
-                ? EmptyDataWidget(
+                ? const EmptyDataWidget(
                     message: "No job applications available Yet !!!",
                   )
                 : Padding(
@@ -120,7 +120,7 @@ class ContractApplicationCard extends StatelessWidget {
               blurRadius: 5.0,
               spreadRadius: 5.0,
               blurStyle: BlurStyle.outer,
-              offset: Offset(0, 1))
+              offset: const Offset(0, 1))
         ],
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),

@@ -43,7 +43,7 @@ class RequestScreen extends StatelessWidget {
             builder: (context, state) {
               final cubit = BlocProvider.of<RequestCubit>(context);
               if (state is GetRequestDataLoadingState) {
-                return AnimatedLoadingWidget(
+                return const AnimatedLoadingWidget(
                   height: 150.0,
                   width: 150.0,
                 );
@@ -58,7 +58,7 @@ class RequestScreen extends StatelessWidget {
               }
             
                 return cubit.requests.isEmpty
-                    ? EmptyDataWidget(
+                    ? const EmptyDataWidget(
                         message: 'No requests available yet !!!',
                       )
                     : Container(
@@ -73,7 +73,7 @@ class RequestScreen extends StatelessWidget {
                             Expanded(
                                 child: ListView.separated(
                               itemCount: cubit.requests.length,
-                              separatorBuilder: (context, index) => SizedBox(
+                              separatorBuilder: (context, index) => const SizedBox(
                                 height: 20.0,
                               ),
                               itemBuilder: (context, index) => InkWell(
@@ -132,7 +132,7 @@ class RequestTypeCard extends StatelessWidget {
               blurRadius: 5.0,
               spreadRadius: 5.0,
               blurStyle: BlurStyle.outer,
-              offset: Offset(0, 1))
+              offset: const Offset(0, 1))
         ],
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),

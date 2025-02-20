@@ -13,7 +13,7 @@ class CacheHelper {
 
   static Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    secureStorage = FlutterSecureStorage();
+    secureStorage = const FlutterSecureStorage();
     await getAuthToken();
     //storeBiometricStatus(false);
   }

@@ -174,7 +174,7 @@ class SignUpScreen extends StatelessWidget {
                                   height: 16.0,
                                 ),
                                 signUpCubit.countries.isEmpty
-                                    ? ItemLoadingWidget()
+                                    ? const ItemLoadingWidget()
                                     : CustomDropDownSearch(
                                         // widget: Icon(
                                         //   CupertinoIcons.building_2_fill,
@@ -196,7 +196,7 @@ class SignUpScreen extends StatelessWidget {
                                   height: 16.0,
                                 ),
                                 signUpCubit.genders.isEmpty
-                                    ? ItemLoadingWidget()
+                                    ? const ItemLoadingWidget()
                                     : CustomDropDownSearch(
                                         // widget: Image.asset(
                                         //   AppImages.gender,
@@ -221,7 +221,7 @@ class SignUpScreen extends StatelessWidget {
                                   height: 16.0,
                                 ),
                                 signUpCubit.religions.isEmpty
-                                    ? ItemLoadingWidget()
+                                    ? const ItemLoadingWidget()
                                     : CustomDropDownSearch(
                                         // widget: SizedBox(
                                         //   height: 20.0,
@@ -247,7 +247,7 @@ class SignUpScreen extends StatelessWidget {
                                   height: 16.0,
                                 ),
                                 signUpCubit.maritalStatus.isEmpty
-                                    ? ItemLoadingWidget()
+                                    ? const ItemLoadingWidget()
                                     : CustomDropDownSearch(
                                         // widget: Image.asset(
                                         //   AppImages.marital_status,
@@ -293,7 +293,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       state is SignUpLoadingState
-                          ? AnimatedLoadingWidget()
+                          ? const AnimatedLoadingWidget()
                           : Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 16.0),
@@ -317,7 +317,7 @@ class SignUpScreen extends StatelessWidget {
                                   .labelMedium!
                                   .copyWith(color: AppColors.grey),
                               children: [
-                                TextSpan(text: ' '),
+                                const TextSpan(text: ' '),
                                 TextSpan(
                                   text: translateLang(context, "sign_in"),
                                   style: TextStyle(color: AppColors.primary),

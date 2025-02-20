@@ -21,7 +21,7 @@ class ExperienceProvider {
         return await Future.error(response.statusCode!);
       }
     } on DioError catch (e) {
-       throw ApiException(
+      throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.statusMessage!));
     }
@@ -31,6 +31,8 @@ class ExperienceProvider {
     try {
       final Response response =
           await DioHelper.dio.put(AppLinks.profile_update, data: data);
+      logger.e('-==================response===========================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return response.data['status'];
       } else {

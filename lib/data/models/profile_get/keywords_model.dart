@@ -1,17 +1,17 @@
-class KeyWordsModel {
+class ReferencesModel {
   bool? status;
   String? message;
-  List<GetKeyword>? keywords;
+  List<GetReference>? references;
 
-  KeyWordsModel({this.status, this.message, this.keywords});
+  ReferencesModel({this.status, this.message, this.references});
 
-  KeyWordsModel.fromJson(Map<String, dynamic> json) {
+  ReferencesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      keywords = <GetKeyword>[];
+      references = <GetReference>[];
       json['data'].forEach((v) {
-        keywords!.add(new GetKeyword.fromJson(v));
+        references!.add(new GetReference.fromJson(v));
       });
     }
   }
@@ -20,28 +20,46 @@ class KeyWordsModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['message'] = this.message;
-    if (this.keywords != null) {
-      data['data'] = this.keywords!.map((v) => v.toJson()).toList();
+    if (this.references != null) {
+      data['data'] = this.references!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class GetKeyword {
+class GetReference{
   int? id;
-  String? keywordText;
+  String? jobTitle;
+  String? company;
+  String? name;
+  String? email;
+  String? phone;
 
-  GetKeyword({this.id, this.keywordText});
+  GetReference(
+      {this.id,
+      this.jobTitle,
+      this.company,
+      this.name,
+      this.email,
+      this.phone});
 
-  GetKeyword.fromJson(Map<String, dynamic> json) {
+  GetReference.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    keywordText = json['keyword_text'];
+    jobTitle = json['job_title'];
+    company = json['company'];
+    name = json['name'];
+    email = json['email'];
+    phone = json['phone'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['keyword_text'] = this.keywordText;
+    data['job_title'] = this.jobTitle;
+    data['company'] = this.company;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['phone'] = this.phone;
     return data;
   }
 }

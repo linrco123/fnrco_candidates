@@ -22,7 +22,7 @@ class JobApplicationCard extends StatelessWidget {
               blurRadius: 5.0,
               spreadRadius: 5.0,
               blurStyle: BlurStyle.outer,
-              offset: Offset(1, 1))
+              offset: const Offset(1, 1))
         ],
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),

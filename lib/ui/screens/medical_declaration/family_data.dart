@@ -18,7 +18,7 @@ class FamilyDataScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomTitle(
+            const CustomTitle(
               title: "employee_name",
             ),
             CustomInputField(
@@ -30,7 +30,7 @@ class FamilyDataScreen extends StatelessWidget {
               height: 16.0,
             ),
             cubit.genders.isEmpty
-                ? ItemLoadingWidget()
+                ? const ItemLoadingWidget()
                 : CustomDropDownSearch(
                     isSearchEnabled: false,
                     label: translateLang(context, 'select_gender'),
@@ -44,7 +44,7 @@ class FamilyDataScreen extends StatelessWidget {
               height: 16.0,
             ),
             cubit.classifications.isEmpty
-                ? ItemLoadingWidget()
+                ? const ItemLoadingWidget()
                 : CustomDropDownSearch(
                     // isSearchEnabled: false,
                     label: translateLang(context, 'select_relation'),
@@ -67,7 +67,7 @@ class FamilyDataScreen extends StatelessWidget {
             const SizedBox(
               height: 16.0,
             ),
-            CustomTitle(
+            const CustomTitle(
               title: "phone_number",
             ),
             CustomInputField(
@@ -78,7 +78,7 @@ class FamilyDataScreen extends StatelessWidget {
             const SizedBox(
               height: 16.0,
             ),
-            CustomTitle(
+            const CustomTitle(
               title: "passport_number",
             ),
             CustomInputField(
@@ -94,14 +94,14 @@ class FamilyDataScreen extends StatelessWidget {
                 Expanded(
                     child: Column(
                   children: [
-                    CustomTitle(
+                    const CustomTitle(
                       title: "height",
                     ),
                     CustomInputField(
                       suffix: Container(
               height: 50,
               width: 50,
-              padding: EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20),
               alignment: Alignment.center,
               child: Text(
                 'cm',
@@ -119,7 +119,7 @@ class FamilyDataScreen extends StatelessWidget {
                 Expanded(
                     child: Column(
                   children: [
-                    CustomTitle(
+                    const CustomTitle(
                       title: "weight",
                     ),
                     CustomInputField(
@@ -130,7 +130,7 @@ class FamilyDataScreen extends StatelessWidget {
                       suffix: Container(
                           height: 50,
                           width: 50,
-                          padding: EdgeInsets.only(right: 20),
+                          padding: const EdgeInsets.only(right: 20),
                           alignment: Alignment.center,
                           child: Text(
                             'kg',

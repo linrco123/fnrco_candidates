@@ -30,10 +30,10 @@ class HomePageCubit extends Cubit<HomePageState> {
     BottomBarItem(
       selectedColor: AppColors.primary,
       unSelectedColor: AppColors.grey,
-      icon: Icon(
+      icon: const Icon(
         Icons.home,
       ),
-      title: Text("Home"),
+      title: const Text("Home"),
       //backgroundColor: Colors.red,
       selectedIcon: const Icon(Icons.read_more),
     ),
@@ -41,16 +41,16 @@ class HomePageCubit extends Cubit<HomePageState> {
       selectedColor: AppColors.primary,
       unSelectedColor: AppColors.grey,
 
-      icon: Icon(Icons.favorite_border),
-      title: Text("Favorites"),
+      icon: const Icon(Icons.favorite_border),
+      title: const Text("Favorites"),
       // backgroundColor: Colors.orange,
     ),
     BottomBarItem(
       selectedColor: AppColors.primary,
       unSelectedColor: AppColors.grey,
 
-      icon: Icon(Icons.medical_information_outlined),
-      title: Text("Medical Declare"),
+      icon: const Icon(Icons.medical_information_outlined),
+      title: const Text("Medical Declare"),
       // backgroundColor: Colors.purple,
     ),
     BottomBarItem(
@@ -58,7 +58,7 @@ class HomePageCubit extends Cubit<HomePageState> {
       unSelectedColor: AppColors.grey,
 
       icon: const Icon(Icons.settings),
-      title: Text("settings"),
+      title: const Text("settings"),
       // backgroundColor: Colors.purple,
     ),
   ];

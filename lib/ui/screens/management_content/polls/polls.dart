@@ -45,7 +45,7 @@ class PollsScreen extends StatelessWidget {
             builder: (context, state) {
               BlocProvider.of<PollsCubit>(context);
               if (state is PollsLoadingState) {
-                return Center(
+                return const Center(
                   child: AnimatedLoadingWidget(
                     height: 150.0,
                     width: 150.0,
@@ -63,7 +63,7 @@ class PollsScreen extends StatelessWidget {
               }
 
               return pollsCubit.polls.isEmpty
-                  ? EmptyDataWidget(
+                  ? const EmptyDataWidget(
                       message: "No polls available Yet !!!",
                     )
                   : ListView.separated(

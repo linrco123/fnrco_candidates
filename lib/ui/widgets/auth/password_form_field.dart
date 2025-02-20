@@ -61,15 +61,15 @@ class PasswordFormField extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 30.0, vertical:25.0),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade400),
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300),
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.primary),
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           ),
         ),
         keyboardType: TextInputType.visiblePassword,

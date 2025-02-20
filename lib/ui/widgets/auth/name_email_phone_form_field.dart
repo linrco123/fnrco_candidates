@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../../../constants/app_colors.dart';
 
@@ -9,7 +11,8 @@ class NameEmailPhoneFormField extends StatelessWidget {
   final String? Function(BuildContext, String?) validate;
   final String? initialValue;
   const NameEmailPhoneFormField(
-      {super.key,
+      {
+      super.key,
       required this.controller,
       required this.inputType,
       this.prefixIcon,
@@ -21,6 +24,7 @@ class NameEmailPhoneFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutofillGroup(
       child: TextFormField(
+        key:  ValueKey(Random().nextInt(100)),
         autofillHints: [
           AutofillHints.username,
           AutofillHints.email,
@@ -59,15 +63,15 @@ class NameEmailPhoneFormField extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 30.0, vertical:25.0),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade400),
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300),
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.primary),
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           ),
         ),
         keyboardType: inputType,

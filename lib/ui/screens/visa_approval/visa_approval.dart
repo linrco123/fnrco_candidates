@@ -66,7 +66,7 @@ class VisaApprovalScreen extends StatelessWidget {
                     child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      CustomTitle(
+                      const CustomTitle(
                         title: "visa_Profession",
                       ),
                       CustomInputField(
@@ -79,7 +79,7 @@ class VisaApprovalScreen extends StatelessWidget {
                       const SizedBox(
                         height: 16.0,
                       ),
-                      CustomTitle(
+                      const CustomTitle(
                         title: "nationality",
                       ),
                       CustomInputField(
@@ -104,7 +104,7 @@ class VisaApprovalScreen extends StatelessWidget {
                       // const SizedBox(
                       //   height: 16.0,
                       // ),
-                      CustomTitle(
+                      const CustomTitle(
                         title: "gender",
                       ),
                       CustomInputField(
@@ -118,7 +118,7 @@ class VisaApprovalScreen extends StatelessWidget {
                       const SizedBox(
                         height: 16.0,
                       ),
-                      CustomTitle(
+                      const CustomTitle(
                         title: "visa_no",
                       ),
                       CustomInputField(
@@ -132,7 +132,7 @@ class VisaApprovalScreen extends StatelessWidget {
                       const SizedBox(
                         height: 16.0,
                       ),
-                      CustomTitle(
+                      const CustomTitle(
                         title: "religion",
                       ),
                       CustomInputField(
@@ -146,7 +146,7 @@ class VisaApprovalScreen extends StatelessWidget {
                       const SizedBox(
                         height: 16.0,
                       ),
-                      CustomTitle(
+                      const CustomTitle(
                         title: "visa_remark",
                       ),
                       CustomInputField(
@@ -170,7 +170,7 @@ class VisaApprovalScreen extends StatelessWidget {
                       Expanded(
                           child: Center(
                         child: state is VisaApprovalLoadingState
-                            ? AnimatedLoadingWidget()
+                            ? const AnimatedLoadingWidget()
                             : CustomElevatedButton(
                                 fun: () {
                                   context
@@ -187,7 +187,7 @@ class VisaApprovalScreen extends StatelessWidget {
                       Expanded(
                           child: Center(
                         child: state is VisaRejectionLoadingState
-                            ? AnimatedLoadingWidget()
+                            ? const AnimatedLoadingWidget()
                             : CustomElevatedButton(
                                 fun: () {
                                   context

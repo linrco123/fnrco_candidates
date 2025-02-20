@@ -44,7 +44,7 @@ class SurviesScreen extends StatelessWidget {
             builder: (context, state) {
               var surveysCubit = BlocProvider.of<SurveysCubit>(context);
               if (state is SurveysLoadingState) {
-                return Center(
+                return const Center(
                   child: AnimatedLoadingWidget(
                     height: 150,
                     width: 150,
@@ -61,7 +61,7 @@ class SurviesScreen extends StatelessWidget {
                     });
               }
               return surveysCubit.surveys.isEmpty
-                  ? EmptyDataWidget(
+                  ? const EmptyDataWidget(
                       message: "No Surveys available Yet!!!",
                     )
                   : ListView.separated(

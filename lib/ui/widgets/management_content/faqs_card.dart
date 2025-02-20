@@ -36,7 +36,7 @@ class _FAQCardState extends State<FAQCard> {
                 blurRadius: 5.0,
                 spreadRadius: 5.0,
                 blurStyle: BlurStyle.outer,
-                offset: Offset(0, 1))
+                offset: const Offset(0, 1))
           ],
           color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(10.0),
@@ -64,8 +64,8 @@ class _FAQCardState extends State<FAQCard> {
                   width: 30.0,
                 ),
                 !containsShowed
-                    ? Icon(Icons.keyboard_arrow_down)
-                    : Icon(Icons.arrow_forward_ios,size: 17,)
+                    ? const Icon(Icons.keyboard_arrow_down)
+                    : const Icon(Icons.arrow_forward_ios,size: 17,)
               ],
             ),
             const SizedBox(

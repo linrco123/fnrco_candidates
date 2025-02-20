@@ -60,15 +60,15 @@ class CustomDropTextField extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade300),
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade300),
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primary),
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         ),
       ),
     );
@@ -98,7 +98,7 @@ class CustomDropDownSearch extends StatelessWidget {
     return DropdownSearch<String>(
       //key: dropDownKey,
       mode: Mode.form,
-      suffixProps: DropdownSuffixProps(),
+      suffixProps: const DropdownSuffixProps(),
       selectedItem: selectedItem,
       clickProps: ClickProps(
           highlightColor: AppColors.primary,
@@ -135,8 +135,8 @@ class CustomDropDownSearch extends StatelessWidget {
       popupProps: PopupProps.menu(
           showSelectedItems: true,
           fit: FlexFit.loose,
-          constraints: BoxConstraints(),
-          listViewProps: ListViewProps(clipBehavior: Clip.antiAlias),
+          constraints: const BoxConstraints(),
+          listViewProps: const ListViewProps(clipBehavior: Clip.antiAlias),
           showSearchBox: isSearchEnabled),
     );
   }

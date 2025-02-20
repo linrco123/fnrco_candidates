@@ -79,10 +79,10 @@ class PollsViewScreen extends StatelessWidget {
             builder: (context, state) {
               var pollCubit = BlocProvider.of<PollsCubit>(context);
               if (state is PollsViewLoadingState) {
-                return AnimatedLoadingWidget();
+                return const AnimatedLoadingWidget();
               }
               if (state is PollsViewFailureState) {
-                return EmptyDataWidget(
+                return const EmptyDataWidget(
                   message: 'No poll View contents Yet !!!',
                 );
               }
@@ -105,7 +105,7 @@ class PollsViewScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      CustomDivider(),
+                      const CustomDivider(),
                       const SizedBox(
                         height: 15.0,
                       ),
@@ -138,7 +138,7 @@ class PollsViewScreen extends StatelessWidget {
                     ],
                   ),
                   if (state is SubmitPollViewLoadingState)
-                    AnimatedLoadingWidget()
+                    const AnimatedLoadingWidget()
                 ],
               );
             },

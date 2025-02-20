@@ -35,7 +35,7 @@ class OverviewDetailsScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is GetOverviewDataLoadingState) {
-            return AnimatedLoadingWidget(
+            return const AnimatedLoadingWidget(
               height: 150.0,
               width: 150.0,
             );
@@ -70,7 +70,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   // "agency_contact_name": "Asmaa",
                   // "agency_contact_nbsp_phone": "01099088270"
 
-                  CustomTitle(
+                  const CustomTitle(
                     title: "candidate_id",
                   ),
                   CustomInputField(
@@ -83,7 +83,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                     height: 16.0,
                   ),
 
-                  CustomTitle(
+                  const CustomTitle(
                     title: "client_name",
                   ),
                   CustomInputField(
@@ -95,7 +95,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "Position_name",
                   ),
                   CustomInputField(
@@ -107,7 +107,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "Position_contract_type",
                   ),
                   CustomInputField(
@@ -119,7 +119,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "Position_contract_duration",
                   ),
                   CustomInputField(
@@ -131,7 +131,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "Position_vacation_details",
                   ),
                   CustomInputField(
@@ -143,7 +143,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "Position_work_hour",
                   ),
                   CustomInputField(
@@ -155,7 +155,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "candidate_id",
                   ),
                   CustomInputField(
@@ -168,7 +168,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                     height: 16.0,
                   ),
 
-                  CustomTitle(
+                  const CustomTitle(
                     title: "Position_insurance",
                   ),
                   CustomInputField(
@@ -180,7 +180,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "agency_name",
                   ),
                   CustomInputField(
@@ -192,7 +192,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "agency_address",
                   ),
                   CustomInputField(
@@ -205,7 +205,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "agency_contact_name",
                   ),
                   CustomInputField(
@@ -217,7 +217,7 @@ class OverviewDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CustomTitle(
+                  const CustomTitle(
                     title: "agency_contact_nbsp_phone",
                   ),
                   CustomInputField(

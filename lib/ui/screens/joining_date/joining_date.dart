@@ -103,7 +103,7 @@ class JoiningDateSCreen extends StatelessWidget {
                         height: 15.0,
                       ),
                       joiningDateApp.isAction == 'Done'
-                          ? SizedBox.shrink()
+                          ? const SizedBox.shrink()
                           : CustomInputField(
                               enabled: joiningDateApp.isAction == 'Done'
                                   ? false
@@ -127,7 +127,7 @@ class JoiningDateSCreen extends StatelessWidget {
                         Expanded(
                             child: Center(
                           child: state is JoiningDateApprovalLoadingState
-                              ? AnimatedLoadingWidget()
+                              ? const AnimatedLoadingWidget()
                               : CustomElevatedButton(
                                   fun: () {
                                     if (joiningDateApp.pipeline!.joiningDate !=
@@ -147,7 +147,7 @@ class JoiningDateSCreen extends StatelessWidget {
                         Expanded(
                             child: Center(
                           child: state is JoiningDateRejectionLoadingState
-                              ? AnimatedLoadingWidget()
+                              ? const AnimatedLoadingWidget()
                               : CustomElevatedButton(
                                   fun: () {
                                     if (joiningDateApp.pipeline!.joiningDate !=
@@ -174,7 +174,7 @@ class JoiningDateSCreen extends StatelessWidget {
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: AppColors.blurRed,
-                              borderRadius: BorderRadiusDirectional.only(
+                              borderRadius: const BorderRadiusDirectional.only(
                                 topStart: Radius.circular(16),
                                 topEnd: Radius.circular(16),
                                 bottomEnd: Radius.circular(16),

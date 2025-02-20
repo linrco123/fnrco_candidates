@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/models/profile/contact_type_model.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/contact.dart';
+import 'package:fnrco_candidates/data/models/profile_get/contacts_model.dart';
 
 part 'contacts_type_state.dart';
 
@@ -15,8 +16,20 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
 
   var formKey = GlobalKey<FormState>();
   final cntCntroller = TextEditingController();
-  String contactTypeID = '';
+  String contactTypeID = 'Contact Type';
   int contactImportance = 2;
+  dynamic id = '';
+
+  fillFields(GetContact? contact) {
+    if (contact != null) {
+      id = contact.id;
+      cntCntroller.text = contact.personContactValue!;
+      contactTypeID = contact.personContactType!;
+      contactImportance =
+          _detectContactImportance(contact.personContactPrimary);
+      emit(ContactsChangingContactTypeImportanceState());
+    }
+  }
 
   void changeContactImportance(int value) {
     contactImportance = value;
@@ -50,10 +63,12 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
   }
 
   List<Map<String, dynamic>> submittedContacts = [];
+
   void addNewContact() {
     if (formKey.currentState!.validate()) {
       if (contactTypeID != 0 && contactImportance != 2) {
         submittedContacts.add({
+          "id": id,
           "person_contact_type": contactTypeID,
           "person_contact_value": cntCntroller.text,
           "person_contact_primary": contactImportance.toString()
@@ -69,20 +84,22 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
 
   clearFields() {
     cntCntroller.clear();
-    contactTypeID = '';
+    contactTypeID = 'Contact Type';
     contactImportance = 2;
     emit(EmptyContactFieldsState());
   }
-  void submit(){
-    if(submittedContacts.isEmpty){
+
+  void submit() {
+    if (submittedContacts.isEmpty) {
       addNewContact();
-      if(submittedContacts.isNotEmpty){
+      if (submittedContacts.isNotEmpty) {
         _submitContactsType();
       }
-    }else{
+    } else {
       _submitContactsType();
     }
   }
+
   void _submitContactsType() {
     var data = {"contacts": submittedContacts};
     if (submittedContacts.isNotEmpty) {
@@ -100,5 +117,31 @@ class ContactsTypeCubit extends Cubit<ContactsTypeState> {
     // TODO: implement close
     cntCntroller.clear();
     return super.close();
+  }
+
+  int _detectContactImportance(String? personContactPrimary) {
+    switch (personContactPrimary) {
+      case "1":
+        return 1;
+      case "0":
+        return 0;
+    }
+    return 2;
+  }
+
+  String _detectContactType(String? personContactType) {
+    switch (personContactType) {
+      case "62":
+        return "mobile";
+      case "63":
+        return "email";
+      case "52":
+        return "married";
+      case "53":
+        return "single";
+      case "54":
+        return "divorced";
+    }
+    return 'not_known';
   }
 }

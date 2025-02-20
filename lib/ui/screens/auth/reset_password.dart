@@ -81,7 +81,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
                 ),
                 state is ResetPasswordLoadingState
-                    ? AnimatedLoadingWidget()
+                    ? const AnimatedLoadingWidget()
                     : CustomElevatedButton(
                         fun: () {
                           logger.e(

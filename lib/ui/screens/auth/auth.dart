@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +28,7 @@ class SigninOrSignupScreen extends StatelessWidget {
               listener: (context, state) {
                 if (state is AuthBiometricSuccessState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Login done successfully'),
+                    content: const Text('Login done successfully'),
                     backgroundColor: AppColors.success,
                   ));
                   Navigator.of(context).pushNamed(AppPagesNames.HOMEPAGE);
@@ -120,7 +119,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                         const Spacer(flex: 2),
                       ],
                     ),
-                    if (state is AuthBiometricLoadingState) LoadingWidget(),
+                    if (state is AuthBiometricLoadingState) const LoadingWidget(),
                   ],
                 );
               },

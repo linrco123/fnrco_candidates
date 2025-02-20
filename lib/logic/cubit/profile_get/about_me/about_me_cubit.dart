@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
+import 'package:fnrco_candidates/ui/screens/profile_get_update/get_keywords.dart';
 import '../../../../data/api_provider/profile_get/about_me_provider.dart';
 import '../../../../data/models/profile/profile_section_model.dart';
 import '../../../../data/models/profile_get/achievements_model.dart';
@@ -8,22 +10,20 @@ import '../../../../data/models/profile_get/credentials_model.dart';
 import '../../../../data/models/profile_get/education_model.dart';
 import '../../../../data/models/profile_get/experiences_model.dart';
 import '../../../../data/models/profile_get/get_jobs_model.dart';
-import '../../../../data/models/profile_get/keywords_model.dart';
 import '../../../../data/models/profile_get/languages_model.dart';
 import '../../../../data/models/profile_get/notes_model.dart';
 import '../../../../data/models/profile_get/personal_data_model.dart';
 import '../../../../data/models/profile_get/skills_model.dart';
-import '../../../../ui/screens/profile_get/applied_jobs.dart';
-import '../../../../ui/screens/profile_get/get_achievements.dart';
-import '../../../../ui/screens/profile_get/get_contacts.dart';
-import '../../../../ui/screens/profile_get/get_credentials.dart';
-import '../../../../ui/screens/profile_get/get_education.dart';
-import '../../../../ui/screens/profile_get/experience/get_experiences.dart';
-import '../../../../ui/screens/profile_get/get_keywords.dart';
-import '../../../../ui/screens/profile_get/get_languages.dart';
-import '../../../../ui/screens/profile_get/get_notes.dart';
-import '../../../../ui/screens/profile_get/get_personal_details.dart';
-import '../../../../ui/screens/profile_get/get_skills.dart';
+import '../../../../ui/screens/profile_get_update/applied_jobs.dart';
+import '../../../../ui/screens/profile_get_update/get_achievements.dart';
+import '../../../../ui/screens/profile_get_update/get_contacts.dart';
+import '../../../../ui/screens/profile_get_update/get_credentials.dart';
+import '../../../../ui/screens/profile_get_update/get_education.dart';
+import '../../../../ui/screens/profile_get_update/experience/get_experiences.dart';
+import '../../../../ui/screens/profile_get_update/get_languages.dart';
+import '../../../../ui/screens/profile_get_update/get_notes.dart';
+import '../../../../ui/screens/profile_get_update/get_personal_details.dart';
+import '../../../../ui/screens/profile_get_update/get_skills.dart';
 
 part 'about_me_state.dart';
 
@@ -41,9 +41,10 @@ class AboutMeCubit extends Cubit<AboutMeState> {
     ProfileSectionModel(section: 'credentials', index: 6),
     ProfileSectionModel(section: 'languages', index: 7),
     ProfileSectionModel(section: 'skills', index: 8),
-    ProfileSectionModel(section: 'keywords', index: 9),
+    ProfileSectionModel(section: 'References', index: 9),
     ProfileSectionModel(section: 'Applied Jobs', index: 10),
   ];
+  
   Widget getBodyWidget() {
     switch (section) {
       case 0:
@@ -65,7 +66,7 @@ class AboutMeCubit extends Cubit<AboutMeState> {
       case 8:
         return const GetSkillsScreen();
       case 9:
-        return const GetKeywordsScreen();
+        return const GetReferencesScreen();
       case 10:
         return const AppliedJobsScreen();
       // default:
@@ -178,12 +179,12 @@ class AboutMeCubit extends Cubit<AboutMeState> {
     });
   }
 
-  getKeywords() {
-    emit(AboutMeGetkeywordsLoadingState());
-    aboutMeProvider.getKeywords().then((value) {
-      emit(AboutMeGetkeywordsSuccessState(keywords: value.keywords!));
+  getReferences() {
+    emit(AboutMeGetReferencesLoadingState());
+    aboutMeProvider.getReferences().then((value) {
+      emit(AboutMeGetReferencesSuccessState(references: value.references!));
     }).catchError((error) {
-      emit(AboutMeGetkeywordsErrorState(message: error.failure.message));
+      emit(AboutMeGetReferencesErrorState(message: error.failure.message));
     });
   }
 

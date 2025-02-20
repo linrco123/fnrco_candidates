@@ -9,8 +9,8 @@ class DottedBorderPainter extends CustomPainter {
           ..strokeWidth = 2
           ..style = PaintingStyle.stroke;
     
-        final double dashWidth = 5; // Width of each dash
-        final double dashSpace = 5; // Space between each dash
+        const double dashWidth = 5; // Width of each dash
+        const double dashSpace = 5; // Space between each dash
     
         double startX = 0;
         while (startX < size.width) {

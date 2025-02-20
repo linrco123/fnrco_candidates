@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio2/dio2.dart';
 import 'package:file_picker/file_picker.dart';
@@ -178,7 +177,7 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
         emit(ResumePickAttachmentFileState());
       }
     } catch (e) {
-      print('exception:::::::::::::::::::::::::::::::::::: $e');
+      print('exception :::::::::::::::::::::::::::::::::::: $e');
     }
   }
 
@@ -189,97 +188,100 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
   }
 
   Future<void> submitPersonalData(context) async {
-    if (countryId == 'Country') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_nationality"),
-          type: ToastificationType.warning);
-    } else if (countryId == 'Residence') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_residence"),
-          type: ToastificationType.warning);
-    } else if (genderId == 'Gender') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_gender"),
-          type: ToastificationType.warning);
-    } else if (religionId == 'Religion') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_religion"),
-          type: ToastificationType.warning);
-    } else if (maritalStatusId == 'Marital Status') {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_marital"),
-          type: ToastificationType.warning);
-    } else if (fileImage == null) {
-      showToast(context,
-          title: translateLang(context, 'warning'),
-          desc: translateLang(context, "choose_image"),
-          type: ToastificationType.warning);
-    } else {
-      if (formKey.currentState!.validate()) {
-        emit(PersonalDetailsLoadingState());
-
-        FormData formData = FormData.fromMap({
-          "person_nationality": countries
-              .where((country) => country.countryName == countryId)
-              .toList()
-              .first
-              .id,
-          "person_sur_name": surNameController.text,
-          "person_first_name": firstNameController.text,
-          "person_second_name": secondNameController.text,
-          "person_third_name": lastNameController.text,
-          "person_gender": genderId,
-          "person_martial_status": maritalStatusId,
-          "person_country_residence": countries
-              .where((country) => country.countryName == residence)
-              .toList()
-              .first
-              .id,
-          "person_height": "150",
-          "person_height_unit": "meter",
-          "person_weight": "100",
-          "person_weight_unit": "kg",
-          "email": emailController.text,
-          "references": "references",
-          "person_dob": birthDate,
-          // "person_image": partFile,
-          "_method": "PUT"
-        });
-
-        //logger.e(await pdfFile!.exists());
-
-        //Add person image to form data
-        if (await fileImage!.exists()) {
-          formData.files.add(MapEntry(
-              "person_image",
-              await MultipartFile.fromFile(fileImage!.path,
-                  filename: fileImage!.path.split('/').last)));
-        }
-
-        //Add person cv  to form data
-        if (await pdfFile!.exists()) {
-          formData.files.add(MapEntry(
-              "person_original_cv",
-              await MultipartFile.fromFile(pdfFile!.path,
-                  filename: pdfFile!.path.split('/').last)));
-        }
-
-        print('===============personal Data =====================');
-        // print(formData.fields);
-        logger.e(formData.files.first.value.filename);
-        logger.e(formData.files.first.key);
-        logger.e(formData.files[1].value.filename);
-        personalDetailsProvider.submitPersonalData(formData).then((value) {
-          emit(PersonalDetailsSuccessState());
-        }).catchError((error) {
-          emit(PersonalDetailsErrorState(message: error.failure.message));
-        });
+    try {
+      if (countryId == 'Country') {
+        showToast(context,
+            title: translateLang(context, 'warning'),
+            desc: translateLang(context, "choose_nationality"),
+            type: ToastificationType.warning);
+      } else if (residence == 'Residence') {
+        showToast(context,
+            title: translateLang(context, 'warning'),
+            desc: translateLang(context, "choose_residence"),
+            type: ToastificationType.warning);
+      } else if (genderId == 'Gender') {
+        showToast(context,
+            title: translateLang(context, 'warning'),
+            desc: translateLang(context, "choose_gender"),
+            type: ToastificationType.warning);
       }
+      // else if (religionId == 'Religion') {
+      //   showToast(context,
+      //       title: translateLang(context, 'warning'),
+      //       desc: translateLang(context, "choose_religion"),
+      //       type: ToastificationType.warning);
+      // }
+      else if (maritalStatusId == 'Marital Status') {
+        showToast(context,
+            title: translateLang(context, 'warning'),
+            desc: translateLang(context, "choose_marital"),
+            type: ToastificationType.warning);
+      }
+      //  else if (fileImage == null) {
+      //   showToast(context,
+      //       title: translateLang(context, 'warning'),
+      //       desc: translateLang(context, "choose_image"),
+      //       type: ToastificationType.warning);
+      // }
+      else {
+        if (formKey.currentState!.validate()) {
+          emit(PersonalDetailsLoadingState());
+          FormData formData = FormData.fromMap({
+            "person_nationality": countries
+                .where((country) => country.countryName == countryId)
+                .toList()
+                .first
+                .id,
+            "person_sur_name": surNameController.text,
+            "person_first_name": firstNameController.text,
+            "person_second_name": secondNameController.text,
+            "person_third_name": lastNameController.text,
+            "person_gender": genderId,
+            "person_martial_status": maritalStatusId,
+            "person_country_residence": countries
+                .where((country) => country.countryName == residence)
+                .toList()
+                .first
+                .id,
+            "person_height": "150",
+            "person_height_unit": "meter",
+            "person_weight": "100",
+            "person_weight_unit": "kg",
+            "email": emailController.text,
+            "references": "references",
+            "person_dob": birthDate,
+            //"_method": "PUT"
+          });
+
+          //logger.e(await pdfFile!.exists());
+
+          //Add person image to form data
+          if (fileImage != null && await fileImage!.exists()) {
+            formData.files.add(MapEntry(
+                "person_image",
+                await MultipartFile.fromFile(fileImage!.path,
+                    filename: fileImage!.path.split('/').last)));
+          }
+
+          // Add person cv  to form data
+          if (pdfFile != null && await pdfFile!.exists()) {
+            formData.files.add(MapEntry(
+                "person_original_cv",
+                await MultipartFile.fromFile(pdfFile!.path,
+                    filename: pdfFile!.path.split('/').last)));
+          }
+
+          logger.e('=============== personal Data =====================');
+          personalDetailsProvider.submitPersonalData(formData).then((value) {
+            emit(PersonalDetailsSuccessState());
+          }).catchError((error) {
+            emit(PersonalDetailsErrorState(message: error.failure.message));
+          });
+        }
+      }
+    } catch (e) {
+      logger.e('===========================Error====================');
+      logger.e(e);
     }
   }
 
@@ -299,16 +301,13 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
     lastNameController.text = data.personThirdName!;
     surNameController.text = data.personSurName!;
     emailController.text = data.email!.email!;
-    logger.e('===================+getPersonalData===========================');
-    logger
-        .e('==+data.personCountryResidence!===${data.personCountryResidence}');
-    residence = data.personCountryResidence ?? '';
+    residence = data.personCountryResidency!;
     birthDate = data.personDob!;
-    logger.e(data.personDob!);
-    logger.e(birthDate);
-    countryId = data.personCountryResidence!;
-    genderId = data.personGender!;
-    maritalStatusId = data.personMartialStatus!;
+    countryId = data.personNationality!;
+    genderId = data.personGender!.isEmpty ? 'Gender' : data.personGender!;
+    maritalStatusId = data.personMartialStatus!.isEmpty
+        ? 'Marital Status'
+        : data.personMartialStatus!;
   }
 
   var countries = List<Country>.empty(growable: true);
@@ -376,12 +375,12 @@ class PersonalDetailsCubit extends Cubit<PersonalDetailsState> {
 
   @override
   Future<void> close() {
-    firstNameController.dispose();
-    firstNameController.dispose();
-    secondNameController.dispose();
-    lastNameController.dispose();
-    surNameController.dispose();
-    emailController.dispose();
+    // firstNameController.dispose();
+    // firstNameController.dispose();
+    // secondNameController.dispose();
+    // lastNameController.dispose();
+    // surNameController.dispose();
+    // emailController.dispose();
     // TODO: implement close
     return super.close();
   }

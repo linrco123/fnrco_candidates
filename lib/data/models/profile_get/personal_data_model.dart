@@ -35,13 +35,14 @@ class GetPData {
   String? personSurName;
   String? personGender;
   String? personMartialStatus;
-  String? personCountryResidence;
   String? personHeight;
   String? personHeightUnit;
   String? personDob;
   String? personWeight;
-  String? references;
+  String? personNationality;
+  String? personCountryResidency;
   String? personWeightUnit;
+  String? personOriginalCv;
   Email? email;
 
   GetPData(
@@ -52,13 +53,14 @@ class GetPData {
       this.personSurName,
       this.personGender,
       this.personMartialStatus,
-      this.personCountryResidence,
       this.personHeight,
       this.personHeightUnit,
       this.personDob,
       this.personWeight,
-      this.references,
+      this.personNationality,
+      this.personCountryResidency,
       this.personWeightUnit,
+      this.personOriginalCv,
       this.email});
 
   GetPData.fromJson(Map<String, dynamic> json) {
@@ -69,13 +71,14 @@ class GetPData {
     personSurName = json['person_sur_name'];
     personGender = json['person_gender'];
     personMartialStatus = json['person_martial_status'];
-    personCountryResidence = json['person_country_residence'];
     personHeight = json['person_height'];
     personHeightUnit = json['person_height_unit'];
     personDob = json['person_dob'];
     personWeight = json['person_weight'];
-    references = json['references'];
+    personNationality = json['person_nationality'];
+    personCountryResidency = json['person_country_residency'];
     personWeightUnit = json['person_weight_unit'];
+    personOriginalCv = json['person_original_cv'];
     email = json['email'] != null ? new Email.fromJson(json['email']) : null;
   }
 
@@ -88,13 +91,14 @@ class GetPData {
     data['person_sur_name'] = this.personSurName;
     data['person_gender'] = this.personGender;
     data['person_martial_status'] = this.personMartialStatus;
-    data['person_country_residence'] = this.personCountryResidence;
     data['person_height'] = this.personHeight;
     data['person_height_unit'] = this.personHeightUnit;
     data['person_dob'] = this.personDob;
     data['person_weight'] = this.personWeight;
-    data['references'] = this.references;
+    data['person_nationality'] = this.personNationality;
+    data['person_country_residency'] = this.personCountryResidency;
     data['person_weight_unit'] = this.personWeightUnit;
+    data['person_original_cv'] = this.personOriginalCv;
     if (this.email != null) {
       data['email'] = this.email!.toJson();
     }
@@ -108,13 +112,15 @@ class Email {
   String? candidateUserUname;
   String? email;
   String? accessToken;
+  int? code;
 
   Email(
       {this.id,
       this.personId,
       this.candidateUserUname,
       this.email,
-      this.accessToken});
+      this.accessToken,
+      this.code});
 
   Email.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -122,6 +128,7 @@ class Email {
     candidateUserUname = json['candidate_user_uname'];
     email = json['email'];
     accessToken = json['access_token'];
+    code = json['code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -131,6 +138,7 @@ class Email {
     data['candidate_user_uname'] = this.candidateUserUname;
     data['email'] = this.email;
     data['access_token'] = this.accessToken;
+    data['code'] = this.code;
     return data;
   }
 }

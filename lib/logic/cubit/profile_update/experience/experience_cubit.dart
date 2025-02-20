@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/work_experiences.dart';
 import 'package:fnrco_candidates/data/models/auth/sign_up/countries_model.dart';
+import 'package:fnrco_candidates/data/models/profile_get/experiences_model.dart';
 part 'experience_state.dart';
 
 class ExperienceCubit extends Cubit<ExperienceState> {
@@ -16,9 +17,10 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   final jobTitleCntroller = TextEditingController();
   final companyCntroller = TextEditingController();
   final jobDescCntroller = TextEditingController();
-  String countryId = '';
+  String countryId = 'Country';
   String? startDate;
   String? endDate;
+  dynamic id = '';
 
   String? validateJobTitle(context, String? value) {
     if (value!.isEmpty) {
@@ -47,7 +49,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     startDate =
         "${birthofDate!.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
     emit(ExperiencesPickingUpStartDate());
-    }
+  }
 
   void selectEndDate(context) async {
     DateTime? birthofDate = await showDatePicker(
@@ -55,12 +57,26 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     endDate =
         "${birthofDate!.year.toString()}-${birthofDate.month.toString().padLeft(2, '0')}-${birthofDate.day.toString().padLeft(2, '0')}";
     emit(ExperiencesPickingUpEndDate());
-    }
+  }
 
   void selectCountry(String value) {
     countryId = value;
 
     emit(WorkExperienceChoosingCountryState());
+  }
+
+  fillFields(GetExperience? experience) {
+    if (experience != null) {
+      id = experience.id!;
+      jobTitleCntroller.text = experience.experienceJobTitle!;
+      companyCntroller.text = experience.experienceCompany!;
+      startDate = experience.experienceStartIn;
+      endDate = experience.experienceEndIn;
+
+      countryId = experience.countryId!;
+      jobDescCntroller.text = experience.experienceDescription!;
+      emit(WorkExperienceChoosingCountryState());
+    }
   }
 
   var countries = List<Country>.empty(growable: true);
@@ -79,8 +95,9 @@ class ExperienceCubit extends Cubit<ExperienceState> {
   List<Map<String, dynamic>> submittedExperiences = [];
   void addNewExperience() {
     if (formKey.currentState!.validate()) {
-      if (countryId != '' && startDate != null && endDate != null) {
+      if (countryId != 'Country' && startDate != null && endDate != null) {
         submittedExperiences.add({
+          "id": id,
           "experience_job_title": jobTitleCntroller.text,
           "experience_company": companyCntroller.text,
           "experience_start_in": startDate,
@@ -90,7 +107,7 @@ class ExperienceCubit extends Cubit<ExperienceState> {
               .toList()
               .first
               .id,
-              "experience_description":jobDescCntroller.text
+          "experience_description": jobDescCntroller.text
         });
         Future.delayed(const Duration(seconds: 1)).then((value) {
           clearFields();
@@ -105,20 +122,19 @@ class ExperienceCubit extends Cubit<ExperienceState> {
     jobTitleCntroller.clear();
     companyCntroller.clear();
     jobDescCntroller.clear();
-    countryId = '';
+    countryId = 'Country';
     startDate = null;
     endDate = null;
     emit(EmptyExperienceFieldsState());
   }
 
-  void submit(){
-    if(submittedExperiences.isEmpty){
+  void submit() {
+    if (submittedExperiences.isEmpty) {
       addNewExperience();
-      if(submittedExperiences.isNotEmpty){
+      if (submittedExperiences.isNotEmpty) {
         _submitWorkExperience();
       }
-
-    }else{
+    } else {
       _submitWorkExperience();
     }
   }

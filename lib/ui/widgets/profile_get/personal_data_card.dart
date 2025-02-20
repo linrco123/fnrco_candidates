@@ -47,7 +47,7 @@ class PersonalDataCard extends StatelessWidget {
           ProfileItem(
               kkey:  "sur_name" , value: pData.personSurName!.toString()),
           ProfileItem(
-              kkey: "residence", value: pData.personCountryResidence??''),
+              kkey: "residence", value: pData.personCountryResidency.toString()),
           ProfileItem(
               kkey:  "email" , value: pData.email!.email!.toString()),
           ProfileItem(

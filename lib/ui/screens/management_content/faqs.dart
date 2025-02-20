@@ -34,7 +34,7 @@ class FAQsScreen extends StatelessWidget {
             builder: (context, state) {
               var cubit = BlocProvider.of<FAQsCubit>(context);
               if (state is FAQsLoadingState) {
-                return Center(
+                return const Center(
                   child: AnimatedLoadingWidget(
                     height: 150.0,
                     width: 150.0,
@@ -51,7 +51,7 @@ class FAQsScreen extends StatelessWidget {
               }
 
               return (state as FAQsSuccessState).faqs.isEmpty
-                  ? EmptyDataWidget(
+                  ? const EmptyDataWidget(
                       message: "No FAQS available Yet !!!",
                     )
                   : ListView.separated(

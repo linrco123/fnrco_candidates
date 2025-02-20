@@ -45,7 +45,7 @@ class MedicalDeclarationAppsScreen extends StatelessWidget {
           builder: (context, state) {
             final cubit = BlocProvider.of<MedicalDeclareCubit>(context);
             if (state is GetMedicalApplicationsLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
@@ -62,7 +62,7 @@ class MedicalDeclarationAppsScreen extends StatelessWidget {
             }
 
             return cubit.medicalApplications.isEmpty
-                ? EmptyDataWidget(
+                ? const EmptyDataWidget(
                     message: "No job applications available Yet !!!",
                   )
                 : Padding(
@@ -79,7 +79,7 @@ class MedicalDeclarationAppsScreen extends StatelessWidget {
                                         ..getClasifications()
                                         ..getGenders()
                                         ..getMedicalQuestions(),
-                                      child: MedicalDeclarationScreen(),
+                                      child: const MedicalDeclarationScreen(),
                                     ),
                                     type: PageTransitionType.fade,
                                     alignment: Alignment.centerLeft,
@@ -126,7 +126,7 @@ class MedicalDeclarationAppCard extends StatelessWidget {
               blurRadius: 5.0,
               spreadRadius: 5.0,
               blurStyle: BlurStyle.outer,
-              offset: Offset(0, 1))
+              offset: const Offset(0, 1))
         ],
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),

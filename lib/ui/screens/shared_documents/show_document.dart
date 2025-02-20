@@ -131,7 +131,7 @@ class ShowDocumentScreen extends StatelessWidget {
         fit: BoxFit.cover,
         imageUrl: path,
         progressIndicatorBuilder: (context, url, progress) =>
-            AnimatedLoadingWidget(),
+            const AnimatedLoadingWidget(),
         errorWidget: (context, url, error) => Icon(
           Icons.error,
           color: AppColors.primary,

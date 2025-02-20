@@ -52,7 +52,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius:
-              BorderRadiusDirectional.vertical(top: Radius.circular(16.0)),
+              const BorderRadiusDirectional.vertical(top: Radius.circular(16.0)),
         ),
         child: SizedBox(
           height: 195.0,
@@ -114,7 +114,7 @@ class SettingsCubit extends Cubit<SettingsState> {
                           ],
                         ),
                       ),
-                      CustomDivider(),
+                      const CustomDivider(),
                       GestureDetector(
                         onTap: () {
                           CacheHelper.storeLang('en');

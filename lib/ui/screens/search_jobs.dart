@@ -36,7 +36,7 @@ class SearchJobsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
         child: jobs.isEmpty
-            ? EmptyDataWidget(
+            ? const EmptyDataWidget(
                 message: "No available Data Yet !!!",
               )
             : ListView.separated(

@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 14,
             decoration: BoxDecoration(
                 color: AppColors.primary,
-                borderRadius: BorderRadiusDirectional.only(
+                borderRadius: const BorderRadiusDirectional.only(
                     bottomEnd: Radius.circular(20.0),
                     bottomStart: Radius.circular(20.0))),
           ),

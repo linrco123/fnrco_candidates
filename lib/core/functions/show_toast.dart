@@ -23,11 +23,11 @@ showToast(context,
         final overlayState = overlay.context.findRenderObject() as RenderBox;
         return SlideTransition(
           position: Tween<Offset>(
-                  begin: Offset(
+                  begin: const Offset(
                     0,
                     0,
                   ),
-                  end: Offset(0, 1))
+                  end: const Offset(0, 1))
               .animate(AnimationController(
                   vsync: overlay, duration: const Duration(milliseconds: 600))),
           child: child,

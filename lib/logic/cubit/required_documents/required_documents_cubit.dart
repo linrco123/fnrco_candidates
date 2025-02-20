@@ -277,7 +277,7 @@ class RequiredDocumentsCubit extends Cubit<RequiredDocumentsState> {
           fit: BoxFit.cover,
           imageUrl: path,
           progressIndicatorBuilder: (context, url, progress) =>
-              AnimatedLoadingWidget(),
+              const AnimatedLoadingWidget(),
           errorWidget: (context, url, error) => Icon(
             Icons.error,
             color: AppColors.primary,

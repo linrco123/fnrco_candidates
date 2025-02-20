@@ -22,7 +22,7 @@ class _TutorialDisplayState extends State<TutorialDisplayScreen> {
     setState(() {
       _youtubePlayerController = YoutubePlayerController(
           initialVideoId: widget.videoID,
-          flags: YoutubePlayerFlags(
+          flags: const YoutubePlayerFlags(
             autoPlay: true,
             mute: false
           ));

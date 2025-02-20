@@ -37,7 +37,7 @@ class UnregisteredScreen extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
                       vertical: 20.0, horizontal: 20.0),
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +138,7 @@ class UnregisteredScreen extends StatelessWidget {
                                   context, "already_have_an_account"),
                               style: Theme.of(context).textTheme.headlineMedium,
                               children: [
-                                TextSpan(text: ' '),
+                                const TextSpan(text: ' '),
                                 TextSpan(
                                   text: translateLang(context, "sign_in"),
                                   style: TextStyle(color: AppColors.primary),

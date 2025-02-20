@@ -144,7 +144,7 @@ class JobApplicationScreen extends StatelessWidget {
                             child: OutlinedButton(
                                 style: OutlinedButton.styleFrom(
                                     enableFeedback: true,
-                                    maximumSize: Size(double.infinity, 48),
+                                    maximumSize: const Size(double.infinity, 48),
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 20.0, horizontal: 15.0),
                                     iconColor: AppColors.primary,
@@ -218,7 +218,7 @@ class JobApplicationScreen extends StatelessWidget {
                           ),
                           // const Spacer(),
                           state is JobApplicationLoadingState
-                              ? AnimatedLoadingWidget()
+                              ? const AnimatedLoadingWidget()
                               : CustomElevatedButton(
                                   fun: () {
                                     context

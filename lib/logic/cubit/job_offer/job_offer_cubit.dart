@@ -177,7 +177,7 @@ class JobOfferCubit extends Cubit<JobOfferState> {
                   child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           enableFeedback: true,
-                          maximumSize: Size(double.infinity, 70),
+                          maximumSize: const Size(double.infinity, 70),
                           padding: const EdgeInsets.symmetric(
                               vertical: 30.0, horizontal: 15.0),
                           iconColor: AppColors.primary,

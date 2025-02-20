@@ -18,7 +18,7 @@ class PersonalInformationScreen extends StatelessWidget {
             child: Column(
               children: [
                 
-                CustomTitle(title: 'user_id'),
+                const CustomTitle(title: 'user_id'),
                 CustomInputField(
                     enabled: false,
                     hint: CacheHelper.getID().toString(),
@@ -26,7 +26,7 @@ class PersonalInformationScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16.0,
                 ),
-                CustomTitle(title: 'full_name'),
+                const CustomTitle(title: 'full_name'),
                 CustomInputField(
                     enabled: false,
                     hint: CacheHelper.getName(),
@@ -34,7 +34,7 @@ class PersonalInformationScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16.0,
                 ),
-                CustomTitle(title: 'email'),
+                const CustomTitle(title: 'email'),
                 CustomInputField(
                     enabled: false,
                     hint: CacheHelper.getEmail(),

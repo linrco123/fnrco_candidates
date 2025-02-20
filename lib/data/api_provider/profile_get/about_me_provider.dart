@@ -46,6 +46,8 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: CONTACTS});
+      logger.e('====================+Contacts======================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return ContactsModel.fromJson(response.data);
       } else {
@@ -53,6 +55,8 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('====================error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -85,6 +89,10 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: ACHIEVEMENTS});
+
+      logger.e('====================achievements======================');
+      logger.e(response.data);
+
       if (response.statusCode == 200) {
         return AchievementsModel.fromJson(response.data);
       } else {
@@ -92,6 +100,8 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('====================error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -102,6 +112,8 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: NOTES});
+      logger.e('====================+Contacts======================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return NotesModel.fromJson(response.data);
       } else {
@@ -109,6 +121,8 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('====================error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -119,6 +133,9 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: LANGUAGES});
+      logger.e('====================language======================');
+      logger.e(response.data);
+
       if (response.statusCode == 200) {
         return LanguagesModel.fromJson(response.data);
       } else {
@@ -126,6 +143,8 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('====================error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -136,7 +155,9 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: EXPERIENCES});
+      logger.e('====================experience======================');
       logger.e(response.data);
+
       if (response.statusCode == 200) {
         return ExperiencesModel.fromJson(response.data);
       } else {
@@ -144,6 +165,8 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('====================error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -154,6 +177,8 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: EDUCATIONS});
+      logger.e('====================education======================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return EducationsModel.fromJson(response.data);
       } else {
@@ -161,6 +186,8 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('====================error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -171,6 +198,9 @@ class AboutMeProvider {
     try {
       final Response response = await DioHelper.dio
           .get(AppLinks.profile_get, queryParameters: {SECTION: SKILLS});
+      logger.e('====================skills======================');
+      logger.e(response.data);
+
       if (response.statusCode == 200) {
         return GetSkillsModel.fromJson(response.data);
       } else {
@@ -178,20 +208,22 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('====================error======================');
+      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
 
-  Future<KeyWordsModel> getKeywords() async {
+  Future<ReferencesModel> getReferences() async {
     try {
       final Response response = await DioHelper.dio
-          .get(AppLinks.profile_get, queryParameters: {SECTION: KEYWORDS});
+          .get(AppLinks.profile_get, queryParameters: {SECTION: REFERENCES});
       logger.e('=====================Response=================');
       logger.e(response.data);
       if (response.statusCode == 200) {
-        return KeyWordsModel.fromJson(response.data);
+        return ReferencesModel.fromJson(response.data);
       } else {
         return await Future.error(
             Failure(response.statusCode!, response.data['message']));
@@ -199,8 +231,6 @@ class AboutMeProvider {
     } on DioError catch (e) {
       logger.e('=====================Error=================');
       logger.e(e.error);
-      logger.e(e.response!.statusCode);
-      logger.e(e.response);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));
@@ -210,6 +240,8 @@ class AboutMeProvider {
   Future<GetJobsModel> getAppliedJobs() async {
     try {
       final Response response = await DioHelper.dio.get(AppLinks.appliedJobs);
+      logger.e('=====================Response=================');
+      logger.e(response.data);
       if (response.statusCode == 200) {
         return GetJobsModel.fromJson(response.data);
       } else {
@@ -217,6 +249,8 @@ class AboutMeProvider {
             Failure(response.statusCode!, response.data['message']));
       }
     } on DioError catch (e) {
+      logger.e('=====================Error=================');
+      logger.e(e.error);
       throw ApiException(
           failure:
               Failure(e.response!.statusCode!, e.response!.data['message']));

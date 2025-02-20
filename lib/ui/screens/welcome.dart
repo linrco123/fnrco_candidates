@@ -63,7 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: AppColors.grey.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10.0)),
-                  child: Column(
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       WelcomeCard(
@@ -120,7 +120,7 @@ class QuarterArchPainter extends CustomPainter {
       ..lineTo(0, 0) // Move to top-left
       ..lineTo(size.width / 2, 0) // Move to middle-top
       ..arcToPoint(Offset(0, size.height / 2), // Rounded arch
-          radius: Radius.circular(20), // Radius for rounding
+          radius: const Radius.circular(20), // Radius for rounding
           clockwise: true)
       ..close();
     canvas.drawPath(topLeftPath, paint);
@@ -133,7 +133,7 @@ class QuarterArchPainter extends CustomPainter {
       ..lineTo(size.width, size.height) // Move to bottom-right
       ..lineTo(size.width / 2, size.height) // Move to middle-bottom
       ..arcToPoint(Offset(size.width, size.height / 2), // Rounded arch
-          radius: Radius.circular(20), // Radius for rounding
+          radius: const Radius.circular(20), // Radius for rounding
           clockwise: true)
       ..close();
     canvas.drawPath(bottomRightPath, paint);

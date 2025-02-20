@@ -72,10 +72,10 @@ class MedicalDeclarationScreen extends StatelessWidget {
                       BlocProvider.of<MedicalDeclareCubit>(context)
                           .addNewRelative(context);
                     },
-                    child: Icon(CupertinoIcons.add),
+                    child: const Icon(CupertinoIcons.add),
                   ),
                 )
-              : SizedBox.shrink(),
+              : const SizedBox.shrink(),
           body: Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: Column(
@@ -97,7 +97,7 @@ class MedicalDeclarationScreen extends StatelessWidget {
                   ),
                 ),
                 state is SendMedicalDeclareLoadingState
-                    ? AnimatedLoadingWidget()
+                    ? const AnimatedLoadingWidget()
                     : CustomElevatedButton(
                         fun: () {
                           medicalDeclareCubit.submit(context, 10);
@@ -126,9 +126,9 @@ class MedicalDeclarationScreen extends StatelessWidget {
       case 3:
         return FamilyDataScreen();
       case 4:
-        return OptionalFileScreen();
+        return const OptionalFileScreen();
       default:
-        return SizedBox();
+        return const SizedBox();
     }
   }
 }

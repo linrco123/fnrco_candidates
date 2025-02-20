@@ -70,12 +70,12 @@ class SurveyViewScreen extends StatelessWidget {
             builder: (context, state) {
               var surveysCubit = BlocProvider.of<SurveysCubit>(context);
               if (state is SurveysViewLoadingState) {
-                return Center(
+                return const Center(
                   child: AnimatedLoadingWidget(),
                 );
               }
               if (state is SurveysViewFailureState) {
-                return EmptyDataWidget(
+                return const EmptyDataWidget(
                   message: 'No survey View contents Yet !!!',
                 );;
               }
@@ -99,7 +99,7 @@ class SurveyViewScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      CustomDivider(),
+                      const CustomDivider(),
                       const SizedBox(
                         height: 15.0,
                       ),
@@ -157,7 +157,7 @@ class SurveyViewScreen extends StatelessWidget {
                     ],
                   ),
                   if (state is SubmitSurveyViewLoadingState)
-                    AnimatedLoadingWidget()
+                    const AnimatedLoadingWidget()
                 ],
               );
             },

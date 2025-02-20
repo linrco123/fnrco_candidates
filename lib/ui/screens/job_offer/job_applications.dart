@@ -43,7 +43,7 @@ class JobApplicationScreen extends StatelessWidget {
           builder: (context, state) {
             var cubit = context.read<JobOfferCubit>();
             if (state is GetJobOfferApplicationsLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
@@ -67,6 +67,7 @@ class JobApplicationScreen extends StatelessWidget {
             }
             if (state is GetJobOfferApplicationsSuccessState) {}
             return context.read<JobOfferCubit>().jobApplications.isEmpty
+                // ignore: prefer_const_constructors
                 ? EmptyDataWidget(
                     message: "No job applications available Yet !!!",
                   )
@@ -78,6 +79,7 @@ class JobApplicationScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) =>
                             InkWell(
                               onTap: () async {
+                                
                                 Navigator.push(
                                     context,
                                     PageTransition(

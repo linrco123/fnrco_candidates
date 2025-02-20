@@ -25,7 +25,7 @@ class FailureWidget extends StatelessWidget {
       children: [
         Text(title,
             textAlign: TextAlign.center,
-            textHeightBehavior: TextHeightBehavior(
+            textHeightBehavior: const TextHeightBehavior(
               leadingDistribution: TextLeadingDistribution.even,
                 applyHeightToFirstAscent: true, 
                 applyHeightToLastDescent: true),
@@ -37,7 +37,7 @@ class FailureWidget extends StatelessWidget {
         const SizedBox(
           height: 10.0,
         ),
-        showImage ? Lottie.asset(AppImages.SERVER_ERROR) : SizedBox.shrink(),
+        showImage ? Lottie.asset(AppImages.SERVER_ERROR) : const SizedBox.shrink(),
         const SizedBox(
           height: 10.0,
         ),

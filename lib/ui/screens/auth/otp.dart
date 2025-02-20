@@ -229,7 +229,7 @@ class OtpForm extends StatelessWidget {
                                 .labelMedium!
                                 .copyWith(color: AppColors.grey),
                             children: [
-                              TextSpan(text: ' '),
+                              const TextSpan(text: ' '),
                               TextSpan(
                                 text: translateLang(context, "resend_code"),
                                 style: TextStyle(color: AppColors.primary),
@@ -261,7 +261,7 @@ class OtpForm extends StatelessWidget {
 
 InputDecoration otpInputDecoration = InputDecoration(
     filled: false,
-    border: UnderlineInputBorder(),
+    border: const UnderlineInputBorder(),
     hintText: "0",
     hintStyle: TextStyle(color: AppColors.grey, fontSize: 18.0));
 

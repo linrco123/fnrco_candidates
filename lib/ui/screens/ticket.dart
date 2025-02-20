@@ -69,7 +69,7 @@ class TicketsScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "subject",
                               ),
                               CustomInputField(
@@ -81,7 +81,7 @@ class TicketsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "text",
                               ),
                               CustomInputField(
@@ -119,7 +119,7 @@ class TicketsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "type",
                               ),
                               CustomInputField(
@@ -157,7 +157,7 @@ class TicketsScreen extends StatelessWidget {
                                 child: OutlinedButton(
                                     style: OutlinedButton.styleFrom(
                                         enableFeedback: true,
-                                        maximumSize: Size(double.infinity, 70),
+                                        maximumSize: const Size(double.infinity, 70),
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 30.0, horizontal: 15.0),
                                         iconColor: AppColors.primary,
@@ -204,7 +204,7 @@ class TicketsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              CustomTitle(
+                              const CustomTitle(
                                 title: "remark",
                               ),
                               CustomInputField(
@@ -227,7 +227,7 @@ class TicketsScreen extends StatelessWidget {
                                       onPressed: () {
                                         cubit.addAttachmentAndRemark();
                                       },
-                                      icon: Icon(CupertinoIcons.add))
+                                      icon: const Icon(CupertinoIcons.add))
                                 ],
                               )
                             ],
@@ -236,7 +236,7 @@ class TicketsScreen extends StatelessWidget {
                       ],
                     )),
                     state is SubmitTicketLoadingState
-                        ? AnimatedLoadingWidget()
+                        ? const AnimatedLoadingWidget()
                         : Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: CustomElevatedButton(

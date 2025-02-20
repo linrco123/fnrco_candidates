@@ -8,33 +8,33 @@ void confirmExit(context) {
     context: context,
     builder: (context) => AlertDialog(
         backgroundColor: AppColors.primary,
-        title: Text(
+        title: const Text(
           'Alert',
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 25.0,
               fontWeight: FontWeight.bold,
               letterSpacing: 2.0,
               //decoration: TextDecoration.underline,
               color: Colors.white),
         ),
-        content: Text(
+        content: const Text(
           'Do you wanna close the app ?',
-          style: const TextStyle(fontSize: 15.0, color: Colors.white),
+          style: TextStyle(fontSize: 15.0, color: Colors.white),
         ),
         actions: [
           ElevatedButton(
               onPressed: () {
                 exit(0);
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text('Ok'),
               )),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel')),
+              child: const Text('Cancel')),
         ]),
   );
 }

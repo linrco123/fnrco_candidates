@@ -19,7 +19,7 @@ const String EDUCATIONS = "educations";
 const String CREDENTIALS = "credentials";
 const String LANGUAGES = "languages";
 const String SKILLS = "skills";
-const String KEYWORDS = "keywords";
+const String REFERENCES = "personReferences";
 const String SECTION = "section";
 
 //////////////TODO: RouteObserver ////////////////////////////////////////////

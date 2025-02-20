@@ -16,7 +16,7 @@ class EducationCard extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
                 //color: AppColors.primary.withOpacity(0.5),
                 blurRadius: 2.0,
                 spreadRadius: 0.0,

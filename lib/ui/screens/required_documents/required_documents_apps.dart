@@ -47,7 +47,7 @@ class RequiredDocumentsApplicationsScreen extends StatelessWidget {
           builder: (context, state) {
             final cubit = BlocProvider.of<RequiredDocumentsCubit>(context);
             if (state is GetRequiredDocumentsAppsLoadingState) {
-              return AnimatedLoadingWidget(
+              return const AnimatedLoadingWidget(
                 height: 150.0,
                 width: 150.0,
               );
@@ -63,7 +63,7 @@ class RequiredDocumentsApplicationsScreen extends StatelessWidget {
             }
 
             return cubit.jobApplications.isEmpty
-                ? EmptyDataWidget(
+                ? const EmptyDataWidget(
                     message: "No job applications available Yet !!!",
                   )
                 : Padding(
@@ -79,7 +79,7 @@ class RequiredDocumentsApplicationsScreen extends StatelessWidget {
                                       value: requiredDocumentsCubit
                                         ..getRequiredDocumentsData(
                                             cubit.jobApplications[index].id!),
-                                      child: RequiredDocumentsScreen(),
+                                      child: const RequiredDocumentsScreen(),
                                     ),
                                     type: PageTransitionType.fade,
                                     alignment: Alignment.centerLeft,
@@ -124,7 +124,7 @@ class RequiredDocumentApplicationCard extends StatelessWidget {
               blurRadius: 5.0,
               spreadRadius: 5.0,
               blurStyle: BlurStyle.outer,
-              offset: Offset(0, 1))
+              offset: const Offset(0, 1))
         ],
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),

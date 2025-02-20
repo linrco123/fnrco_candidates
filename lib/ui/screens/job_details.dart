@@ -98,7 +98,7 @@ class JobDetailsScreen extends StatelessWidget {
                           const SizedBox(
                             height: 10.0,
                           ),
-                          CustomDivider(
+                          const CustomDivider(
                             hPadding: 20.0,
                             vPadding: 10.0,
                           ),
@@ -138,7 +138,7 @@ class JobDetailsScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          CustomDivider(
+                          const CustomDivider(
                             hPadding: 20.0,
                             vPadding: 10.0,
                           ),
@@ -206,7 +206,7 @@ class JobDetailsScreen extends StatelessWidget {
                         // ),
                         Expanded(
                             child: state is JobApplicationLoadingState
-                                ? AnimatedLoadingWidget()
+                                ? const AnimatedLoadingWidget()
                                 : CustomElevatedButton(
                                     fun: () {
                                       cubit.applyJob(job.id!);

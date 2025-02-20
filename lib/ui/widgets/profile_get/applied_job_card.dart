@@ -23,7 +23,7 @@ class AppliedJobCard extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
                 //  color: AppColors.primary.withOpacity(0.1),
                 blurRadius: 5.0,
                 spreadRadius: 0.0,

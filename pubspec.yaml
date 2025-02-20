@@ -55,7 +55,6 @@ dependencies:
   webview_flutter: ^4.10.0
   syncfusion_flutter_pdfviewer: ^28.1.39
   flutter_local_notifications: ^18.0.1
-  build_runner: ^2.4.14
   #syncfusion_flutter_datepicker: ^28.1.41
 
 dev_dependencies:
@@ -63,6 +62,9 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   mockito: ^5.4.5
+  build_runner: ^2.4.15
+  integration_test:
+    sdk: flutter
   
 flutter_native_splash:
   android: true

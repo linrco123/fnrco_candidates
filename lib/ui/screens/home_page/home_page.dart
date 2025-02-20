@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fnrco_candidates/ui/screens/test.dart';
 import '../../../logic/cubit/notifications/notifications_cubit.dart';
 import '../../widgets/auth/custom_elevated_btn.dart';
 import '../../../core/functions/exit.dart';
@@ -90,12 +91,13 @@ class HomePageScreen extends StatelessWidget {
                                           radius: 52,
                                           backgroundImage:
                                               CacheHelper.getImage() == null
-                                                  ? AssetImage(AppImages.User)
+                                                  ? const AssetImage(
+                                                      AppImages.User)
                                                   : FileImage(File(
                                                       CacheHelper.getImage()!)),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 12,
                                       ),
                                       Row(
@@ -151,25 +153,24 @@ class HomePageScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // ListTile(
-                                    //   onTap: () {
-                                    //     Navigator.of(context)
-                                    //         .push(MaterialPageRoute(
-                                    //       builder: (context) => TestScreen(),
-                                    //     ));
-                                    //   },
-                                    //   leading: Padding(
-                                    //     padding:
-                                    //         const EdgeInsets.only(left: 5.0),
-                                    //     child: Icon(Icons.work_sharp)
-                                    //   ),
-                                    //   title: Text(
-                                    //     'Test',
-                                    //     style: Theme.of(context)
-                                    //         .textTheme
-                                    //         .titleSmall,
-                                    //   ),
-                                    // ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              const TodoList(),
+                                        ));
+                                      },
+                                      leading: const Padding(
+                                          padding: EdgeInsets.only(left: 5.0),
+                                          child: Icon(Icons.work_sharp)),
+                                      title: Text(
+                                        'Test',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                    ),
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(
@@ -293,7 +294,7 @@ class HomePageScreen extends StatelessWidget {
                                         Navigator.of(context).popAndPushNamed(
                                             AppPagesNames.JOINING_DATES);
                                       },
-                                      leading: Icon(
+                                      leading: const Icon(
                                         CupertinoIcons.calendar,
                                         size: 27.0,
                                       ),
@@ -654,7 +655,7 @@ class HomePageScreen extends StatelessWidget {
           centerTitle: true,
           leading: Builder(
             builder: (context) => CacheHelper.userToken == null
-                ? SizedBox.shrink()
+                ? const SizedBox.shrink()
                 : IconButton(
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
@@ -667,8 +668,7 @@ class HomePageScreen extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                 Navigator.of(context).pushNamed(AppPagesNames.NOTIFICATION);
-
+                  Navigator.of(context).pushNamed(AppPagesNames.NOTIFICATION);
                 },
                 icon: Badge(
                   backgroundColor: Colors.black,
@@ -683,7 +683,7 @@ class HomePageScreen extends StatelessWidget {
                     size: 30.0,
                   ),
                 )),
-            SizedBox(
+            const SizedBox(
               width: 10.0,
             )
           ],
@@ -726,7 +726,7 @@ class HomePageScreen extends StatelessWidget {
       case 0:
         return CacheHelper.userToken == null
             ? const UnregisteredScreen()
-            : HomeTapScreen();
+            : const HomeTapScreen();
       case 1:
         return const CategoryDetailsScreen();
       case 2:

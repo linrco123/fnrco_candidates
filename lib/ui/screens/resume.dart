@@ -46,7 +46,7 @@ class ResumeScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    CustomTitle(
+                    const CustomTitle(
                       title: "resume_attch",
                       frontP: 0.0,
                     ),
@@ -120,7 +120,7 @@ class ResumeScreen extends StatelessWidget {
                                       fontSize: 14,
                                     ),
                                   )
-                                : SizedBox.shrink()
+                                : const SizedBox.shrink()
                           ],
                         ),
                       ),
@@ -172,7 +172,7 @@ class ResumeScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    CustomTitle(
+                    const CustomTitle(
                       title: "into_ov_view",
                       frontP: 0.0,
                     ),
@@ -196,7 +196,7 @@ class ResumeScreen extends StatelessWidget {
                       height: 20.0,
                     ),
 
-                    CustomTitle(
+                    const CustomTitle(
                       title: "education",
                       frontP: 0.0,
                     ),
@@ -212,7 +212,7 @@ class ResumeScreen extends StatelessWidget {
                         ),
                         Expanded(
                             child: DropdownButton(
-                          hint: Text('select item'),
+                          hint: const Text('select item'),
                           items: [
                             'item1',
                             'item2',
@@ -243,7 +243,7 @@ class ResumeScreen extends StatelessWidget {
                         ),
                         Expanded(
                             child: DropdownButton(
-                          hint: Text('select item'),
+                          hint: const Text('select item'),
                           items: [
                             'item1',
                             'item2',
@@ -271,7 +271,7 @@ class ResumeScreen extends StatelessWidget {
                         ),
                         Expanded(
                             child: DropdownButton(
-                          hint: Text('select item'),
+                          hint: const Text('select item'),
                           items: [
                             'item1',
                             'item2',
@@ -297,7 +297,7 @@ class ResumeScreen extends StatelessWidget {
                       height: 20.0,
                     ),
 
-                    CustomTitle(
+                    const CustomTitle(
                       title: "skills_expers",
                       frontP: 0.0,
                     ),
@@ -313,7 +313,7 @@ class ResumeScreen extends StatelessWidget {
                         ),
                         Expanded(
                             child: DropdownButton(
-                          hint: Text('select item'),
+                          hint: const Text('select item'),
                           items: [
                             'item1',
                             'item2',
@@ -344,7 +344,7 @@ class ResumeScreen extends StatelessWidget {
                         ),
                         Expanded(
                             child: DropdownButton(
-                          hint: Text('select item'),
+                          hint: const Text('select item'),
                           items: [
                             'item1',
                             'item2',
@@ -372,7 +372,7 @@ class ResumeScreen extends StatelessWidget {
                         ),
                         Expanded(
                             child: DropdownButton(
-                          hint: Text('select item'),
+                          hint: const Text('select item'),
                           items: [
                             'item1',
                             'item2',

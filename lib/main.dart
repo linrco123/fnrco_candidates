@@ -1,4 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -101,7 +101,7 @@ class _FnrcoCandidatesState extends State<FnrcoCandidates> {
               AppLocalizationsSetup.localResolutionCallback,
           themeAnimationCurve: Curves.bounceInOut,
           debugShowCheckedModeBanner: false,
-          routes: {'/internetConnect': (context) => InternetConnectionScreen()},
+          routes: {'/internetConnect': (context) => const InternetConnectionScreen()},
           onGenerateRoute: AppRouter.routeTo,
           initialRoute: AppPagesNames.ANIMATED_SPLASH,
         );
