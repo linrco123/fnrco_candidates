@@ -36,7 +36,7 @@ class LanguageCard extends StatelessWidget {
           ProfileItem(kkey: "language", value: language.langText!),
           ProfileItem(kkey: "lang_test_by", value: language.langTestBy!),
           ProfileItem(
-              kkey: "lang_test_by", value: language.langLevel!.toString()),
+              kkey: "lang_level", value: language.langLevel!.toString()),
         ],
       ),
     );

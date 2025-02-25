@@ -64,6 +64,7 @@ class AuthCubit extends Cubit<AuthState> {
         // ...
       }
     } else {
+      
       //TODO: Handling Hardware doesn't support biometric
     }
   }

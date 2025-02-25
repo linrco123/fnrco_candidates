@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/language.dart';
+import 'package:fnrco_candidates/data/models/profile_get/languages_model.dart';
 
 part 'languages_state.dart';
 
@@ -17,6 +18,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
   final TextEditingController langCntroller = TextEditingController();
   final TextEditingController testCntroller = TextEditingController();
   int languageLevel = 1;
+  dynamic id = '';
 
   void changeLanguageLevel(int value) {
     languageLevel = value;
@@ -41,6 +43,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
   void addNewLanguage() {
     if (formKey.currentState!.validate()) {
       submittedLanguages.add({
+        "id":id,
         "lang_text": langCntroller.text,
         "lang_level": languageLevel.toString(),
         "lang_test_by": testCntroller.text
@@ -57,16 +60,18 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     languageLevel = 1;
     emit(EmptyLanguageFieldsState());
   }
-  void submit(){
-    if(submittedLanguages.isEmpty){
+
+  void submit() {
+    if (submittedLanguages.isEmpty) {
       addNewLanguage();
-      if(submittedLanguages.isNotEmpty){
+      if (submittedLanguages.isNotEmpty) {
         _submitLanguages();
       }
-    }else{
+    } else {
       _submitLanguages();
     }
   }
+
   void _submitLanguages() {
     var data = {"languages": submittedLanguages};
     if (submittedLanguages.isNotEmpty) {
@@ -85,5 +90,15 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     langCntroller.dispose();
     testCntroller.dispose();
     return super.close();
+  }
+
+  fillFields(GetLanguage? language) {
+    if (language != null) {
+      id = language.id!;
+      langCntroller.text = language.langText!;
+      testCntroller.text = language.langTestBy!;
+      languageLevel = language.langLevel! ;
+      emit(ChangingLanguageLevelState());
+    }
   }
 }

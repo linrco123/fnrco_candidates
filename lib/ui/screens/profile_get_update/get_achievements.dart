@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
+import 'package:fnrco_candidates/core/functions/animated_transition.dart';
+import 'package:fnrco_candidates/core/functions/show_toast.dart';
+import 'package:fnrco_candidates/ui/screens/profile_add_new/achievements.dart';
+import 'package:toastification/toastification.dart';
 import '../../../core/functions/translate.dart';
 import '../../../logic/cubit/profile_get/about_me/about_me_cubit.dart';
 import '../../widgets/empty_data_widget.dart';
@@ -25,19 +30,38 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AboutMeCubit, AboutMeState>(
+    return BlocConsumer<AboutMeCubit, AboutMeState>(
       buildWhen: (previous, current) =>
           current is AboutMeGetAchievementsLoadingState ||
           current is AboutMeGetAchievementsSuccessState ||
-          current is AboutMeGetAchievementsErrorState,
+          current is AboutMeGetAchievementsErrorState ||
+          current is AboutMeDeleteLoadingState,
+      listener: (context, state) {
+        if (state is AboutMeDeleteSuccessState) {
+          showToast(context,
+              title: translateLang(context, 'success'),
+              desc: 'achievement is deleted successfully',
+              type: ToastificationType.success);
+          Navigator.of(context).pop();
+        }
+        if (state is AboutMeDeleteErrorState) {
+          showToast(context,
+              title: translateLang(context, 'error'),
+              desc: 'achievement is not deleted yet !!!',
+              type: ToastificationType.error);
+          //  Navigator.of(context).pop();
+        }
+      },
       builder: (context, state) {
-        if (state is AboutMeGetAchievementsLoadingState) {
+        if (state is AboutMeGetAchievementsLoadingState ||
+            state is AboutMeDeleteLoadingState) {
           return const AnimatedLoadingWidget();
         }
         if (state is AboutMeGetAchievementsErrorState) {
           return FailureWidget(
               showImage: false,
-               title: '${translateLang(context, "error_get_achieves")}\n${state.message}',
+              title:
+                  '${translateLang(context, "error_get_achieves")}\n${state.message}',
               onTap: () {
                 context.read<AboutMeCubit>().getAchievements();
               });
@@ -53,8 +77,23 @@ class _GetPersonalDetailsScreenState extends State<GetAchievementsScreen> {
                   width: double.infinity,
                   child: ListView.separated(
                     itemCount: state.achievements.length,
-                    itemBuilder: (context, index) =>
-                        AchievementCard(achievement: state.achievements[index]),
+                    itemBuilder: (context, index) => Dismissible(
+                      key: Key("$index"),
+                      onDismissed: (direction) {
+                        context.read<AboutMeCubit>().deleteSectionItem(
+                            ACHIEVEMENTS, state.achievements[index].id!);
+                      },
+                      child: InkWell(
+                          onTap: () {
+                            animatedTransition(
+                                context,
+                                AchievementsSCreen(
+                                  achievement: state.achievements[index],
+                                ));
+                          },
+                          child: AchievementCard(
+                              achievement: state.achievements[index])),
+                    ),
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(
                       height: 16.0,

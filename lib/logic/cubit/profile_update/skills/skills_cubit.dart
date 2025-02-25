@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/skills.dart';
 import 'package:fnrco_candidates/data/models/profile/skills_model.dart';
+import 'package:fnrco_candidates/data/models/profile_get/skills_model.dart';
 
 part 'skills_state.dart';
 
@@ -19,7 +20,8 @@ class SkillsCubit extends Cubit<SkillsState> {
   // final descCntroller = TextEditingController();
   var formKey = GlobalKey<FormState>();
   final skillsCntroller = TextEditingController();
-  String skillLevel = '';
+  String skillLevel = 'Skill Level';
+  dynamic id = '';
 
   String? validateSkill(context, String? value) {
     if (value!.isEmpty) {
@@ -48,19 +50,15 @@ class SkillsCubit extends Cubit<SkillsState> {
   List<Map<String, dynamic>> submittedSkills = [];
   void addNewSkill() {
     if (formKey.currentState!.validate()) {
-      if (skillLevel != 0) {
+      if (skillLevel != 'Skill Level') {
         submittedSkills.add({
-          "id": skills
-              .where((skill) => skill.metaDataText == skillLevel)
-              .toList()
-              .single
-              .id,
+          "id": id,
           "skill_name": skillsCntroller.text,
           "skill_level": skillLevel
         });
         Future.delayed(const Duration(seconds: 1)).then((value) {
           skillsCntroller.clear();
-          skillLevel = '';
+          skillLevel = 'Skill Level';
           emit(EmptySkillLevelstate());
         });
       } else {
@@ -89,6 +87,15 @@ class SkillsCubit extends Cubit<SkillsState> {
       }).catchError((error) {
         emit(SubmitSkillsFailureState(message: error.failure.message));
       });
+    }
+  }
+
+  fillFields(GetSkill? skill) {
+    if (skill != null) {
+      id = skill.id;
+      skillsCntroller.text = skill.skillName!;
+      skillLevel = skill.skillLevel!;
+      emit(ChooseSkillLevelState());
     }
   }
 }

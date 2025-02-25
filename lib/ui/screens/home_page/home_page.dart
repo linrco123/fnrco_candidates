@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fnrco_candidates/ui/screens/test.dart';
 import '../../../logic/cubit/notifications/notifications_cubit.dart';
 import '../../widgets/auth/custom_elevated_btn.dart';
 import '../../../core/functions/exit.dart';
@@ -155,24 +154,6 @@ class HomePageScreen extends StatelessWidget {
                                   children: [
                                     ListTile(
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              const TodoList(),
-                                        ));
-                                      },
-                                      leading: const Padding(
-                                          padding: EdgeInsets.only(left: 5.0),
-                                          child: Icon(Icons.work_sharp)),
-                                      title: Text(
-                                        'Test',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
-                                      ),
-                                    ),
-                                    ListTile(
-                                      onTap: () {
                                         Navigator.of(context).popAndPushNamed(
                                             AppPagesNames.PROFILE);
                                       },
@@ -194,6 +175,7 @@ class HomePageScreen extends StatelessWidget {
                                             .titleSmall,
                                       ),
                                     ),
+                                    
                                     ListTile(
                                       onTap: () {
                                         Navigator.of(context).popAndPushNamed(

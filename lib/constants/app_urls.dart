@@ -47,6 +47,8 @@ class AppLinks {
   ////////////////////// TODO:Management::Polls //////////////////
   static const String profile_update = "/person/update";
 
+  static const String profile_delete = "/person/delete";
+
   ///section//////////?sections=(skillls)
   static const String profile_section = "/person/sections";
   //////////////////////////////////TODO:GET_PROFILE.///////////////

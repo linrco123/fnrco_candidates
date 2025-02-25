@@ -256,4 +256,25 @@ class AboutMeProvider {
               Failure(e.response!.statusCode!, e.response!.data['message']));
     }
   }
+
+  Future<bool> deleteItem(Map<String, dynamic> body) async {
+    try {
+      final Response response =
+          await DioHelper.dio.delete(AppLinks.profile_delete, data: body);
+      logger.e('=====================Response=================');
+      logger.e(response.data);
+      if (response.statusCode == 200) {
+        return response.data['status'];
+      } else {
+        return await Future.error(
+            Failure(response.statusCode!, response.data['message']));
+      }
+    } on DioError catch (e) {
+      logger.e('=====================Error=================');
+      logger.e(e.error);
+      throw ApiException(
+          failure:
+              Failure(e.response!.statusCode!, e.response!.data['message']));
+    }
+  }
 }

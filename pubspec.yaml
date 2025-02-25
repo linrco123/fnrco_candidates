@@ -55,6 +55,7 @@ dependencies:
   webview_flutter: ^4.10.0
   syncfusion_flutter_pdfviewer: ^28.1.39
   flutter_local_notifications: ^18.0.1
+  flutter_slidable: ^4.0.0
   #syncfusion_flutter_datepicker: ^28.1.41
 
 dev_dependencies:

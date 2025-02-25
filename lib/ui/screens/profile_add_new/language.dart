@@ -1,6 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toastification/toastification.dart';
+
+import 'package:fnrco_candidates/data/models/profile_get/languages_model.dart';
+
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
@@ -11,14 +16,18 @@ import '../../widgets/loading_widget.dart';
 import '../../widgets/profile/custom_text_field.dart';
 import '../../widgets/profile/title_text.dart';
 import '../../widgets/return_btn.dart';
-import 'package:toastification/toastification.dart';
 
 class LanguageScreen extends StatelessWidget {
-  const LanguageScreen({super.key});
+  final GetLanguage? language;
+  const LanguageScreen({
+    Key? key,
+    this.language,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LanguagesCubit(LanguageProvider()),
+      create: (context) =>
+          LanguagesCubit(LanguageProvider())..fillFields(language),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -30,18 +39,20 @@ class LanguageScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
-        floatingActionButton: Builder(builder: (context) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.08),
-            child: FloatingActionButton(
-              onPressed: () {
-                BlocProvider.of<LanguagesCubit>(context).addNewLanguage();
-              },
-              child: const Icon(CupertinoIcons.add),
-            ),
-          );
-        }),
+        floatingActionButton: language != null
+            ? null
+            : Builder(builder: (context) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.08),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<LanguagesCubit>(context).addNewLanguage();
+                    },
+                    child: const Icon(CupertinoIcons.add),
+                  ),
+                );
+              }),
         body: BlocConsumer<LanguagesCubit, LanguagesState>(
           listener: (context, state) {
             if (state is SubmitLanguagesSuccessState) {

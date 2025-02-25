@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/data/models/profile_get/skills_model.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
@@ -16,12 +17,15 @@ import '../../widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class SkillsSCreen extends StatelessWidget {
-  const SkillsSCreen({super.key});
+  final GetSkill? skill;
+  const SkillsSCreen({super.key, this.skill});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SkillsCubit(SkillsProvider())..getSkills(),
+      create: (context) => SkillsCubit(SkillsProvider())
+        ..getSkills()
+        ..fillFields(skill),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -33,18 +37,20 @@ class SkillsSCreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
-        floatingActionButton: Builder(builder: (context) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.08),
-            child: FloatingActionButton(
-              onPressed: () {
-                BlocProvider.of<SkillsCubit>(context).addNewSkill();
-              },
-              child: const Icon(CupertinoIcons.add),
-            ),
-          );
-        }),
+        floatingActionButton: skill != null
+            ? null
+            : Builder(builder: (context) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.08),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<SkillsCubit>(context).addNewSkill();
+                    },
+                    child: const Icon(CupertinoIcons.add),
+                  ),
+                );
+              }),
         body: BlocConsumer<SkillsCubit, SkillsState>(
           listener: (context, state) {
             if (state is CheckSkillLevelState) {
@@ -93,7 +99,7 @@ class SkillsSCreen extends StatelessWidget {
                     state is GettingSkillsLevelLoadingState
                         ? const ItemLoadingWidget()
                         : CustomDropDownSearch(
-                            selectedItem: translateLang(context, 'skill_level'),
+                            selectedItem: skillsCubit.skillLevel,
                             items: skillsCubit.skills
                                 .map((skill) => skill.metaDataText!)
                                 .toList(),

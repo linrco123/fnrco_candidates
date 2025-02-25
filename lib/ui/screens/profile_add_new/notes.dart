@@ -1,7 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fnrco_candidates/data/models/profile_get/notes_model.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
@@ -15,12 +15,13 @@ import '../../widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class NotesScreen extends StatelessWidget {
-  const NotesScreen({super.key});
+  final GetNote? note;
+  const NotesScreen({super.key, this.note});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NotesCubit(NotesProvider()),
+      create: (context) => NotesCubit(NotesProvider())..fillFields(note),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -32,18 +33,20 @@ class NotesScreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
-        floatingActionButton: Builder(builder: (context) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.08),
-            child: FloatingActionButton(
-              onPressed: () {
-                BlocProvider.of<NotesCubit>(context).addNewNotes();
-              },
-              child: const Icon(CupertinoIcons.add),
-            ),
-          );
-        }),
+        floatingActionButton: note != null
+            ? null
+            : Builder(builder: (context) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.08),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<NotesCubit>(context).addNewNotes();
+                    },
+                    child: const Icon(CupertinoIcons.add),
+                  ),
+                );
+              }),
         body: BlocConsumer<NotesCubit, NotesState>(
           listener: (context, state) {
             if (state is SubmitNotesSuccessState) {
@@ -85,19 +88,7 @@ class NotesScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    // TextButton(
-                    //   style: ButtonStyle(shape:WidgetStateProperty.all<OutlinedBorder>(ContinuousRectangleBorder()) ),
-                      
-                    //   onPressed: () {}, child: Text('text')),
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width / 2,
-                    //   child: CustomElevatedButton(
-                    //       fun: () {
-                    //         cubit.addNewNotes();
-                    //       },
-                    //       background: AppColors.black,
-                    //       text: translateLang(context, 'add_new_note')),
-                    // ),
+                    
                     const Spacer(),
                     state is SubmitNotesLoadingState
                         ? const AnimatedLoadingWidget()

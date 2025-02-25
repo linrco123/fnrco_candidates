@@ -1,6 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toastification/toastification.dart';
+
+import 'package:fnrco_candidates/data/models/profile_get/achievements_model.dart';
+
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
@@ -11,15 +16,19 @@ import '../../widgets/loading_widget.dart';
 import '../../widgets/profile/custom_text_field.dart';
 import '../../widgets/profile/title_text.dart';
 import '../../widgets/return_btn.dart';
-import 'package:toastification/toastification.dart';
 
 class AchievementsSCreen extends StatelessWidget {
-  const AchievementsSCreen({super.key});
+  final GetAchievement? achievement;
+  const AchievementsSCreen({
+    Key? key,
+    this.achievement,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AchievementsCubit(AchievementsProvider()),
+      create: (context) =>
+          AchievementsCubit(AchievementsProvider())..fillFields(achievement),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -31,17 +40,21 @@ class AchievementsSCreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
-        floatingActionButton: Builder(builder: (context) {
-          return Padding(
-            padding:  EdgeInsets.only(bottom:MediaQuery.of(context).size.height*0.08),
-            child: FloatingActionButton(
-              onPressed: () {
-                BlocProvider.of<AchievementsCubit>(context).addNewAchievement();
-              },
-              child: const Icon(CupertinoIcons.add),
-            ),
-          );
-        }),
+        floatingActionButton: achievement != null
+            ? null
+            : Builder(builder: (context) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.08),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<AchievementsCubit>(context)
+                          .addNewAchievement();
+                    },
+                    child: const Icon(CupertinoIcons.add),
+                  ),
+                );
+              }),
         body: BlocConsumer<AchievementsCubit, AchievementsState>(
           listener: (context, state) {
             if (state is SubmitAchievementsSuccessState) {

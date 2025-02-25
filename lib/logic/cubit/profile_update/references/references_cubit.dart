@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fnrco_candidates/core/functions/translate.dart';
 import 'package:fnrco_candidates/data/api_provider/profile_update/references.dart';
+import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
 
 part 'references_state.dart';
 
@@ -126,5 +127,17 @@ class ReferencesCubit extends Cubit<KeyWordsState> {
     companyCntroller.dispose();
     jobTitleCntroller.dispose();
     return super.close();
+  }
+
+  fillFields(GetReference? reference) {
+    if (reference != null) {
+      id = reference.id!;
+      nameController.text = reference.name!;
+      companyCntroller.text = reference.company!;
+      jobTitleCntroller.text = reference.jobTitle!;
+      emailController.text = reference.email!;
+      phoneController.text = reference.phone!;
+      emit(EmptyKeywordFieldsState());
+    }
   }
 }

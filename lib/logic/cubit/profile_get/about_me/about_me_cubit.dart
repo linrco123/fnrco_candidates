@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/constants/constances.dart';
 import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
-import 'package:fnrco_candidates/ui/screens/profile_get_update/get_keywords.dart';
+import 'package:fnrco_candidates/ui/screens/profile_get_update/get_references.dart';
 import '../../../../data/api_provider/profile_get/about_me_provider.dart';
 import '../../../../data/models/profile/profile_section_model.dart';
 import '../../../../data/models/profile_get/achievements_model.dart';
@@ -44,7 +45,7 @@ class AboutMeCubit extends Cubit<AboutMeState> {
     ProfileSectionModel(section: 'References', index: 9),
     ProfileSectionModel(section: 'Applied Jobs', index: 10),
   ];
-  
+
   Widget getBodyWidget() {
     switch (section) {
       case 0:
@@ -81,7 +82,7 @@ class AboutMeCubit extends Cubit<AboutMeState> {
 
   void changeSection(int page) {
     section = page;
-   // first_clicked = 0;
+    // first_clicked = 0;
     emit(AboutMeChangeSectionState());
   }
 
@@ -195,5 +196,68 @@ class AboutMeCubit extends Cubit<AboutMeState> {
     }).catchError((error) {
       emit(AboutMeGetAppliedJobsErrorState(message: error.failure.message));
     });
+  }
+
+  _createBody(String section, int id) {
+    return {
+      section: [
+        {"id": id}
+      ]
+    };
+  }
+
+  deleteSectionItem(String section, int id) {
+    emit(AboutMeDeleteLoadingState());
+    aboutMeProvider.deleteItem(_createBody(section, id)).then((value) {
+      _extractGetFunction(section);
+      emit(AboutMeDeleteSuccessState());
+    }).catchError((error) {
+      _extractGetFunction(section);
+      emit(AboutMeDeleteErrorState());
+    });
+  }
+
+  _extractGetFunction(String section) {
+    switch (section) {
+      case CONTACTS:
+        getContacts();
+
+        break;
+      case ACHIEVEMENTS:
+        getAchievements();
+
+        break;
+      case NOTES:
+        getNotes();
+
+        break;
+      case EDUCATIONS:
+        getEducation();
+
+        break;
+      case EXPERIENCES:
+        getExperiences();
+
+        break;
+      case CREDENTIALS:
+        getCredentials();
+
+        break;
+      case LANGUAGES:
+        getLanguages();
+
+        break;
+      case SKILLS:
+        getSkills();
+
+        break;
+      case REFERENCES:
+        getReferences();
+
+        break;
+
+      default:
+      getPersonalData();
+    }
   }
 }

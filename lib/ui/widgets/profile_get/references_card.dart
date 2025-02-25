@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
-import 'package:fnrco_candidates/ui/widgets/profile_get/custom_profile_text.dart';
+import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 
 class ReferencesCard extends StatelessWidget {
   final GetReference reference;
@@ -35,11 +35,12 @@ class ReferencesCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CustomProfileText(text: reference.company!),
-          CustomProfileText(text: reference.jobTitle!),
-          CustomProfileText(text: reference.name!),
-          CustomProfileText(text: reference.email!),
-          CustomProfileText(text: reference.phone!),
+          ProfileItem(kkey: "company_name", value: reference.company!),
+          ProfileItem(kkey: 'job_title', value: reference.jobTitle!),
+          ProfileItem(kkey: 'full_name', value: reference.name!),
+          ProfileItem(kkey: 'email', value:  reference.email!),
+          ProfileItem(kkey: "phone_number", value: reference.phone!),
+
         ],
       ),
     );

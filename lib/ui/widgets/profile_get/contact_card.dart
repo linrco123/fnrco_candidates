@@ -8,9 +8,13 @@ import 'package:fnrco_candidates/ui/widgets/profile_get/profile_item.dart';
 
 class ContactCard extends StatelessWidget {
   final GetContact contact;
+  final void Function()? onDelete;
+  final void Function()? onupdate;
   const ContactCard({
     Key? key,
     required this.contact,
+    required this.onDelete,
+    required this.onupdate,
   }) : super(key: key);
 
   @override
@@ -20,13 +24,13 @@ class ContactCard extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         boxShadow: [
-            const BoxShadow(
-                //color: AppColors.primary.withOpacity(0.5),
-                blurRadius: 2.0,
-                spreadRadius: 0.0,
-                blurStyle: BlurStyle.outer,
-                offset: Offset(0, 1))
-          ],
+          const BoxShadow(
+              //color: AppColors.primary.withOpacity(0.5),
+              blurRadius: 2.0,
+              spreadRadius: 0.0,
+              blurStyle: BlurStyle.outer,
+              offset: Offset(0, 1))
+        ],
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(16.0),
         // border: BorderDirectional(
@@ -37,6 +41,34 @@ class ContactCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     Container(
+          //       //color: AppColors.success,
+          //       child: IconButton(
+          //           style: IconButton.styleFrom(),
+          //           padding: EdgeInsets.zero,
+          //           color: AppColors.primary,
+          //           iconSize: 30.0,
+          //           onPressed: onDelete,
+          //           icon: const Icon(Icons.delete_forever_outlined)),
+          //     ),
+          //     // const SizedBox(
+          //     //   width: 5.0,
+          //     // ),
+          //     Container(
+          //       //color: AppColors.success,
+          //       child: IconButton(
+          //           style: IconButton.styleFrom(),
+          //           //padding: EdgeInsets.zero,
+          //           color: AppColors.black,
+          //           iconSize: 30.0,
+          //           onPressed: onDelete,
+          //           icon: const Icon(Icons.edit)),
+          //     )
+          //   ],
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

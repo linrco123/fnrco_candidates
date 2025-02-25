@@ -178,3 +178,10 @@ final class  AboutMeGetAppliedJobsErrorState extends AboutMeState {
 
   AboutMeGetAppliedJobsErrorState({required this.message});
 }
+
+
+////////////TODO: Delete an item from Section ///////////////
+///
+class AboutMeDeleteLoadingState extends AboutMeState {}
+class AboutMeDeleteSuccessState extends AboutMeState {}
+class  AboutMeDeleteErrorState extends AboutMeState {}

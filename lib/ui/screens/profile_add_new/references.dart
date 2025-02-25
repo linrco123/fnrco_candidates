@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fnrco_candidates/ui/widgets/auth/name_email_phone_form_field.dart';
+import 'package:fnrco_candidates/data/models/profile_get/keywords_model.dart';
 import '../../../constants/app_colors.dart';
 import '../../../core/functions/show_toast.dart';
 import '../../../core/functions/translate.dart';
@@ -15,12 +15,14 @@ import '../../widgets/return_btn.dart';
 import 'package:toastification/toastification.dart';
 
 class ReferencesSCreen extends StatelessWidget {
-  const ReferencesSCreen({super.key});
+  final GetReference? reference;
+  const ReferencesSCreen({super.key, this.reference});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ReferencesCubit(RefencesProvider()),
+      create: (context) =>
+          ReferencesCubit(RefencesProvider())..fillFields(reference),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -32,18 +34,21 @@ class ReferencesSCreen extends StatelessWidget {
           leading: ReturnButton(),
           centerTitle: true,
         ),
-        floatingActionButton: Builder(builder: (context) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.08),
-            child: FloatingActionButton(
-              onPressed: () {
-                BlocProvider.of<ReferencesCubit>(context).addNewReferences();
-              },
-              child: const Icon(CupertinoIcons.add),
-            ),
-          );
-        }),
+        floatingActionButton: reference != null
+            ? null
+            : Builder(builder: (context) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.08),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<ReferencesCubit>(context)
+                          .addNewReferences();
+                    },
+                    child: const Icon(CupertinoIcons.add),
+                  ),
+                );
+              }),
         body: BlocConsumer<ReferencesCubit, KeyWordsState>(
           listener: (context, state) {
             if (state is SubmitKeyWordsSuccessState) {
@@ -93,32 +98,29 @@ class ReferencesSCreen extends StatelessWidget {
                       height: 16.0,
                     ),
                     const CustomTitle(title: "full_name"),
-                    NameEmailPhoneFormField(
-                        controller: cubit.nameController,
-                        inputType: TextInputType.name,
-                        prefixIcon: CupertinoIcons.person,
-                        hint: translateLang(context, "full_name"),
-                        validate: cubit.validateName),
+                    CustomInputField(
+                      controller: cubit.nameController,
+                      validate: cubit.validateName,
+                      hint: translateLang(context, "full_name"),
+                    ),
                     const SizedBox(
                       height: 16.0,
                     ),
                     const CustomTitle(title: "email"),
-                    NameEmailPhoneFormField(
-                        controller: cubit.emailController,
-                        inputType: TextInputType.emailAddress,
-                        prefixIcon: CupertinoIcons.mail,
-                        hint: translateLang(context, "email"),
-                        validate: cubit.validateEmail),
+                    CustomInputField(
+                      controller: cubit.emailController,
+                      validate: cubit.validateEmail,
+                      hint: translateLang(context, "email"),
+                    ),
                     const SizedBox(
                       height: 16.0,
                     ),
                     const CustomTitle(title: "phone_number"),
-                    NameEmailPhoneFormField(
-                        controller: cubit.phoneController,
-                        inputType: TextInputType.phone,
-                        prefixIcon: CupertinoIcons.phone,
-                        hint: translateLang(context, "phone_number"),
-                        validate: cubit.validatePhone),
+                    CustomInputField(
+                      controller: cubit.phoneController,
+                      validate: cubit.validatePhone,
+                      hint: translateLang(context, "phone_number"),
+                    ),
                     const Spacer(),
                     state is SubmitKeyWordsLoadingState
                         ? const AnimatedLoadingWidget()

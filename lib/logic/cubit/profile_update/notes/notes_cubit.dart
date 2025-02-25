@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:fnrco_candidates/data/models/profile_get/notes_model.dart';
 import 'package:rename/platform_file_editors/abs_platform_file_editor.dart';
 
 import 'package:fnrco_candidates/core/functions/translate.dart';
@@ -16,14 +17,14 @@ class NotesCubit extends Cubit<NotesState> {
 
   var formKey = GlobalKey<FormState>();
   final TextEditingController notCntroller = TextEditingController();
-
+  dynamic id = '';
   String? validateNotes(context, String? value) {
     if (value!.isEmpty) {
       return translateLang(context, "msg_plz_enter_notes");
     }
     return null;
   }
-  
+
   List<Map<String, dynamic>> submittedNotes = [];
   void addNewNotes() {
     if (formKey.currentState!.validate()) {
@@ -69,5 +70,14 @@ class NotesCubit extends Cubit<NotesState> {
     // TODO: implement close
     notCntroller.dispose();
     return super.close();
+  }
+
+  fillFields(GetNote? note) {
+    if (note != null) {
+      id = note.id!;
+      notCntroller.text = note.personNoteText!;
+      // this emit is just for rebuilding not liter
+      emit(EmptyNotesFieldsState());
+    }
   }
 }
